@@ -1,0 +1,911 @@
+%\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Emlékeztető}
+  $(\Omega,\cA,\cP=\set{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
+  \begin{df} 
+    $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|S}$-nek 
+    létezik $\theta$-tól független, közös változata.
+
+    $\cS\subset\cA$ \textbf{elégséges $\sigma$-algebra}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|\cS}$-nek 
+    létezik $\theta$-tól független, közös változata.
+  \end{df}
+  \begin{theorem}[Neymann faktorizációs tétel]
+    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
+    
+    Az $S$  statisztika pontosan akkor elégséges, ha az 
+    $f_\theta=\frac{d\P[\theta]}{d\lambda}$ 
+    sűrűségek
+    \begin{displaymath}
+      f_{\theta}(x)=g_{\theta}(S(x))h(x)  \tag{\hbox{${*}$}}
+    \end{displaymath}
+    alakban is megadhatóak, 
+    alkalmas $g_\theta,h$ mérhető függvényekkel.
+  \end{theorem}
+  
+\end{frame}
+
+\begin{frame}{Neymann faktorizációs tétel}
+  \begin{theorem}
+    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
+    
+    Az $S$  statisztika pontosan akkor elégséges, ha az 
+    $f_\theta=\frac{d\P[\theta]}{d\lambda}$ 
+    sűrűségek
+    \begin{displaymath}
+      f_{\theta}(x)=g_{\theta}(S(x))h(x)  \tag{\hbox{${*}$}}
+    \end{displaymath}
+    alakban is megadhatóak, 
+    alkalmas $g_\theta,h$ mérhető függvényekkel.
+  \end{theorem}
+  \begin{itemize}
+    \item Először $\lambda=\P[0]\in\cP$-ra ellenőrizzük, hogy $S$ pontosan 
+    akkor elégséges, ha a $\frac{d\P[\theta]}{d\P[0]}=g_\theta\circ S$ alakú, azaz
+    a sűrűségeknek van $S$ mérhető változata.
+    \item $\cP'$ a $\cP$ konvex keverékeiből álló család  
+    \begin{displaymath}
+      \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+    \end{displaymath}
+    Megmutatjuk, hogy $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re az, 
+    továbbá létezik $\P[0]\in \cP'$ ami, $\cP'$-t dominálja (Halmos--Savage tétel) 
+    és $(*)$ pontosan akkor teljesül $\cP$-re, ha $\cP'$-re. .
+    % \item $\cP'$-re az elsőként vizsgált eset alkalmazható.
+    \item Ha $\lambda$ tetszőleges domináló mérték, akkor 
+    \begin{displaymath}
+      \text{$S$ egs.}\implies\frac{d\P[\theta]}{d\lambda}
+      =\frac{d\P[\theta]}{d\P[0]}\frac{d\P[0]}{d\lambda}
+      =(g_\theta\circ S) h,
+      \quad\text{$(*)$}\implies
+      \frac{d\P[\theta]}{d\P[0]}=\frac{d\P[\theta]}{d\lambda}:\frac{d\P[0]}{d\lambda}
+      =\frac{(g_\theta\circ S) h}{(g_0\circ S) h}
+      =\tilde g_\theta\circ S\implies \text{$S$ egs.}.
+    \end{displaymath}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Neymann faktorizációs tétel, $\lambda=\P[0]$}
+\begin{theorem}
+  $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+  $(\mfX,\B(\mfX))$ minta téren, $\P[0]\in\cP$ domináló mértékkel. 
+  
+  Az $S$  statisztika pontosan akkor elégséges, ha az 
+  $f_\theta=\frac{d\P[\theta]}{d\P[0]}$ 
+  sűrűségeknek van $\sigma(S)$ mérhető változata.
+\end{theorem}
+\begin{itemize}
+  \item $S$ elégséges, ekkor $\P[\theta]{X\in H|S}=\P[0]{X\in H|S}$.
+  \item Teljes valószínűség tétellel
+  \begin{displaymath}
+    \P[\theta]{X\in H}
+    =\E[\theta]{\P[\theta]{X\in H|S}}
+    =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\E[0]{\I{X\in H}|S}}
+    =\E[0]{\I{X\in H}\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}}
+  \end{displaymath}
+  \item Legyen $g_\theta(S)=\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}$
+  \begin{displaymath}
+    \P[\theta]{X\in H}=\E[0]{\I{X\in H}g_\theta(S)}=\int_H g_\theta(S)d\P[0],
+  \end{displaymath}
+  azaz $g_\theta\circ S$  a $\frac{d\P[\theta]}{d\P[0]}$ Radon-Nikodym derivált egy változata.
+  \item A fordított irányt korábban leellenőriztük a Bayes szabály felhasználásával.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$\cP$ és $\cP'$}
+$\cP$ mértékcsalád a mintatéren
+\begin{displaymath}
+  \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+\end{displaymath}
+\begin{proposition}
+  $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re elégséges.
+\end{proposition}
+\begin{itemize}
+  \item Legyen $H$ rögzített és $q(S)=\P{X\in H|S}$ a $\cP$-re vonatkozó közös változat. 
+  \item Tetszőleges $\P\in\cP'$-re $\P=\sum_{i } c_i\P[i]$ alakú és 
+  \begin{displaymath}
+    \P{X\in H, S\in A}
+    =\sum_{i} c_i\int \P[i]{X\in H|S}\I{S\in A}d\P[i]
+    =\sum_i c_i\int q(S) \I{S\in A}d\P[i]
+    =\int q(S)\I{S\in A}d\P
+  \end{displaymath} 
+  \item $q(S)$ $S$ mérhető és teljesíti a parciális átlagolási tulajdonságot $q(S)=\P{X\in H|S}$
+  minden $\P\in\cP'$-re.
+  \item Másik irányhoz elég észrevenni, hogy ha $S$ elégséges egy mértékcsaládra, 
+  akkor tetszőleges részcsaládra is az és $\cP\subset\cP'$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$\cP$ és $\cP'$}
+$\cP$ %=\set{\P[\theta]}{\theta\in \Theta}$ 
+mértékcsalád a mintatéren $\lambda$ domináló mértékkel.
+\begin{displaymath}
+  \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+\end{displaymath}
+Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
+\begin{displaymath}
+  \frac{d\P}{d\lambda} = \sum_{i} c_i\frac{d\P[i]}{d\lambda}
+\end{displaymath}
+
+\begin{proposition}
+  $\lambda $ domináló mérték $\cP$-hez, $S$ statisztika. Ha
+  \begin{displaymath}
+    \frac{d\P[\theta]}{d\lambda}=(g_{\theta}\circ S)h,\quad \text{minden $\P[\theta]\in\cP$-re},
+  \end{displaymath} 
+  akkor ugyanez igaz minden $\P\in\cP'$-re.
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Halmos--Savage tétel}
+\begin{theorem}
+  $\cP$ konvex keverésre zárt, dominált mértékcsalád $(\mfX,\B(\mfX))$-en. 
+  
+  Ekkor létezik $\P[0]\in\cP$, ami dominálja $\cP$-t.
+\end{theorem}
+\begin{itemize}
+  \item $\lambda$ $\sigma$-véges domináló mérték. Feltehető, hogy véges mérték. Ugyanis,
+   ha $\mfX=\cup_n A_n$ és $\lambda(A_n)<\infty$, akkor 
+   $c_n>0$, $\sum_n c_n\lambda(A_n)<\infty$ esetén
+   \begin{displaymath}
+     \lambda'(H)=\sum_n c_n \lambda(A_n\cap H)=\int_H \sum_n c_n\I[A_n] d\lambda
+   \end{displaymath}
+   véges mérték és $\lambda$, $\lambda'$ ekvivalensek és $\lambda'$ véges.
+   \item $\lambda$ véges domináló mérték. Legyen
+   \begin{displaymath}
+    c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+   \end{displaymath}
+   \item Elég megmutatni, hogy $c$ maximum, 
+   azaz létezik $\P[0]\in\cP$, amire $c=\lambda(\frac{d\P[0]}{d\lambda}>0)$.     
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Halmos--Savage tétel igazolása I.}
+\begin{lemma}
+  $\cP$ konvex keverésre zárt, véges $\lambda$ mértékkel dominált mértékcsalád 
+  $(\mfX,\B(\mfX))$-en. Ha $\P[0]\in\cP$-re
+  \begin{displaymath}
+    \lambda\zjel{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+  \end{displaymath}
+  Ekkor $\P[0]$ dominálja $\cP$-t.
+\end{lemma}
+\begin{itemize}
+  \item Tetszőleges $\P\in\cP$-re $\P'=\frac12(\P+\P[0])\in\cP$ a konvex keverésre zártság miatt.
+  \item $f=\frac{d\P}{d\lambda}$, $f_0=\frac{d\P[0]}{d\lambda}$, 
+  ekkor $2\frac{d\P'}{d\lambda}=f+f_0$ és 
+  \begin{displaymath}
+    c\geq \lambda((f+f_0)>0)\geq \lambda(f_0>0)=c, 
+    \quad\text{mert $\event{f+f_0>0}=\event{f>0}\cup\event{f_0>0}$}.
+  \end{displaymath}
+  \item $\lambda(\event{f>0}\setminus\event{f_0>0})=0$ és 
+  \begin{displaymath}
+    \P{X\in H}
+    =\int_H f d\lambda
+    =\int_H f\I{f_0>0}d\lambda
+    =\int_H \frac{f}{f_0}\I{f_0>0}f_0d\lambda
+    =\int_H \frac{f}{f_0}\I{f_0>0}d\P[0]
+  \end{displaymath} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Halmos--Savage tétel igazolása II.}
+\begin{lemma}
+  $\cP$ konvex keverésre zárt, véges $\lambda$ mértékkel dominált mértékcsalád 
+  $(\mfX,\B(\mfX))$-en. Ekkor létezik $\P[0]\in\cP$, amire
+  \begin{displaymath}
+    \lambda\zjel{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+  \end{displaymath}
+\end{lemma}
+\begin{itemize}
+  \item Legyen $\P[n]\in\cP$ olyan, amire az $f_n=\frac{d\P[n]}{d\lambda}$ jelöléssel
+  \begin{displaymath}
+    \lambda(f_n>0)\geq c-\frac1n
+  \end{displaymath}
+  \item $\P[0]=\sum_{n=1}^{\infty} 2^{-n} \P[n]\in\cP$, ekkor 
+  $f=\frac{d\P[0]}{d\lambda}=\sum_n 2^{-n}f_n$ és 
+  \begin{displaymath}
+    \event{f>0}=\cup_n\event{f_n>0},\quad c = \sup_n\lambda(f_n>0)\leq \lambda(f>0)\leq c.
+  \end{displaymath}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[<*>]{Neymann--faktorizációs tétel összefoglalás}
+\begin{theorem}
+  $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+  $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
+  
+  Az $S$  statisztika pontosan akkor elégséges, ha az 
+  $f_\theta=\frac{d\P[\theta]}{d\lambda}$ 
+  sűrűségek
+  \begin{displaymath}
+    f_{\theta}(x)=g_{\theta}(S(x))h(x)  %\tag{$*$}
+  \end{displaymath}
+  alakban is megadhatóak, 
+  alkalmas $g_\theta,h$ mérhető függvényekkel.
+\end{theorem}
+\begin{itemize}
+  \item Feltehető, hogy $\cP$ zárt a konvex keverésre.
+  \item Ha $\cP$ zárt a konvex keverésre, akkor a domináló mérték választható $\P[0]\in\cP$-nek is.
+\end{itemize}
+\begin{lemma}
+  $\P[0]\in\cP$ domináló mérték $\cP$-hez. Ekkor $S$ pontosan akkor elégséges, ha $\frac{d\P}{d\P[0]}$-nak 
+  van $\sigma(S)$ mérhető változata minden $\P\in\cP$-re.
+\end{lemma}
+\end{frame}
+
+\begin{frame}{Emlékeztető}
+  $\cP$ mértékcsalád, $\cP'=\set{\sum_{i} c_i\P[i]}{c_i\geq0,\,\sum c_i=1,\,\P[i]\in\cP}$.
+  \begin{proposition}[Halmos--Savage tétel]
+    Ha $\cP$ dominált, akkor van olyan $\P[0]\in\cP'$, ami dominálja $\cP'$-t és így $\cP$-t is.
+  \end{proposition}
+  \begin{proposition}
+    $S$  pontosan akkor elégséges statisztika, 
+    ha $\frac{d\P}{d\P[0]}$-nak létezik $\sigma(S)$ mérhető változata minden $\P\in\cP$-re.
+ 
+    $\cS$  pontosan akkor elégséges $\sigma$-algebra, 
+    ha $\frac{d\P}{d\P[0]}$-nak létezik $\cS$ mérhető változata minden $\P\in\cP$-re.
+  \end{proposition}
+
+  \begin{itemize}
+    \item $\cN(\cP)=\set{N}{\P{N}=0,\,\forall \P\in\cP}$, $\cN(\P[0])=\set{N}{\P[0]{N}=0}$. 
+    Ekkor $\cN(\cP)=\cN(\cP')=\cN(\P[0])$.
+    \item Tetszőleges $\cS$ $\sigma$-algebrára, legyen 
+    $\cS^*=\set{A\circ N}{A\in\cS,\,N\in\cN(\cP)}$ a $\cS$ teljessé tétele, vagy teljes burka.
+    \item Belátjuk, hogy $\cS^*$ $\sigma$-algebra és 
+     $\frac{d\P}{d\P[0]}$-nak pontosan akkor létezik $\cS$ mérhető változata
+    ha $\cS^*$ mérhető.
+  \end{itemize}
+
+  \begin{proposition}
+    $S$  pontosan akkor elégséges statisztika, 
+    ha $\frac{d\P}{d\P[0]}$  $\sigma(S)^*$ mérhető minden $\P\in\cP$-re.
+ 
+    $\cS$  pontosan akkor elégséges $\sigma$-algebra, 
+    ha $\frac{d\P}{d\P[0]}$  $\cS^*$ mérhető minden $\P\in\cP$-re.
+  \end{proposition}
+
+\end{frame}
+
+\begin{frame}{$\sigma$-algebra teljessé tétele}
+  $A\circ B=(A\setminus B)\cup(B\setminus A)$ az $A$ és $B$ szimmetrikus differenciája.
+  \begin{proposition}
+    $(\Omega,\cA)$ mérhető tér. $\cS\subset\cA$ $\sigma$-algebra, 
+    $\cN\subset\cA$ leszálló és $\sigma$-unió zárt. Ekkor
+    $\cS^*=\set{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
+  \end{proposition}
+  \begin{itemize}
+    \item $(S\circ N)^c=S^c\circ N$,
+    \item $N=(\cup_i (S_i\circ N_i))\circ (\cup_i S_i)\subset \cup N_i$, ezért $N\in\cN$ és
+    $\cup_i (S_i\circ N_i)= (\cup_i S_i)\circ N\in\cS^*$, ($B\circ(A\circ B)=A$).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\sigma$-algebra teljessé tétele, folyt.}
+  % $A\circ B=(A\setminus B)\cup(B\setminus A)$ az $A$ és $B$ szimmetrikus differenciája.
+  \begin{proposition}
+    $(\Omega,\cA)$ mérhető tér. $\cS\subset\cA$ $\sigma$-algebra, 
+    $\cN\subset\cA$ leszálló és $\sigma$-unió zárt. Ekkor
+    $\cS^*=\set{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
+  \end{proposition}
+  
+  A továbbiakban $\cN=\cN(\cP)$ és $\cS^*=\sigma(\cS\cup\cN)$.
+  Ha $\P[0]{T'=T}=1$, akkor %ugyanez minden $\P\in\cP$-re is igaz, és azt mondjuk, hogy 
+  $T'$ a $T$ egy változata.
+  \begin{proposition}
+    $T$-nek pontosan akkor létezik $\cS$ mérhető változata, ha $T$ $\cS^*$ mérhető.
+  \end{proposition}
+  \begin{itemize}
+    \item $\Rightarrow$: $T'$  a $T$ $\cS$ mérhető változat 
+    $N=\event{T\in H}\circ\event{T'\in H}\subset \event{T\neq T'}\in\cN(\P[0])$ 
+    így $N\in\cN(\P[0])$ 
+    és $\event{T\in H}=\event{T'\in H}\circ N\in \cS^*$. 
+    \item $\Leftarrow$: $T$ $\cS^*$ mérhető. $\event{T<q}=H_q\circ N_q$, 
+    ahol $H_q\in\cS$ és $N_q\in\cN$.
+    \pause
+    Legyen $T'(x)=\inf\set{q\in\Q}{x\in H_q}$.
+    \pause
+    \begin{displaymath}
+      \event{T'<c}=\cup_{q<c} H_q\in\cS\quad\implies\quad \text{$T'$ $\cS$ mérhető}
+    \end{displaymath} 
+    \pause
+    \begin{displaymath}
+      \event{T<c}\circ\event{T'<c}=(\cup_{q<c}H_q\circ N_q)\circ(\cup_{q<c}H_q)
+      \subset\cup_q N_q\in\cN \quad\implies\quad\P[0]{T\neq T'}=0.
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+% \begin{frame}{Elégséges $\sigma$-algebrák metszete nem feltétlenül elégséges}
+  
+% \end{frame}
+
+\begin{frame}{Minimális elégségesség}
+  \begin{df}
+    $\cS$ minimális elégséges $\sigma$-algebra, ha tetszőleges  
+    $\cS'$ elégséges $\sigma$-algebrára: $\cS^*\subset (\cS')^*$.
+
+    $S$ minimális elégséges statisztika, ha $\sigma(S)$ minimális elégséges $\sigma$-algebra.
+  \end{df}
+  \continue
+  % Megjegyzések:
+  \begin{itemize}
+    \item Ha $S$ minimális elégséges és $T$ elégséges, akkor $\sigma(S)\subset\sigma(S)^*\subset \sigma(T)^*$ 
+    és $\P{S=g(T)}=1$ minden $\P\in\cP$-re, alkalmas mérhető $g$-vel.
+    \item Ha $\cP$ dominált, akkor $\sigma(\set{\frac{d\P}{d\P[0]}}{\P\in\cP})$,
+    minimális elégséges $\sigma$-algebra.
+    \pause
+
+    $\cS$ pontosan akkor egs, ha $\frac{d\P}{d\P[0]}\sim\cS^*$ minden $\P\in\cP$-re. 
+
+    \item $\cP=\set{\P[n]}{n\geq1}$ megszámlálható mértékcsalád, akkor 
+    dominált és van minimális elégséges statisztika.
+    \pause
+
+    $\P[0]=\sum_n 2^{-n}\P[n]$ domináló mérték.
+
+    $\cS=\sigma(\set{\frac{d\P}{d\P[0]}}{\P\in\cP})$ megszámlálhatóan generált. 
+    Generátorrendszer $\set{H_n}{n\geq1}$, $S=\sum_n 3^{-n} 2\I[H_n]$, $\cS=\sigma(S)$ 
+    Ez HF. $\event{\cbr{3^{n-1} S}>1/2}=H_n$.
+
+    \item Ha $\cP_0\subset\cP$, $\cN(\cP_0)=\cN(\cP)$, 
+    továbbá $S$ elégséges $\cP$-re és minimális elégséges $\cP_0$-ra, akkor 
+    minimális elégséges $\cP$-re is.
+    \pause
+
+    $\cS$ elégséges $\sigma$-algebra $\cP$-re $\implies$ $\cS$ egs. 
+    $\cP_0$-ra, $\sigma(S)^*\subset \cS^*$,
+    ahol $\cN(\cP_0)=\cN(\cP)$-vel tettük teljessé a 
+    $\sigma$-algebrákat azaz $S$ minimális egs $\cP$-re.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Feltétel minimális elégségességre}
+  %$\cP$ $\lambda$-val dominált.
+  $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
+  \begin{theorem} $\cP=\set{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
+     mértékcsalád az $(\mfX,\B)$ mintatéren.
+    \begin{enumerate}[<*>]
+      \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
+      $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+      \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
+      $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+    \end{enumerate}
+  \end{theorem}
+  1. rész
+  \begin{itemize}
+    \item $S$ elégséges. A Neymann faktorizációs tétel szerint
+    $f_\theta\neq (g_\theta\circ S)h$ $\lambda$-nullmértékű
+    és így $\P[\theta]$ nullmértékű is minden $\theta$-ra. 
+
+    \item $\P[\theta]{h=0}=0$  minden $\theta$-ra.
+    
+    A megszámlálható sok kivételes halmaz uniójának komplementere legyen $\mfX'$.
+    
+    \item Ha $x,y\in\mfX'$ és $S(x)=S(y)$, akkor 
+    % $S(x)=S(y)$ esetén 
+    \begin{displaymath}
+      \Theta_{x}=\set{\theta}{f_\theta(x)=g_\theta(S(x))h(x)=0}
+      =\set{\theta}{f_\theta(y)=g_\theta(S(y))h(y)=0}
+    \end{displaymath} 
+    és $\Theta_x$-en
+    % $g_\theta(S(x))$ kiesik, $\set{\theta}{f_\theta(x)=0}$ 
+    $f_\theta(x)/f_\theta(y)=h(x)/h(y)$, ami nem függ $\theta$-tól.
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Feltétel minimális elégségességre, folyt.}
+  %$\cP$ $\lambda$-val dominált.
+  $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
+  \begin{theorem} $\cP=\set{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
+     mértékcsalád az $(\mfX,\B)$ mintatéren.
+    \begin{enumerate}[<*>]
+      \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
+      $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+      \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
+      $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+    \end{enumerate}
+  \end{theorem}
+  2. rész:
+  \begin{itemize}
+    \item %1. szerint $S$ elégséges. 
+    $\cP$ megszámlálható $\implies$ 
+    létezik $T$ minimális elégséges statisztika és 1. alkalmazható $T$-re.
+    
+    \item %$S$ és $T$ elégséges, létezik $\mfX'$ teljes mértékű része $\mfX$-nek, amire 
+    \begin{displaymath}
+      x,y\in\mfX',\quad T(x)=T(y)
+      %\quad 
+      \implies %\quad 
+      \text{$\frac{f_\theta(x)}{f_\theta(y)}$ nem függ $\theta$-tól}
+      %\quad
+      \implies
+      %\quad
+      S(x)=S(y)
+      %\quad
+      \implies
+      %\quad
+      S(x)=g(T(x)),\quad\text{ha $x\in\mfX'$}.
+    \end{displaymath}
+    %$S(x)=g(T(x))$ ha $x\in\mfX'$ és 
+    $S$ ,,egyszerűbb'' mint $T$, azaz $\sigma(S)^*\subset\sigma(T)^*$.
+    \item Ugyanakkor $\sigma(T)^*\subset\sigma(S)^*$, mert $S$ elégséges és $T$ minimális elégséges.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pontosítások}
+  \begin{itemize}
+    %\item Ha $f_\theta$ nulla is lehet, akkor $f_{\theta}(x)/f_{\theta}(y)$ nem függ $\theta$-tól jelentése:
+    %valamely $h>0$ függvényre $f_\theta(x)h(y)=f_\theta(y)h(x)$ minden $\theta$-ra.
+    \item $x,y\in \mfX'$-re $T(x)=T(y)$ $\implies$ $S(x)=S(y)$. Feltehető, hogy ez mindenhol teljesül.
+    
+    $\tS(x)=\tg(S(x))\I{x\in \mfX'}+2\I{x\notin\mfX'}$, 
+    $\tT(x)=\tg(T(x))\I{x\in \mfX'}+2\I{x\notin\mfX'}$ módosítással:
+    \begin{displaymath}
+      \sigma(S)^*=\sigma(\tS)^*,\quad \sigma(T)^*=\sigma(\tT)^*,\quad 
+      \tT(x)=\tT(y) \implies\tS(x)=\tS(y)
+    \end{displaymath} 
+    \item  Ha $S$, $T$ mérhető és $T(x)=T(y)\implies S(x)=S(y)$, akkor általában \textbf{nem} igaz, 
+    hogy $\sigma(S)\subset\sigma(T)$. 
+
+    A tétel bizonyításának vége azon múlik, hogy ha $T:(\mfX,\B(\mfX)\to([0,1],\B([0,1]))$ mérhető, 
+    ahol $\mfX$ teljes szeparábilis metrikus tér, pl. $\real^n$, akkor 
+    \begin{displaymath}
+      \sigma(T)=\set{\event{T\in H}}{H\in\B(\real)}=\tsigma(T)=\set{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}
+    \end{displaymath}
+    ahol $[x]_T=\set{y}{Tx=Ty}$.
+    
+    \item A bizonyítás végén $T(x)=T(y)\implies S(x)=S(y)$ miatt $[x]_T\subset [x]_S$ és 
+    \begin{displaymath}
+      \tsigma(S)=\set{A\in\B(\mfX)}{x\in A\implies [x]_S\subset A}\subset
+      \tsigma(T)=\set{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Miért kell megszámlálható részcsaládra áttérni?}
+  \begin{itemize}
+    \item Egy elemű $X$ minta  az 
+    \begin{displaymath}
+      f_\theta(x) = \theta e^{-2\theta \abs{x}} ,\quad\theta\in\Theta=(0,\infty)
+    \end{displaymath}
+    sűrűségfüggvénnyel megadott eloszláscsaládból.
+    \item $S=\abs{X}$ elégséges.
+    \item 
+    \begin{displaymath}
+      \tf_\theta(x)=\begin{cases}
+        \theta e^{-2\theta \abs{x}}& x\neq \theta\\
+        1& x=\theta
+      \end{cases}  
+    \end{displaymath}
+    \item $\tf_\theta$ választás mellett akarjuk $\abs{X}$ minimális elégségességét ellenőrizni.
+    \begin{displaymath}
+      \frac{\tf_\theta(x)}{\tf_\theta(y)}=\begin{cases}
+        e^{-2\theta(\abs{x}-\abs{y})} & x\neq\theta\neq y\\
+        e^{-2\theta\abs{x}} & x\neq\theta=y\\
+        e^{2\theta\abs{y}} &x=\theta\neq y\\
+        1 & x=\theta=y
+      \end{cases}
+    \end{displaymath}
+    Milyen $x,y$ párokra teljesül, hogy a hányados nem függ $\theta$-tól?
+    Csak akkor $x=y$, holott $S=\abs{X}$ elégséges.
+    \item Ha csak megszámlálható $\Theta_0\subset \Theta$ részcsaládot veszünk, akkor 
+    $\mfX'=\real\setminus\Theta_0$ teljes mértékű, és $x,y\in\mfX'$ mellett a módosításnak nincs hatása
+    $\tf_\theta(x)/\tf_\theta(y)$ $\theta$-ban konstans pontosan akkor, ha $\abs{x}=\abs{y}$.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Példa, $U(\theta,\theta+1)$ egyenletes eloszláscsalád}
+  \begin{itemize}
+    \item $\Theta=\real$, domináló mérték a Lebesgue mérték. 
+    Egy megfigyelés sűrűségfüggvénye $f_{\theta}(x)=\I{\theta<x<\theta+1}$.
+    \item Minta tér: $\mfX=\real^n$, a minta sűrűségfüggvénye:
+    \begin{displaymath}
+      f_\theta(x)=\prod_i f_\theta(x_i)
+      =\prod_i\I{\theta<x_i<\theta+1}
+      =\I{\theta<\min x_i,\max x_i<\theta+1}
+      =\I{\max x_i-1<\theta<\min x_i}
+    \end{displaymath}
+    \item $X_1^*=\min X_i$, $X_n^*\max X_i$, $S=(X_1^*,X_n^*)$ elégséges statisztika.
+    \item Van-e egyszerűbb elégséges statisztika?
+    \item $\Theta'=\Q\subset\Theta$ megszámlálható részcsalád, 
+    $\cN(\set{\P[\theta]}{\theta\in\Theta'})=\cN(\Leb)=\cN(\set{\P[\theta]}{\theta\in \Theta})$. 
+    Így ha $S$ minimális  elégséges a szűkebb családra nézve, akkor az eredetire is az.
+    \item $\mfX'=\set{x\in\mfX}{\max x_i-1<\min x_i}$ teljes mértékű része $\mfX$-nek. $x,y\in\mfX'$-re
+    \begin{displaymath}
+      \frac{f_\theta(x)}{f_\theta(y)}=\frac{\I{\max x_i-1<\theta <\min x_i}}{\I{\max y_i-1<\theta<\min y_i}}  
+    \end{displaymath}
+    Milyen $x,y\in\mfX'$ párokra nem függ $\theta\in\Q$-tól? 
+    \begin{displaymath}
+      \set{\theta\in\Q}{f_{\theta}(x)\neq0}=\Q\cap(\max x_i-1,\min x_i)=
+      \set{\theta\in\Q}{f_{\theta}(y)\neq0}=\Q\cap(\max y_i-1,\min y_i)
+      %\I{\max x_i-1<\theta <\min x_i}h(y)=\I{\max y_i-1<\theta <\min y_i}h(x),\quad\forall\theta\in\Q
+    \end{displaymath}
+    azaz $\min x_i=\min y_i$ és $\max x_i=\max y_i$ azaz $S$ minimális elégséges.
+    % Hányados nem függ $\theta$-tól, azzal ekvivalens, hogy $Sx=Sy$, vagyis $S$ minimális elégséges.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa, Cauchy eloszlás eltolásparaméteres családja}
+  \begin{itemize}
+    \item $\Theta=\real$, egy mintaelem sűrűségfüggvénye 
+    $f_{\theta}(x)=\frac1\pi\frac{1}{1+(x-\theta)^2}$.
+    \item Minta tér: $\mfX=\real^n$, a minta sűrűségfüggvénye:
+    \begin{displaymath}
+      f_\theta(x)=\prod_k f_\theta(x_k)
+      =\frac1{\pi^n}\cdot\frac1{\prod_k(1+(x_k-\theta)^2)}
+    \end{displaymath}
+    A rendezett minta mindig elégséges statisztika. 
+    Nem látszik hogyan lehetne ennél egyszerűbbet megadni.
+    \item Elég $\Theta'=\Q$ részcsaládot nézni.
+    \item 
+    \begin{displaymath}
+      \frac{f_\theta(x)}{f_\theta(y)}
+      =\frac{\prod(1+(y_k-\theta)^2)}{\prod(1+(x_k-\theta)^2)} =\frac{p_y(\theta)}{p_x(\theta)}
+    \end{displaymath}
+    ahol $p_x(\theta)$ $2n$-ed fokú polinom $\theta$-ban, 1 főegyütthatóval. 
+    Ha ez nem függ $\theta$-tól, akkor a hányados konstans egy 
+    és $p_x(\theta)=p_y(\theta)$, $\theta\in Q$, de akkor a két polinom azonos.
+
+    $p_x=p_y$ miatt azonosak a gyökök (multiplicitással együtt), 
+    $p_x$ gyökei $\set{\pm i+x_k}{k=1,\dots n}$, így 
+    \begin{displaymath}
+      \set{\pm i+x_k}{k=1,\dots,n}=\set{\pm i+ y_k}{k=1,\dots,n}
+      \implies\set{x_k}{k=1,\dots,n}=\set{y_k}{k=1,\dots,n}
+    \end{displaymath}
+    Azaz $x$ és $y$ legfeljebb a koordináták sorrendjében 
+    térhet el, a rendezett minta minimális elégséges statisztika.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa, Indikátor minta}
+  \begin{itemize}
+    \item $\Theta=(0,1)$, $\mfX=\smallset{0,1}^n$, 
+      $f_\theta(x)=\P[\theta]{X=x}=\theta^{s}(1-\theta)^{n-s}$, ahol $s=\sum x_i$.
+    \item $S=\sum X_i$ elégséges. Van-e egyszerűbb elégséges statisztika?
+    \pause
+    \begin{displaymath}
+      \frac{f_\theta(x)}{f_\theta(y)}=\zfrac{\theta}{1-\theta}^{\sum x_i-\sum y_i}  
+    \end{displaymath}
+    ez csak akkor nem függ $\theta$-tól, ha $\sum x_i=\sum y_i$, azaz a mintaösszeg minimális elégséges.
+    \item Ugyanez másképp. 
+    
+    $\cS$ elégséges $\sigma$-algebra. $\P[\theta]{X\in A|\cS}$ nem függ $\theta$-tól, 
+    $T_A$ jelöli a közös változatot.
+    \item $S$ a mintaösszeg elégséges, $\E[\theta]{\I{X\in A}-T_A|S}=h(S)$ a közös változat. Ekkor 
+    \begin{displaymath}
+      \E[\theta]{h(S)}=\E[\theta]{\I{X\in A}-T_A}
+      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I[A]|\cS}}=0.
+    \end{displaymath}
+    \item $S$ binomiális eloszlású $n$-renddel 
+    és $\theta$ paraméterrel:
+    \begin{displaymath}
+      0=\E[\theta]{h(S)}=
+      \sum_{k=0}^n h(k)\binom n k \theta^k(1-\theta)^{n-k}\quad\text{minden $\theta\in(0,1)$}.
+    \end{displaymath}
+    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I[A]-T_A|S}$.
+    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I[A]-\E{T_A|S}$ és $T_A=\I[A]$, vagyis $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Teljesség}
+  \begin{df}
+    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
+    $S$ statisztika. $S$ \textbf{teljes statisztika} (a $\cP$ eloszláscsaládra nézve), ha 
+    \begin{displaymath}
+      \E[\theta](h(S))=0,\quad\text{minden $\theta\in\Theta$-ra}\implies \P[\theta]{h=0}=1,\quad\text{minden $\theta$-ra}
+    \end{displaymath} 
+    Azaz $S$ teljes, ha az $S$ függvényei között csak a lényegében nulla változóra teljesül, hogy  
+    az eloszlás család minden tagja mellett létezik és nulla a várható értéke.
+
+    $S$ \textbf{korlátosan teljes}, ha az $S$ \textbf{korlátos} függvényei között csak a 
+    lényegében nulla változóra teljesül, hogy  
+    az eloszlás család minden tagja mellett létezik és nulla a várható értéke.
+  \end{df}
+  \begin{theorem}
+    Ha $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra, akkor minimális elégséges. 
+  \end{theorem}
+  \begin{itemize}
+    \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A|\cS}$ közös változat.
+    \item $h(S)=\E[\theta]{\I[A]-T_A|S}=\I[A]-\E{T|S}$ korlátos statisztika, $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
+    \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A|S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
+    \begin{displaymath}
+      \E[\theta]{(\I[A]-T_A)^2|S}=\E{\I[A]-2\I[A]T_A+T_A^2|S}= \E{T_A^2|S}-\I[A]\leq\E{T_A|S}-\I[A]=0.
+    \end{displaymath}
+    \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
+    azaz $\P[\theta]{A\circ \event{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
+  \end{itemize}  
+\end{frame}
+
+
+\begin{frame}{Példa. Nem minden minimális elégséges statisztika korlátosan teljes}
+  \begin{itemize}
+    \item $U(\theta,\theta+1)$, $\theta\in\real$ eloszlásból származó, $n\geq2$ elemű minta.
+    \item $S=(X_1^*,X_n^*)$ minimális elégséges statisztika.
+    \item $X_n^*-X_1^*$ eloszlása nem függ $\theta$-tól és $\E[\theta]{X_n^*-X_1^*}=\frac{n-1}{n+1}$.
+    \item $h(S)=(X_n^*-X_1^*)\wedge1-\frac{n-1}{n+1}$ olyan korlátos függvénye $S$-nek, amire
+    \begin{displaymath}
+      \E[\theta]{h(S)}=0,\quad\forall \theta\in\real.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{További példa teljes statisztikára}
+  \begin{itemize}
+    \item $N(\theta,1)$ eloszlásból származó $n$ elemű mintánk van.
+    \item $S=\sum X_i\sim N(n\theta,n)$ elégséges statisztika.
+    \item 
+    \begin{displaymath}
+      0=\E[\theta]{h(S)}=\int h(x)\frac{1}{\sqrt{2\pi n}} e^{-\frac{(x-n\theta)^2}{2n}}d x 
+      =C(\theta)\int h(x)e^{-\frac{x^2}{2n}}e^{\theta x}d x\quad\forall\theta\in\real  
+    \end{displaymath} 
+  \end{itemize}
+  \begin{theorem}
+    $h:\real\to\real$ mérhető, $a<b$, 
+    \begin{displaymath}
+      \int h(x)e^{\theta x} d x,\quad\text{létezik és nulla minden $\theta\in(a,b)$-re}.
+    \end{displaymath} 
+    Ekkor $h=0$ Lebesgue majdnem mindenütt.
+  \end{theorem}
+  \begin{itemize}
+    \item A tétel alapján, $h(x)e^{-\frac{x^2}{2n}}=0$ mm. és így $\P[\theta]{h(S)=0}=1$ minden $\theta$-ra
+    \item $S$ teljes és elégséges, ezért minimális elégséges.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Momentum generáló függvény}  
+  $X$ $p$-dimenziós vektor változó, $M_X(t)=\E{e^{t\cdot X}}$, $t\in\real^p$ az $X$ momentum generáló függvénye. 
+  \begin{proposition}
+    Ha $X$ momentum generáló függvénye véges az origó egy
+    környezetében, akkor meghatározza $X$ eloszlását.
+  \end{proposition}
+  \continue
+  Bizonyítás vázlat.
+  \begin{itemize}   
+  \item $X$ skalár változó. $h (z)=h (x+iy)=\E{e^{(x+iy) X}}$  a képzetes tengely körüli
+    sávban definiált és véges. Itt deriválható (komplex értelemben),
+    ezért a valós tengelyen felvett értékek (a momentum generáló függvény)
+    meghatározzák a karakterisztikus függvényt, az pedig az eloszlást.
+ 
+  \item $X$ vektor változó. $\alpha$ rögzített vektor, $Y=\alpha\cdot
+    X$ skalár változó. $\E{e^{tY}}=\E{e^{(t\alpha)X}}$, azaz $Y$ eloszlását
+    $X$ momentum generáló függvénye meghatározza.
+  \item $X$ eloszlását az $\alpha\cdot X$ alakú változók eloszlása
+    meghatározza, ugyanis a karakterisztikus függvényekre
+    $\phi_{X} (\alpha)=\phi_{\alpha\cdot X} (1)$.
+  \item Összefoglalva, a momentum generáló függvény meghatározza az
+    egy dimenziós vetületek eloszlását, azok pedig $X$ eloszlását.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}%%{Elégséges feltétel teljességre}
+  \begin{theorem}
+    Legyen $\mu$ mérték $\B (\real^p)$-n, $h:\real^p\to\real$ mérhető és 
+    \begin{displaymath}\textstyle
+      A=\set{\alpha\in\real^p}{\int e^{\alpha \cdot x}h (x)\mu
+        (dx)=0}%\quad\text{nem üres nyílt}
+    \end{displaymath}
+    Ha $A$-nak létezik belső pontja, akkor $h$ $\mu$ majdnem mindenütt nulla.
+  \end{theorem}
+  \begin{itemize}
+  \item Legyen $\alpha_0\in\interior A$, és
+    \begin{displaymath}
+      \nu_{\pm} (H)=\int e^{\alpha_0x}\abs{h}_\pm (x) \mu (d x),\quad H\in\B(\real^p).
+    \end{displaymath}
+    $\nu_{+}$, $\nu_{-}$ véges Borel mértékek,  hiszen $\alpha_0\in A$.
+  \item  Ha $\nu_{+} (\real^p)=\nu_{-} (\real^p) = 0$, akkor $h$ $\mu$ majdnem mindenütt
+    nulla.
+  \item Ha $\nu_{+}{\real^p}=\nu_{-} (\real^p)>0$, akkor konstanssal
+    való szorzás után feltehető, hogy $\nu_{+},\nu_{-}$ valószínűségi
+    mértékek. Azt akarjuk megmutatni, hogy ez az eset nem fordulhat
+    elő. 
+    
+  \item A két mérték momentum generáló függvénye az origó egy
+    környezetében azonos, hiszen
+    \begin{displaymath}
+      \int e^{t x}\nu_{+} (d x)-\int e^{t x}\nu_{-} (d x)=\int
+      e^{(t+\alpha_0)x}h (x)\mu (d x)=0
+          \quad\text{ha $\alpha_0+t\in A$.}
+    \end{displaymath}
+  \item Mivel a momentum generáló függvény az eloszlást meghatározza,
+    $\nu_{+}=\nu_{-}$ és %$\nu_{+} (h>0)=\nu_{-} (h>0)=0$
+    \begin{displaymath}
+      \nu_{-} (h>0)=0=
+      \int \I{h (x) >0} e^{\alpha_0 x}\abs{h}_+ (x)\mu (d x)=
+      \nu_{+} (\real^p)=1,
+      \quad\text{\alert{\Large\Lightning}}
+    \end{displaymath}
+    % Ez ellentmondás, abból indultunk ki, hogy feltehető, hogy $\nu_{+} (\real^p)=1$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exponenciális család}
+  \begin{df}
+    $\cP$ exponenciális eloszlás család, ha dominált és alkalmas 
+    $\cP=\set{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ paraméterezéssel 
+    %$\set{\P[\theta]}{\theta\in\Theta}$ dominált
+    %eloszláscsalád, $\Theta\subset\real^p$ nyílt. Ha 
+    és alkalmas domináló mértékkel, $T:\mfX\to\real^p$ statisztikával 
+    a sűrűségfüggvények alakja 
+    \begin{displaymath}
+      f_{\theta} (x) =\exp{\theta\cdot T(x)-b (\theta)}.\tag{*}
+    \end{displaymath}
+    %akkor \textbf{exponenciális családról} beszélünk.
+  \end{df}
+  \begin{itemize}
+  \item $T$ elégséges statisztika (Neymann faktorizációs tétel)
+  \item $T$ sőt minimális elégséges, ha $\Theta\subset\real^p$ lineáris burka $\real^p$, 
+  azaz ha $\Theta\subset\real^p$ tartalmazza $\real^p$ egy (lineáris) bázisát.
+  
+
+  $T$ mindig választható minimális elégségesnek, elég $P T$-t venni, ahol $P$ merőleges 
+  vetítés  $\Theta$ lineáris burkára.
+
+  \item Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
+  
+  $\lambda$ a domináló mérték, amivel a sűrűség $(*)$ alakú. $\tlambda(H)=\lambda(T\in H)$, $H\in\B(\real^p)$.
+
+  Ha $\E[\theta](h(T))$ létezik és nulla, akkor
+  \begin{displaymath}
+    0=\E[\theta]{h(T)}=\int_{\mfX} h\circ T \exp{\theta T-b(\theta)}d\lambda 
+    =\int_{\real^p} h(t) \exp{\theta t-b(\theta)}\tlambda(d t)
+    \implies \int_{\real^p} e^{\theta t} h(t)\tlambda(d t),\quad \forall \theta\in\Theta
+  \end{displaymath}
+
+  $h d\tlambda$ az azonosan nulla mérték. Tetszőleges $H\in\B(\real^p)$-re
+  \begin{displaymath}
+    0=\int_H h d\tlambda=\int_{\mfX} \I{T\in H} h\circ T d\lambda,\quad
+    \forall  H\in\B(\real^p)
+    \quad\implies\quad \lambda(h\circ T\neq0)=0. 
+  \end{displaymath}
+  $\P[\theta]{h(T)\neq 0}=0$, azaz $\P[\theta]{h(T)=0}=1$.
+  % \item $T$-nek véges a  momentum generáló függvénye az origó egy
+  %   nyílt környezetében, mert
+  %   \begin{displaymath}
+  %     M (\alpha)=\E[\theta]{e^{\alpha\cdot T}}=\int e^{\alpha\cdot T (x)} f_\theta
+  %     (x)\lambda (d x)=\int e^{\alpha\cdot T (x)+\theta T (x)+b
+  %       (\theta)}\lambda (d x) =
+  %     e^{b (\theta)-b (\theta+\alpha)},\quad\text{ha $\theta,\theta+\alpha\in\Theta$}
+  %   \end{displaymath}
+  
+  % \item Általános összefüggés, visszatérünk rá a következő dián, hogy
+  %   ha a momentum generáló függvény véges az origó egy környezetében,
+  %   akkor ott $C^\infty$ és a nullabeli deriváltak a momentumokat adják.
+  % \item Ebből $\theta\mapsto \ell (\theta,x)=\theta T (x)+b (\theta)$ minden $x$-re sima és
+  %   \begin{align*}
+  %     %-b (\theta+\alpha)&= \log M (\alpha)-b (\theta)&
+  %     -b' (\theta)&= \frac {M'}{M} (0)=\E[\theta]{T},&
+  %     -b'' (\theta)&=\frac {M''M-(M')^2}{M^2} (0)=\D[\theta]^2{T}.
+  %   \end{align*}
+  %   $T$ momentumai végesek mindegyik $\set{\P[\theta]}{\theta\in \Theta}$)
+  %   alatt.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példák exponenciális családra}
+  \begin{itemize}
+    \item $n$ elemű minta $\exp(\theta)$, $\theta>0$ eloszlásból, $\mfX=(0,\infty)^n$, $\lambda$ a Lebesgue mérték.
+    \begin{displaymath}
+      f_\theta(x) = \theta^n\exp{-\theta\sum x_i},\quad T(x)=-\sum x_i,\quad b(\theta)=-n\ln\theta.
+    \end{displaymath}
+    \item $n$ elemű indikátor minta, $p\in(0,1)$ paraméterrel, $\mfX=\smallset{0,1}^n$, 
+     $\lambda$ a számláló mérték
+    \begin{align*}
+      f_\theta(x)&=p^{\sum x_i}(1-p)^{n-\sum x_i}=\zfrac{p}{1-p}^{\sum x_i} (1-p)^n\\
+      &=\exp{\theta T(x) +b(\theta)},\quad \theta=\ln\frac{p}{1-p}, \quad p =\frac{1}{1+e^{-\theta}},\quad 
+      T(x)=\sum x_i,\quad 
+      b(\theta)= n\ln(1+e^{\theta})
+    \end{align*}
+    \item $N(\mu,\sigma^2)$ eloszlásból származó $n$ elemű minta. $\mfX=\real^n$ $\mu\in\real$, $\sigma^2>0$. 
+    Sűrűségfüggvény a Lebesgue mértékre.
+    \begin{align*}
+      f_{\mu,\sigma^2}(x)&=\frac{1}{(2\pi)^{n/2}\sigma^n}\exp{-\frac1{2\sigma^2}\sum(x_i-\mu)^2}\\
+      &=\exp{-\frac{1}{2\sigma^2}\sum x_i^2+\frac{\mu}{\sigma^2}\sum x_i -\tilde b(\mu,\sigma^2)},
+      \quad \theta=\zjel{\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2}}, \quad T(x)=\zjel{-\sum x_i^2,\sum x_i}.
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$T$ nem mindig teljes}
+  \begin{itemize}
+    \item $N(\mu,\sigma^2)$ eloszlásból származó minta $\mu=\sigma^2$  ismeretlen.
+    
+    Átparaméterezés után $\theta(\mu,\sigma^2)=(\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2})$,
+    $\Theta=\set{(\tau,1)}{\tau>0}$. $T(x)=(-\sum x_i^2,\sum x_i)$ minimális elégséges.
+
+    \item $n=2$, 
+    \begin{align*}
+      \E{T_1}&= \E{-(X_1^2+X_2^2)}=-2(\sigma^2+\mu^2),\\
+      \E{T_2}&= \E{(X_1+X_2)} =2\mu,\quad
+      \E{T^2_2}=\E{(X_1+X_2)^2} = 2\sigma^2+(2\mu)^2
+    \end{align*}
+    \item 
+    \begin{displaymath}
+      \E{2T_1+T_2^2 + T_2} = -4(\sigma^2+\mu^2)+2\sigma^2+4\mu^2+2\mu=2\mu-2\sigma^2=0  
+    \end{displaymath}
+    $\E[\theta]{h(T)}=0$, minden $\theta=(\tau,1)$-re, ha 
+    $h(t_1,t_2)=2t_1+t_2^2+ t_2$.   
+    $\E[\theta]{h(T)}=0$ miden $\theta$-ra, de $\P[\theta]{h(T)=0}=0$.
+    \begin{displaymath}
+      h(T(X))=-(X_1-X_2)^2+2(X_1+X_2)
+      %\P[\theta]{-X_1^2+X_1=c}=\P[\theta]{X_1\in\smallset{x_1,x_2}}=0, 
+      %\quad x_{1,2}=\frac{1\pm\sqrt{1-4c}}{2} 
+    \end{displaymath}
+    Itt $(X_1-X_2,X_1+X_2)$ független nem elfajult normális változók, 
+    így $\P[\theta]{h(T)=0}=0$ minden $\theta\in\Theta$-ra. 
+    % \begin{displaymath}
+    %   \P[\theta]{h(T)=0}=\P[\theta]{-X_1^2+X_1=\sum_{k=2}^n -X_k^2+X_k}=0.
+    % \end{displaymath}
+
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Nem minden eloszláscsalád exponenciális}
+  \begin{itemize}
+    \item Ha $\cP$ exponenciális eloszláscsalád, akkor $\P\in\cP$ mértékek sűrűségek mindenhol pozitívak, 
+    azaz ekvivalensek.
+
+    $n$ elemű minta $U(\theta,\theta+1)$, $\theta\in\real$ eloszlásból.
+    A kapott eloszláscsalád nem exponenciális.
+    \item Cauchy eloszlás eltolás paraméteres családja. 
+    
+    Ha $X-\mu\sim \text{Cauchy}$, $\mu\in\real$ esetén, $X$ eloszlásainak a családja exponenciális családot alkot, 
+    akkor $n$-elemű minta eloszlásainak a családja ismeretlen
+    \begin{displaymath}
+      \ln f_\mu(x)=\sum_i \ln f_\mu(x_i)=\theta(\mu)T_n(x)-nb(\theta(\mu))+\ln h(x), \quad T_n(x)=\sum_i T(x_i) 
+    \end{displaymath}
+    ahol $\theta,T:\real\to\real^p$. $\theta(0)=0$ feltehető, mert $\theta(0)T_n(x)$ beolvasztható $\ln h(x)$-be. 
+
+    Feltehető, hogy $\theta$ értékkészletének lineáris burka $\real^p$. Ekkor létezik $\mu_k$ $k=1,\dots,p$, 
+    hogy $\theta_k=\theta(\mu_k)$, $k=0,\dots,p$ lineárisan függetlenek. Ekkor alkalmas $c_k$ együtthatókkal.
+    \begin{displaymath}
+      T_n(x)=\sum_{k=1}^p c_k (\ln f_{\mu_k}-\ln f_0)(x).
+    \end{displaymath}
+    $n>p+1$ esetén $T_n(x)=T_(y)$ akkor is előfordul, ha $x^*\neq y^*$, ami ellentmond annak, hogy a 
+    rendezett minta minimális elégséges statisztika.
+
+  \end{itemize}
+  
+\end{frame}
+
+\end{document}
+
+\begin{frame}{Momentum generáló függvény, deriválhatóság}
+  \begin{proposition}
+    Ha $M (\alpha)=\E{e^{\alpha\cdot X}}<\infty$, az origó egy környezetében,
+    akkor ott  $M$ deriválható.
+  \end{proposition}
+  \begin{itemize}
+    
+  \item  Létezik $\eps>0$, hogy $\E{e^{h\norm{X}}}<\infty$, ha
+    $h<\eps$.
+
+    $\real^p$ a normák ekvivalensek, elég
+    $\norm{x}_{1}=\frac1p \sum \abs{x_i}$-re számolni. Mivel $\exp$
+    konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
+    %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
+    \begin{displaymath}
+      e^{h\abs{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
+      \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
+    \end{displaymath}
+    ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
+  \item ha $\norm{\alpha}$ kicsi, akkor
+    $\abs*{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
+    \begin{displaymath}
+      M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
+      =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad \partial_{i_1,\dots,i_k}M (0) =\E{\prod_{j}X_{i_j}}
+    \end{displaymath}
+  \end{itemize}
+
+\end{frame}
+
+\end{document}

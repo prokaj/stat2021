@@ -1,0 +1,12 @@
+{
+    "latex-workshop.latex.recipe.default": "latexmk (lualatex)",
+    "latex-workshop.latex.outDir": "./output",
+    "spellright.language": [
+        "hu_HU"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "plaintext",
+        "latex"
+    ]
+}

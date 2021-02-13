@@ -1,0 +1,256 @@
+
+
+\makeatletter
+\def\readrest#1\enddate{}
+\def\setdate@#1-#2-#3\relax{\def\lecturedate{#1.#2.#3.}\readrest}
+\def\setdate{\expandafter\setdate@\jobname\relax-\relax-\relax\enddate}
+
+\makeatother
+
+\setdate
+
+
+\usepackage{marvosym}
+%\usepackage[magyar]{babel}
+\usepackage{polyglossia}
+\setmainlanguage{magyar}
+
+% \usetheme{Bruno}
+
+\usecolortheme{Bruno}
+% \usefonttheme{Bruno}
+% \useinnertheme{Bruno}
+\useoutertheme{Bruno}
+
+\usepackage{pvdefs}
+\newtheorem{df}{Definíció}
+\newtheorem{theorem}{Tétel}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Állítás}
+\newtheorem{corollary}{Következmény}
+
+\defcx{XAPIDLCSGTHEN}
+\deftx{STQbCf\lambda\Omega\sigma}
+\defmf{X}
+
+\def\diag{\operatorname{diag}}
+\def\Id{\mathbf{I}}
+\let\PEfont\mathbb
+\def\npto{\buildrel p\over \nrightarrow}
+\def\ndto{\buildrel d\over \nrightarrow}
+\def\dto{\buildrel d\over \rightarrow}
+\def\dto{\stackrel{d}{\to}}
+\let\nto\nrightarrow
+
+\def\Leb{\operatorname{Leb}}
+
+\newrobustcmd{\continue}{%
+  \onslide<\value{beamerpauses}->\relax
+}
+
+
+\beamerdefaultoverlayspecification{<+->}
+
+\mode<presentation>
+
+\RequirePackage[math-style=TeX, bold-style=upright]{unicode-math}
+\setmathfont{Latin Modern Math}[Scale=1]
+% \setsansfont{Kurier Cond}
+\setsansfont[Ligatures=TeX, ItalicFont={Fira Sans Italic}, BoldFont={Fira Sans SemiBold}, Scale=0.9]{Fira Sans Book}
+%\setsansfont{Ubuntu}
+
+%\usepackage{mathspec}
+%\setmathsfont{lm}
+%(Digits,Latin,Greek)
+%[Numbers={Lining,Proportional}]{lm}
+%\setmathsfont(Digits,Greek)
+%[Uppercase=Plain,Lowercase=Regular,Scale=MatchLowercase]
+%{GFS Porson}
+
+
+% Title page
+\setbeamerfont{title}{
+    size=\LARGE,
+    shape=\bfseries
+}
+
+\setbeamerfont{subtitle}{
+    size=\large,
+    shape=\normalfont
+}
+
+\setbeamerfont{author}{
+    size=\normalsize,
+    shape=\normalfont
+}
+
+\setbeamerfont{details}{
+    size=\footnotesize,
+    shape=\normalfont
+}
+
+% Slide title
+\setbeamerfont{frametitle}{size=\LARGE}
+\setbeamerfont{framesubtitle}{
+    size=\normalsize,
+    %shape=\normalfont\scshape
+}
+
+% Blocks
+\setbeamerfont{block title}{
+    size=\normalfont,
+    shape=\strut
+}
+
+\setbeamerfont{blockdef}{
+    size=\large,
+    shape=\bfseries
+}
+
+% Description
+\setbeamerfont{description item}{shape=\bfseries}
+
+
+% Footer information line with title, author and slide number
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \usebeamerfont{footline}%
+        \begin{beamercolorbox}[
+            wd=\textwidth,
+            ht=3ex,
+            dp=1.25ex
+        ]{footline}%
+            \hspace{1cm}%
+            \insertshorttitle%
+            \hspace{2em}%
+            \insertdate%
+            \hfill%
+            \insertframenumber{} / \inserttotalframenumber%
+            \hspace{1cm}
+        \end{beamercolorbox}%
+    }
+    \vskip0pt%
+}
+
+%% Bruno Beamer theme — Version 1.0
+%% A lightweight Beamer theme inspired from the Metropolis theme
+%%
+%% Written in 2017-2019 by:
+%% — Rémi Cérès <remiceres@msn.com>
+%% — Mattéo Delabre <bonjour@matteodelabre.me>
+%%
+%% This work is released under the CC0 1.0 Universal license. See the
+%% accompanying LICENSE file for details. To the extent possible under
+%% law, Rémi Cérès and Mattéo Delabre have waived all copyright and
+%% related or neighboring rights to the Bruno Beamer theme. This work
+%% is published from France.
+
+% \mode<presentation>
+
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[circle]
+
+% Allow multi-slide frames
+\setbeamertemplate{frametitle continuation}{}
+
+% Horizontal separator
+\setbeamertemplate{separator}{%
+    \usebeamercolor{separator}%
+    \textcolor{fg}{\rule{.7\textwidth}{.5pt}}%
+}
+
+% Separate authors with newlines
+\renewcommand{\beamer@andtitle}{\\}
+
+% Title page. If you want to add a background image on the title slide,
+% use the \background command to set the path to that image. Otherwise,
+% no image will be included
+\RequirePackage{tikz}
+\usetikzlibrary{fadings}
+\newcommand{\background}[1]%
+    {\newcommand{\bruno@background}{#1}}
+
+
+%% \newcommand\insertcaption{}
+\newcommand{\backgroundcaption}[2][white]{\def\bruno@caption{{#1}{#2}}}
+
+\newcommand{\insertcaption}{\ifdefined\bruno@caption{\expandafter\textcolor\bruno@caption}\fi}
+
+\tikzfading[
+    name=title page picture fading,
+    left color=transparent!0,
+    right color=transparent!100,
+]
+
+\setbeamertemplate{title page}{%
+    \begin{minipage}{.7\textwidth}
+        \raggedright
+        \usebeamerfont{title}
+        \inserttitle
+
+        \usebeamertemplate{separator}
+
+        \usebeamerfont{author}
+        \vspace{2em}
+        \insertauthor
+
+        \vspace{2em}
+        \usebeamerfont{details}
+        \insertinstitute
+
+        \insertdate
+    \end{minipage}
+
+    % Include faded image on the right if defined
+    \ifdefined\bruno@background
+    \begin{tikzpicture}[remember picture, overlay]
+        % Crop image to a trapezium on the right
+        \clip (current page.south east)
+           -- (current page.north east)
+           -- ++(-5.1, 0)
+           -- ++(-3, -\paperheight)
+           -- cycle;
+
+        % Include background image
+        \node[
+            anchor=south east,
+            inner sep=0,
+            outer sep=0
+        ] at (current page.south east) {
+            \includegraphics[height=\paperheight]
+                {\bruno@background}
+        };
+
+        \node[anchor=south east,
+            inner sep=0,
+            outer sep=15pt,
+        ] at (current page.south east){\insertcaption};
+
+        % Add a slight shadow
+        \fill[
+            black, path fading=title page picture fading,
+            fading angle=-15
+        ]
+            (current page.south east)
+            rectangle
+            ++(-10, \dimexpr\paperheight+1cm);
+
+        
+    \end{tikzpicture}
+    \fi
+}
+
+\mode<all>
+\AtBeginDocument{%
+  \let\phi\varphi
+  \let\theta\vartheta
+  \let\setminus\smallsetminus
+}
+
+
+\title{Statisztika előadás}
+\date{\lecturedate}
+\background{images/young_Ronald_Fisher.jpg}
+\backgroundcaption{Ronald Fisher (1913)}
