@@ -4,16 +4,16 @@
 
 \input{preambulum.tex}
 
-\ifdefvoid{\option}{
-  % presentation
-}{
-  % handout
-  \usepackage{pgfpages}
-  \pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=5mm]
-}
+% \ifdefvoid{\option}{
+%   % presentation
+% }{
+%   % handout
+%   \usepackage{pgfpages}
+%   \pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=5mm]
+% }
 \begin{document}
 
-\ifdefvoid{\option}{
+% \ifdefvoid{\option}{
   \frame{\titlepage}
 
   \begin{frame}{Tudnivalók}
@@ -24,14 +24,14 @@
       \item A slide-ok az előadás Canvas oldalán elérhetőek lesznek az óra előtt.
     \end{itemize}
   \end{frame} 
-}{}
+% }{}
 
 \begin{frame}{Ismétlés valószínűségszámításból}
 
   \begin{itemize}
     \item Sűrűségfüggvény transzformációs formula:
     \begin{displaymath}
-      f_{\phi(X)}(t)=f_X(\phi^{-1}(t))\abs{\det J\phi^{-1}}(t)
+      f_{\phi(X)}(t)=f_X(\phi^{-1}(t))\abs*{\det J\phi^{-1}}(t)
     \end{displaymath}
     \item Konvolúciós formula: $X$, $Y$ függetlenek, létezik $f_X$, ekkor létezik $f_{X+Y}$ és 
     \begin{displaymath}
@@ -40,7 +40,7 @@
     \end{displaymath}
     \item Nagy számok törvénye: $X_1,X_2,\dots$ iid, $\E{X_1}$ létezik, ekkor
     \begin{displaymath}
-      \frac1n\sum_{i=1}^n X_i\to \E{X_1},\quad \text{egy \val/gel.}
+      \frac1n\sum_{i=1}^n X_i\to \E{X_1},\quad \text{egy valószínűséggel.}
     \end{displaymath}
     \item Centrális határeloszlás tétel: $X_1,X_2,\dots$ iid, 
     $\E{X_1}=m\in\real$,  $\D^2{X_1}=\sigma^2\in(0,\infty)$, 
@@ -104,7 +104,7 @@
     
     Általában $\Omega=\mfX$.  
     
-    $\cP=\set{\P[\theta]}{\theta\in \Theta}$ \val/i mértékek családja $\cA$-n. 
+    $\cP=\set*{\P[\theta]}{\theta\in \Theta}$ valószínűségi mértékek családja $\cA$-n. 
     $\Theta$ neve paramétertér.
  
     Az a feltételezésünk, hogy a megfigyelések $\P^*\in\cP$-ből származnak.  
@@ -119,7 +119,7 @@
   Közvélemény-kutatás.
   \begin{itemize}
     \item Minden megfigyelés vagy 0, vagy 1. Nulla ha nem kedveli a terméket, és 1 ha igen.
-    \item Mintatér $\mfX=\smallset{0,1}^n$. $n$ a megfigyelések száma.
+    \item Mintatér $\mfX=\smallset*{0,1}^n$. $n$ a megfigyelések száma.
     \item Ha minden megkérdezettet, egymástól függetlenül és találomra választjuk a teljes populációból, 
     akkor $X_1,\dots,X_n$ független $\theta$ paraméterű indikátorok, ahol $\theta\in[0,1]$ az ismeretlen paraméter.
     \item Paramétertér $\Theta=[0,1]$
@@ -208,7 +208,7 @@
 
     \item Példa: Közvélemény-kutatás, azaz $n$ elemű indikátor minta. 
     
-    Mintatér: $\mfX=\smallset{0,1}^n$, paramétertér: $\Theta=[0,1]$, minta együttes sűrűségfüggvénye a számláló mértékre nézve:
+    Mintatér: $\mfX=\smallset*{0,1}^n$, paramétertér: $\Theta=[0,1]$, minta együttes sűrűségfüggvénye a számláló mértékre nézve:
     \begin{displaymath}
       f_\theta(x)=\P[\theta]{X=x}=\prod_i \theta^{x_i}(1-\theta)^{(1-x_i)},\quad\theta\in\Theta=[0,1]
     \end{displaymath}
@@ -226,7 +226,7 @@
   
   \begin{itemize}
     \item Exponenciális eloszlású élettartamokat figyelünk meg ismeretlen $c$ értéknél levágva. Azaz 
-    $\Theta=\set{(\lambda,c)}{\lambda,c>0}$, $X_i$ eloszlása $\P[\theta]$ mellett azonos 
+    $\Theta=\set*{(\lambda,c)}{\lambda,c>0}$, $X_i$ eloszlása $\P[\theta]$ mellett azonos 
     $Z\wedge c$  eloszlásával, ahol $Z\sim\exp(\lambda)$.
     
     HF. Ez az eloszláscsalád nem dominált. 
@@ -236,7 +236,7 @@
     A minta sűrűségfüggvénye:
     \begin{displaymath}
       f_{\theta}(x) = 
-      \prod_i \zjel{\theta e^{-\theta x}\I{0<x_i<1}+e^{-\theta}\I{x_i=1}},\quad\theta>0
+      \prod_i \zjel*{\theta e^{-\theta x}\I{0<x_i<1}+e^{-\theta}\I{x_i=1}},\quad\theta>0
     \end{displaymath}
     ugyanis 
     \begin{displaymath}
@@ -249,7 +249,7 @@
 
 \begin{frame}{Elégséges statisztika, elégséges $\sigma$--algebra}
 
-  $(\Omega,\cA,\cP=\set{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
+  $(\Omega,\cA,\cP=\set*{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
   \begin{df} 
     $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|S}$-nek 
     létezik $\theta$-tól független, közös változata.
@@ -275,7 +275,7 @@
 
 \begin{frame}{Ismétlés: feltételes várható érték, feltételes valószínűség}
   \begin{df}
-    $X\in L^1$ \vv/, $\F$ $\sigma$-algebra. $\E{X|\F}$ olyan $\F$ mérhető, integrálható változó, ami teljesíti 
+    $X\in L^1$ valószínűségi változó, $\F$ $\sigma$-algebra. $\E{X|\F}$ olyan $\F$ mérhető, integrálható változó, ami teljesíti 
     a parciális átlagolási tulajdonságot:
     \begin{displaymath}
       \E{X\I[A]}=\E{\E{X|\F}\I[A]},\quad\text{minden $A\in\F$-re}.
@@ -285,7 +285,7 @@
     \item Ha $\F=\sigma(Y)$, akkor $\E{X|\F}=\E{X|Y}=g(Y)$ alakú, ahol $g$ Borel mérhető.
     \item Ez valójában egy Radon-Nikodym derivált, $\mu(A)=\E{X\I[A]}$ véges előjeles mérték $\F$-n, ami $\P|_{\F}$-re 
     nézve abszolút folytonos. $\E{X|\F}=\frac{d\mu}{d\P|_{\F}}$.
-    \item Szemléletes jelentés $g(y)=\lim_{\eps\to0}\E{X|\abs{Y-y}<\eps}$ ($Y$ eloszlása szerint majdnem minden $y$-ra).
+    \item Szemléletes jelentés $g(y)=\lim_{\eps\to0}\E{X|\abs*{Y-y}<\eps}$ ($Y$ eloszlása szerint majdnem minden $y$-ra).
     \item Ha $Y$ diszkét, $\P{Y=y}>0$, akkor $g(y)=\E{X|Y=y}$. Ezt a jelölést szokás használni, a $g$ függvényre, akkor is ha $Y$ nem diszkrét.
     \item Ha $X\in L^2$, akkor $\E{X|\F}\in L^2$ és $X-\E{X|\F}$ merőleges $L^2(\F)$-re.
     $\E{X|\F}$ nem más, mint $X$ vetülete $L^2(\F)$-re.
@@ -325,11 +325,11 @@
     %\continue
     Formulával:
     \begin{displaymath}
-      X_k^*=\max\set{\min\nolimits_{i\in I} X_i}{I\subset\smallset{1,\dots,n},\, \abs{I}=n-(k-1)} 
+      X_k^*=\max\set*{\min\nolimits_{i\in I} X_i}{I\subset\smallset{1,\dots,n},\, \abs*{I}=n-(k-1)} 
     \end{displaymath}
   \end{df}
   \begin{proposition}
-    $(X,X^*)\eqinlaw(\Pi X^*,X^*)$, ahol $\Pi$ az $\smallset{1,\dots,n}$ indexhalmaz 
+    $(X,X^*)\eqinlaw(\Pi X^*,X^*)$, ahol $\Pi$ az $\smallset*{1,\dots,n}$ indexhalmaz 
     $X$-től független véletlen permutációja ($\P{\Pi=\pi}=1/n!$ minden $\pi\in S_n$-re) és 
     \begin{displaymath}
       \pi X^*=(X^*_{\pi^{-1}(1)},\dots,X^*_{\pi^{-1}(n)}).
@@ -348,7 +348,7 @@
   $X=(X_1,\dots,X_n)$ minta, $X^*=(X_1^*\leq X_2^*\leq\cdots\leq X_n^*)$ a rendezett minta
 
   \begin{proposition}
-    $(X,X^*)\eqinlaw(\Pi X^*,X^*)$, ahol $\Pi$ az $\smallset{1,\dots,n}$ indexhalmaz 
+    $(X,X^*)\eqinlaw(\Pi X^*,X^*)$, ahol $\Pi$ az $\smallset*{1,\dots,n}$ indexhalmaz 
     $X$-től független véletlen permutációja és 
     \begin{displaymath}
       \pi X^*=(X^*_{\pi^{-1}(1)},\dots,X^*_{\pi^{-1}(n)}).
@@ -395,7 +395,7 @@
 
 \begin{frame}{Feltétel elégségességre}
   \begin{proposition}
-    $\cP$ dominált mértékcsalád, a $\lambda$ domináló mérték \val/i mérték.
+    $\cP$ dominált mértékcsalád, a $\lambda$ domináló mérték valószínűségi mérték.
     %$f_\theta=\frac{d\P[\theta]}{d\lambda}$, $\P[\theta]\in\cP$.
   
     Ha $\frac{d\P}{d\lambda}$ $\sigma(S)$ mérhető (pontosabban létezik $\sigma(S)$ mérhető változata) minden $\P\in\cP$-re,
@@ -413,7 +413,7 @@
   \end{align*}
   Azaz $\E[\lambda]{\I{X\in A}|S}$ a $\P{X\in A|S}$, $\P\in\cP$  feltételes valószínűségek közös változata.
   %\begin{itemize}
-  % \item Feltehető, hogy a domináló mérték valószínűségi mérték, így $d\P[\theta]=f_{\theta}d\lambda$ és $\lambda$ \val/i mérték.
+  % \item Feltehető, hogy a domináló mérték valószínűségi mérték, így $d\P[\theta]=f_{\theta}d\lambda$ és $\lambda$ valószínűségi mérték.
   %  \item 
   % Bayes szabály: 
   %     \begin{displaymath}
@@ -433,7 +433,7 @@
     \end{displaymath}
   \pause
 
-  Ha a $\lambda$ domináló mérték véges, akkor $\tlambda=\frac{1}{\lambda(\Omega)}\lambda$ \val/i mérték és az 
+  Ha a $\lambda$ domináló mérték véges, akkor $\tlambda=\frac{1}{\lambda(\Omega)}\lambda$ valószínűségi mérték és az 
   %\begin{displaymath}
     $\frac{d\P}{d\tlambda}=\frac{d\P}{d\lambda}\cdot\frac{d\lambda}{\tlambda}=\lambda(\Omega)\frac{d\P}{d\lambda}$
   %\end{displaymath}
@@ -443,7 +443,7 @@
 \begin{frame}{Példa, Indikátor minta}
   $X_1,\dots,X_n$, $n$ elemű indikátor minta ismeretlen $\theta\in[0,1]$ paraméterrel.
    \begin{itemize}
-     \item $\mfX=\smallset{0,1}^n$. Domináló mérték $\lambda$: a számláló mérték.
+     \item $\mfX=\smallset*{0,1}^n$. Domináló mérték $\lambda$: a számláló mérték.
      \item 
       \begin{displaymath}
         f_\theta(x) = \P[\theta]{X=x} 
@@ -519,7 +519,7 @@
 \begin{frame}{Neymann faktorizációs tétel}
 
   \begin{theorem}
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
     $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
     
     Az $S$  statisztika pontosan akkor elégséges, ha az 
@@ -537,7 +537,7 @@
     a sűrűségeknek van $S$ mérhető változata.
     \item $\cP'$ a $\cP$ konvex keverékeiből álló család  
     \begin{displaymath}
-      \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+      \cP'=\set*{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
     \end{displaymath}
     Megmutatjuk, hogy $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re az, 
     továbbá létezik $\P[0]\in \cP'$ ami, $\cP'$-t dominálja (Halmos--Savage tétel) 
@@ -576,7 +576,7 @@
 
 \begin{frame}{Neymann faktorizációs tétel, $\lambda=\P[0]$}
   \begin{theorem}
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
     $(\mfX,\B(\mfX))$ minta téren, $\P[0]\in\cP$ domináló mértékkel. 
     
     Az $S$  statisztika pontosan akkor elégséges, ha az 
@@ -604,7 +604,7 @@
 \begin{frame}{$\cP$ és $\cP'$}
   $\cP$ mértékcsalád a mintatéren
   \begin{displaymath}
-    \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+    \cP'=\set*{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
   \end{displaymath}
   \begin{proposition}
     $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re elégséges.
@@ -626,10 +626,10 @@
 \end{frame}
 
 \begin{frame}{$\cP$ és $\cP'$}
-  $\cP$ %=\set{\P[\theta]}{\theta\in \Theta}$ 
+  $\cP$ %=\set*{\P[\theta]}{\theta\in \Theta}$ 
   mértékcsalád a mintatéren $\lambda$ domináló mértékkel.
   \begin{displaymath}
-    \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+    \cP'=\set*{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
   \end{displaymath}
   Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{displaymath}
@@ -661,7 +661,7 @@
      véges mérték és $\lambda$, $\lambda'$ ekvivalensek és $\lambda'$ véges.
      \item $\lambda$ véges domináló mérték. Legyen
      \begin{displaymath}
-      c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+      c=\sup\set*{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
      \end{displaymath}
      \item Elég megmutatni, hogy $c$ maximum, 
      azaz létezik $\P[0]\in\cP$, amire $c=\lambda(\frac{d\P[0]}{d\lambda}>0)$.     
@@ -674,7 +674,7 @@
     $\cP$ konvex keverésre zárt, véges $\lambda$ mértékkel dominált mértékcsalád 
     $(\mfX,\B(\mfX))$-en. Ha $\P[0]\in\cP$-re
     \begin{displaymath}
-      \lambda\zjel{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+      \lambda\zjel*{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set*{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
     \end{displaymath}
     Ekkor $\P[0]$ dominálja $\cP$-t.
   \end{lemma}
@@ -684,9 +684,9 @@
     ekkor $2\frac{d\P'}{d\lambda}=f+f_0$ és 
     \begin{displaymath}
       c\geq \lambda((f+f_0)>0)\geq \lambda(f_0>0)=c, 
-      \quad\text{mert $\event{f+f_0>0}=\event{f>0}\cup\event{f_0>0}$}.
+      \quad\text{mert $\event*{f+f_0>0}=\event*{f>0}\cup\event*{f_0>0}$}.
     \end{displaymath}
-    \item $\lambda(\event{f>0}\setminus\event{f_0>0})=0$ és 
+    \item $\lambda(\event*{f>0}\setminus\event*{f_0>0})=0$ és 
     \begin{displaymath}
       \P{X\in H}
       =\int_H f d\lambda
@@ -702,7 +702,7 @@
     $\cP$ konvex keverésre zárt, véges $\lambda$ mértékkel dominált mértékcsalád 
     $(\mfX,\B(\mfX))$-en. Ekkor létezik $\P[0]\in\cP$, amire
     \begin{displaymath}
-      \lambda\zjel{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+      \lambda\zjel*{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set*{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
     \end{displaymath}
   \end{lemma}
   \begin{itemize}
@@ -713,14 +713,14 @@
     \item $\P[0]=\sum_{n=1}^{\infty} 2^{-n} \P[n]\in\cP$, ekkor 
     $f=\frac{d\P[0]}{d\lambda}=\sum_n 2^{-n}f_n$ és 
     \begin{displaymath}
-      \event{f>0}=\cup_n\event{f_n>0},\quad c = \sup_n\lambda(f_n>0)\leq \lambda(f>0)\leq c.
+      \event*{f>0}=\cup_n\event*{f_n>0},\quad c = \sup_n\lambda(f_n>0)\leq \lambda(f>0)\leq c.
     \end{displaymath}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[<*>]{Neymann--faktorizációs tétel összefoglalás}
   \begin{theorem}
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
     $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
     
     Az $S$  statisztika pontosan akkor elégséges, ha az 

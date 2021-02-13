@@ -5,10 +5,11 @@
 \input{preambulum.tex}
 
 \begin{document}
+
 \maketitle
 
 \begin{frame}{Emlékeztető}
-  $(\Omega,\cA,\cP=\set{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
+  $(\Omega,\cA,\cP=\set*{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
   \begin{df} 
     $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|S}$-nek 
     létezik $\theta$-tól független, közös változata.
@@ -17,7 +18,7 @@
     létezik $\theta$-tól független, közös változata.
   \end{df}
   \begin{theorem}[Neymann faktorizációs tétel]
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
     $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
     
     Az $S$  statisztika pontosan akkor elégséges, ha az 
@@ -34,7 +35,7 @@
 
 \begin{frame}{Neymann faktorizációs tétel}
   \begin{theorem}
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
     $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
     
     Az $S$  statisztika pontosan akkor elégséges, ha az 
@@ -52,7 +53,7 @@
     a sűrűségeknek van $S$ mérhető változata.
     \item $\cP'$ a $\cP$ konvex keverékeiből álló család  
     \begin{displaymath}
-      \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+      \cP'=\set*{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
     \end{displaymath}
     Megmutatjuk, hogy $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re az, 
     továbbá létezik $\P[0]\in \cP'$ ami, $\cP'$-t dominálja (Halmos--Savage tétel) 
@@ -74,7 +75,7 @@
 
 \begin{frame}{Neymann faktorizációs tétel, $\lambda=\P[0]$}
 \begin{theorem}
-  $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+  $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
   $(\mfX,\B(\mfX))$ minta téren, $\P[0]\in\cP$ domináló mértékkel. 
   
   Az $S$  statisztika pontosan akkor elégséges, ha az 
@@ -102,7 +103,7 @@
 \begin{frame}{$\cP$ és $\cP'$}
 $\cP$ mértékcsalád a mintatéren
 \begin{displaymath}
-  \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+  \cP'=\set*{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
 \end{displaymath}
 \begin{proposition}
   $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re elégséges.
@@ -124,10 +125,10 @@ $\cP$ mértékcsalád a mintatéren
 \end{frame}
 
 \begin{frame}{$\cP$ és $\cP'$}
-$\cP$ %=\set{\P[\theta]}{\theta\in \Theta}$ 
+$\cP$ %=\set*{\P[\theta]}{\theta\in \Theta}$ 
 mértékcsalád a mintatéren $\lambda$ domináló mértékkel.
 \begin{displaymath}
-  \cP'=\set{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
+  \cP'=\set*{\sum\nolimits_i c_i\P[i]}{c_i\geq0,\,\sum\nolimits_i c_i=1,\,\P[i]\in\cP}  
 \end{displaymath}
 Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \begin{displaymath}
@@ -159,7 +160,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
    véges mérték és $\lambda$, $\lambda'$ ekvivalensek és $\lambda'$ véges.
    \item $\lambda$ véges domináló mérték. Legyen
    \begin{displaymath}
-    c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+    c=\sup\set*{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
    \end{displaymath}
    \item Elég megmutatni, hogy $c$ maximum, 
    azaz létezik $\P[0]\in\cP$, amire $c=\lambda(\frac{d\P[0]}{d\lambda}>0)$.     
@@ -172,7 +173,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   $\cP$ konvex keverésre zárt, véges $\lambda$ mértékkel dominált mértékcsalád 
   $(\mfX,\B(\mfX))$-en. Ha $\P[0]\in\cP$-re
   \begin{displaymath}
-    \lambda\zjel{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+    \lambda\zjel*{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set*{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
   \end{displaymath}
   Ekkor $\P[0]$ dominálja $\cP$-t.
 \end{lemma}
@@ -182,9 +183,9 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   ekkor $2\frac{d\P'}{d\lambda}=f+f_0$ és 
   \begin{displaymath}
     c\geq \lambda((f+f_0)>0)\geq \lambda(f_0>0)=c, 
-    \quad\text{mert $\event{f+f_0>0}=\event{f>0}\cup\event{f_0>0}$}.
+    \quad\text{mert $\event*{f+f_0>0}=\event*{f>0}\cup\event*{f_0>0}$}.
   \end{displaymath}
-  \item $\lambda(\event{f>0}\setminus\event{f_0>0})=0$ és 
+  \item $\lambda(\event*{f>0}\setminus\event*{f_0>0})=0$ és 
   \begin{displaymath}
     \P{X\in H}
     =\int_H f d\lambda
@@ -200,7 +201,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   $\cP$ konvex keverésre zárt, véges $\lambda$ mértékkel dominált mértékcsalád 
   $(\mfX,\B(\mfX))$-en. Ekkor létezik $\P[0]\in\cP$, amire
   \begin{displaymath}
-    \lambda\zjel{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
+    \lambda\zjel*{\frac{d\P[0]}{d\lambda}>0}=c=\sup\set*{\lambda(f>0)}{f=\frac{d\P}{d\lambda},\,\P\in\cP}
   \end{displaymath}
 \end{lemma}
 \begin{itemize}
@@ -211,14 +212,14 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \item $\P[0]=\sum_{n=1}^{\infty} 2^{-n} \P[n]\in\cP$, ekkor 
   $f=\frac{d\P[0]}{d\lambda}=\sum_n 2^{-n}f_n$ és 
   \begin{displaymath}
-    \event{f>0}=\cup_n\event{f_n>0},\quad c = \sup_n\lambda(f_n>0)\leq \lambda(f>0)\leq c.
+    \event*{f>0}=\cup_n\event*{f_n>0},\quad c = \sup_n\lambda(f_n>0)\leq \lambda(f>0)\leq c.
   \end{displaymath}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[<*>]{Neymann--faktorizációs tétel összefoglalás}
 \begin{theorem}
-  $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
+  $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ dominált mértékcsalád az 
   $(\mfX,\B(\mfX))$ minta téren, $\lambda$ domináló mértékkel. 
   
   Az $S$  statisztika pontosan akkor elégséges, ha az 
@@ -241,7 +242,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \end{frame}
 
 \begin{frame}{Emlékeztető}
-  $\cP$ mértékcsalád, $\cP'=\set{\sum_{i} c_i\P[i]}{c_i\geq0,\,\sum c_i=1,\,\P[i]\in\cP}$.
+  $\cP$ mértékcsalád, $\cP'=\set*{\sum_{i} c_i\P[i]}{c_i\geq0,\,\sum c_i=1,\,\P[i]\in\cP}$.
   \begin{proposition}[Halmos--Savage tétel]
     Ha $\cP$ dominált, akkor van olyan $\P[0]\in\cP'$, ami dominálja $\cP'$-t és így $\cP$-t is.
   \end{proposition}
@@ -254,10 +255,10 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \end{proposition}
 
   \begin{itemize}
-    \item $\cN(\cP)=\set{N}{\P{N}=0,\,\forall \P\in\cP}$, $\cN(\P[0])=\set{N}{\P[0]{N}=0}$. 
+    \item $\cN(\cP)=\set*{N}{\P{N}=0,\,\forall \P\in\cP}$, $\cN(\P[0])=\set*{N}{\P[0]{N}=0}$. 
     Ekkor $\cN(\cP)=\cN(\cP')=\cN(\P[0])$.
     \item Tetszőleges $\cS$ $\sigma$-algebrára, legyen 
-    $\cS^*=\set{A\circ N}{A\in\cS,\,N\in\cN(\cP)}$ a $\cS$ teljessé tétele, vagy teljes burka.
+    $\cS^*=\set*{A\circ N}{A\in\cS,\,N\in\cN(\cP)}$ a $\cS$ teljessé tétele, vagy teljes burka.
     \item Belátjuk, hogy $\cS^*$ $\sigma$-algebra és 
      $\frac{d\P}{d\P[0]}$-nak pontosan akkor létezik $\cS$ mérhető változata
     ha $\cS^*$ mérhető.
@@ -278,7 +279,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{proposition}
     $(\Omega,\cA)$ mérhető tér. $\cS\subset\cA$ $\sigma$-algebra, 
     $\cN\subset\cA$ leszálló és $\sigma$-unió zárt. Ekkor
-    $\cS^*=\set{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
+    $\cS^*=\set*{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
   \end{proposition}
   \begin{itemize}
     \item $(S\circ N)^c=S^c\circ N$,
@@ -292,7 +293,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{proposition}
     $(\Omega,\cA)$ mérhető tér. $\cS\subset\cA$ $\sigma$-algebra, 
     $\cN\subset\cA$ leszálló és $\sigma$-unió zárt. Ekkor
-    $\cS^*=\set{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
+    $\cS^*=\set*{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
   \end{proposition}
   
   A továbbiakban $\cN=\cN(\cP)$ és $\cS^*=\sigma(\cS\cup\cN)$.
@@ -303,20 +304,20 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \end{proposition}
   \begin{itemize}
     \item $\Rightarrow$: $T'$  a $T$ $\cS$ mérhető változat 
-    $N=\event{T\in H}\circ\event{T'\in H}\subset \event{T\neq T'}\in\cN(\P[0])$ 
+    $N=\event*{T\in H}\circ\event*{T'\in H}\subset \event*{T\neq T'}\in\cN(\P[0])$ 
     így $N\in\cN(\P[0])$ 
-    és $\event{T\in H}=\event{T'\in H}\circ N\in \cS^*$. 
-    \item $\Leftarrow$: $T$ $\cS^*$ mérhető. $\event{T<q}=H_q\circ N_q$, 
+    és $\event*{T\in H}=\event*{T'\in H}\circ N\in \cS^*$. 
+    \item $\Leftarrow$: $T$ $\cS^*$ mérhető. $\event*{T<q}=H_q\circ N_q$, 
     ahol $H_q\in\cS$ és $N_q\in\cN$.
     \pause
-    Legyen $T'(x)=\inf\set{q\in\Q}{x\in H_q}$.
+    Legyen $T'(x)=\inf\set*{q\in\Q}{x\in H_q}$.
     \pause
     \begin{displaymath}
-      \event{T'<c}=\cup_{q<c} H_q\in\cS\quad\implies\quad \text{$T'$ $\cS$ mérhető}
+      \event*{T'<c}=\cup_{q<c} H_q\in\cS\quad\implies\quad \text{$T'$ $\cS$ mérhető}
     \end{displaymath} 
     \pause
     \begin{displaymath}
-      \event{T<c}\circ\event{T'<c}=(\cup_{q<c}H_q\circ N_q)\circ(\cup_{q<c}H_q)
+      \event*{T<c}\circ\event*{T'<c}=(\cup_{q<c}H_q\circ N_q)\circ(\cup_{q<c}H_q)
       \subset\cup_q N_q\in\cN \quad\implies\quad\P[0]{T\neq T'}=0.
     \end{displaymath}
   \end{itemize}  
@@ -338,21 +339,21 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{itemize}
     \item Ha $S$ minimális elégséges és $T$ elégséges, akkor $\sigma(S)\subset\sigma(S)^*\subset \sigma(T)^*$ 
     és $\P{S=g(T)}=1$ minden $\P\in\cP$-re, alkalmas mérhető $g$-vel.
-    \item Ha $\cP$ dominált, akkor $\sigma(\set{\frac{d\P}{d\P[0]}}{\P\in\cP})$,
+    \item Ha $\cP$ dominált, akkor $\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$,
     minimális elégséges $\sigma$-algebra.
     \pause
 
     $\cS$ pontosan akkor egs, ha $\frac{d\P}{d\P[0]}\sim\cS^*$ minden $\P\in\cP$-re. 
 
-    \item $\cP=\set{\P[n]}{n\geq1}$ megszámlálható mértékcsalád, akkor 
+    \item $\cP=\set*{\P[n]}{n\geq1}$ megszámlálható mértékcsalád, akkor 
     dominált és van minimális elégséges statisztika.
     \pause
 
     $\P[0]=\sum_n 2^{-n}\P[n]$ domináló mérték.
 
-    $\cS=\sigma(\set{\frac{d\P}{d\P[0]}}{\P\in\cP})$ megszámlálhatóan generált. 
-    Generátorrendszer $\set{H_n}{n\geq1}$, $S=\sum_n 3^{-n} 2\I[H_n]$, $\cS=\sigma(S)$ 
-    Ez HF. $\event{\cbr{3^{n-1} S}>1/2}=H_n$.
+    $\cS=\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$ megszámlálhatóan generált. 
+    Generátorrendszer $\set*{H_n}{n\geq1}$, $S=\sum_n 3^{-n} 2\I[H_n]$, $\cS=\sigma(S)$ 
+    Ez HF. $\event*{\cbr*{3^{n-1} S}>1/2}=H_n$.
 
     \item Ha $\cP_0\subset\cP$, $\cN(\cP_0)=\cN(\cP)$, 
     továbbá $S$ elégséges $\cP$-re és minimális elégséges $\cP_0$-ra, akkor 
@@ -369,7 +370,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \begin{frame}{Feltétel minimális elégségességre}
   %$\cP$ $\lambda$-val dominált.
   $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
-  \begin{theorem} $\cP=\set{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
+  \begin{theorem} $\cP=\set*{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
      mértékcsalád az $(\mfX,\B)$ mintatéren.
     \begin{enumerate}[<*>]
       \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
@@ -391,11 +392,11 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \item Ha $x,y\in\mfX'$ és $S(x)=S(y)$, akkor 
     % $S(x)=S(y)$ esetén 
     \begin{displaymath}
-      \Theta_{x}=\set{\theta}{f_\theta(x)=g_\theta(S(x))h(x)=0}
-      =\set{\theta}{f_\theta(y)=g_\theta(S(y))h(y)=0}
+      \Theta_{x}=\set*{\theta}{f_\theta(x)=g_\theta(S(x))h(x)=0}
+      =\set*{\theta}{f_\theta(y)=g_\theta(S(y))h(y)=0}
     \end{displaymath} 
     és $\Theta_x$-en
-    % $g_\theta(S(x))$ kiesik, $\set{\theta}{f_\theta(x)=0}$ 
+    % $g_\theta(S(x))$ kiesik, $\set*{\theta}{f_\theta(x)=0}$ 
     $f_\theta(x)/f_\theta(y)=h(x)/h(y)$, ami nem függ $\theta$-tól.
 
   \end{itemize}
@@ -404,7 +405,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \begin{frame}{Feltétel minimális elégségességre, folyt.}
   %$\cP$ $\lambda$-val dominált.
   $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
-  \begin{theorem} $\cP=\set{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
+  \begin{theorem} $\cP=\set*{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
      mértékcsalád az $(\mfX,\B)$ mintatéren.
     \begin{enumerate}[<*>]
       \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
@@ -436,7 +437,8 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \end{displaymath}
     %$S(x)=g(T(x))$ ha $x\in\mfX'$ és 
     $S$ ,,egyszerűbb'' mint $T$, azaz $\sigma(S)^*\subset\sigma(T)^*$.
-    \item Ugyanakkor $\sigma(T)^*\subset\sigma(S)^*$, mert $S$ elégséges és $T$ minimális elégséges.
+    \item Ugyanakkor $\sigma(T)^*\subset\sigma(S)^*$, mert $S$ 
+    elégséges és $T$ minimális elégséges.
   \end{itemize}
 \end{frame}
 
@@ -458,14 +460,14 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     A tétel bizonyításának vége azon múlik, hogy ha $T:(\mfX,\B(\mfX)\to([0,1],\B([0,1]))$ mérhető, 
     ahol $\mfX$ teljes szeparábilis metrikus tér, pl. $\real^n$, akkor 
     \begin{displaymath}
-      \sigma(T)=\set{\event{T\in H}}{H\in\B(\real)}=\tsigma(T)=\set{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}
+      \sigma(T)=\set*{\event*{T\in H}}{H\in\B(\real)}=\tsigma(T)=\set*{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}
     \end{displaymath}
-    ahol $[x]_T=\set{y}{Tx=Ty}$.
+    ahol $[x]_T=\set*{y}{Tx=Ty}$.
     
     \item A bizonyítás végén $T(x)=T(y)\implies S(x)=S(y)$ miatt $[x]_T\subset [x]_S$ és 
     \begin{displaymath}
-      \tsigma(S)=\set{A\in\B(\mfX)}{x\in A\implies [x]_S\subset A}\subset
-      \tsigma(T)=\set{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}.
+      \tsigma(S)=\set*{A\in\B(\mfX)}{x\in A\implies [x]_S\subset A}\subset
+      \tsigma(T)=\set*{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}.
     \end{displaymath}
   \end{itemize}
 \end{frame}
@@ -474,31 +476,31 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{itemize}
     \item Egy elemű $X$ minta  az 
     \begin{displaymath}
-      f_\theta(x) = \theta e^{-2\theta \abs{x}} ,\quad\theta\in\Theta=(0,\infty)
+      f_\theta(x) = \theta e^{-2\theta \abs*{x}} ,\quad\theta\in\Theta=(0,\infty)
     \end{displaymath}
     sűrűségfüggvénnyel megadott eloszláscsaládból.
-    \item $S=\abs{X}$ elégséges.
+    \item $S=\abs*{X}$ elégséges.
     \item 
     \begin{displaymath}
       \tf_\theta(x)=\begin{cases}
-        \theta e^{-2\theta \abs{x}}& x\neq \theta\\
+        \theta e^{-2\theta \abs*{x}}& x\neq \theta\\
         1& x=\theta
       \end{cases}  
     \end{displaymath}
-    \item $\tf_\theta$ választás mellett akarjuk $\abs{X}$ minimális elégségességét ellenőrizni.
+    \item $\tf_\theta$ választás mellett akarjuk $\abs*{X}$ minimális elégségességét ellenőrizni.
     \begin{displaymath}
       \frac{\tf_\theta(x)}{\tf_\theta(y)}=\begin{cases}
-        e^{-2\theta(\abs{x}-\abs{y})} & x\neq\theta\neq y\\
-        e^{-2\theta\abs{x}} & x\neq\theta=y\\
-        e^{2\theta\abs{y}} &x=\theta\neq y\\
+        e^{-2\theta(\abs*{x}-\abs*{y})} & x\neq\theta\neq y\\
+        e^{-2\theta\abs*{x}} & x\neq\theta=y\\
+        e^{2\theta\abs*{y}} &x=\theta\neq y\\
         1 & x=\theta=y
       \end{cases}
     \end{displaymath}
     Milyen $x,y$ párokra teljesül, hogy a hányados nem függ $\theta$-tól?
-    Csak akkor $x=y$, holott $S=\abs{X}$ elégséges.
+    Csak akkor $x=y$, holott $S=\abs*{X}$ elégséges.
     \item Ha csak megszámlálható $\Theta_0\subset \Theta$ részcsaládot veszünk, akkor 
     $\mfX'=\real\setminus\Theta_0$ teljes mértékű, és $x,y\in\mfX'$ mellett a módosításnak nincs hatása
-    $\tf_\theta(x)/\tf_\theta(y)$ $\theta$-ban konstans pontosan akkor, ha $\abs{x}=\abs{y}$.
+    $\tf_\theta(x)/\tf_\theta(y)$ $\theta$-ban konstans pontosan akkor, ha $\abs*{x}=\abs*{y}$.
   \end{itemize}
   
 \end{frame}
@@ -517,16 +519,16 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \item $X_1^*=\min X_i$, $X_n^*\max X_i$, $S=(X_1^*,X_n^*)$ elégséges statisztika.
     \item Van-e egyszerűbb elégséges statisztika?
     \item $\Theta'=\Q\subset\Theta$ megszámlálható részcsalád, 
-    $\cN(\set{\P[\theta]}{\theta\in\Theta'})=\cN(\Leb)=\cN(\set{\P[\theta]}{\theta\in \Theta})$. 
+    $\cN(\set*{\P[\theta]}{\theta\in\Theta'})=\cN(\Leb)=\cN(\set*{\P[\theta]}{\theta\in \Theta})$. 
     Így ha $S$ minimális  elégséges a szűkebb családra nézve, akkor az eredetire is az.
-    \item $\mfX'=\set{x\in\mfX}{\max x_i-1<\min x_i}$ teljes mértékű része $\mfX$-nek. $x,y\in\mfX'$-re
+    \item $\mfX'=\set*{x\in\mfX}{\max x_i-1<\min x_i}$ teljes mértékű része $\mfX$-nek. $x,y\in\mfX'$-re
     \begin{displaymath}
       \frac{f_\theta(x)}{f_\theta(y)}=\frac{\I{\max x_i-1<\theta <\min x_i}}{\I{\max y_i-1<\theta<\min y_i}}  
     \end{displaymath}
     Milyen $x,y\in\mfX'$ párokra nem függ $\theta\in\Q$-tól? 
     \begin{displaymath}
-      \set{\theta\in\Q}{f_{\theta}(x)\neq0}=\Q\cap(\max x_i-1,\min x_i)=
-      \set{\theta\in\Q}{f_{\theta}(y)\neq0}=\Q\cap(\max y_i-1,\min y_i)
+      \set*{\theta\in\Q}{f_{\theta}(x)\neq0}=\Q\cap(\max x_i-1,\min x_i)=
+      \set*{\theta\in\Q}{f_{\theta}(y)\neq0}=\Q\cap(\max y_i-1,\min y_i)
       %\I{\max x_i-1<\theta <\min x_i}h(y)=\I{\max y_i-1<\theta <\min y_i}h(x),\quad\forall\theta\in\Q
     \end{displaymath}
     azaz $\min x_i=\min y_i$ és $\max x_i=\max y_i$ azaz $S$ minimális elégséges.
@@ -556,10 +558,10 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     és $p_x(\theta)=p_y(\theta)$, $\theta\in Q$, de akkor a két polinom azonos.
 
     $p_x=p_y$ miatt azonosak a gyökök (multiplicitással együtt), 
-    $p_x$ gyökei $\set{\pm i+x_k}{k=1,\dots n}$, így 
+    $p_x$ gyökei $\set*{\pm i+x_k}{k=1,\dots n}$, így 
     \begin{displaymath}
-      \set{\pm i+x_k}{k=1,\dots,n}=\set{\pm i+ y_k}{k=1,\dots,n}
-      \implies\set{x_k}{k=1,\dots,n}=\set{y_k}{k=1,\dots,n}
+      \set*{\pm i+x_k}{k=1,\dots,n}=\set*{\pm i+ y_k}{k=1,\dots,n}
+      \implies\set*{x_k}{k=1,\dots,n}=\set*{y_k}{k=1,\dots,n}
     \end{displaymath}
     Azaz $x$ és $y$ legfeljebb a koordináták sorrendjében 
     térhet el, a rendezett minta minimális elégséges statisztika.
@@ -568,12 +570,12 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 
 \begin{frame}{Példa, Indikátor minta}
   \begin{itemize}
-    \item $\Theta=(0,1)$, $\mfX=\smallset{0,1}^n$, 
+    \item $\Theta=(0,1)$, $\mfX=\smallset*{0,1}^n$, 
       $f_\theta(x)=\P[\theta]{X=x}=\theta^{s}(1-\theta)^{n-s}$, ahol $s=\sum x_i$.
     \item $S=\sum X_i$ elégséges. Van-e egyszerűbb elégséges statisztika?
     \pause
     \begin{displaymath}
-      \frac{f_\theta(x)}{f_\theta(y)}=\zfrac{\theta}{1-\theta}^{\sum x_i-\sum y_i}  
+      \frac{f_\theta(x)}{f_\theta(y)}=\zfrac*{\theta}{1-\theta}^{\sum x_i-\sum y_i}  
     \end{displaymath}
     ez csak akkor nem függ $\theta$-tól, ha $\sum x_i=\sum y_i$, azaz a mintaösszeg minimális elégséges.
     \item Ugyanez másképp. 
@@ -598,7 +600,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 
 \begin{frame}{Teljesség}
   \begin{df}
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
     $S$ statisztika. $S$ \textbf{teljes statisztika} (a $\cP$ eloszláscsaládra nézve), ha 
     \begin{displaymath}
       \E[\theta](h(S))=0,\quad\text{minden $\theta\in\Theta$-ra}\implies \P[\theta]{h=0}=1,\quad\text{minden $\theta$-ra}
@@ -621,7 +623,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
       \E[\theta]{(\I[A]-T_A)^2|S}=\E{\I[A]-2\I[A]T_A+T_A^2|S}= \E{T_A^2|S}-\I[A]\leq\E{T_A|S}-\I[A]=0.
     \end{displaymath}
     \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
-    azaz $\P[\theta]{A\circ \event{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
+    azaz $\P[\theta]{A\circ \event*{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
   \end{itemize}  
 \end{frame}
 
@@ -691,7 +693,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{theorem}
     Legyen $\mu$ mérték $\B (\real^p)$-n, $h:\real^p\to\real$ mérhető és 
     \begin{displaymath}\textstyle
-      A=\set{\alpha\in\real^p}{\int e^{\alpha \cdot x}h (x)\mu
+      A=\set*{\alpha\in\real^p}{\int e^{\alpha \cdot x}h (x)\mu
         (dx)=0}%\quad\text{nem üres nyílt}
     \end{displaymath}
     Ha $A$-nak létezik belső pontja, akkor $h$ $\mu$ majdnem mindenütt nulla.
@@ -699,7 +701,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{itemize}
   \item Legyen $\alpha_0\in\interior A$, és
     \begin{displaymath}
-      \nu_{\pm} (H)=\int e^{\alpha_0x}\abs{h}_\pm (x) \mu (d x),\quad H\in\B(\real^p).
+      \nu_{\pm} (H)=\int e^{\alpha_0x}\abs*{h}_\pm (x) \mu (d x),\quad H\in\B(\real^p).
     \end{displaymath}
     $\nu_{+}$, $\nu_{-}$ véges Borel mértékek,  hiszen $\alpha_0\in A$.
   \item  Ha $\nu_{+} (\real^p)=\nu_{-} (\real^p) = 0$, akkor $h$ $\mu$ majdnem mindenütt
@@ -720,7 +722,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $\nu_{+}=\nu_{-}$ és %$\nu_{+} (h>0)=\nu_{-} (h>0)=0$
     \begin{displaymath}
       \nu_{-} (h>0)=0=
-      \int \I{h (x) >0} e^{\alpha_0 x}\abs{h}_+ (x)\mu (d x)=
+      \int \I{h (x) >0} e^{\alpha_0 x}\abs*{h}_+ (x)\mu (d x)=
       \nu_{+} (\real^p)=1,
       \quad\text{\alert{\Large\Lightning}}
     \end{displaymath}
@@ -731,8 +733,8 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \begin{frame}{Exponenciális család}
   \begin{df}
     $\cP$ exponenciális eloszlás család, ha dominált és alkalmas 
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ paraméterezéssel 
-    %$\set{\P[\theta]}{\theta\in\Theta}$ dominált
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ paraméterezéssel 
+    %$\set*{\P[\theta]}{\theta\in\Theta}$ dominált
     %eloszláscsalád, $\Theta\subset\real^p$ nyílt. Ha 
     és alkalmas domináló mértékkel, $T:\mfX\to\real^p$ statisztikával 
     a sűrűségfüggvények alakja 
@@ -786,7 +788,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   %     -b' (\theta)&= \frac {M'}{M} (0)=\E[\theta]{T},&
   %     -b'' (\theta)&=\frac {M''M-(M')^2}{M^2} (0)=\D[\theta]^2{T}.
   %   \end{align*}
-  %   $T$ momentumai végesek mindegyik $\set{\P[\theta]}{\theta\in \Theta}$)
+  %   $T$ momentumai végesek mindegyik $\set*{\P[\theta]}{\theta\in \Theta}$)
   %   alatt.
   \end{itemize}
 \end{frame}
@@ -797,10 +799,10 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \begin{displaymath}
       f_\theta(x) = \theta^n\exp{-\theta\sum x_i},\quad T(x)=-\sum x_i,\quad b(\theta)=-n\ln\theta.
     \end{displaymath}
-    \item $n$ elemű indikátor minta, $p\in(0,1)$ paraméterrel, $\mfX=\smallset{0,1}^n$, 
+    \item $n$ elemű indikátor minta, $p\in(0,1)$ paraméterrel, $\mfX=\smallset*{0,1}^n$, 
      $\lambda$ a számláló mérték
     \begin{align*}
-      f_\theta(x)&=p^{\sum x_i}(1-p)^{n-\sum x_i}=\zfrac{p}{1-p}^{\sum x_i} (1-p)^n\\
+      f_\theta(x)&=p^{\sum x_i}(1-p)^{n-\sum x_i}=\zfrac*{p}{1-p}^{\sum x_i} (1-p)^n\\
       &=\exp{\theta T(x) +b(\theta)},\quad \theta=\ln\frac{p}{1-p}, \quad p =\frac{1}{1+e^{-\theta}},\quad 
       T(x)=\sum x_i,\quad 
       b(\theta)= n\ln(1+e^{\theta})
@@ -810,7 +812,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \begin{align*}
       f_{\mu,\sigma^2}(x)&=\frac{1}{(2\pi)^{n/2}\sigma^n}\exp{-\frac1{2\sigma^2}\sum(x_i-\mu)^2}\\
       &=\exp{-\frac{1}{2\sigma^2}\sum x_i^2+\frac{\mu}{\sigma^2}\sum x_i -\tilde b(\mu,\sigma^2)},
-      \quad \theta=\zjel{\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2}}, \quad T(x)=\zjel{-\sum x_i^2,\sum x_i}.
+      \quad \theta=\zjel*{\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2}}, \quad T(x)=\zjel*{-\sum x_i^2,\sum x_i}.
     \end{align*}
   \end{itemize}
 \end{frame}
@@ -820,7 +822,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \item $N(\mu,\sigma^2)$ eloszlásból származó minta $\mu=\sigma^2$  ismeretlen.
     
     Átparaméterezés után $\theta(\mu,\sigma^2)=(\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2})$,
-    $\Theta=\set{(\tau,1)}{\tau>0}$. $T(x)=(-\sum x_i^2,\sum x_i)$ minimális elégséges.
+    $\Theta=\set*{(\tau,1)}{\tau>0}$. $T(x)=(-\sum x_i^2,\sum x_i)$ minimális elégséges.
 
     \item $n=2$, 
     \begin{align*}
@@ -837,7 +839,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $\E[\theta]{h(T)}=0$ miden $\theta$-ra, de $\P[\theta]{h(T)=0}=0$.
     \begin{displaymath}
       h(T(X))=-(X_1-X_2)^2+2(X_1+X_2)
-      %\P[\theta]{-X_1^2+X_1=c}=\P[\theta]{X_1\in\smallset{x_1,x_2}}=0, 
+      %\P[\theta]{-X_1^2+X_1=c}=\P[\theta]{X_1\in\smallset*{x_1,x_2}}=0, 
       %\quad x_{1,2}=\frac{1\pm\sqrt{1-4c}}{2} 
     \end{displaymath}
     Itt $(X_1-X_2,X_1+X_2)$ független nem elfajult normális változók, 
@@ -890,16 +892,16 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $h<\eps$.
 
     $\real^p$ a normák ekvivalensek, elég
-    $\norm{x}_{1}=\frac1p \sum \abs{x_i}$-re számolni. Mivel $\exp$
+    $\norm{x}_{1}=\frac1p \sum \abs*{x_i}$-re számolni. Mivel $\exp$
     konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
     %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
     \begin{displaymath}
-      e^{h\abs{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
+      e^{h\abs*{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
       \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
     \end{displaymath}
     ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
   \item ha $\norm{\alpha}$ kicsi, akkor
-    $\abs*{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
+    $\abs**{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
     \begin{displaymath}
       M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
       =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad 

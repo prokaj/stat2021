@@ -1,0 +1,21 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=etex 2020.3.27)  13 FEB 2021 18:48
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**\def\x#1{\edef\y{\string#1}\expandafter\strip\y}
+
+*\def\strip#1#2{#2}
+
+*\x\lambda
+
+*\message{\x\lambda}
+\edef \lambda{\lambda}lambda
+*\message{\expandafter\strip\string\lambda}
+lambda
+*
+! Emergency stop.
+<*> \message{\expandafter\strip\string\lambda}
+                                              
+End of file on the terminal!
+
+No pages of output.

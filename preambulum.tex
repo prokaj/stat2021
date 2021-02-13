@@ -1,37 +1,114 @@
-
-
-\makeatletter
-\def\readrest#1\enddate{}
-\def\setdate@#1-#2-#3\relax{\def\lecturedate{#1.#2.#3.}\readrest}
-\def\setdate{\expandafter\setdate@\jobname\relax-\relax-\relax\enddate}
-
-\makeatother
-
-\setdate
-
-
 \usepackage{marvosym}
 %\usepackage[magyar]{babel}
 \usepackage{polyglossia}
 \setmainlanguage{magyar}
 
-% \usetheme{Bruno}
+% \usepackage{pvdefs}
+\usepackage{etoolbox,mathtools}
+\usepackage[mathcal]{euscript}
 
-\usecolortheme{Bruno}
-% \usefonttheme{Bruno}
-% \useinnertheme{Bruno}
-\useoutertheme{Bruno}
+%\makeatletter
+\def\ifbrace{\@ifnextchar{\bgroup}}
 
-\usepackage{pvdefs}
+\@ifundefined{texexp}{%
+  \let\texexp\exp
+  \def\exp{%
+    \texexp\ifbrace\cbr{}%
+  }
+}\relax
+ 
+\def\isparam#1{\ifbrace#1\relax}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\zjel}{(}{)}
+\DeclarePairedDelimiter\br\lbrack\rbrack
+\DeclarePairedDelimiter\event\lbrace\rbrace
+\let\smallset\event
+\let\cbr\event
+\DeclarePairedDelimiterX\set[2]\{\}{%
+  #1\nonscript\::\allowbreak\nonscript\:\mathopen{}#2%
+}
+
+\let\PEfont\mathbb
+\providecommand\given{}
+
+\def\redefgiven#1{%
+  \renewcommand\given{%
+    \nonscript\:%
+    #1\vert%
+    \allowbreak%
+    \nonscript\:%
+    \mathopen{}%
+  }%
+}
+\DeclarePairedDelimiterX\PEzjel[1](){\redefgiven{\delimsize}#1}
+\newcommand{\PE}[1][]{%
+  \PEfont{\Pe}%
+  \ifblank{#1}{}{_{#1}}%
+  \ifbrace{\PEzjel*}{}%
+}
+\newcommand{\E}{\def\Pe{E}\PE}
+\newcommand{\D}{\def\Pe{D}\PE}
+\renewcommand{\P}{\def\Pe{P}\PE}
+
+\let\eps\varepsilon
+\def\ito/{It\^o}
+\let\Ito=\ito
+\def\eqinlaw{\stackrel{p}{=}}
+
+\def\strip#1{%
+    \expandafter\stripi\detokenize{#1}\relax
+}
+\def\stripi#1#2\relax{%
+    \def\stripi##1##2\relax{%
+    \ifx##1#1\else\expandafter##1\fi##2%
+    }%
+}
+\expandafter\stripi\detokenize{\ }\relax
+
+\def\strip#1{%
+    \expandafter\stripi\string#1\relax
+}
+\def\stripi#1#2\relax{%
+    \def\stripi##1##2\relax{%
+    \ifx##1#1\else\expandafter##1\fi##2%
+    }%
+}
+\expandafter\stripi\string\ \relax
+
+\DeclareListParser{\dolist}{}
+
+\def\defprefix#1#2{
+    \def\do##1{\csdef{#1\strip##1}{{#2{##1}}}}%
+    \ifbrace\dolist\do
+}
+
+\defprefix{c}{\mathcal}{XAPIDLCSGTHEN}
+\defprefix{t}{\tilde}{STQbCf\lambda \Omega \sigma }
+\defprefix{}{\mathcal}{BF}
+\defprefix{mf}{\mathfrak}{X}
+
+\def\sign{\operatorname{sign}}
+\def\real{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+
+\def\Isymb{{\mathbf 1}}
+\def\substr#1{_{\zjel{#1}}}
+\newcommand{\I}[1][]{%
+  \Isymb\ifblank{#1}{\substr}{_{#1}}%
+}
+\def\interior{\operatorname{int}}
+\def\tg{\operatorname{tg}}
+\def\zfrac#1#2{\zjel{\frac{#1}{#2}}}
+
 \newtheorem{df}{Definíció}
 \newtheorem{theorem}{Tétel}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Állítás}
 \newtheorem{corollary}{Következmény}
 
-\defcx{XAPIDLCSGTHEN}
-\deftx{STQbCf\lambda\Omega\sigma}
-\defmf{X}
+
 
 \def\diag{\operatorname{diag}}
 \def\Id{\mathbf{I}}
@@ -44,6 +121,18 @@
 
 \def\Leb{\operatorname{Leb}}
 
+
+\def\readrest#1\enddate{}
+\def\setdate@#1-#2-#3\relax{\def\lecturedate{#1.#2.#3.}\readrest}
+\def\setdate{\expandafter\setdate@\jobname\relax-\relax-\relax\enddate}
+\setdate
+
+% \usetheme{Bruno}
+\usecolortheme{Bruno}
+% \usefonttheme{Bruno}
+% \useinnertheme{Bruno}
+\useoutertheme{Bruno}
+
 \newrobustcmd{\continue}{%
   \onslide<\value{beamerpauses}->\relax
 }
@@ -55,18 +144,7 @@
 
 \RequirePackage[math-style=TeX, bold-style=upright]{unicode-math}
 \setmathfont{Latin Modern Math}[Scale=1]
-% \setsansfont{Kurier Cond}
 \setsansfont[Ligatures=TeX, ItalicFont={Fira Sans Italic}, BoldFont={Fira Sans SemiBold}, Scale=0.9]{Fira Sans Book}
-%\setsansfont{Ubuntu}
-
-%\usepackage{mathspec}
-%\setmathsfont{lm}
-%(Digits,Latin,Greek)
-%[Numbers={Lining,Proportional}]{lm}
-%\setmathsfont(Digits,Greek)
-%[Uppercase=Plain,Lowercase=Regular,Scale=MatchLowercase]
-%{GFS Porson}
-
 
 % Title page
 \setbeamerfont{title}{
@@ -169,6 +247,7 @@
 % no image will be included
 \RequirePackage{tikz}
 \usetikzlibrary{fadings}
+
 \newcommand{\background}[1]%
     {\newcommand{\bruno@background}{#1}}
 
@@ -176,7 +255,14 @@
 %% \newcommand\insertcaption{}
 \newcommand{\backgroundcaption}[2][white]{\def\bruno@caption{{#1}{#2}}}
 
-\newcommand{\insertcaption}{\ifdefined\bruno@caption{\expandafter\textcolor\bruno@caption}\fi}
+\newcommand{\insertcaption}{%
+    \ifdefined
+    \bruno@caption{%
+        \expandafter\textcolor\bruno@caption
+    }%
+    \fi
+}
+
 
 \tikzfading[
     name=title page picture fading,
@@ -249,8 +335,7 @@
   \let\setminus\smallsetminus
 }
 
-
 \title{Statisztika előadás}
 \date{\lecturedate}
-\background{images/young_Ronald_Fisher.jpg}
+\background{images/young-Ronald-Fisher.jpg}
 \backgroundcaption{Ronald Fisher (1913)}
