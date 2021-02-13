@@ -134,13 +134,13 @@
 %   \begin{proposition}
 %     $(A_i)_{i\in I}$ teljes eseményrendszer. $B$ tetszőleges esemény, ekkor
 %     \begin{displaymath}
-%       \P{A_i|B}=\frac{\P{B|A_i}\P{A_i}}{\sum_j \P{B|A_j}\P{A_j}}
+%       \P{A_i\given B}=\frac{\P{B\given A_i}\P{A_i}}{\sum_j \P{B\given A_j}\P{A_j}}
 %     \end{displaymath}
 %   \end{proposition}
 %   \begin{itemize}
 %     \item $\P[0]=\P$, $d\P[1]=\frac{\I[B]}{\P{B}}d\P$, azaz a Radon-Nikodym derivált $Z=\frac{\I[B]}\{\P{B}}$.
-%     \item $Y=\sum_j j\I{A_j}$, ekkor $\F=\sigma(Y)$ választással $\E[0]{X|\F}=\sum_j \E[0]{X|A_j}\I[A_j]$  
-%     \item $\P{A_i|B}=\E[1]{\I{}}$ 
+%     \item $Y=\sum_j j\I{A_j}$, ekkor $\F=\sigma(Y)$ választással $\E[0]{X\given \F}=\sum_j \E[0]{X\given A_j}\I[A_j]$  
+%     \item $\P{A_i\given B}=\E[1]{\I{}}$ 
 
 %   \end{itemize}    
 % \end{frame}
@@ -251,10 +251,10 @@
 
   $(\Omega,\cA,\cP=\set*{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
   \begin{df} 
-    $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|S}$-nek 
+    $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A\given S}$-nek 
     létezik $\theta$-tól független, közös változata.
 
-    $\cS\subset\cA$ \textbf{elégséges $\sigma$-algebra}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|\cS}$-nek 
+    $\cS\subset\cA$ \textbf{elégséges $\sigma$-algebra}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A\given \cS}$-nek 
     létezik $\theta$-tól független, közös változata.
   \end{df} 
 
@@ -275,21 +275,21 @@
 
 \begin{frame}{Ismétlés: feltételes várható érték, feltételes valószínűség}
   \begin{df}
-    $X\in L^1$ valószínűségi változó, $\F$ $\sigma$-algebra. $\E{X|\F}$ olyan $\F$ mérhető, integrálható változó, ami teljesíti 
+    $X\in L^1$ valószínűségi változó, $\F$ $\sigma$-algebra. $\E{X\given \F}$ olyan $\F$ mérhető, integrálható változó, ami teljesíti 
     a parciális átlagolási tulajdonságot:
     \begin{displaymath}
-      \E{X\I[A]}=\E{\E{X|\F}\I[A]},\quad\text{minden $A\in\F$-re}.
+      \E{X\I[A]}=\E{\E{X\given \F}\I[A]},\quad\text{minden $A\in\F$-re}.
     \end{displaymath}
   \end{df}
   \begin{itemize}
-    \item Ha $\F=\sigma(Y)$, akkor $\E{X|\F}=\E{X|Y}=g(Y)$ alakú, ahol $g$ Borel mérhető.
+    \item Ha $\F=\sigma(Y)$, akkor $\E{X\given \F}=\E{X\given Y}=g(Y)$ alakú, ahol $g$ Borel mérhető.
     \item Ez valójában egy Radon-Nikodym derivált, $\mu(A)=\E{X\I[A]}$ véges előjeles mérték $\F$-n, ami $\P|_{\F}$-re 
-    nézve abszolút folytonos. $\E{X|\F}=\frac{d\mu}{d\P|_{\F}}$.
-    \item Szemléletes jelentés $g(y)=\lim_{\eps\to0}\E{X|\abs*{Y-y}<\eps}$ ($Y$ eloszlása szerint majdnem minden $y$-ra).
-    \item Ha $Y$ diszkét, $\P{Y=y}>0$, akkor $g(y)=\E{X|Y=y}$. Ezt a jelölést szokás használni, a $g$ függvényre, akkor is ha $Y$ nem diszkrét.
-    \item Ha $X\in L^2$, akkor $\E{X|\F}\in L^2$ és $X-\E{X|\F}$ merőleges $L^2(\F)$-re.
-    $\E{X|\F}$ nem más, mint $X$ vetülete $L^2(\F)$-re.
-    \item $\P{A|\F}$ egy másik jelölés $\E{\I[A]|\F}$-re.
+    nézve abszolút folytonos. $\E{X\given \F}=\frac{d\mu}{d\P|_{\F}}$.
+    \item Szemléletes jelentés $g(y)=\lim_{\eps\to0}\E{X\given \abs*{Y-y}<\eps}$ ($Y$ eloszlása szerint majdnem minden $y$-ra).
+    \item Ha $Y$ diszkét, $\P{Y=y}>0$, akkor $g(y)=\E{X\given Y=y}$. Ezt a jelölést szokás használni, a $g$ függvényre, akkor is ha $Y$ nem diszkrét.
+    \item Ha $X\in L^2$, akkor $\E{X\given \F}\in L^2$ és $X-\E{X\given \F}$ merőleges $L^2(\F)$-re.
+    $\E{X\given \F}$ nem más, mint $X$ vetülete $L^2(\F)$-re.
+    \item $\P{A\given \F}$ egy másik jelölés $\E{\I[A]\given \F}$-re.
   \end{itemize}
 \end{frame}
 
@@ -298,14 +298,14 @@
     $X$ valószínűségi változó, $\F$ $\sigma$-algebra. $Q:\B(\real)\times\Omega\to[0,1]$ az $X$ feltételes 
     eloszlásának reguláris változata, ha 
     \begin{itemize}[<*>]
-      \item $\omega\mapsto Q(A,\omega)$, a $\P{X\in A|\F}$ egy változata.
+      \item $\omega\mapsto Q(A,\omega)$, a $\P{X\in A\given \F}$ egy változata.
       \item $A\mapsto Q(A,\omega)$ valószínűségi mérték $\B(\real)$-en, minden $\omega$-ra.  
     \end{itemize}
   \end{df}
   \continue
   Ha $X$ vektorváltozó, vagy  általánosabban $(S,\cS)$ értékű, akkor $\B(\real)$ $\cS$-sel helyettesítendő. 
   \begin{proposition}
-    Ha $X$ feltételes eloszlásának létezik reguláris változata $Q$, $h(X)\in L^1$, akkor $\E{h(X)|\F}=\int h(x) Q(dx,.)$
+    Ha $X$ feltételes eloszlásának létezik reguláris változata $Q$, $h(X)\in L^1$, akkor $\E{h(X)\given \F}=\int h(x) Q(dx,.)$
   \end{proposition}
   
   \begin{theorem}[bizonyítás nélkül]
@@ -338,10 +338,10 @@
   \continue
   Az állítás alapján
   \begin{displaymath}
-    \P{X\in H|X^*}=\P{\Pi X^*\in H|X^*}=\P{\Pi x\in H}|_{x=X^*}
+    \P{X\in H\given X^*}=\P{\Pi X^*\in H\given X^*}=\P{\Pi x\in H}|_{x=X^*}
     =\frac1{n!}\left.\sum\nolimits_{\pi\in S_n} \I{\pi x\in H}\right|_{x=X^*}
   \end{displaymath}
-  Általánosabban: $\E{T(X)|X^*}=\E{T(\Pi X^*)|X^*}=\frac1{n!}\sum_{\pi} T(\pi X^*)$.
+  Általánosabban: $\E{T(X)\given X^*}=\E{T(\Pi X^*)\given X^*}=\frac1{n!}\sum_{\pi} T(\pi X^*)$.
 \end{frame}
 
 \begin{frame}{A rendezett minta mindig elégséges}
@@ -358,15 +358,15 @@
   \begin{itemize}
     \item $\Pi$ az $X$-től független véletlen permutáció, ekkor $X\eqinlaw \Pi X$
     \begin{displaymath}
-      \P{\Pi X\in H}=\E{\P{\Pi X\in H|\Pi}}=\E{\P{\pi X\in H}|_{\pi=\Pi}}
+      \P{\Pi X\in H}=\E{\P{\Pi X\in H\given \Pi}}=\E{\P{\pi X\in H}|_{\pi=\Pi}}
     \end{displaymath} 
-    de $\pi X\eqinlaw X$ minden rögzített permutációra és így $\P{\Pi X\in H|\Pi}=\P{X\in H}$.
+    de $\pi X\eqinlaw X$ minden rögzített permutációra és így $\P{\Pi X\in H\given \Pi}=\P{X\in H}$.
     \item $(X,X^*)\eqinlaw (\Pi X,(\Pi X)^*)=(\Pi X,X^*)$.
     \item $X=\rho X^*$ alkalmas $\sigma(X)$ mérhető $\rho$ permutációval és 
     $\Pi X=(\Pi\rho) X^*$.
     \item $\Pi\rho$, $X$-től független véletlen permutáció, mert 
     \begin{displaymath}
-      \P{\Pi\rho=\pi|X}=\P{\Pi=\pi\rho^{-1}|X}=\frac1{n!},
+      \P{\Pi\rho=\pi\given X}=\P{\Pi=\pi\rho^{-1}\given X}=\frac1{n!},
       \quad\text{minden $\pi\in S_n$-re}. 
     \end{displaymath}
     \item $(X,X^*)\eqinlaw(\Pi X,X^*)=(\Pi\rho X^*,X^*)\eqinlaw(\Pi X^*,X^*)$.
@@ -378,17 +378,17 @@
 %   \begin{proposition}
 %     Ha $\P[1]\ll \P[0]$, azaz $d\P[1]=Zd\P[0]$ valamely $Z$-vel, akkor 
 %     \begin{displaymath}
-%       \E[1]{X|\F}=\frac{\E[0]{XZ|\F}}{\E[0]{Z|\F}}\I{\E[0]{Z|\F}>0}
+%       \E[1]{X\given \F}=\frac{\E[0]{XZ\given \F}}{\E[0]{Z\given \F}}\I{\E[0]{Z\given \F}>0}
 %     \end{displaymath}
 %   \end{proposition}
 %   \begin{itemize}
 %     \item Jobb oldal $\F$ mérhető.
 %     \item Kell:  jobboldal teljesíti a parciális átlagolási tulajdonságot.
-%     \item  ${d\P[1]}|_\F=\E[0]{Z|\F}{d\P[0]}|_{\F}$
+%     \item  ${d\P[1]}|_\F=\E[0]{Z\given \F}{d\P[0]}|_{\F}$
 %     \item $A\in \F$
 %     \begin{displaymath}
-%       \E[1]{\frac{\E[0]{XZ|\F}}{\E[0]{Z|\F}}\I[A]}=
-%       \E[0]{\E[0]{XZ|\F}\I[A]}=\E[0]{XZ\I[A]}=\E[1]{X\I[A]}.
+%       \E[1]{\frac{\E[0]{XZ\given \F}}{\E[0]{Z\given \F}}\I[A]}=
+%       \E[0]{\E[0]{XZ\given \F}\I[A]}=\E[0]{XZ\I[A]}=\E[1]{X\I[A]}.
 %     \end{displaymath}
 %   \end{itemize}
 % \end{frame}
@@ -408,20 +408,20 @@
   Tetszőleges $\P\in\cP$-re $\frac{d\P}{d\lambda}=f(S)$ és
   \begin{align*}
     \P{X\in A,S\in H}&=\E[\lambda]{\I{X\in A}\I{S\in H}f(S)}\\
-    &=\E[\lambda]{\E[\lambda]{\I{X\in A}|S}\I{S\in H}f(S)}
-    =\E[\P]{\E[\lambda]{\I{X\in A}|S}\I{S\in H}}
+    &=\E[\lambda]{\E[\lambda]{\I{X\in A}\given S}\I{S\in H}f(S)}
+    =\E[\P]{\E[\lambda]{\I{X\in A}\given S}\I{S\in H}}
   \end{align*}
-  Azaz $\E[\lambda]{\I{X\in A}|S}$ a $\P{X\in A|S}$, $\P\in\cP$  feltételes valószínűségek közös változata.
+  Azaz $\E[\lambda]{\I{X\in A}\given S}$ a $\P{X\in A\given S}$, $\P\in\cP$  feltételes valószínűségek közös változata.
   %\begin{itemize}
   % \item Feltehető, hogy a domináló mérték valószínűségi mérték, így $d\P[\theta]=f_{\theta}d\lambda$ és $\lambda$ valószínűségi mérték.
   %  \item 
   % Bayes szabály: 
   %     \begin{displaymath}
-  %       \P[\theta]{X\in A|S} = \frac{\E[\lambda]{\I{X\in A}f_\theta(X)|S}} {\E[\lambda]{f_\theta(X)|S}}
-  %       =\frac{f_\theta(X)\E[\lambda]{\I{X\in A}|S}} {f_\theta(X)}
-  %       =\E[\lambda]{\I{X\in A}|S}
+  %       \P[\theta]{X\in A\given S} = \frac{\E[\lambda]{\I{X\in A}f_\theta(X)\given S}} {\E[\lambda]{f_\theta(X)\given S}}
+  %       =\frac{f_\theta(X)\E[\lambda]{\I{X\in A}\given S}} {f_\theta(X)}
+  %       =\E[\lambda]{\I{X\in A}\given S}
   %     \end{displaymath}
-  %   azaz $\P[\theta]{X\in A|S}$-nek van $\theta$-tól független közös változata. 
+  %   azaz $\P[\theta]{X\in A\given S}$-nek van $\theta$-tól független közös változata. 
   %   %\item \textbf{Gond:} $h(X)$ nem feltétlenül integrálható $\lambda$ szerint. 
     
     %A pontos érveléshez a domináló mértéket ügyesen kell választani (pl. $h\equiv 1$).
@@ -429,7 +429,7 @@
   \pause
     Valójában a Bayes szabályt használtuk a feltételes várható érték kiszámítására:
     \begin{displaymath}
-      \E[\P]{Y|\F}=\frac{\E[\lambda]{Y\frac{d\P}{d\lambda}|\F}}{\E[\lambda]{\frac{dP}{d\lambda}|\F}}
+      \E[\P]{Y\given \F}=\frac{\E[\lambda]{Y\frac{d\P}{d\lambda}\given \F}}{\E[\lambda]{\frac{d\P}{d\lambda}\given \F}}
     \end{displaymath}
   \pause
 
@@ -458,13 +458,13 @@
       $S=\sum X_i$, azaz \textbf{mintaösszeg}, elégséges statisztika. 
    \end{itemize}
    \continue
-   Hogyan adható meg, a $\P[\theta]{X\in A|S}$ feltételes eloszlás?
+   Hogyan adható meg, a $\P[\theta]{X\in A\given S}$ feltételes eloszlás?
    \pause
    \begin{itemize}
      \item $S$ diszkrét változó. $S$ lehetséges értékei $0,1,\dots,n$, $S$ binomiális $n$ renddel és $\theta$ paraméterrel.
      \item 
       \begin{displaymath}
-        \P[\theta]{X=x|S=s}=
+        \P[\theta]{X=x\given S=s}=
         \frac{\P[\theta]{X=x,\,S=s}}{\P[\theta]{S=s}}=
         \begin{cases}
           0& \sum x_i\neq s\\
@@ -500,14 +500,14 @@
       $S=\sum X_i$, azaz \textbf{mintaösszeg}, elégséges statisztika. 
    \end{itemize}
    \continue
-   Hogyan írható le a $\P[\theta]{X\in A|S}$ feltételes eloszlás?
+   Hogyan írható le a $\P[\theta]{X\in A\given S}$ feltételes eloszlás?
    \pause
    \begin{itemize} 
       \item $\bar{X}=\frac1n\sum X_i$ a mintaátlag.
       \item $(X_1-\bar{X},\dots,X_n-\bar{X})$ eloszlása nem függ $\theta$-tól és később kiszámoljuk, 
       hogy független $S$-től így $e=(1,\dots,1)$ jelöléssel
       \begin{displaymath}
-        \P[\theta]{X\in H|S}
+        \P[\theta]{X\in H\given S}
         =\P[\theta]{X-\bar{X}e+xe \in H}|_{x=S/n}
         =\P[0]{X-\bar{X}e+xe\in H}|_{x=S/n}
       \end{displaymath}
@@ -559,14 +559,14 @@
   %   \item Tegyük fel, hogy $S$ elégséges.  Ekkor  tetszőleges $H\in\B(\mfX)$-re
   %   \begin{displaymath}
   %     \P[\theta]{X\in H}
-  %     =\E[\theta]{\P[\theta]{X\in H|S}}
-  %     =\E[\theta]{\P[0]{X\in H|S}}
-  %     =\E[0]{\P[0]{X\in H|S}f_\theta(X)}.
-  %     %=\E[0]{\I{X\in H}\E[0]{f_{\theta}(X)|S}}
+  %     =\E[\theta]{\P[\theta]{X\in H\given S}}
+  %     =\E[\theta]{\P[0]{X\in H\given S}}
+  %     =\E[0]{\P[0]{X\in H\given S}f_\theta(X)}.
+  %     %=\E[0]{\I{X\in H}\E[0]{f_{\theta}(X)\given S}}
   %   \end{displaymath}
-  %   Itt $\E[0](f_{\theta}(X)|S)=g_{\theta}(S)$ és 
+  %   Itt $\E[0](f_{\theta}(X)\given S)=g_{\theta}(S)$ és 
   %   \begin{displaymath}
-  %     \P[\theta]{X\in H}=\E[0]{\I{X\in H}\E[0]{f_{\theta}(X)|S}}=\int_H g_\theta(S(x)) \P[0](d x)
+  %     \P[\theta]{X\in H}=\E[0]{\I{X\in H}\E[0]{f_{\theta}(X)\given S}}=\int_H g_\theta(S(x)) \P[0](d x)
   %   \end{displaymath}
   %   azaz $g_\theta$ $S$ mérhető változata a $\frac{d\P[\theta]}{d\P[0]}$ sűrűségfüggvénynek.
   % \end{itemize}
@@ -584,12 +584,12 @@
     sűrűségeknek van $\sigma(S)$ mérhető változata.
   \end{theorem}
   \begin{itemize}
-    \item $S$ elégséges, ekkor $\P[\theta]{X\in H|S}=\P[0]{X\in H|S}$.
+    \item $S$ elégséges, ekkor $\P[\theta]{X\in H\given S}=\P[0]{X\in H\given S}$.
     \item Teljes valószínűség tétellel
     \begin{displaymath}
       \P[\theta]{X\in H}
-      =\E[\theta]{\P[\theta]{X\in H|S}}
-      =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\E[0]{\I{X\in H}|S}}
+      =\E[\theta]{\P[\theta]{X\in H\given S}}
+      =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\E[0]{\I{X\in H}\given S}}
       =\E[0]{\I{X\in H}\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}}
     \end{displaymath}
     \item Legyen $g_\theta(S)=\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}$
@@ -610,15 +610,15 @@
     $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re elégséges.
   \end{proposition}
   \begin{itemize}
-    \item Legyen $H$ rögzített és $q(S)=\P{X\in H|S}$ a $\cP$-re vonatkozó közös változat. 
+    \item Legyen $H$ rögzített és $q(S)=\P{X\in H\given S}$ a $\cP$-re vonatkozó közös változat. 
     \item Tetszőleges $\P\in\cP'$-re $\P=\sum_{i } c_i\P[i]$ alakú és 
     \begin{displaymath}
       \P{X\in H, S\in A}
-      =\sum_{i} c_i\int \P[i]{X\in H|S}\I{S\in A}d\P[i]
+      =\sum_{i} c_i\int \P[i]{X\in H\given S}\I{S\in A}d\P[i]
       =\sum_i c_i\int q(S) \I{S\in A}d\P[i]
       =\int q(S)\I{S\in A}d\P
     \end{displaymath} 
-    \item $q(S)$ $S$ mérhető és teljesíti a parciális átlagolási tulajdonságot $q(S)=\P{X\in H|S}$
+    \item $q(S)$ $S$ mérhető és teljesíti a parciális átlagolási tulajdonságot $q(S)=\P{X\in H\given S}$
     minden $\P\in\cP'$-re.
     \item Másik irányhoz elég észrevenni, hogy ha $S$ elégséges egy mértékcsaládra, 
     akkor tetszőleges részcsaládra is az és $\cP\subset\cP'$.

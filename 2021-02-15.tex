@@ -11,10 +11,10 @@
 \begin{frame}{Emlékeztető}
   $(\Omega,\cA,\cP=\set*{\P[\theta]}{\theta\in\Theta})$ statisztikai mező. $\Omega=\mfX$.  
   \begin{df} 
-    $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|S}$-nek 
+    $S:\mfX\to\real^d$ \textbf{elégséges statisztika}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A\given S}$-nek 
     létezik $\theta$-tól független, közös változata.
 
-    $\cS\subset\cA$ \textbf{elégséges $\sigma$-algebra}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A|\cS}$-nek 
+    $\cS\subset\cA$ \textbf{elégséges $\sigma$-algebra}, ha minden $A\in\B(\mfX)$-re $\P[\theta]{X\in A\given \cS}$-nek 
     létezik $\theta$-tól független, közös változata.
   \end{df}
   \begin{theorem}[Neymann faktorizációs tétel]
@@ -83,12 +83,12 @@
   sűrűségeknek van $\sigma(S)$ mérhető változata.
 \end{theorem}
 \begin{itemize}
-  \item $S$ elégséges, ekkor $\P[\theta]{X\in H|S}=\P[0]{X\in H|S}$.
+  \item $S$ elégséges, ekkor $\P[\theta]{X\in H\given S}=\P[0]{X\in H\given S}$.
   \item Teljes valószínűség tétellel
   \begin{displaymath}
     \P[\theta]{X\in H}
-    =\E[\theta]{\P[\theta]{X\in H|S}}
-    =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\E[0]{\I{X\in H}|S}}
+    =\E[\theta]{\P[\theta]{X\in H\given S}}
+    =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\E[0]{\I{X\in H}\given S}}
     =\E[0]{\I{X\in H}\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}}
   \end{displaymath}
   \item Legyen $g_\theta(S)=\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}$
@@ -109,15 +109,15 @@ $\cP$ mértékcsalád a mintatéren
   $S$ pontosan akkor elégséges $\cP$-re nézve, ha $\cP'$-re elégséges.
 \end{proposition}
 \begin{itemize}
-  \item Legyen $H$ rögzített és $q(S)=\P{X\in H|S}$ a $\cP$-re vonatkozó közös változat. 
+  \item Legyen $H$ rögzített és $q(S)=\P{X\in H\given S}$ a $\cP$-re vonatkozó közös változat. 
   \item Tetszőleges $\P\in\cP'$-re $\P=\sum_{i } c_i\P[i]$ alakú és 
   \begin{displaymath}
     \P{X\in H, S\in A}
-    =\sum_{i} c_i\int \P[i]{X\in H|S}\I{S\in A}d\P[i]
+    =\sum_{i} c_i\int \P[i]{X\in H\given S}\I{S\in A}d\P[i]
     =\sum_i c_i\int q(S) \I{S\in A}d\P[i]
     =\int q(S)\I{S\in A}d\P
   \end{displaymath} 
-  \item $q(S)$ $S$ mérhető és teljesíti a parciális átlagolási tulajdonságot $q(S)=\P{X\in H|S}$
+  \item $q(S)$ $S$ mérhető és teljesíti a parciális átlagolási tulajdonságot $q(S)=\P{X\in H\given S}$
   minden $\P\in\cP'$-re.
   \item Másik irányhoz elég észrevenni, hogy ha $S$ elégséges egy mértékcsaládra, 
   akkor tetszőleges részcsaládra is az és $\cP\subset\cP'$.
@@ -241,7 +241,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \end{lemma}
 \end{frame}
 
-\begin{frame}{Emlékeztető}
+\begin{frame}{Elégségesség, összefoglalás}
   $\cP$ mértékcsalád, $\cP'=\set*{\sum_{i} c_i\P[i]}{c_i\geq0,\,\sum c_i=1,\,\P[i]\in\cP}$.
   \begin{proposition}[Halmos--Savage tétel]
     Ha $\cP$ dominált, akkor van olyan $\P[0]\in\cP'$, ami dominálja $\cP'$-t és így $\cP$-t is.
@@ -580,12 +580,12 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     ez csak akkor nem függ $\theta$-tól, ha $\sum x_i=\sum y_i$, azaz a mintaösszeg minimális elégséges.
     \item Ugyanez másképp. 
     
-    $\cS$ elégséges $\sigma$-algebra. $\P[\theta]{X\in A|\cS}$ nem függ $\theta$-tól, 
+    $\cS$ elégséges $\sigma$-algebra. $\P[\theta]{X\in A\given \cS}$ nem függ $\theta$-tól, 
     $T_A$ jelöli a közös változatot.
-    \item $S$ a mintaösszeg elégséges, $\E[\theta]{\I{X\in A}-T_A|S}=h(S)$ a közös változat. Ekkor 
+    \item $S$ a mintaösszeg elégséges, $\E[\theta]{\I{X\in A}-T_A\given S}=h(S)$ a közös változat. Ekkor 
     \begin{displaymath}
       \E[\theta]{h(S)}=\E[\theta]{\I{X\in A}-T_A}
-      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I[A]|\cS}}=0.
+      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I[A]\given \cS}}=0.
     \end{displaymath}
     \item $S$ binomiális eloszlású $n$-renddel 
     és $\theta$ paraméterrel:
@@ -593,8 +593,8 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
       0=\E[\theta]{h(S)}=
       \sum_{k=0}^n h(k)\binom n k \theta^k(1-\theta)^{n-k}\quad\text{minden $\theta\in(0,1)$}.
     \end{displaymath}
-    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I[A]-T_A|S}$.
-    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I[A]-\E{T_A|S}$ és $T_A=\I[A]$, vagyis $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
+    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I[A]-T_A\given S}$.
+    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I[A]-\E{T_A\given S}$ és $T_A=\I[A]$, vagyis $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
   \end{itemize}
 \end{frame}
 
@@ -616,11 +616,11 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     Ha $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra, akkor minimális elégséges. 
   \end{theorem}
   \begin{itemize}
-    \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A|\cS}$ közös változat.
-    \item $h(S)=\E[\theta]{\I[A]-T_A|S}=\I[A]-\E{T|S}$ korlátos statisztika, $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
-    \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A|S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
+    \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A\given \cS}$ közös változat.
+    \item $h(S)=\E[\theta]{\I[A]-T_A\given S}=\I[A]-\E{T\given S}$ korlátos statisztika, $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
+    \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A\given S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
     \begin{displaymath}
-      \E[\theta]{(\I[A]-T_A)^2|S}=\E{\I[A]-2\I[A]T_A+T_A^2|S}= \E{T_A^2|S}-\I[A]\leq\E{T_A|S}-\I[A]=0.
+      \E[\theta]{(\I[A]-T_A)^2\given S}=\E{\I[A]-2\I[A]T_A+T_A^2\given S}= \E{T_A^2\given S}-\I[A]\leq\E{T_A\given S}-\I[A]=0.
     \end{displaymath}
     \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
     azaz $\P[\theta]{A\circ \event*{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
@@ -743,55 +743,59 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \end{displaymath}
     %akkor \textbf{exponenciális családról} beszélünk.
   \end{df}
+  \continue
+  Tulajdonságok:
   \begin{itemize}
   \item $T$ elégséges statisztika (Neymann faktorizációs tétel)
-  \item $T$ sőt minimális elégséges, ha $\Theta\subset\real^p$ lineáris burka $\real^p$, 
-  azaz ha $\Theta\subset\real^p$ tartalmazza $\real^p$ egy (lineáris) bázisát.
+  \item $T$ minimális elégséges, ha $\Theta\subset\real^p$ lineáris burka $\real^p$, 
+  azaz ha $\Theta\subset\real^p$ tartalmazza $\real^p$ egy (lineáris) bázisát. 
+  Altérre áttérve ez elérhető.
   
-
-  $T$ mindig választható minimális elégségesnek, elég $P T$-t venni, ahol $P$ merőleges 
-  vetítés  $\Theta$ lineáris burkára.
+  % $T$ mindig választható minimális elégségesnek, elég 
+  % $P T$-t minimális elégséges, ahol $P$ merőleges 
+  % vetítés  $\Theta$ lineáris burkára.
 
   \item Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
   
-  $\lambda$ a domináló mérték, amivel a sűrűség $(*)$ alakú. $\tlambda(H)=\lambda(T\in H)$, $H\in\B(\real^p)$.
+  \end{itemize}
+\end{frame}
 
-  Ha $\E[\theta](h(T))$ létezik és nulla, akkor
+\begin{frame}{Exponenciális család}
+  \begin{df}
+    $\cP$ exponenciális eloszlás család, ha dominált és alkalmas 
+    $\cP=\set*{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ paraméterezéssel 
+    %$\set*{\P[\theta]}{\theta\in\Theta}$ dominált
+    %eloszláscsalád, $\Theta\subset\real^p$ nyílt. Ha 
+    és alkalmas domináló mértékkel, $T:\mfX\to\real^p$ statisztikával 
+    a sűrűségfüggvények alakja 
+    \begin{displaymath}
+      f_{\theta} (x) =\exp{\theta\cdot T(x)-b (\theta)}.\tag{*}
+    \end{displaymath}
+    %akkor \textbf{exponenciális családról} beszélünk.
+  \end{df}
+  \continue
+  Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
+  \begin{itemize}  
+  \item $\lambda$ a domináló mérték, amivel a sűrűség $(*)$ alakú. $\tlambda(H)=\lambda(T\in H)$, $H\in\B(\real^p)$.
+
+  \item Ha minden $\theta\in\Theta$-ra, $\E[\theta](h(T))$ létezik és nulla, akkor
   \begin{displaymath}
     0=\E[\theta]{h(T)}=\int_{\mfX} h\circ T \exp{\theta T-b(\theta)}d\lambda 
     =\int_{\real^p} h(t) \exp{\theta t-b(\theta)}\tlambda(d t)
-    \implies \int_{\real^p} e^{\theta t} h(t)\tlambda(d t),\quad \forall \theta\in\Theta
+    \implies \int_{\real^p} e^{\theta t} h(t)\tlambda(d t). 
+    %,\quad \forall \theta\in\Theta
   \end{displaymath}
 
-  $h d\tlambda$ az azonosan nulla mérték. Tetszőleges $H\in\B(\real^p)$-re
+  \item $h d\tlambda$ az azonosan nulla mérték. Tetszőleges $H\in\B(\real^p)$-re
   \begin{displaymath}
     0=\int_H h d\tlambda=\int_{\mfX} \I{T\in H} h\circ T d\lambda,\quad
     \forall  H\in\B(\real^p)
     \quad\implies\quad \lambda(h\circ T\neq0)=0. 
   \end{displaymath}
   $\P[\theta]{h(T)\neq 0}=0$, azaz $\P[\theta]{h(T)=0}=1$.
-  % \item $T$-nek véges a  momentum generáló függvénye az origó egy
-  %   nyílt környezetében, mert
-  %   \begin{displaymath}
-  %     M (\alpha)=\E[\theta]{e^{\alpha\cdot T}}=\int e^{\alpha\cdot T (x)} f_\theta
-  %     (x)\lambda (d x)=\int e^{\alpha\cdot T (x)+\theta T (x)+b
-  %       (\theta)}\lambda (d x) =
-  %     e^{b (\theta)-b (\theta+\alpha)},\quad\text{ha $\theta,\theta+\alpha\in\Theta$}
-  %   \end{displaymath}
-  
-  % \item Általános összefüggés, visszatérünk rá a következő dián, hogy
-  %   ha a momentum generáló függvény véges az origó egy környezetében,
-  %   akkor ott $C^\infty$ és a nullabeli deriváltak a momentumokat adják.
-  % \item Ebből $\theta\mapsto \ell (\theta,x)=\theta T (x)+b (\theta)$ minden $x$-re sima és
-  %   \begin{align*}
-  %     %-b (\theta+\alpha)&= \log M (\alpha)-b (\theta)&
-  %     -b' (\theta)&= \frac {M'}{M} (0)=\E[\theta]{T},&
-  %     -b'' (\theta)&=\frac {M''M-(M')^2}{M^2} (0)=\D[\theta]^2{T}.
-  %   \end{align*}
-  %   $T$ momentumai végesek mindegyik $\set*{\P[\theta]}{\theta\in \Theta}$)
-  %   alatt.
   \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Példák exponenciális családra}
   \begin{itemize}

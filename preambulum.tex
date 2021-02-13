@@ -13,7 +13,7 @@
 \@ifundefined{texexp}{%
   \let\texexp\exp
   \def\exp{%
-    \texexp\ifbrace\cbr{}%
+    \texexp\ifbrace{\cbr*}{}%
   }
 }\relax
  
