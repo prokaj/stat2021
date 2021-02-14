@@ -100,7 +100,8 @@
 }
 \def\interior{\operatorname{int}}
 \def\tg{\operatorname{tg}}
-\def\zfrac#1#2{\zjel{\frac{#1}{#2}}}
+\DeclarePairedDelimiterX{\zfrac}[2](){\frac{#1}{#2}}
+% \def\zfrac#1#2{\zjel*{\frac{#1}{#2}}}
 
 \newtheorem{df}{Definíció}
 \newtheorem{theorem}{Tétel}

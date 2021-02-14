@@ -275,15 +275,22 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 \end{frame}
 
 \begin{frame}{$\sigma$-algebra teljessé tétele}
-  $A\circ B=(A\setminus B)\cup(B\setminus A)$ az $A$ és $B$ szimmetrikus differenciája.
+  $A\circ B=(A\setminus B)\cup(B\setminus A)=(A\cup B)\setminus(A\cap B)$ 
+  az $A$ és $B$ szimmetrikus differenciája.
   \begin{proposition}
     $(\Omega,\cA)$ mérhető tér. $\cS\subset\cA$ $\sigma$-algebra, 
-    $\cN\subset\cA$ leszálló és $\sigma$-unió zárt. Ekkor
+    $\cN\subset\cA$ (nem üres) leszálló és $\sigma$-unió zárt. Ekkor
     $\cS^*=\set*{S\circ N}{S\in\cS,\,N\in\cN}$ $\sigma$-algebra.
   \end{proposition}
   \begin{itemize}
     \item $(S\circ N)^c=S^c\circ N$,
-    \item $N=(\cup_i (S_i\circ N_i))\circ (\cup_i S_i)\subset \cup N_i$, ezért $N\in\cN$ és
+    \item $N=(\cup_i (S_i\circ N_i))\circ (\cup_i S_i)\subset \cup N_i$, mert
+    \begin{displaymath}
+      (\cup S_i)\setminus (\cup N_i)\subset\cup_i (S_i\circ N_i)\subset (\cup S_i)\cup (\cup N_i)
+    \end{displaymath}   
+
+    $\cup_i N_i\in\cN$ és $N\subset\cup_i N_i$ miatt  $N\in\cN$.
+
     $\cup_i (S_i\circ N_i)= (\cup_i S_i)\circ N\in\cS^*$, ($B\circ(A\circ B)=A$).
   \end{itemize}
 \end{frame}
@@ -307,8 +314,9 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $N=\event*{T\in H}\circ\event*{T'\in H}\subset \event*{T\neq T'}\in\cN(\P[0])$ 
     így $N\in\cN(\P[0])$ 
     és $\event*{T\in H}=\event*{T'\in H}\circ N\in \cS^*$. 
-    \item $\Leftarrow$: $T$ $\cS^*$ mérhető. $\event*{T<q}=H_q\circ N_q$, 
+    \item $\Leftarrow$: $T$ $\cS^*$ mérhető skalár értékű. $\event*{T<q}=H_q\circ N_q$, 
     ahol $H_q\in\cS$ és $N_q\in\cN$.
+
     \pause
     Legyen $T'(x)=\inf\set*{q\in\Q}{x\in H_q}$.
     \pause
@@ -320,6 +328,8 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
       \event*{T<c}\circ\event*{T'<c}=(\cup_{q<c}H_q\circ N_q)\circ(\cup_{q<c}H_q)
       \subset\cup_q N_q\in\cN \quad\implies\quad\P[0]{T\neq T'}=0.
     \end{displaymath}
+    \pause
+    Ha $T:\mfX\to\real^p$, akkor a koordináta leképezésekre a fenti érvelés.
   \end{itemize}  
 \end{frame}
 
@@ -339,31 +349,34 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \begin{itemize}
     \item Ha $S$ minimális elégséges és $T$ elégséges, akkor $\sigma(S)\subset\sigma(S)^*\subset \sigma(T)^*$ 
     és $\P{S=g(T)}=1$ minden $\P\in\cP$-re, alkalmas mérhető $g$-vel.
-    \item Ha $\cP$ dominált, akkor $\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$,
+    \item Ha $\cP$ dominált, akkor $\cS=\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$,
     minimális elégséges $\sigma$-algebra.
     \pause
 
-    $\cS$ pontosan akkor egs, ha $\frac{d\P}{d\P[0]}\sim\cS^*$ minden $\P\in\cP$-re. 
+    $\cS'$ pontosan akkor elégséges, 
+    ha $\frac{d\P}{d\P[0]}\sim(\cS')^*$ minden $\P\in\cP$-re, amiből $\cS\subset(\cS')^*$.
 
-    \item $\cP=\set*{\P[n]}{n\geq1}$ megszámlálható mértékcsalád, akkor 
-    dominált és van minimális elégséges statisztika.
+    \item Ha $\cP=\set*{\P[n]}{n\geq1}$ megszámlálható, % mértékcsalád, 
+    akkor  dominált és van minimális elégséges statisztika.
     \pause
 
     $\P[0]=\sum_n 2^{-n}\P[n]$ domináló mérték.
-
     $\cS=\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$ megszámlálhatóan generált. 
-    Generátorrendszer $\set*{H_n}{n\geq1}$, $S=\sum_n 3^{-n} 2\I[H_n]$, $\cS=\sigma(S)$ 
-    Ez HF. $\event*{\cbr*{3^{n-1} S}>1/2}=H_n$.
+
+    $\cS$ generátorrendszere $\set*{H_n}{n\geq1}$, $T=\sum_n 3^{-n} 2\I[H_n]$, ekkor 
+    $\cS=\sigma(T)$.
+
+    (HF. ellenőrizni, útmutatás: $\event*{\cbr*{3^{n-1} T}>1/2}=H_n$).
 
     \item Ha $\cP_0\subset\cP$, $\cN(\cP_0)=\cN(\cP)$, 
-    továbbá $S$ elégséges $\cP$-re és minimális elégséges $\cP_0$-ra, akkor 
+    továbbá $T$ elégséges $\cP$-re és minimális elégséges $\cP_0$-ra, akkor 
     minimális elégséges $\cP$-re is.
     \pause
 
-    $\cS$ elégséges $\sigma$-algebra $\cP$-re $\implies$ $\cS$ egs. 
-    $\cP_0$-ra, $\sigma(S)^*\subset \cS^*$,
+    $\cS$ elégséges $\sigma$-algebra $\cP$-re $\implies$ $\cS$ elégséges. 
+    $\cP_0$-ra $\implies$ $\sigma(T)^*\subset \cS^*$,
     ahol $\cN(\cP_0)=\cN(\cP)$-vel tettük teljessé a 
-    $\sigma$-algebrákat azaz $S$ minimális egs $\cP$-re.
+    $\sigma$-algebrákat, azaz $T$ minimális elégséges $\cP$-re.
   \end{itemize}
 \end{frame}
 
@@ -372,13 +385,29 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
   \begin{theorem} $\cP=\set*{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
      mértékcsalád az $(\mfX,\B)$ mintatéren.
+
+     Jelölés: $x\sim y$, ha $\Theta_x=\set{\theta\in\Theta}{f_\theta(x)\neq0}=\Theta_y$ és 
+     $\theta\mapsto f_\theta(x)/f_{\theta}(y)$ konstans $\Theta_x=\Theta_y$-on.
     \begin{enumerate}[<*>]
-      \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
-      $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
-      \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
-      $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+      \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, 
+      hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  $x\sim y$.
+      % $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+      \item Ha $S$ elégséges és  $x\sim y$ $\implies$ $Sx=Sy$, akkor $S$ minimális elégséges. 
+      % \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
+      % $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
     \end{enumerate}
   \end{theorem}
+  % $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme. 
+  % \begin{theorem} $\cP=\set*{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
+  %    mértékcsalád az $(\mfX,\B)$ mintatéren.
+  %   \begin{enumerate}[<*>]
+  %     \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
+  %     $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+  %     % \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
+  %     % $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+  %     \item Ha $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól
+  %   \end{enumerate}
+  % \end{theorem}
   1. rész
   \begin{itemize}
     \item $S$ elégséges. A Neymann faktorizációs tétel szerint
@@ -389,16 +418,19 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     
     A megszámlálható sok kivételes halmaz uniójának komplementere legyen $\mfX'$.
     
-    \item Ha $x,y\in\mfX'$ és $S(x)=S(y)$, akkor 
+    \item Ha $x,y\in\mfX'$, akkor $h(x),h(y)\neq0$ és $f_{\theta}(x)=g_\theta(S(x))h(x)$, $f_{\theta}(y)=g_\theta(S(y))h(y)$.
+    %Ha még $S(x)=S(y)$ is teljesül, akkor 
     % $S(x)=S(y)$ esetén 
     \begin{displaymath}
-      \Theta_{x}=\set*{\theta}{f_\theta(x)=g_\theta(S(x))h(x)=0}
-      =\set*{\theta}{f_\theta(y)=g_\theta(S(y))h(y)=0}
+      x,y\in\mfX',\,S(x)=S(y)\implies 
+      \Theta_{x}=\set*{\theta}{%f_\theta(x)=
+        g_\theta(S(x))h(x)=0}
+      =\set*{\theta}{%f_\theta(y)=
+        g_\theta(S(y))h(y)=0}
     \end{displaymath} 
     és $\Theta_x$-en
     % $g_\theta(S(x))$ kiesik, $\set*{\theta}{f_\theta(x)=0}$ 
     $f_\theta(x)/f_\theta(y)=h(x)/h(y)$, ami nem függ $\theta$-tól.
-
   \end{itemize}
 \end{frame}
 
@@ -407,11 +439,16 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
   \begin{theorem} $\cP=\set*{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
      mértékcsalád az $(\mfX,\B)$ mintatéren.
+     
+     Jelölés: $x\sim y$, ha $\Theta_x=\set{\theta\in\Theta}{f_\theta(x)\neq0}=\Theta_y$ és 
+     $\theta\mapsto f_\theta(x)/f_{\theta}(y)$ konstans $\Theta_x=\Theta_y$-on.
     \begin{enumerate}[<*>]
-      \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  
-      $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
-      \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
-      $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+      \item Ha $S$ elégséges, akkor létezik $\mfX'$ teljes mértékű rész úgy, 
+      hogy $x,y\in\mfX'$-re, $S(x)=S(y)$ $\implies$  $x\sim y$.
+      % $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
+      \item Ha $S$ elégséges és $x\sim y$ $\implies$ $Sx=Sy$, akkor $S$ minimális elégséges. 
+      % \item $S$ pontosan akkor minimális elégséges, ha létezik $\mfX'$ teljes mértékű rész és $x,y\in\mfX'$, 
+      % $S(x)=S(y)$ $\iff$  $f_\theta(x)/f_\theta(y)$ nem függ $\theta$-tól.
     \end{enumerate}
   \end{theorem}
   2. rész:
@@ -425,16 +462,18 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
       x,y\in\mfX',\quad T(x)=T(y)
       %\quad 
       \implies %\quad 
-      \text{$\frac{f_\theta(x)}{f_\theta(y)}$ nem függ $\theta$-tól}
+      x\sim y
+      %\text{$\frac{f_\theta(x)}{f_\theta(y)}$ nem függ $\theta$-tól}
       %\quad
       \implies
       %\quad
-      S(x)=S(y)
+      S(x)=S(y).
       %\quad
-      \implies
+      %\implies
       %\quad
-      S(x)=g(T(x)),\quad\text{ha $x\in\mfX'$}.
+      %S(x)=g(T(x)),\quad\text{ha $x\in\mfX'$}.
     \end{displaymath}
+    Azaz valamilyen $g$ függvénnyel $S(x)=g(T(x))$, ha $x\in\mfX'$, $g(T)$ az $S$ egy változata,
     %$S(x)=g(T(x))$ ha $x\in\mfX'$ és 
     $S$ ,,egyszerűbb'' mint $T$, azaz $\sigma(S)^*\subset\sigma(T)^*$.
     \item Ugyanakkor $\sigma(T)^*\subset\sigma(S)^*$, mert $S$ 
@@ -449,7 +488,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \item $x,y\in \mfX'$-re $T(x)=T(y)$ $\implies$ $S(x)=S(y)$. Feltehető, hogy ez mindenhol teljesül.
     
     $\tS(x)=\tg(S(x))\I{x\in \mfX'}+2\I{x\notin\mfX'}$, 
-    $\tT(x)=\tg(T(x))\I{x\in \mfX'}+2\I{x\notin\mfX'}$ módosítással:
+    $\tT(x)=\tg(T(x))\I{x\in \mfX'}+2\I{x\notin\mfX'}$ (koordinátánként): %módosítással:
     \begin{displaymath}
       \sigma(S)^*=\sigma(\tS)^*,\quad \sigma(T)^*=\sigma(\tT)^*,\quad 
       \tT(x)=\tT(y) \implies\tS(x)=\tS(y)
@@ -457,7 +496,8 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \item  Ha $S$, $T$ mérhető és $T(x)=T(y)\implies S(x)=S(y)$, akkor általában \textbf{nem} igaz, 
     hogy $\sigma(S)\subset\sigma(T)$. 
 
-    A tétel bizonyításának vége azon múlik, hogy ha $T:(\mfX,\B(\mfX)\to([0,1],\B([0,1]))$ mérhető, 
+    A tétel bizonyításának vége azon múlik, hogy 
+    ha $T:(\mfX,\B(\mfX)\to(\real^p,\B(\real^p))$ mérhető, 
     ahol $\mfX$ teljes szeparábilis metrikus tér, pl. $\real^n$, akkor 
     \begin{displaymath}
       \sigma(T)=\set*{\event*{T\in H}}{H\in\B(\real)}=\tsigma(T)=\set*{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}
@@ -469,6 +509,35 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
       \tsigma(S)=\set*{A\in\B(\mfX)}{x\in A\implies [x]_S\subset A}\subset
       \tsigma(T)=\set*{A\in\B(\mfX)}{x\in A\implies [x]_T\subset A}.
     \end{displaymath}
+    \item $S$ minimális elégséges $\iff$ $S$-hez létezik $\mfX'$ teljes mértékű úgy, hogy $x,y\in\mfX'$-re $x\sim y$ $\iff$ $S(x)=S(y)$. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Minimális elégséges statisztika jellemzése}
+  $\mfX'\subset\mfX$ teljes mértékű, ha a komplementere $\cN(\cP)$ eleme.
+  \begin{proposition}
+    $\cP=\set*{\P[\theta]=f_\theta d\lambda}{\theta\in\Theta}$ megszámlálható
+    mértékcsalád az $(\mfX,\B)$ mintatéren.
+      
+    Jelölés: $x\sim y$, ha $\Theta_x=\set*{\theta\in\Theta}{f_\theta(x)\neq0}=\Theta_y$ és 
+    $\theta\mapsto f_\theta(x)/f_{\theta}(y)$ konstans $\Theta_x=\Theta_y$-on.
+
+    $S$ pontosan akkor minimális elégséges statisztika, ha megadható olyan $\mfX'$ teljes mértékű része a mintatérnek, 
+    amire $x,y\in\mfX'$ esetén $x\sim y$ $\iff$ $S(x)=S(y)$.
+  \end{proposition}
+  \begin{itemize}
+    \item Legyen $\P[0]=\sum_{\theta} c_\theta\P[\theta]$, ahol $c_\theta>0$, $\sum c_\theta=1$. 
+      Ekkor $\P[0]\in\cP'$ és domináló mérték.
+    \item Ha $S$ minimális elégséges, akkor 
+    $\sigma(S)^*=\sigma^*\zjel*{\set*{\frac{d\P[\theta]}{d\P[0]}}{\theta\in\Theta}}$.
+    \begin{displaymath}
+      \frac{d\P[\theta]}{d\P[0]}=\frac{f_{\theta}}{h}\I{h>0}\sim\sigma(S)^*,\quad h=\sum c_\theta f_\theta
+    \end{displaymath}
+    \item Létezik $\mfX'$ teljes mértékű és $g_\theta$ mérhető függvények, hogy 
+    $f_\theta(x)=g_\theta(S(x))h(x)$, ha $x\in\mfX'$ 
+    és ezzel a választással a feltétel teljesül.
+    \item Megfordítva, $S$ elégséges, és $\mfX'$ komplementerén módosítva $S$-t és $f_\theta$-t 
+    a korábbi elégséges feltétel teljesül. 
   \end{itemize}
 \end{frame}
 
@@ -499,8 +568,10 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     Milyen $x,y$ párokra teljesül, hogy a hányados nem függ $\theta$-tól?
     Csak akkor $x=y$, holott $S=\abs*{X}$ elégséges.
     \item Ha csak megszámlálható $\Theta_0\subset \Theta$ részcsaládot veszünk, akkor 
-    $\mfX'=\real\setminus\Theta_0$ teljes mértékű, és $x,y\in\mfX'$ mellett a módosításnak nincs hatása
-    $\tf_\theta(x)/\tf_\theta(y)$ $\theta$-ban konstans pontosan akkor, ha $\abs*{x}=\abs*{y}$.
+    $\mfX'=\real\setminus\Theta_0$ teljes mértékű,  $T(x)=\abs{x}\I{x\in \mfX'}+x\I{x\notin\mfX'}$.
+    $T(X)=\abs{X}$ majdnem mindenütt és $T$ minimális elégséges a feltétel alapján.
+    %$x,y\in\mfX'$ mellett a módosításnak nincs hatása
+    %$\tf_\theta(x)/\tf_\theta(y)$ $\theta$-ban konstans pontosan akkor, ha $\abs*{x}=\abs*{y}$.
   \end{itemize}
   
 \end{frame}
@@ -610,17 +681,19 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 
     $S$ \textbf{korlátosan teljes}, ha az $S$ \textbf{korlátos} függvényei között csak a 
     lényegében nulla változóra teljesül, hogy  
-    az eloszlás család minden tagja mellett létezik és nulla a várható értéke.
+    az eloszlás család minden tagja mellett  nulla a várható értéke.
   \end{df}
   \begin{theorem}
     Ha $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra, akkor minimális elégséges. 
   \end{theorem}
   \begin{itemize}
     \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A\given \cS}$ közös változat.
-    \item $h(S)=\E[\theta]{\I[A]-T_A\given S}=\I[A]-\E{T\given S}$ korlátos statisztika, $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
+    \item $h(S)=\E[\theta]{\I[A]-T_A\given S}=\I[A]-\E{T_A\given S}$ korlátos statisztika, 
+    $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
     \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A\given S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
     \begin{displaymath}
-      \E[\theta]{(\I[A]-T_A)^2\given S}=\E{\I[A]-2\I[A]T_A+T_A^2\given S}= \E{T_A^2\given S}-\I[A]\leq\E{T_A\given S}-\I[A]=0.
+      \E[\theta]{(\I[A]-T_A)^2\given S}=\E{\I[A]-2\I[A]T_A+T_A^2\given S}
+      = \E{T_A^2\given S}-\I[A]\leq\E{T_A\given S}-\I[A]=0.
     \end{displaymath}
     \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
     azaz $\P[\theta]{A\circ \event*{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
@@ -706,7 +779,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $\nu_{+}$, $\nu_{-}$ véges Borel mértékek,  hiszen $\alpha_0\in A$.
   \item  Ha $\nu_{+} (\real^p)=\nu_{-} (\real^p) = 0$, akkor $h$ $\mu$ majdnem mindenütt
     nulla.
-  \item Ha $\nu_{+}{\real^p}=\nu_{-} (\real^p)>0$, akkor konstanssal
+  \item Ha $\nu_{+}(\real^p)=\nu_{-} (\real^p)>0$, akkor konstanssal
     való szorzás után feltehető, hogy $\nu_{+},\nu_{-}$ valószínűségi
     mértékek. Azt akarjuk megmutatni, hogy ez az eset nem fordulhat
     elő. 
@@ -721,7 +794,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   \item Mivel a momentum generáló függvény az eloszlást meghatározza,
     $\nu_{+}=\nu_{-}$ és %$\nu_{+} (h>0)=\nu_{-} (h>0)=0$
     \begin{displaymath}
-      \nu_{-} (h>0)=0=
+      \nu_{-} (h>0)=0=\nu_{+}(h>0)=
       \int \I{h (x) >0} e^{\alpha_0 x}\abs*{h}_+ (x)\mu (d x)=
       \nu_{+} (\real^p)=1,
       \quad\text{\alert{\Large\Lightning}}
@@ -747,9 +820,18 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
   Tulajdonságok:
   \begin{itemize}
   \item $T$ elégséges statisztika (Neymann faktorizációs tétel)
-  \item $T$ minimális elégséges, ha $\Theta\subset\real^p$ lineáris burka $\real^p$, 
-  azaz ha $\Theta\subset\real^p$ tartalmazza $\real^p$ egy (lineáris) bázisát. 
-  Altérre áttérve ez elérhető.
+  \item 
+  Ha $\Theta\subset\real^p$-ben van $p+1$ általános helyzetű pont, akkor $T$ minimális elégséges.
+
+  $\theta_i\in\Theta$, $i=0,\dots,p$ és $\theta_i-\theta_0$ lineáris burka $\real^p$.  
+  
+  Ekkor, ha $\frac{f_{\theta_i}(x)}{f_{\theta_i}(y)}$ nem függ $\theta$-tól, akkor $(\theta_i-\theta_0)(T(x)-T(y))=0$ 
+  $i=1,\dots,p$ és $T(x)=T(y)$, ami a minimális elégségesség feltétele.
+
+  Exponenciális család mindig megadható úgy is, hogy $T$ minimális elégséges legyen. HF.
+  % lineáris burka $\real^p$, 
+  % azaz ha $\Theta\subset\real^p$ tartalmazza $\real^p$ egy (lineáris) bázisát. 
+  % Altérre áttérve ez elérhető.
   
   % $T$ mindig választható minimális elégségesnek, elég 
   % $P T$-t minimális elégséges, ahol $P$ merőleges 
@@ -862,16 +944,19 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
 
     $n$ elemű minta $U(\theta,\theta+1)$, $\theta\in\real$ eloszlásból.
     A kapott eloszláscsalád nem exponenciális.
-    \item Cauchy eloszlás eltolás paraméteres családja. 
+    \item Cauchy eloszlás eltolás paraméteres családja: $X-\mu\sim \text{Cauchy}$, $\mu\in\real$.
     
-    Ha $X-\mu\sim \text{Cauchy}$, $\mu\in\real$ esetén, $X$ eloszlásainak a családja exponenciális családot alkot, 
-    akkor $n$-elemű minta eloszlásainak a családja ismeretlen
-    \begin{displaymath}
-      \ln f_\mu(x)=\sum_i \ln f_\mu(x_i)=\theta(\mu)T_n(x)-nb(\theta(\mu))+\ln h(x), \quad T_n(x)=\sum_i T(x_i) 
-    \end{displaymath}
-    ahol $\theta,T:\real\to\real^p$. $\theta(0)=0$ feltehető, mert $\theta(0)T_n(x)$ beolvasztható $\ln h(x)$-be. 
+    $X$ eloszlásainak a családja alkothat-e exponenciális családot?
 
-    Feltehető, hogy $\theta$ értékkészletének lineáris burka $\real^p$. Ekkor létezik $\mu_k$ $k=1,\dots,p$, 
+    Indirekt feltevéssel %akkor $n$-elemű minta eloszlásainak a családja ismeretlen
+    \begin{displaymath}
+      \ln f_\mu(x)=\sum_i \ln f_\mu(x_i)=\theta(\mu)T_n(x)-n b(\theta(\mu))+\ln h(x), \quad T_n(x)=\sum_i T(x_i) 
+    \end{displaymath}
+    ahol $\theta,T:\real\to\real^p$. $\theta(0)=0$ feltehető, mert $\theta(0)T_n(x)$ beolvasztható $\ln h(x)$-be 
+    és így a domináló mértékbe.
+
+    Feltehető, hogy $\Theta=\set{\theta(\mu)}{\mu\in\real}$ %értékkészletének 
+    lineáris burka $\real^p$. Ekkor létezik $\mu_k$ $k=1,\dots,p$, 
     hogy $\theta_k=\theta(\mu_k)$, $k=0,\dots,p$ lineárisan függetlenek. Ekkor alkalmas $c_k$ együtthatókkal.
     \begin{displaymath}
       T_n(x)=\sum_{k=1}^p c_k (\ln f_{\mu_k}-\ln f_0)(x).
