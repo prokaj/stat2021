@@ -1,0 +1,345 @@
+%\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Teljesség}
+    \begin{df}
+      $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
+      $S$ statisztika. $S$ \textbf{teljes statisztika} (a $\cP$ eloszláscsaládra nézve), ha 
+      \begin{displaymath}
+        \E[\theta](h(S))=0,\quad\text{minden $\theta\in\Theta$-ra}\implies \P[\theta]{h=0}=1,\quad\text{minden $\theta$-ra}
+      \end{displaymath} 
+      Azaz $S$ teljes, ha az $S$ függvényei között csak a lényegében nulla változóra teljesül, hogy  
+      az eloszlás család minden tagja mellett létezik és nulla a várható értéke.
+  
+      $S$ \textbf{korlátosan teljes}, ha az $S$ \textbf{korlátos} függvényei között csak a 
+      lényegében nulla változóra teljesül, hogy  
+      az eloszlás család minden tagja mellett  nulla a várható értéke.
+    \end{df}
+    \begin{theorem}
+      Ha $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra, akkor minimális elégséges. 
+    \end{theorem}
+    \begin{itemize}
+      \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A\given \cS}$ közös változat.
+      \item $h(S)=\E[\theta]{\I[A]-T_A\given S}=\I[A]-\E{T_A\given S}$ korlátos statisztika, 
+      $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
+      \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A\given S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
+      \begin{displaymath}
+        \E[\theta]{(\I[A]-T_A)^2\given S}=\E{\I[A]-2\I[A]T_A+T_A^2\given S}
+        = \E{T_A^2\given S}-\I[A]\leq\E{T_A\given S}-\I[A]=0.
+      \end{displaymath}
+      \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
+      azaz $\P[\theta]{A\circ \event*{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
+    \end{itemize}  
+  \end{frame}
+  
+  
+  \begin{frame}{Példa. Nem minden minimális elégséges statisztika korlátosan teljes}
+    \begin{itemize}
+      \item $U(\theta,\theta+1)$, $\theta\in\real$ eloszlásból származó, $n\geq2$ elemű minta.
+      \item $S=(X_1^*,X_n^*)$ minimális elégséges statisztika.
+      \item $X_n^*-X_1^*$ eloszlása nem függ $\theta$-tól és $\E[\theta]{X_n^*-X_1^*}=\frac{n-1}{n+1}$.
+      \item $h(S)=(X_n^*-X_1^*)\wedge1-\frac{n-1}{n+1}$ olyan korlátos függvénye $S$-nek, amire
+      \begin{displaymath}
+        \E[\theta]{h(S)}=0,\quad\forall \theta\in\real.
+      \end{displaymath}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{További példa teljes statisztikára}
+    \begin{itemize}
+      \item $N(\theta,1)$ eloszlásból származó $n$ elemű mintánk van.
+      \item $S=\sum X_i\sim N(n\theta,n)$ elégséges statisztika.
+      \item 
+      \begin{displaymath}
+        0=\E[\theta]{h(S)}=\int h(x)\frac{1}{\sqrt{2\pi n}} e^{-\frac{(x-n\theta)^2}{2n}}d x 
+        =C(\theta)\int h(x)e^{-\frac{x^2}{2n}}e^{\theta x}d x\quad\forall\theta\in\real  
+      \end{displaymath} 
+    \end{itemize}
+    \begin{theorem}
+      $h:\real\to\real$ mérhető, $a<b$, 
+      \begin{displaymath}
+        \int h(x)e^{\theta x} d x,\quad\text{létezik és nulla minden $\theta\in(a,b)$-re}.
+      \end{displaymath} 
+      Ekkor $h=0$ Lebesgue majdnem mindenütt.
+    \end{theorem}
+    \begin{itemize}
+      \item A tétel alapján, $h(x)e^{-\frac{x^2}{2n}}=0$ mm. és így $\P[\theta]{h(S)=0}=1$ minden $\theta$-ra
+      \item $S$ teljes és elégséges, ezért minimális elégséges.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Momentum generáló függvény}  
+    $X$ $p$-dimenziós vektor változó, $M_X(t)=\E{e^{t\cdot X}}$, $t\in\real^p$ az $X$ momentum generáló függvénye. 
+    \begin{proposition}
+      Ha $X$ momentum generáló függvénye véges az origó egy
+      környezetében, akkor meghatározza $X$ eloszlását.
+    \end{proposition}
+    \continue
+    Bizonyítás vázlat.
+    \begin{itemize}   
+    \item $X$ skalár változó. $h (z)=h (x+iy)=\E{e^{(x+iy) X}}$  a képzetes tengely körüli
+      sávban definiált és véges. Itt deriválható (komplex értelemben),
+      ezért a valós tengelyen felvett értékek (a momentum generáló függvény)
+      meghatározzák a karakterisztikus függvényt, az pedig az eloszlást.
+   
+    \item $X$ vektor változó. $\alpha$ rögzített vektor, $Y=\alpha\cdot
+      X$ skalár változó. $\E{e^{tY}}=\E{e^{(t\alpha)X}}$, azaz $Y$ eloszlását
+      $X$ momentum generáló függvénye meghatározza.
+    \item $X$ eloszlását az $\alpha\cdot X$ alakú változók eloszlása
+      meghatározza, ugyanis a karakterisztikus függvényekre
+      $\phi_{X} (\alpha)=\phi_{\alpha\cdot X} (1)$.
+    \item Összefoglalva, a momentum generáló függvény meghatározza az
+      egy dimenziós vetületek eloszlását, azok pedig $X$ eloszlását.
+    \end{itemize}
+    
+  \end{frame}
+  
+  \begin{frame}%%{Elégséges feltétel teljességre}
+    \begin{theorem}
+      Legyen $\mu$ mérték $\B (\real^p)$-n, $h:\real^p\to\real$ mérhető és 
+      \begin{displaymath}\textstyle
+        A=\set*{\alpha\in\real^p}{\int e^{\alpha \cdot x}h (x)\mu
+          (dx)=0}%\quad\text{nem üres nyílt}
+      \end{displaymath}
+      Ha $A$-nak létezik belső pontja, akkor $h$ $\mu$ majdnem mindenütt nulla.
+    \end{theorem}
+    \begin{itemize}
+    \item Legyen $\alpha_0\in\interior A$, és
+      \begin{displaymath}
+        \nu_{\pm} (H)=\int e^{\alpha_0x}\abs*{h}_\pm (x) \mu (d x),\quad H\in\B(\real^p).
+      \end{displaymath}
+      $\nu_{+}$, $\nu_{-}$ véges Borel mértékek,  hiszen $\alpha_0\in A$.
+    \item  Ha $\nu_{+} (\real^p)=\nu_{-} (\real^p) = 0$, akkor $h$ $\mu$ majdnem mindenütt
+      nulla.
+    \item Ha $\nu_{+}(\real^p)=\nu_{-} (\real^p)>0$, akkor konstanssal
+      való szorzás után feltehető, hogy $\nu_{+},\nu_{-}$ valószínűségi
+      mértékek. Azt akarjuk megmutatni, hogy ez az eset nem fordulhat
+      elő. 
+      
+    \item A két mérték momentum generáló függvénye az origó egy
+      környezetében azonos, hiszen
+      \begin{displaymath}
+        \int e^{t x}\nu_{+} (d x)-\int e^{t x}\nu_{-} (d x)=\int
+        e^{(t+\alpha_0)x}h (x)\mu (d x)=0
+            \quad\text{ha $\alpha_0+t\in A$.}
+      \end{displaymath}
+    \item Mivel a momentum generáló függvény az eloszlást meghatározza,
+      $\nu_{+}=\nu_{-}$ és %$\nu_{+} (h>0)=\nu_{-} (h>0)=0$
+      \begin{displaymath}
+        \nu_{-} (h>0)=0=\nu_{+}(h>0)=
+        \int \I{h (x) >0} e^{\alpha_0 x}\abs*{h}_+ (x)\mu (d x)=
+        \nu_{+} (\real^p)=1,
+        \quad\text{\alert{\Large\Lightning}}
+      \end{displaymath}
+      % Ez ellentmondás, abból indultunk ki, hogy feltehető, hogy $\nu_{+} (\real^p)=1$.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Exponenciális család}
+    \begin{df}
+      $\cP$ exponenciális eloszlás család, ha dominált és alkalmas paraméterezéssel 
+      $\cP=\set*{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ 
+      %$\set*{\P[\theta]}{\theta\in\Theta}$ dominált
+      %eloszláscsalád, $\Theta\subset\real^p$ nyílt. Ha 
+      valamint alkalmas domináló mértékkel, $T:\mfX\to\real^p$ statisztikával 
+      a sűrűségfüggvények alakja 
+      \begin{displaymath}
+        f_{\theta} (x) =\exp{\theta\cdot T(x)-b (\theta)}.\tag{*}
+      \end{displaymath}
+      %akkor \textbf{exponenciális családról} beszélünk.
+    \end{df}
+    \continue
+    Tulajdonságok:
+    \begin{itemize}
+    \item $T$ elégséges statisztika (Neymann faktorizációs tétel)
+    \item 
+    Ha $\Theta\subset\real^p$-ben van $p+1$ általános helyzetű pont, akkor $T$ minimális elégséges.
+  
+    $\theta_i\in\Theta$, $i=0,\dots,p$ és $\theta_i-\theta_0$ lineáris burka $\real^p$.  
+    
+    Ekkor, ha $\frac{f_{\theta_i}(x)}{f_{\theta_i}(y)}$ nem függ $\theta$-tól, 
+    akkor $(\theta_i-\theta_0)(T(x)-T(y))=0$, 
+    $i=1,\dots,p$ és $T(x)=T(y)$, ami a minimális elégségesség feltétele.
+  
+    Exponenciális család mindig megadható úgy is, hogy $T$ minimális elégséges legyen. HF.
+    % lineáris burka $\real^p$, 
+    % azaz ha $\Theta\subset\real^p$ tartalmazza $\real^p$ egy (lineáris) bázisát. 
+    % Altérre áttérve ez elérhető.
+    
+    % $T$ mindig választható minimális elégségesnek, elég 
+    % $P T$-t minimális elégséges, ahol $P$ merőleges 
+    % vetítés  $\Theta$ lineáris burkára.
+  
+    \item Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
+    
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Exponenciális család}
+    \begin{df}
+      $\cP$ exponenciális eloszlás család, ha dominált és alkalmas 
+      $\cP=\set*{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ paraméterezéssel 
+      %$\set*{\P[\theta]}{\theta\in\Theta}$ dominált
+      %eloszláscsalád, $\Theta\subset\real^p$ nyílt. Ha 
+      és alkalmas domináló mértékkel, $T:\mfX\to\real^p$ statisztikával 
+      a sűrűségfüggvények alakja 
+      \begin{displaymath}
+        f_{\theta} (x) =\exp{\theta\cdot T(x)-b (\theta)}.\tag{*}
+      \end{displaymath}
+      %akkor \textbf{exponenciális családról} beszélünk.
+    \end{df}
+    \continue
+    Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
+    \begin{itemize}  
+    \item $\lambda$ a domináló mérték, amivel a sűrűség $(*)$ alakú. $\tlambda(H)=\lambda(T\in H)$, $H\in\B(\real^p)$.
+  
+    \item Ha minden $\theta\in\Theta$-ra, $\E[\theta](h(T))$ létezik és nulla, akkor
+    \begin{displaymath}
+      0=\E[\theta]{h(T)}=\int_{\mfX} h\circ T \exp{\theta T-b(\theta)}d\lambda 
+      =\int_{\real^p} h(t) \exp{\theta t-b(\theta)}\tlambda(d t)
+      \implies \int_{\real^p} e^{\theta t} h(t)\tlambda(d t). 
+      %,\quad \forall \theta\in\Theta
+    \end{displaymath}
+  
+    \item $h d\tlambda$ az azonosan nulla mérték. Tetszőleges $H\in\B(\real^p)$-re
+    \begin{displaymath}
+      0=\int_H h d\tlambda=\int_{\mfX} \I{T\in H} h\circ T d\lambda,\quad
+      \forall  H\in\B(\real^p)
+      \quad\implies\quad \lambda(h\circ T\neq0)=0. 
+    \end{displaymath}
+    $\P[\theta]{h(T)\neq 0}=0$, azaz $\P[\theta]{h(T)=0}=1$.
+    \end{itemize}
+  \end{frame}
+  
+  
+  \begin{frame}{Példák exponenciális családra}
+    \begin{itemize}
+      \item $n$ elemű minta $\exp(\theta)$, $\theta>0$ eloszlásból, $\mfX=(0,\infty)^n$, $\lambda$ a Lebesgue mérték.
+      \begin{displaymath}
+        f_\theta(x) = \theta^n\exp{-\theta\sum x_i},\quad T(x)=-\sum x_i,\quad b(\theta)=-n\ln\theta.
+      \end{displaymath}
+      \item $n$ elemű indikátor minta, $p\in(0,1)$ paraméterrel, $\mfX=\smallset*{0,1}^n$, 
+       $\lambda$ a számláló mérték
+      \begin{align*}
+        f_\theta(x)&=p^{\sum x_i}(1-p)^{n-\sum x_i}=\zfrac*{p}{1-p}^{\sum x_i} (1-p)^n\\
+        &=\exp{\theta T(x) - b(\theta)},\quad \theta=\ln\frac{p}{1-p}, \quad p =\frac{1}{1+e^{-\theta}},\quad 
+        T(x)=\sum x_i,\quad 
+        b(\theta)= n\ln(1+e^{\theta})
+      \end{align*}
+      \item $N(\mu,\sigma^2)$ eloszlásból származó $n$ elemű minta. $\mfX=\real^n$ $\mu\in\real$, $\sigma^2>0$. 
+      Sűrűségfüggvény a Lebesgue mértékre.
+      \begin{align*}
+        f_{\mu,\sigma^2}(x)&=\frac{1}{(2\pi)^{n/2}\sigma^n}\exp{-\frac1{2\sigma^2}\sum(x_i-\mu)^2}\\
+        &=\exp{-\frac{1}{2\sigma^2}\sum x_i^2+\frac{\mu}{\sigma^2}\sum x_i -\tilde b(\mu,\sigma^2)},
+        \quad \theta=\zjel*{\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2}}, \quad T(x)=\zjel*{-\sum x_i^2,\sum x_i}.
+      \end{align*}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{$T$ nem mindig teljes}
+    \begin{itemize}
+      \item $N(\mu,\sigma^2)$ eloszlásból származó minta $\mu=\sigma^2$  ismeretlen.
+      
+      Átparaméterezés után $\theta(\mu,\sigma^2)=(\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2})$,
+      $\Theta=\set*{(\tau,1)}{\tau>0}$. $T(x)=(-\sum x_i^2,\sum x_i)$ minimális elégséges.
+  
+      \item $n=2$, 
+      \begin{align*}
+        \E{T_1}&= \E{-(X_1^2+X_2^2)}=-2(\sigma^2+\mu^2),\\
+        \E{T_2}&= \E{(X_1+X_2)} =2\mu,\quad
+        \E{T^2_2}=\E{(X_1+X_2)^2} = 2\sigma^2+(2\mu)^2
+      \end{align*}
+      \item 
+      \begin{displaymath}
+        \E{2T_1+T_2^2 + T_2} = -4(\sigma^2+\mu^2)+2\sigma^2+4\mu^2+2\mu=2\mu-2\sigma^2=0  
+      \end{displaymath}
+      $\E[\theta]{h(T)}=0$, minden $\theta=(\tau,1)$-re, ha 
+      $h(t_1,t_2)=2t_1+t_2^2+ t_2$.   
+      $\E[\theta]{h(T)}=0$ miden $\theta$-ra, de $\P[\theta]{h(T)=0}=0$.
+      \begin{displaymath}
+        h(T(X))=-(X_1-X_2)^2+2(X_1+X_2)
+        %\P[\theta]{-X_1^2+X_1=c}=\P[\theta]{X_1\in\smallset*{x_1,x_2}}=0, 
+        %\quad x_{1,2}=\frac{1\pm\sqrt{1-4c}}{2} 
+      \end{displaymath}
+      Itt $(X_1-X_2,X_1+X_2)$ független nem elfajult normális változók, 
+      így $\P[\theta]{h(T)=0}=0$ minden $\theta\in\Theta$-ra. 
+      % \begin{displaymath}
+      %   \P[\theta]{h(T)=0}=\P[\theta]{-X_1^2+X_1=\sum_{k=2}^n -X_k^2+X_k}=0.
+      % \end{displaymath}
+  
+    \end{itemize}  
+  \end{frame}
+  
+  \end{document}
+  \begin{frame}{Nem minden eloszláscsalád exponenciális}
+    \begin{itemize}
+      \item Ha $\cP$ exponenciális eloszláscsalád, akkor $\P\in\cP$ mértékek sűrűségek mindenhol pozitívak, 
+      azaz ekvivalensek.
+  
+      $n$ elemű minta $U(\theta,\theta+1)$, $\theta\in\real$ eloszlásból.
+      A kapott eloszláscsalád nem exponenciális.
+      \item Cauchy eloszlás eltolás paraméteres családja: $X-\mu\sim \text{Cauchy}$, $\mu\in\real$.
+      
+      $X$ eloszlásainak a családja alkothat-e exponenciális családot?
+  
+      Indirekt feltevéssel %akkor $n$-elemű minta eloszlásainak a családja ismeretlen
+      \begin{displaymath}
+        \ln f_\mu(x)=\sum_i \ln f_\mu(x_i)=\theta(\mu)T_n(x)-n b(\theta(\mu))+\ln h(x), \quad T_n(x)=\sum_i T(x_i) 
+      \end{displaymath}
+      ahol $\theta,T:\real\to\real^p$. $\theta(0)=0$ feltehető, mert $\theta(0)T_n(x)$ beolvasztható $\ln h(x)$-be 
+      és így a domináló mértékbe.
+  
+      Feltehető, hogy $\Theta=\set{\theta(\mu)}{\mu\in\real}$ %értékkészletének 
+      lineáris burka $\real^p$. Ekkor létezik $\mu_k$ $k=1,\dots,p$, 
+      hogy $\theta_k=\theta(\mu_k)$, $k=0,\dots,p$ lineárisan függetlenek. Ekkor alkalmas $c_k$ együtthatókkal.
+      \begin{displaymath}
+        T_n(x)=\sum_{k=1}^p c_k (\ln f_{\mu_k}-\ln f_0)(x).
+      \end{displaymath}
+      $n>p+1$ esetén $T_n(x)=T_n(y)$ akkor is előfordul, ha $x^*\neq y^*$, ami ellentmond annak, hogy a 
+      rendezett minta minimális elégséges statisztika.
+  
+    \end{itemize}
+    
+  \end{frame}
+  
+  \end{document}
+  
+  \begin{frame}{Momentum generáló függvény, deriválhatóság}
+    \begin{proposition}
+      Ha $M (\alpha)=\E{e^{\alpha\cdot X}}<\infty$, az origó egy környezetében,
+      akkor ott  $M$ deriválható.
+    \end{proposition}
+    \begin{itemize}
+      
+    \item  Létezik $\eps>0$, hogy $\E{e^{h\norm{X}}}<\infty$, ha
+      $h<\eps$.
+  
+      $\real^p$ a normák ekvivalensek, elég
+      $\norm{x}_{1}=\frac1p \sum \abs*{x_i}$-re számolni. Mivel $\exp$
+      konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
+      %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
+      \begin{displaymath}
+        e^{h\abs*{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
+        \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
+      \end{displaymath}
+      ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
+    \item ha $\norm{\alpha}$ kicsi, akkor
+      $\abs**{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
+      \begin{displaymath}
+        M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
+        =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad 
+        \partial_{i_1,\dots,i_k}M (0) =\E{\prod_{j}X_{i_j}}
+      \end{displaymath}
+    \end{itemize}
+  
+  \end{frame}
+  
+  \end{document}
+  

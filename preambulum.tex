@@ -5,7 +5,6 @@
 
 % \usepackage{pvdefs}
 \usepackage{etoolbox,mathtools}
-\usepackage[mathcal]{euscript}
 
 %\makeatletter
 \def\ifbrace{\@ifnextchar{\bgroup}}
@@ -101,7 +100,9 @@
 \def\interior{\operatorname{int}}
 \def\tg{\operatorname{tg}}
 \DeclarePairedDelimiterX{\zfrac}[2](){\frac{#1}{#2}}
-% \def\zfrac#1#2{\zjel*{\frac{#1}{#2}}}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
 
 \newtheorem{df}{Definíció}
 \newtheorem{theorem}{Tétel}
@@ -146,6 +147,7 @@
 \RequirePackage[math-style=TeX, bold-style=upright]{unicode-math}
 \setmathfont{Latin Modern Math}[Scale=1]
 \setsansfont[Ligatures=TeX, ItalicFont={Fira Sans Italic}, BoldFont={Fira Sans SemiBold}, Scale=0.9]{Fira Sans Book}
+\usepackage[mathcal]{euscript}
 
 % Title page
 \setbeamerfont{title}{
