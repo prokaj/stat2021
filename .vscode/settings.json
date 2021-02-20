@@ -2,6 +2,7 @@
     "latex-workshop.latex.recipe.default": "latexmk (lualatex)",
     "latex-workshop.latex.outDir": "./output",
     "spellright.language": [
+        "en_US",
         "hu_HU"
     ],
     "spellright.documentTypes": [

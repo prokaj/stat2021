@@ -22,6 +22,7 @@
 \DeclarePairedDelimiter{\zjel}{(}{)}
 \DeclarePairedDelimiter\br\lbrack\rbrack
 \DeclarePairedDelimiter\event\lbrace\rbrace
+\DeclarePairedDelimiter{\norm}{\|}{\|}
 \let\smallset\event
 \let\cbr\event
 \DeclarePairedDelimiterX\set[2]\{\}{%
@@ -41,15 +42,24 @@
   }%
 }
 \DeclarePairedDelimiterX\PEzjel[1](){\redefgiven{\delimsize}#1}
+\def\aftersuperscript#1^#2{%
+  ^{#2}#1%
+}
 \newcommand{\PE}[1][]{%
   \PEfont{\Pe}%
   \ifblank{#1}{}{_{#1}}%
-  \ifbrace{\PEzjel*}{}%
+  \@ifnextchar{^}{%
+    \aftersuperscript{\ifbrace{\PEzjel*}{}}%
+    }{%
+      \ifbrace{\PEzjel*}{}%
+    }%
+  %\ifbrace{\PEzjel*}{}%
 }
 \newcommand{\E}{\def\Pe{E}\PE}
 \newcommand{\D}{\def\Pe{D}\PE}
 \renewcommand{\P}{\def\Pe{P}\PE}
 
+\def\cov{\operatorname{cov}}
 \let\eps\varepsilon
 \def\ito/{It\^o}
 \let\Ito=\ito

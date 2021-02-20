@@ -8,7 +8,96 @@
 
 \maketitle
 
+\begin{frame}{Ismétlés. Elégséges és minimális elégséges statisztika}
+  \begin{df}
+    $S$ elégséges a $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsaládra nézve, ha 
+    a $\P[\theta]{X\in A\given  S}$ feltételes eloszlásoknak létezik közös változata.
+
+    $S$ minimális elégséges, ha elégséges  és $\sigma(S)^*\subset\cS^*$ 
+    tetszőleges $\cS$ elégséges $\sigma$-algebrára.
+  \end{df}
+  \begin{theorem}[Neyman faktoriációs tétel]
+    Dominált családban 
+    $S$ pontosan akkor elégséges, ha $f_\theta=(g_\theta\circ S)\cdot h$ alakban írható.
+  \end{theorem}
+  \begin{theorem}[Egyszerűsített, majdnem mindig igaz változat]
+    $\cP$ dominált. $S$ elégséges  statisztika pontosan akkor minimális elégséges, ha
+    $x\sim y$ $\iff$ $S(x)=S(y)$,
+    ahol $x\sim y$, ha $\Theta_x=\set{\theta}{f_\theta(x)\neq0}=\Theta_y$ és 
+    $\theta\mapsto\frac{f_\theta(x)}{f_\theta(y)}$ konstans $\Theta_x=\Theta_y$-on.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Példa, Indikátor minta}
+  \begin{itemize}
+    \item $\Theta=(0,1)$, $\mfX=\smallset*{0,1}^n$, 
+      $f_\theta(x)=\P[\theta]{X=x}=\theta^{s}(1-\theta)^{n-s}$, ahol $s=\sum x_i$.
+    \item $S=\sum X_i$ minimális elégségessége másképp.
+    \item $\cS$ elégséges $\sigma$-algebra. $\P[\theta]{X\in A\given \cS}$ nem függ $\theta$-tól, 
+    $T_A$ jelöli a közös változatot.
+    \item $S$ a mintaösszeg elégséges, $\E[\theta]{\I{X\in A}-T_A\given S}=h(S)$ a közös változat. Ekkor 
+    \begin{displaymath}
+      \E[\theta]{h(S)}=\E[\theta]{\I{X\in A}-T_A}
+      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I[A]\given \cS}}=0.
+    \end{displaymath}
+    \item $S$ binomiális eloszlású $n$-renddel 
+    és $\theta$ paraméterrel:
+    \begin{displaymath}
+      0=\E[\theta]{h(S)}=
+      \sum_{k=0}^n h(k)\binom n k \theta^k(1-\theta)^{n-k}\quad\text{minden $\theta\in(0,1)$}.
+    \end{displaymath}
+    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I[A]-T_A\given S}$.
+    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I[A]-\E{T_A\given S}=0$, azaz $\E{\E{\I[A]\given \cS}\given S}=\I[A]$.
+    \item A feltételes várható érték képzés $L^2$-ben merőleges vetítés, 
+    ha nem csökkenti az $L^2$ normát akkor nem is változtathat. 
+    \item $\I[A]\sim \cS^*$  minden $A\in\sigma(S)$-re, vagyis $\sigma(S)\subset \cS^*$, 
+    amiből $\sigma(S)^*\subset\cS^*$ és $\sigma(S)$ minimális elégséges.    
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}{Teljesség}
+    \begin{df} 
+      $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
+      $S$ statisztika. $S$ \textbf{teljes statisztika} (a $\cP$ eloszláscsaládra nézve), ha 
+      \begin{displaymath}
+        \E[\theta](h(S))=0,\quad\text{minden $\theta\in\Theta$-ra}\implies \P[\theta]{h(S)=0}=1,\quad\text{minden $\theta$-ra}
+      \end{displaymath} 
+      Azaz $S$ teljes, ha az $S$ függvényei között csak a lényegében nulla változóra teljesül, hogy  
+      az eloszlás család minden tagja mellett létezik és nulla a várható értéke.
+  
+      $S$ \textbf{korlátosan teljes}, ha az $S$ \textbf{korlátos} függvényei között csak a 
+      lényegében nulla változóra teljesül, hogy  
+      az eloszlás család minden tagja mellett  nulla a várható értéke.
+    \end{df}
+    \continue
+    $S$ teljessége az $S$ eloszlásai családjának tulajdonsága.
+  
+    pl. $\cP$ dominált: $f_\theta=\frac{d\P[\theta]}{d\lambda}$ a % $\lambda$ 
+    % domináló mértékre vonatkozó 
+    sűrűségek. %$d\tlambda= hd\lambda$ és 
+    Ekkor $S:\mfX\to\real^p$ eloszlásainak családját $\mu=\lambda\circ S^{-1}$ dominálja: %abszolút folytonos $\mu$-re nézve:
+    \begin{displaymath}
+      0=\mu(H)=\lambda(S\in H)\quad\implies\quad (\P[\theta]\circ S^{-1})(H)=\P[\theta]{S\in H}=\int_{S\in H} f_\theta d\lambda=0,\quad\forall \theta. 
+      % \P[\theta]{S\in H}=\int_\mfX\I{S(x)\in H}f_\theta\lambda(d x)
+      %                   =\int_{\real^p}\I{s\in H}g_\theta(s)\mu(d s).
+    \end{displaymath}
+    Azaz, $S$ eloszlásainak van sűrűségfüggvénye $\mu$-re nézve % domináló mértékre nézve, 
+    % legyen 
+    $\tf_\theta=\frac{d(\P[\theta]\circ S^{-1})}{d\mu}$.
+    $S$ teljes, ha 
+    \begin{displaymath}
+      \set{h}{\text{$\int_{\real^p} h\tf_\theta d\mu$ létezik és 0 minden $\theta$-ra}}
+      =\set{h}{\text{$h\tf_\theta=0$ a $\mu$ majdnem mindenütt minden $\theta$-ra}}
+    %   \E[\theta]{h(S)}=\int_{\real^p}h(s)g_\theta(s)\mu(d s)=0,
+    %   \forall \theta\in\Theta
+    %   \quad\implies\quad
+    %   \P[\theta]{h(S)\neq 0}=\int_{\real^p} \I{h(s)\neq0} g_\theta(s)\mu(d s)=0,\forall \theta\in\Theta.
+    \end{displaymath}
+  \end{frame}
+  
+
+  \begin{frame}{Teljesség}
     \begin{df}
       $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
       $S$ statisztika. $S$ \textbf{teljes statisztika} (a $\cP$ eloszláscsaládra nézve), ha 
@@ -26,21 +115,22 @@
       Ha $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra, akkor minimális elégséges. 
     \end{theorem}
     \begin{itemize}
-      \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A\given \cS}$ közös változat.
-      \item $h(S)=\E[\theta]{\I[A]-T_A\given S}=\I[A]-\E{T_A\given S}$ korlátos statisztika, 
+      \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A\given  \cS}$ közös változat.
+      \item $h(S)=\E[\theta]{\I[A]-T_A\given  S}=\I[A]-\E{T_A\given  S}$ korlátos statisztika, 
       $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
-      \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A\given S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
+      \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A\given  S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
       \begin{displaymath}
-        \E[\theta]{(\I[A]-T_A)^2\given S}=\E{\I[A]-2\I[A]T_A+T_A^2\given S}
-        = \E{T_A^2\given S}-\I[A]\leq\E{T_A\given S}-\I[A]=0.
+        \E[\theta]{(\I[A]-T_A)^2\given  S}=\E{\I[A]-2\I[A]T_A+T_A^2\given  S}
+        = \E{T_A^2\given  S}-\I[A]\leq\E{T_A\given  S}-\I[A]=0.
       \end{displaymath}
       \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
       azaz $\P[\theta]{A\circ \event*{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
-    \end{itemize}  
+    \end{itemize}
   \end{frame}
+
   
-  
-  \begin{frame}{Példa. Nem minden minimális elégséges statisztika korlátosan teljes}
+  \begin{frame}{Példa. Nem minden minimális elégséges statisztika korlátosan teljes 
+    és nem minden teljes statisztika elégséges}
     \begin{itemize}
       \item $U(\theta,\theta+1)$, $\theta\in\real$ eloszlásból származó, $n\geq2$ elemű minta.
       \item $S=(X_1^*,X_n^*)$ minimális elégséges statisztika.
@@ -49,6 +139,10 @@
       \begin{displaymath}
         \E[\theta]{h(S)}=0,\quad\forall \theta\in\real.
       \end{displaymath}
+      \item A $T=0$ konstans statisztika teljes tetszőleges eloszláscsaládra nézve, de csak a triviális esetben elégséges.
+      \item HF. $X$ $n=2$ elemű minta $U(0,\theta)$, $\theta>0$ eloszlásból. 
+      Ekkor $T(x)=x_1+x_2$ teljes, de nem elégséges. 
+       
     \end{itemize}
   \end{frame}
   
@@ -105,8 +199,8 @@
     \begin{theorem}
       Legyen $\mu$ mérték $\B (\real^p)$-n, $h:\real^p\to\real$ mérhető és 
       \begin{displaymath}\textstyle
-        A=\set*{\alpha\in\real^p}{\int e^{\alpha \cdot x}h (x)\mu
-          (dx)=0}%\quad\text{nem üres nyílt}
+        A=\set*{\alpha\in\real^p}{\text{$\int_{\real^p} e^{\alpha \cdot x}h (x)\mu
+          (dx)$ létezik és nulla}}%\quad\text{nem üres nyílt}
       \end{displaymath}
       Ha $A$-nak létezik belső pontja, akkor $h$ $\mu$ majdnem mindenütt nulla.
     \end{theorem}
@@ -158,7 +252,7 @@
     \continue
     Tulajdonságok:
     \begin{itemize}
-    \item $T$ elégséges statisztika (Neymann faktorizációs tétel)
+    \item $T$ elégséges statisztika (Neyman faktorizációs tétel)
     \item 
     Ha $\Theta\subset\real^p$-ben van $p+1$ általános helyzetű pont, akkor $T$ minimális elégséges.
   
@@ -182,7 +276,7 @@
     \end{itemize}
   \end{frame}
   
-  \begin{frame}{Exponenciális család}
+  \begin{frame}{Exponenciális család teljessége}
     \begin{df}
       $\cP$ exponenciális eloszlás család, ha dominált és alkalmas 
       $\cP=\set*{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ paraméterezéssel 
@@ -217,8 +311,7 @@
     $\P[\theta]{h(T)\neq 0}=0$, azaz $\P[\theta]{h(T)=0}=1$.
     \end{itemize}
   \end{frame}
-  
-  
+   
   \begin{frame}{Példák exponenciális családra}
     \begin{itemize}
       \item $n$ elemű minta $\exp(\theta)$, $\theta>0$ eloszlásból, $\mfX=(0,\infty)^n$, $\lambda$ a Lebesgue mérték.
@@ -240,6 +333,11 @@
         &=\exp{-\frac{1}{2\sigma^2}\sum x_i^2+\frac{\mu}{\sigma^2}\sum x_i -\tilde b(\mu,\sigma^2)},
         \quad \theta=\zjel*{\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2}}, \quad T(x)=\zjel*{-\sum x_i^2,\sum x_i}.
       \end{align*}
+      \item HF. A gyakorlaton szereplő további ,,szép'' eloszláscsaládok: geometriai, Poisson, Gamma, Béta, stb. 
+      mind exponenciális családot alkotnak. 
+
+      Kivételek: ha a minimális elégséges statisztika a rendezett minta pl. Cauchy eltolás paraméteres család, 
+      ill. amikor az eloszlások tartója nem közös, pl. ,,egyenletes eloszlás''.
     \end{itemize}
   \end{frame}
   
@@ -277,7 +375,278 @@
     \end{itemize}  
   \end{frame}
   
+  \begin{frame}{Basu tétele}
+    \begin{df}
+      $T$ kísérő (ancillary) statisztika (a $\cP$ eloszláscsaládra nézve), ha 
+      $\P{T\in A}$ nem függ $\P\in\cP$-től, azaz $T$ eloszlása azonos mindegyik $\P\in\cP$ mellett.
+    \end{df}
+    \begin{theorem}
+      Ha $T$ kísérő statisztika, $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra nézve, 
+      akkor $T$ és $S$ független mindegyik $\P\in\cP$ mellett.
+    \end{theorem}
+    \continue
+    $\P[\theta]\in\cP=\set{\P[\theta]}{\theta\in\Theta}$
+    \begin{displaymath}
+      \P[\theta]{T\in A\given S}-\P[\theta]{T\in A}=h(S)  
+    \end{displaymath}
+    mert $S$ elégséges és $T$ kísérő.  $\E[\theta]{h(S)}=\P[\theta]{T\in A}-\P[\theta]{T\in A}=0$. 
+    Mivel $S$ korlátosan teljes, ezért $\P[\theta]{h(S)=0}=1$ miden $\theta$-ra, azaz $\P[\theta]{T\in A\given S}=\P[\theta]{T\in A}$ és
+    \begin{displaymath}
+      \P[\theta]{T\in A, S\in B}=\E[\theta]{\P{T\in A\given  S}\I{S\in B}}
+      =\P[\theta]{T\in A}\P[\theta]{S\in B}, \quad\text{minden $A,B$-re}
+    \end{displaymath}
+  \end{frame}
+
+  \begin{frame}{Példák kísérő statisztikákra}
+    \begin{itemize}
+      \item $X_1,\dot,X_n$ exponenciális eloszlású minta $\lambda>0$ paraméterrel. $T_i=X_i/\sum X_i$, $T=(T_1,\dots,T_n)$. 
+      Ekkor $T$ kísérő statisztika, ugyanis $\P[\lambda]$ alatt $X$ ugyanolyan eloszlású, mint $\frac1\lambda Z$, ahol $Z_1,\dots,Z_n$
+      független egységnyi paraméterű exponenciálisok és $T$ kiszámításakor $\lambda$ kiesik. $S=\sum X_i$ teljes és elégséges, 
+      azaz $T$ és $S$ független.
+
+      Sűrűségtranszformációs formulával is könnyen ellenőrizhető.
+
+      Ugyanígy kísérő $T'$, ha $T'_i=X_i/\norm{X}_2$ és $T'$ és $S$ is független.
+      \item Hasonlóan tetszőleges skálaparaméteres családban $X/\norm{X}_p$ kísérő statisztika.
+      \item $X_1,\dots,X_n$ $N(\mu,\sigma^2)$ eloszlású minta, ahol $\mu\in\real$, $\sigma>0$. Ekkor $X$ ugyanolyan eloszlású,
+       mint $\mu+\sigma Z$, ahol $Z_1,\dots,Z_n$ független standard normálisok. Így 
+       \begin{displaymath}
+        T(X)=\frac{X_1-\bar{X}}{s_n(X)}\eqinlaw\frac{Z_1-\bar{Z}}{s_n(Z)}
+        \quad\text{kísérő statisztika, ahol} \bar{X}=\frac1n\sum_i X_i,\quad\text{és}\quad
+        s_n^2(X)=\frac1n\sum_i {X_i-\bar{X}}^2
+       \end{displaymath}
+       $S=(\sum X_i,\sum X_i^2)$ teljes és elégséges, vagyis független $T$-től.
+    \end{itemize}  
+  \end{frame}
+  
+  \begin{frame}{Rao-Backwell-Kolmogorov tétel}
+    \begin{df}
+      $\cP=\set{\P[\theta]}{\theta\in \Theta}$. $g:\Theta\to\real$. 
+
+      $T$ statisztika a $g(\theta)$ torzítatlan becslése, ha $\E[\theta]{T}=g(\theta)$.
+
+      $T$ a $g(\theta)$ hatásos becslése, ha torzítatlan 
+      és tetszőleges $T'$ torzítatlan becslésre $\D[\theta]^2{T}\leq\D[\theta]^2{T'}$.
+    \end{df}
+    \begin{theorem}
+      $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g:\Theta\to\real$-re. Ekkor $\E[\theta]{T\given  S}=h(S)$ 
+      közös változata torzítatlan $g(\theta)$-ra és $\D[\theta]^2{h(S)}\leq \D[\theta]^2{T}$.
+
+      Ha az $S$ statisztika teljes is, akkor $\E[\theta]{T\given  S}$ hatásos becslés.
+    \end{theorem}
+    \begin{itemize}
+      \item $S$ elégséges, ezért $h(S)=\E[\theta]{T\given  S}$ nem függ $\theta$-tól!
+      \item $\E[\theta]{h(S)}=\E[\theta]{T}=g(\theta)$ a teljes várható érték tétel miatt, azaz $h(S)$ torzítatlan.
+      \item $\D[\theta]^2(h(S))=\E[\theta]{(h(S)-g(\theta))^2}\leq \E[\theta]{(T-g(\theta))^2}=\D[\theta]^2(T)$, mert
+      \begin{displaymath}
+        (h(S)-g(\theta))^2=\zjel{\E[\theta]{T\given  S}-g(\theta)}^2\leq\E{(T-g(\theta))^2\given  S}
+      \end{displaymath}
+      a Jensen egyenlőtlenség szerint.
+    \end{itemize}
+    
+  \end{frame}
+
+  \begin{frame}{Rao-Backwell-Kolmogorov tétel}
+    \begin{df}
+      $\cP=\set{\P[\theta]}{\theta\in \Theta}$. $g:\Theta\to\real$. 
+
+      $T$ statisztika a $g(\theta)$ torzítatlan becslése, ha $\E[\theta]{T}=g(\theta)$.
+
+      $T$ a $g$ hatásos becslése, ha torzítatlan 
+      és tetszőleges $T'$ torzítatlan becslésre $\D[\theta]^2{T}\leq\D[\theta]^2{T'}$.
+    \end{df}
+    \begin{theorem}
+      $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g:\Theta\to\real$-re. Ekkor $\E[\theta]{T\given  S}=h(S)$ 
+      közös változata torzítatlan $g(\theta)$-ra és $\D[\theta]^2{h(S)}\leq \D[\theta]^2{T}$.
+
+      Ha az $S$ statisztika teljes is, akkor $\E[\theta]{T\given  S}$ hatásos becslés.
+    \end{theorem}
+    \begin{itemize}
+      \item Ha $S$ teljes és elégséges,  $T,T'$ tetszőleges torzítatlan becslések $g(\theta)$-ra. $h(S)=\E[\theta]{T\given  S}$.
+      \item $\E[\theta]{T-T'\given  S}=\th(S)$ és $\E[\theta]{\th(S)}=g(\theta)-g(\theta)=0$ így $\th(S)=0$ és $\E{T'\given  S}=h(S)$.
+      \item  $\D^2{h(S)}\leq \D^2{T'}$ tetszőleges $T'$ torzítatlan becslésre, vagyis $\E{T\given  S}$ hatásos.
+    \end{itemize}
+    \continue
+    \begin{itemize}
+      \item $W(t,\theta)$ \textbf{veszteségfüggvény}, pl. $W(t,\theta)=\abs{t-g(\theta)}^2$ a négyzetes veszteségfüggvény. 
+      $R_T(\theta)=\E[\theta]{W(T,\theta)}$ a $T$ becslés \textbf{rizikó}ja. 
+      A torzítatlan becslések körében a négyzetes rizikó a szórásnégyzet. 
+      \item $W$ az első változóban konvex, $S$ teljes és elégséges, $T$ torzítatlan, akkor 
+      $\E[\theta]{T\given  S}$ közös változata minimális rizikójú a torzítatlan becslések között: $R_T\leq R_{T'}$ tetszőleges 
+      torzítatlan $T'$-re. % becslésre.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Példa}
+    \begin{itemize}
+      \item $X_1,\dots,X_n$ $n$ elemű indikátor minta $p\in(0,1)$ paraméterrel. 
+      $S=\sum X_i$ teljes és elégséges. $g(p)=p^k$, ahol $1\leq k\leq n$.
+      
+      $T(X)=\I{X_1=1,\dots,X_k=1}$ torzítatlan becslés $p^k$-ra. $\E{T\given  S}$ hatásos.
+      \begin{align*}
+        \E{T\given  S=s}&=\frac{\P{T=1,S=s}}{S=s}\\
+        &=\frac{\P{T=1,\sum_{i=k+1}^n X_i=s-k}}{\P{S=s}}=
+        \begin{cases}
+          0&\text{ha $s<k$}\\
+          \frac{p^k\binom{n-k}{s-k}p^{s-k}(1-p)^{(n-k)-(s-k)}}{\binom{n}s p^s(1-p)^{n-s}}=\frac{s\cdots(s-(k-1))}{n\cdots(n-(k-1))}&\text{ha $k\leq s\leq n$}
+        \end{cases}
+      \end{align*}
+      $\E{T\given  S}=\frac{S}n\cdot\frac{S-1}{n-1}\cdots\frac{S-(k-1)}{n-(k-1)}$ hatásos becslés $p^k$-ra.
+    \end{itemize}  
+  \end{frame}
+
+  \begin{frame}{Példa}
+    \begin{itemize}
+      \item Egy gépről kikerülő termék jellemző mérete, például sugara $R\sim N(\mu,\sigma^2)$ eloszlású, $\mu>0,\sigma^2>0$. 
+      \item A termék selejtes, ha $R>c$, ahol $c$ adott konstans.
+      \item $n$ elemű $X_1,\dots,X_n$ minta alapján szeretnénk a selejt arányt becsülni.
+      \item $S=(\sum X_i,\sum X_i^2)$ teljes elégséges statisztika.
+      \item $T=\I{X_1>c}$ torzítatlan becslés a selejt arányra.
+      \begin{displaymath}
+        \E{T\given  S}=\P{X_1>c\given  S}=\P{\frac{X_1-\bar{X}}{s_n(X)}>\frac{c-\bar{X}}{s_n(X)}\given  S}  
+      \end{displaymath}
+      Itt $\eta=\frac{X_1-\bar{X}}{s_n(X)}$ kísérő statisztika és $S$-től független
+      $\bar{X}=\frac1n\sum X_i$, $s^2_n(X)=\frac1n\sum X_i^2-\zjel{\frac1n\sum X_i}^2$ a feltételből kiolvasható.
+      \begin{displaymath}
+        \E{T\given  S}=\P{\eta>\frac{c-\bar{X}}{s_n(X)}\given  S}
+        =\P{\eta>x}|_{x=\frac{c-\bar{X}}{s_n(X)}}
+        =1-F_\eta\zfrac*{c-\bar{X}}{s_n(X)}.
+      \end{displaymath}
+      \item $\eta$-ról kiszámolható, hogy 
+      $\frac{1}{n-1}\eta^2\sim\text{Béta}(\frac12,\frac{n-2}2)$ és $\eta\eqinlaw-\eta$, azaz 
+      $\eta$ szimmetrikus eloszlású, amiből $F_\eta$ megkapható.
+    \end{itemize}
+  \end{frame}
+
+  
+  \begin{frame}{Alsó korlát torzítatlan becslés szórásnégyzetére}
+    \begin{itemize}
+      \item $\P[0]$ $\P[1]$ eloszlások, $f_0$, $f_1$ sűrűséggel az $\mfX$ mintatéren, $\P[1]\ll\P[0]$.
+      \item $T$ statisztika, $\E[i]{T}=g(i)$ $i=0,1$. 
+      \begin{displaymath}
+        g(1)-g(0)=\E[1]{T}-\E[0]{T}=\E[0]{T\zjel*{\frac{f_1}{f_0}-1}}
+      \end{displaymath}
+      \item $\E[0]{f_1/f_0-1}=0$ és $U=f_1/f_0-1$ jelöléssel
+      \begin{displaymath}
+        \abs{g(1)-g(0)}=\abs{\cov_0(T,U)}\leq\D[0]{T}\D[0]{U}
+        \quad\implies\quad
+        \D[0]^2{T}\geq \frac{(g(1)-g(0))^2}{\D[0]^2(U)}.
+      \end{displaymath}
+    \end{itemize}
+    \continue
+    Példa
+    \begin{itemize}
+      \item $X$ $n$ elemű minta $U(0,\theta)$ eloszlásból, $\theta>0$.
+      \item $T$ torzítatlan becslés $\theta$-ra. 
+      \item $0< \theta_1=\alpha\theta_0<\theta_0$, mellett $\P[1]\ll\P[0]$ és 
+      $U(x)=\frac{f_1(x)}{f_0(x)}-1$, 
+      $\frac{f_1(x)}{f_0(x)}%=\zfrac*{\theta_0}{\theta_1}^n\I{\max x_i<\theta_1}
+      =\alpha^{-n}\I{\max x_i<\theta_1}$.
+      \begin{displaymath}
+        \D[0]^2{U}=\E[0]{U^2}=\E{\zfrac*{f_1}{f_0}^2}-1=\alpha^{-n}-1
+        %\zjel*{\alpha^{-n}-1}^2\cdot\zfrac*{\theta_1}{\theta_0}^n
+        %+1^2\cdot\zjel*{1-\zfrac*{\theta_1}{\theta_0}^n}=\alpha^{-n}-1
+        \implies \D[0]^2{T}\geq 
+        \theta_0^2 \sup_{\alpha\in(0,1)}\frac{(1-\alpha)^2}{\alpha^{-n}-1}
+        \geq C\frac{\theta_0^2}{n^2},\quad\zjel{\alpha=1-\tfrac1n}.
+        %\frac{(1-\alpha^n)^2}{\alpha^n}+1-\alpha^n(1-\alpha^n)\alpha^{-n}=\alpha^{-n}+1
+      \end{displaymath}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Példa. Indikátor minta}
+    % \begin{itemize}
+    %   \item $\P[0]$ $\P[1]$ eloszlások, $f_0$, $f_1$ sűrűséggel az $\mfX$ mintatéren, $\P[1]\ll\P[0]$.
+    %   \item $T$ statisztika, $\E[i]{T}=g(i)$ $i=0,1$. 
+    %   \item $\E[0]{f_1/f_0-1}=0$ és $U=f_1/f_0-1$ jelöléssel
+    %   \begin{displaymath}
+    %     \abs{g(1)-g(0)}=\abs{\cov_0(T,U)}\leq\D[0]{T}\D[0]{U}
+    %     \quad\implies\quad
+    %     \D[0]^2{T}\geq \frac{(g(1)-g(0))^2}{\D[0]^2(U)}.
+    %   \end{displaymath}
+    % \end{itemize}
+    % \continue
+    % Példa
+    \begin{itemize}
+      \item $X$ $n$ elemű minta $\theta$ paraméterű indikátor mintából, $\theta\in(0,1)$. 
+      \item $T$ torzítatlan becslés $p(\theta)$-ra, ahol $p$ legfeljebb $n$-edfokú polinom. 
+      \item $\P[\theta]$ ekvivalens a számláló mértékkel minden $\theta$ mellett és 
+      $\theta_1,\theta_0\in(0,1)$ esetén 
+      \begin{displaymath}
+        \lim_{\theta_1\to\theta_0}\frac1{\theta_1-\theta_0}\zjel*{\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}-1}
+        =\partial_\theta \ln f_{\theta_0}(x)=\frac{s}{\theta_0}-\frac{n-s}{1-\theta_0},\quad\text{ahol $s=\sum x_i$}.
+        % \frac{f_{\theta_1(x)}}{f_\theta_0(x)}=\frac{\theta_1^s(1-\theta_1)^{n-s}}{\theta_0^s(1-\theta_0)^{n-s}},\quad\text{ahol $s=\sum x_i$},
+        % \quad
+        % \E[\theta_0]{\zfrac{f_{\theta_1}}{f_\theta_0}^2}
+        % =\sum_{s=0}^n \binom{n}{s}\frac{\theta_1^{2s}(1-\theta_1)^{2(n-s)}}{\theta_0^s(1-\theta_0)^{n-s}}
+        % =\zjel*{\frac{\theta^2_1}{\theta_0}+\frac{(1-\theta_1)^2}{1-\theta_0}}^n=
+      \end{displaymath}
+      \item 
+      \begin{displaymath}
+        p'(\theta_0)=\lim_{\theta_1\to\theta_0}\frac{\E[\theta_0]{T\zjel*{\frac{f_{\theta_1}}{f_{\theta_0}}-1}}}{\theta_1-\theta_0}
+        =\cov_{\theta_0}(T,\partial_\theta\ln f_{\theta_0})\leq \D[\theta_0]{T}\D[\theta_0]{\partial_\theta\ln f_{\theta_0}}
+      \end{displaymath}
+      \item
+      \begin{displaymath}
+        \D[\theta]{T}\geq \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}.
+      \end{displaymath}
+      Ez a Cramer-Rao egyenlőtlenség speciális esete.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Cramer-Rao egyenlőtlenség, információs határ}
+    \begin{theorem}
+    \begin{itemize}[<*>]
+      \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált család $f_\theta$ sűrűségekkel, $\Theta\subset\real^p$. 
+      \item $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a \textbf{loglikelihood} függvény. 
+      \item $\theta\in\interior\Theta$, $\ell'=\ell'(\theta)=\partial_\theta\ell(\theta)$ ($p$-dimenziós sorvektor) 
+      létezik és $\E[\theta]{\ell'}=0$.
+      \item $I(\theta)=\Sigma_\theta((\ell'(\theta))^T)
+      =\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. $I(\theta)$ neve \textbf{Fisher információ}.
+      \item $T:\mfX\to\real^q$ statisztikára $g(\theta)=\E[\theta]{T}$ deriválható és 
+      $g'(\theta)=\E[\theta]{T\ell'(\theta)}$
+    \end{itemize}
+    Ekkor 
+    \begin{displaymath}
+      \Sigma_{\theta}(T)\leq G I^{-1}(\theta)G^T,\quad\text{ahol $G=g'(\theta)\in\real^{q\times p}$ és }
+    \end{displaymath}
+    \end{theorem}
+    \begin{itemize}
+      \item $A\in\real^{q\times p}$ mátrixszal $T-A\partial_\theta\ell(\theta)$ $q$-dimenziós vektor változó.
+      % \item $\ell'=\partial_\theta\ell(\theta)$ jelöléssel 
+      \begin{align*}
+        0\leq \Sigma_\theta(T-A(\ell')^T)
+        &=\Sigma_\theta(T)-A\E[\theta]{(\ell')^T T^T}-\E[\theta]{T\ell'}A^T+A\E[\theta]{(\ell')^T\ell'}A^T \\
+        &=\Sigma_\theta(T)-AG^T-GA^T+A I(\theta) A^T 
+      \end{align*}
+      \item Ha itt $A=G^TI^{-1}(\theta)$, akkor
+       \begin{displaymath}
+         0\leq \Sigma_\theta(T)-G^TI^{-1}(\theta)G\quad\implies\quad \Sigma_\theta(T)\geq G^TI^{-1}(\theta) G.
+       \end{displaymath}
+    \end{itemize}
+    %\continue
+    %$I(\theta)$ neve \textbf{Fisher} információ. Az ún. \textbf{gyenge regularitási feltétel} garantálja, hogy
+    %a $T$-re kirótt  minimális feltételek mellett a tétel feltételei teljesüljenek.
+  \end{frame}
+
+  \begin{frame}{Fisher információ}
+    
+  \end{frame}
+
+  \begin{frame}{Gyenge regularitási feltétel}
+    
+  \end{frame}
+
+  \begin{frame}{Fisher információ tulajdonságai gyenge regularitási feltétel mellett}
+    
+  \end{frame}
+  
+  \begin{frame}
+  
+  \end{frame}
+
   \end{document}
+
   \begin{frame}{Nem minden eloszláscsalád exponenciális}
     \begin{itemize}
       \item Ha $\cP$ exponenciális eloszláscsalád, akkor $\P\in\cP$ mértékek sűrűségek mindenhol pozitívak, 
