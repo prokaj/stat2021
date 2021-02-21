@@ -343,35 +343,32 @@
   
   \begin{frame}{$T$ nem mindig teljes}
     \begin{itemize}
-      \item $N(\mu,\sigma^2)$ eloszlásból származó minta $\mu=\sigma^2$  ismeretlen.
+      \item $N(\mu,\sigma^2)$ eloszlásból származó minta $\mu=\sigma$  ismeretlen.
       
       Átparaméterezés után $\theta(\mu,\sigma^2)=(\tfrac1{2\sigma^2},\tfrac\mu{\sigma^2})$,
-      $\Theta=\set*{(\tau,1)}{\tau>0}$. $T(x)=(-\sum x_i^2,\sum x_i)$ minimális elégséges.
+      $\Theta=\set*{(\tau,\sqrt{2\tau})}{\tau>0}$. $T(x)=(-\sum x_i^2,\sum x_i)$ minimális elégséges.
   
       \item $n=2$, 
       \begin{align*}
-        \E{T_1}&= \E{-(X_1^2+X_2^2)}=-2(\sigma^2+\mu^2),\\
+        \E{T_1}&= \E{-(X_1^2+X_2^2)}=-2(\sigma^2+\mu^2)=-4\sigma^2,\\
         \E{T_2}&= \E{(X_1+X_2)} =2\mu,\quad
-        \E{T^2_2}=\E{(X_1+X_2)^2} = 2\sigma^2+(2\mu)^2
+        \E{T^2_2}=\E{(X_1+X_2)^2} = 2\sigma^2+(2\mu)^2=6\sigma^2
       \end{align*}
       \item 
       \begin{displaymath}
-        \E{2T_1+T_2^2 + T_2} = -4(\sigma^2+\mu^2)+2\sigma^2+4\mu^2+2\mu=2\mu-2\sigma^2=0  
+        \E[\theta]{3T_1+2T_2^2} =0
       \end{displaymath}
-      $\E[\theta]{h(T)}=0$, minden $\theta=(\tau,1)$-re, ha 
-      $h(t_1,t_2)=2t_1+t_2^2+ t_2$.   
+      $\E[\theta]{h(T)}=0$, minden $\theta=(\tau,\sqrt{2\tau})$ paraméterre, ha 
+      $h(t_1,t_2)=3t_1+2t_2^2$.   
       $\E[\theta]{h(T)}=0$ miden $\theta$-ra, de $\P[\theta]{h(T)=0}=0$.
       \begin{displaymath}
-        h(T(X))=-(X_1-X_2)^2+2(X_1+X_2)
-        %\P[\theta]{-X_1^2+X_1=c}=\P[\theta]{X_1\in\smallset*{x_1,x_2}}=0, 
-        %\quad x_{1,2}=\frac{1\pm\sqrt{1-4c}}{2} 
+        h(T(X))=-3(X_1^2+X_2^2)+2(X_1+X_2)^2=4X_1X_2-(X_1^2+X_2^2)=3X_2^2-(X_1-2X_2)^2
       \end{displaymath}
-      Itt $(X_1-X_2,X_1+X_2)$ független nem elfajult normális változók, 
-      így $\P[\theta]{h(T)=0}=0$ minden $\theta\in\Theta$-ra. 
-      % \begin{displaymath}
-      %   \P[\theta]{h(T)=0}=\P[\theta]{-X_1^2+X_1=\sum_{k=2}^n -X_k^2+X_k}=0.
-      % \end{displaymath}
-  
+      és 
+      \begin{displaymath}
+        \P[\theta]{h(T)=0}=\E[\theta]{\P[\theta]{3X_2^2-(X_1-2X_2)^2=0\given X_2}}
+        \E[\theta]{\P[\theta]{(X_1-2x)^2=3x^2}|_{x=X_2}}=0.
+      \end{displaymath}
     \end{itemize}  
   \end{frame}
   
@@ -399,7 +396,7 @@
 
   \begin{frame}{Példák kísérő statisztikákra}
     \begin{itemize}
-      \item $X_1,\dot,X_n$ exponenciális eloszlású minta $\lambda>0$ paraméterrel. $T_i=X_i/\sum X_i$, $T=(T_1,\dots,T_n)$. 
+      \item $X_1,\dots,X_n$ exponenciális eloszlású minta $\lambda>0$ paraméterrel. $T_i=X_i/\sum X_i$, $T=(T_1,\dots,T_n)$. 
       Ekkor $T$ kísérő statisztika, ugyanis $\P[\lambda]$ alatt $X$ ugyanolyan eloszlású, mint $\frac1\lambda Z$, ahol $Z_1,\dots,Z_n$
       független egységnyi paraméterű exponenciálisok és $T$ kiszámításakor $\lambda$ kiesik. $S=\sum X_i$ teljes és elégséges, 
       azaz $T$ és $S$ független.
