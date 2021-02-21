@@ -87,8 +87,8 @@
     $\tf_\theta=\frac{d(\P[\theta]\circ S^{-1})}{d\mu}$.
     $S$ teljes, ha 
     \begin{displaymath}
-      \set{h}{\text{$\int_{\real^p} h\tf_\theta d\mu$ létezik és 0 minden $\theta$-ra}}
-      =\set{h}{\text{$h\tf_\theta=0$ a $\mu$ majdnem mindenütt minden $\theta$-ra}}
+      \set*{h}{\text{$\int_{\real^p} h\tf_\theta d\mu$ létezik és 0 minden $\theta$-ra}}
+      =\set*{h}{\text{$h\tf_\theta=0$ a $\mu$ majdnem mindenütt minden $\theta$-ra}}
     %   \E[\theta]{h(S)}=\int_{\real^p}h(s)g_\theta(s)\mu(d s)=0,
     %   \forall \theta\in\Theta
     %   \quad\implies\quad
@@ -290,19 +290,20 @@
       %akkor \textbf{exponenciális családról} beszélünk.
     \end{df}
     \continue
-    Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
+    \textbf{Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.}
     \begin{itemize}  
     \item $\lambda$ a domináló mérték, amivel a sűrűség $(*)$ alakú. $\tlambda(H)=\lambda(T\in H)$, $H\in\B(\real^p)$.
   
     \item Ha minden $\theta\in\Theta$-ra, $\E[\theta](h(T))$ létezik és nulla, akkor
     \begin{displaymath}
-      0=\E[\theta]{h(T)}=\int_{\mfX} h\circ T \exp{\theta T-b(\theta)}d\lambda 
-      =\int_{\real^p} h(t) \exp{\theta t-b(\theta)}\tlambda(d t)
-      \implies \int_{\real^p} e^{\theta t} h(t)\tlambda(d t). 
+      0=\E[\theta]{h(T)}=\int_{\mfX} h\circ T e^{\theta T-b(\theta)}d\lambda 
+      =\int_{\real^p} h(t) e^{\theta t-b(\theta)}\tlambda(d t)
+      \implies \set*{\theta}{\int_{\real^p} e^{\theta t} h(t)\tlambda(d t)=0}=\Theta. 
       %,\quad \forall \theta\in\Theta
     \end{displaymath}
   
-    \item $h d\tlambda$ az azonosan nulla mérték. Tetszőleges $H\in\B(\real^p)$-re
+    \item $\interior\Theta\neq\emptyset$ $\implies$ $h d\tlambda$ az azonosan nulla mérték. 
+    Tetszőleges $H\in\B(\real^p)$-re, pl. $H=\event{h>0}$ és $H=\event{h<0}$
     \begin{displaymath}
       0=\int_H h d\tlambda=\int_{\mfX} \I{T\in H} h\circ T d\lambda,\quad
       \forall  H\in\B(\real^p)
@@ -359,8 +360,8 @@
         \E[\theta]{3T_1+2T_2^2} =0
       \end{displaymath}
       $\E[\theta]{h(T)}=0$, minden $\theta=(\tau,\sqrt{2\tau})$ paraméterre, ha 
-      $h(t_1,t_2)=3t_1+2t_2^2$.   
-      $\E[\theta]{h(T)}=0$ miden $\theta$-ra, de $\P[\theta]{h(T)=0}=0$.
+      $h(t_1,t_2)=3t_1+2t_2^2$.
+      \item $\E[\theta]{h(T)}=0$ minden $\theta$-ra, de $\P[\theta]{h(T)=0}=0$.
       \begin{displaymath}
         h(T(X))=-3(X_1^2+X_2^2)+2(X_1+X_2)^2=4X_1X_2-(X_1^2+X_2^2)=3X_2^2-(X_1-2X_2)^2
       \end{displaymath}
@@ -389,7 +390,8 @@
       \P[\theta]{T\in A\given S}-\P[\theta]{T\in A}=h(S)  
     \end{displaymath}
     mert $S$ elégséges és $T$ kísérő.  $\E[\theta]{h(S)}=\P[\theta]{T\in A}-\P[\theta]{T\in A}=0$. 
-    Mivel $S$ korlátosan teljes, ezért $\P[\theta]{h(S)=0}=1$ miden $\theta$-ra, azaz $\P[\theta]{T\in A\given S}=\P[\theta]{T\in A}$ és
+    Mivel $S$ korlátosan teljes, ezért $\P[\theta]{h(S)=0}=1$ miden $\theta$-ra, 
+    azaz $\P[\theta]{T\in A\given S}=\P[\theta]{T\in A}$ és
     \begin{displaymath}
       \P[\theta]{T\in A, S\in B}=\E[\theta]{\P{T\in A\given  S}\I{S\in B}}
       =\P[\theta]{T\in A}\P[\theta]{S\in B}, \quad\text{minden $A,B$-re}
@@ -398,16 +400,20 @@
 
   \begin{frame}{Példák kísérő statisztikákra}
     \begin{itemize}
-      \item $X_1,\dots,X_n$ exponenciális eloszlású minta $\lambda>0$ paraméterrel. $T_i=X_i/\sum X_i$, $T=(T_1,\dots,T_n)$. 
-      Ekkor $T$ kísérő statisztika, ugyanis $\P[\lambda]$ alatt $X$ ugyanolyan eloszlású, mint $\frac1\lambda Z$, ahol $Z_1,\dots,Z_n$
-      független egységnyi paraméterű exponenciálisok és $T$ kiszámításakor $\lambda$ kiesik. $S=\sum X_i$ teljes és elégséges, 
+      \item $X_1,\dots,X_n$ exponenciális eloszlású minta $\lambda>0$ paraméterrel. 
+      $T_i=X_i/\sum X_i$, $T=(T_1,\dots,T_n)$. 
+      Ekkor $T$ kísérő statisztika, ugyanis $\P[\lambda]$ alatt 
+      $X$ ugyanolyan eloszlású, mint $\frac1\lambda Z$, ahol $Z_1,\dots,Z_n$
+      független egységnyi paraméterű exponenciálisok 
+      és $T$ kiszámításakor $\lambda$ kiesik. $S=\sum X_i$ teljes és elégséges, 
       azaz $T$ és $S$ független.
 
       Sűrűségtranszformációs formulával is könnyen ellenőrizhető.
 
       Ugyanígy kísérő $T'$, ha $T'_i=X_i/\norm{X}_2$ és $T'$ és $S$ is független.
       \item Hasonlóan tetszőleges skálaparaméteres családban $X/\norm{X}_p$ kísérő statisztika.
-      \item $X_1,\dots,X_n$ $N(\mu,\sigma^2)$ eloszlású minta, ahol $\mu\in\real$, $\sigma>0$. Ekkor $X$ ugyanolyan eloszlású,
+      \item $X_1,\dots,X_n$ $N(\mu,\sigma^2)$ eloszlású minta, ahol $\mu\in\real$, $\sigma>0$. 
+      Ekkor $X$ ugyanolyan eloszlású,
        mint $\mu+\sigma Z$, ahol $Z_1,\dots,Z_n$ független standard normálisok. Így 
        \begin{displaymath}
         T(X)=\frac{X_1-\bar{X}}{s_n(X)}\eqinlaw\frac{Z_1-\bar{Z}}{s_n(Z)}
@@ -417,6 +423,18 @@
        $S=(\sum X_i,\sum X_i^2)$ teljes és elégséges, vagyis független $T$-től.
     \end{itemize}  
   \end{frame}
+  
+  \begin{frame}{Példa kísérő statisztikára, ahol Basu tétele nem alkalmazható}
+    \begin{itemize}
+      \item $X_1,\dots,X_n$ $n\geq2$ elemű minta $U(\theta,\theta+1)$ eloszlásból, $\theta\in\real$.
+      \item $S=(X_1^*,X^*_n)$ minimális elégséges statisztika. 
+      \item $\theta$ eltolás paraméter, $T=X_n^*-X_1^*$ kísérő statisztika.
+      \item $T$ nem független $S$-től, 
+      mert $T$ $S$ függvénye és nem elfajult eloszlású.
+      \item Nincs ellentmondás. $S$ nem korlátosan teljes.
+    \end{itemize}
+  \end{frame}
+
   
   \begin{frame}{Rao-Backwell-Kolmogorov tétel}
     \begin{df}
@@ -428,7 +446,8 @@
       és tetszőleges $T'$ torzítatlan becslésre $\D[\theta]^2{T}\leq\D[\theta]^2{T'}$.
     \end{df}
     \begin{theorem}
-      $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g:\Theta\to\real$-re. Ekkor $\E[\theta]{T\given  S}=h(S)$ 
+      $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g:\Theta\to\real$-re. 
+      Ekkor $\E[\theta]{T\given  S}=h(S)$ 
       közös változata torzítatlan $g(\theta)$-ra és $\D[\theta]^2{h(S)}\leq \D[\theta]^2{T}$.
 
       Ha az $S$ statisztika teljes is, akkor $\E[\theta]{T\given  S}$ hatásos becslés.
@@ -480,16 +499,20 @@
 
   \begin{frame}{Példa}
     \begin{itemize}
-      \item $X_1,\dots,X_n$ $n$ elemű indikátor minta $p\in(0,1)$ paraméterrel. 
-      $S=\sum X_i$ teljes és elégséges. $g(p)=p^k$, ahol $1\leq k\leq n$.
+      \item $X_1,\dots,X_n$ $n$ elemű indikátor minta $p\in(0,1)$ paraméterrel. $S=\sum X_i$ teljes és elégséges.
+      \item 
+      \item $\E[p]{T}=\sum_{x\in\mfX} T(x) p^{S(x)}(1-p)^{n-S(x)}$ a  $p$ legfeljebb $n$-ed fokú polinomja.
+      \item Becsüljük $g(p)=p^k$, ahol $1\leq k\leq n$.
       
-      $T(X)=\I{X_1=1,\dots,X_k=1}$ torzítatlan becslés $p^k$-ra. $\E{T\given  S}$ hatásos.
+      \item $T(X)=\I{X_1=1,\dots,X_k=1}$ torzítatlan becslés $p^k$-ra. $\E{T\given  S}$ hatásos.
+      \item 
       \begin{align*}
         \E{T\given  S=s}&=\frac{\P{T=1,S=s}}{S=s}\\
         &=\frac{\P{T=1,\sum_{i=k+1}^n X_i=s-k}}{\P{S=s}}=
         \begin{cases}
           0&\text{ha $s<k$}\\
-          \frac{p^k\binom{n-k}{s-k}p^{s-k}(1-p)^{(n-k)-(s-k)}}{\binom{n}s p^s(1-p)^{n-s}}=\frac{s\cdots(s-(k-1))}{n\cdots(n-(k-1))}&\text{ha $k\leq s\leq n$}
+          \frac{p^k\binom{n-k}{s-k}p^{s-k}(1-p)^{(n-k)-(s-k)}}{\binom{n}s p^s(1-p)^{n-s}}
+          =\frac{s\cdots(s-(k-1))}{n\cdots(n-(k-1))}&\text{ha $k\leq s\leq n$}
         \end{cases}
       \end{align*}
       $\E{T\given  S}=\frac{S}n\cdot\frac{S-1}{n-1}\cdots\frac{S-(k-1)}{n-(k-1)}$ hatásos becslés $p^k$-ra.
@@ -498,7 +521,8 @@
 
   \begin{frame}{Példa}
     \begin{itemize}
-      \item Egy gépről kikerülő termék jellemző mérete, például sugara $R\sim N(\mu,\sigma^2)$ eloszlású, $\mu>0,\sigma^2>0$. 
+      \item Egy gépről kikerülő termék jellemző mérete, 
+      például sugara $R\sim N(\mu,\sigma^2)$ eloszlású, $\mu>0,\sigma^2>0$. 
       \item A termék selejtes, ha $R>c$, ahol $c$ adott konstans.
       \item $n$ elemű $X_1,\dots,X_n$ minta alapján szeretnénk a selejt arányt becsülni.
       \item $S=(\sum X_i,\sum X_i^2)$ teljes elégséges statisztika.
@@ -589,7 +613,7 @@
       \end{displaymath}
       \item
       \begin{displaymath}
-        \D^2[\theta]{T}\geq \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}.
+        \D[\theta]^2{T}\geq \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}.
       \end{displaymath}
       Ez a Cramer-Rao egyenlőtlenség speciális esete.
     \end{itemize}
@@ -601,7 +625,7 @@
       \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált család $f_\theta$ sűrűségekkel, $\Theta\subset\real^p$. 
       \item $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a \textbf{loglikelihood} függvény. 
       \item $\theta\in\interior\Theta$, $\ell'=\ell'(\theta)=\partial_\theta\ell(\theta)$ ($p$-dimenziós sorvektor) 
-      létezik és $\E[\theta]{\ell'}=0$.
+      létezik és $\E[\theta]{\ell'(\theta)}=0$.
       \item $I(\theta)=\Sigma_\theta((\ell'(\theta))^T)
       =\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. $I(\theta)$ neve \textbf{Fisher információ}.
       \item $T:\mfX\to\real^q$ statisztikára $g(\theta)=\E[\theta]{T}$ deriválható és 
