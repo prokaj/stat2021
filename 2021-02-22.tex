@@ -375,10 +375,12 @@
   \begin{frame}{Basu tétele}
     \begin{df}
       $T$ kísérő (ancillary) statisztika (a $\cP$ eloszláscsaládra nézve), ha 
-      $\P{T\in A}$ nem függ $\P\in\cP$-től, azaz $T$ eloszlása azonos mindegyik $\P\in\cP$ mellett.
+      $\P{T\in A}$ nem függ $\P\in\cP$-től, 
+      azaz $T$ eloszlása azonos mindegyik $\P\in\cP$ mellett.
     \end{df}
     \begin{theorem}
-      Ha $T$ kísérő statisztika, $S$ korlátosan teljes és elégséges a $\cP$ eloszláscsaládra nézve, 
+      Ha $T$ kísérő statisztika, $S$ korlátosan teljes és elégséges a 
+      $\cP$ eloszláscsaládra nézve, 
       akkor $T$ és $S$ független mindegyik $\P\in\cP$ mellett.
     \end{theorem}
     \continue
@@ -409,8 +411,8 @@
        mint $\mu+\sigma Z$, ahol $Z_1,\dots,Z_n$ független standard normálisok. Így 
        \begin{displaymath}
         T(X)=\frac{X_1-\bar{X}}{s_n(X)}\eqinlaw\frac{Z_1-\bar{Z}}{s_n(Z)}
-        \quad\text{kísérő statisztika, ahol} \bar{X}=\frac1n\sum_i X_i,\quad\text{és}\quad
-        s_n^2(X)=\frac1n\sum_i {X_i-\bar{X}}^2
+        \quad\text{kísérő statisztika, ahol  $\bar{X}=\frac1n\sum_i X_i$ és 
+        $s_n^2(X)=\frac1n\sum_i {X_i-\bar{X}}^2$}.
        \end{displaymath}
        $S=(\sum X_i,\sum X_i^2)$ teljes és elégséges, vagyis független $T$-től.
     \end{itemize}  
@@ -446,14 +448,15 @@
   \begin{frame}{Rao-Backwell-Kolmogorov tétel}
     \begin{df}
       $\cP=\set{\P[\theta]}{\theta\in \Theta}$. $g:\Theta\to\real$. 
-
+      %
       $T$ statisztika a $g(\theta)$ torzítatlan becslése, ha $\E[\theta]{T}=g(\theta)$.
 
-      $T$ a $g$ hatásos becslése, ha torzítatlan 
+      $T$ a $g(\theta)$ hatásos becslése, ha torzítatlan 
       és tetszőleges $T'$ torzítatlan becslésre $\D[\theta]^2{T}\leq\D[\theta]^2{T'}$.
     \end{df}
     \begin{theorem}
-      $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g:\Theta\to\real$-re. Ekkor $\E[\theta]{T\given  S}=h(S)$ 
+      $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g(\theta)$-ra, 
+      $g:\Theta\to\real$-re. Ekkor $\E[\theta]{T\given  S}=h(S)$ 
       közös változata torzítatlan $g(\theta)$-ra és $\D[\theta]^2{h(S)}\leq \D[\theta]^2{T}$.
 
       Ha az $S$ statisztika teljes is, akkor $\E[\theta]{T\given  S}$ hatásos becslés.
@@ -464,6 +467,7 @@
       \item  $\D^2{h(S)}\leq \D^2{T'}$ tetszőleges $T'$ torzítatlan becslésre, vagyis $\E{T\given  S}$ hatásos.
     \end{itemize}
     \continue
+    Általánosítás
     \begin{itemize}
       \item $W(t,\theta)$ \textbf{veszteségfüggvény}, pl. $W(t,\theta)=\abs{t-g(\theta)}^2$ a négyzetes veszteségfüggvény. 
       $R_T(\theta)=\E[\theta]{W(T,\theta)}$ a $T$ becslés \textbf{rizikó}ja. 
@@ -585,7 +589,7 @@
       \end{displaymath}
       \item
       \begin{displaymath}
-        \D[\theta]{T}\geq \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}.
+        \D^2[\theta]{T}\geq \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}.
       \end{displaymath}
       Ez a Cramer-Rao egyenlőtlenség speciális esete.
     \end{itemize}
@@ -626,6 +630,7 @@
     %a $T$-re kirótt  minimális feltételek mellett a tétel feltételei teljesüljenek.
   \end{frame}
 
+\end{document}
   \begin{frame}{Fisher információ}
     
   \end{frame}
