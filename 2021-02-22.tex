@@ -98,7 +98,7 @@
   
 
   \begin{frame}{Teljesség}
-    \begin{df}
+    \begin{df}<*>
       $\cP=\set*{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád, 
       $S$ statisztika. $S$ \textbf{teljes statisztika} (a $\cP$ eloszláscsaládra nézve), ha 
       \begin{displaymath}
@@ -202,15 +202,15 @@
         A=\set*{\alpha\in\real^p}{\text{$\int_{\real^p} e^{\alpha \cdot x}h (x)\mu
           (dx)$ létezik és nulla}}%\quad\text{nem üres nyílt}
       \end{displaymath}
-      Ha $A$-nak létezik belső pontja, akkor $h$ $\mu$ majdnem mindenütt nulla.
+      Ha $A$-nak létezik belső pontja, akkor $h$ $\mu$--majdnem mindenütt nulla.
     \end{theorem}
     \begin{itemize}
     \item Legyen $\alpha_0\in\interior A$, és
       \begin{displaymath}
-        \nu_{\pm} (H)=\int e^{\alpha_0x}\abs*{h}_\pm (x) \mu (d x),\quad H\in\B(\real^p).
+        \nu_{\pm} (H)=\int_H e^{\alpha_0x}\abs*{h}_\pm (x) \mu (d x),\quad H\in\B(\real^p).
       \end{displaymath}
       $\nu_{+}$, $\nu_{-}$ véges Borel mértékek,  hiszen $\alpha_0\in A$.
-    \item  Ha $\nu_{+} (\real^p)=\nu_{-} (\real^p) = 0$, akkor $h$ $\mu$ majdnem mindenütt
+    \item  Ha $\nu_{+} (\real^p)=\nu_{-} (\real^p) = 0$, akkor $h$ $\mu$--majdnem mindenütt
       nulla.
     \item Ha $\nu_{+}(\real^p)=\nu_{-} (\real^p)>0$, akkor konstanssal
       való szorzás után feltehető, hogy $\nu_{+},\nu_{-}$ valószínűségi
@@ -271,7 +271,7 @@
     % $P T$-t minimális elégséges, ahol $P$ merőleges 
     % vetítés  $\Theta$ lineáris burkára.
   
-    \item Ha $\Theta$ belseje nem üres, akkor $T$ teljes is.
+    \item Ha $\Theta$ belseje nem üres, akkor $T$ teljes is (következő dián).
     
     \end{itemize}
   \end{frame}
@@ -315,12 +315,12 @@
    
   \begin{frame}{Példák exponenciális családra}
     \begin{itemize}
-      \item $n$ elemű minta $\exp(\theta)$, $\theta>0$ eloszlásból, $\mfX=(0,\infty)^n$, $\lambda$ a Lebesgue mérték.
+      \item $n$ elemű minta $\exp(\theta)$, $\theta>0$ eloszlásból, $\mfX=(0,\infty)^n$, domináló mérték a Lebesgue mérték.
       \begin{displaymath}
         f_\theta(x) = \theta^n\exp{-\theta\sum x_i},\quad T(x)=-\sum x_i,\quad b(\theta)=-n\ln\theta.
       \end{displaymath}
       \item $n$ elemű indikátor minta, $p\in(0,1)$ paraméterrel, $\mfX=\smallset*{0,1}^n$, 
-       $\lambda$ a számláló mérték
+       domináló mérték a számláló mérték
       \begin{align*}
         f_\theta(x)&=p^{\sum x_i}(1-p)^{n-\sum x_i}=\zfrac*{p}{1-p}^{\sum x_i} (1-p)^n\\
         &=\exp{\theta T(x) - b(\theta)},\quad \theta=\ln\frac{p}{1-p}, \quad p =\frac{1}{1+e^{-\theta}},\quad 
@@ -367,8 +367,9 @@
       \end{displaymath}
       és 
       \begin{displaymath}
-        \P[\theta]{h(T)=0}=\E[\theta]{\P[\theta]{3X_2^2-(X_1-2X_2)^2=0\given X_2}}
-        \E[\theta]{\P[\theta]{(X_1-2x)^2=3x^2}|_{x=X_2}}=0.
+        \P[\theta]{h(T)=0}
+        =\E[\theta]{\P[\theta]{3X_2^2-(X_1-2X_2)^2=0\given X_2}}
+        =\E[\theta]{\P[\theta]{(X_1-2x)^2=3x^2}|_{x=X_2}}=0.
       \end{displaymath}
     \end{itemize}  
   \end{frame}
@@ -384,19 +385,22 @@
       $\cP$ eloszláscsaládra nézve, 
       akkor $T$ és $S$ független mindegyik $\P\in\cP$ mellett.
     \end{theorem}
-    \continue
-    $\P[\theta]\in\cP=\set{\P[\theta]}{\theta\in\Theta}$
-    \begin{displaymath}
-      \P[\theta]{T\in A\given S}-\P[\theta]{T\in A}=h(S)  
-    \end{displaymath}
-    mert $S$ elégséges és $T$ kísérő.  $\E[\theta]{h(S)}=\P[\theta]{T\in A}-\P[\theta]{T\in A}=0$. 
-    Mivel $S$ korlátosan teljes, ezért $\P[\theta]{h(S)=0}=1$ miden $\theta$-ra, 
-    azaz $\P[\theta]{T\in A\given S}=\P[\theta]{T\in A}$ és
-    \begin{displaymath}
-      \P[\theta]{T\in A, S\in B}=\E[\theta]{\P{T\in A\given  S}\I{S\in B}}
-      =\P[\theta]{T\in A}\P[\theta]{S\in B}, \quad\text{minden $A,B$-re}
-    \end{displaymath}
-  \end{frame}
+    \begin{itemize}
+      \item $\P[\theta]\in\cP=\set{\P[\theta]}{\theta\in\Theta}$
+      \begin{displaymath}
+        \P[\theta]{T\in A\given S}-\P[\theta]{T\in A}=h(S)  
+      \end{displaymath}
+      mert $S$ elégséges és $T$ kísérő.
+      \item $\E[\theta]{h(S)}=\P[\theta]{T\in A}-\P[\theta]{T\in A}=0$. 
+      \item Mivel $S$ korlátosan teljes, ezért $\P[\theta]{h(S)=0}=1$ miden $\theta$-ra, 
+      azaz $\P[\theta]{T\in A\given S}=\P[\theta]{T\in A}$ és
+      \begin{displaymath}
+        \P[\theta]{T\in A, S\in B}=\E[\theta]{\P{T\in A\given  S}\I{S\in B}}
+        =\P[\theta]{T\in A}\P[\theta]{S\in B}, \quad\text{minden $A,B$-re}
+      \end{displaymath}
+  
+    \end{itemize}
+        \end{frame}
 
   \begin{frame}{Példák kísérő statisztikákra}
     \begin{itemize}
@@ -418,7 +422,7 @@
        \begin{displaymath}
         T(X)=\frac{X_1-\bar{X}}{s_n(X)}\eqinlaw\frac{Z_1-\bar{Z}}{s_n(Z)}
         \quad\text{kísérő statisztika, ahol  $\bar{X}=\frac1n\sum_i X_i$ és 
-        $s_n^2(X)=\frac1n\sum_i {X_i-\bar{X}}^2$}.
+        $s_n^2(X)=\frac1n\sum_i \zjel{X_i-\bar{X}}^2$}.
        \end{displaymath}
        $S=(\sum X_i,\sum X_i^2)$ teljes és elégséges, vagyis független $T$-től.
     \end{itemize}  
@@ -481,8 +485,10 @@
       Ha az $S$ statisztika teljes is, akkor $\E[\theta]{T\given  S}$ hatásos becslés.
     \end{theorem}
     \begin{itemize}
-      \item Ha $S$ teljes és elégséges,  $T,T'$ tetszőleges torzítatlan becslések $g(\theta)$-ra. $h(S)=\E[\theta]{T\given  S}$.
-      \item $\E[\theta]{T-T'\given  S}=\th(S)$ és $\E[\theta]{\th(S)}=g(\theta)-g(\theta)=0$ így $\th(S)=0$ és $\E{T'\given  S}=h(S)$.
+      \item Ha $S$ teljes és elégséges,  $T,T'$ tetszőleges torzítatlan becslések $g(\theta)$-ra. 
+      $h(S)=\E[\theta]{T\given  S}$.
+      \item $\E[\theta]{T-T'\given  S}=\bh(S)$ és $\E[\theta]{\bh(S)}=g(\theta)-g(\theta)=0$ 
+      így $\bh(S)=0$ és $\E{T'\given  S}=h(S)$.
       \item  $\D^2{h(S)}\leq \D^2{T'}$ tetszőleges $T'$ torzítatlan becslésre, vagyis $\E{T\given  S}$ hatásos.
     \end{itemize}
     \continue
@@ -500,15 +506,14 @@
   \begin{frame}{Példa}
     \begin{itemize}
       \item $X_1,\dots,X_n$ $n$ elemű indikátor minta $p\in(0,1)$ paraméterrel. $S=\sum X_i$ teljes és elégséges.
-      \item 
       \item $\E[p]{T}=\sum_{x\in\mfX} T(x) p^{S(x)}(1-p)^{n-S(x)}$ a  $p$ legfeljebb $n$-ed fokú polinomja.
       \item Becsüljük $g(p)=p^k$, ahol $1\leq k\leq n$.
       
       \item $T(X)=\I{X_1=1,\dots,X_k=1}$ torzítatlan becslés $p^k$-ra. $\E{T\given  S}$ hatásos.
       \item 
       \begin{align*}
-        \E{T\given  S=s}&=\frac{\P{T=1,S=s}}{S=s}\\
-        &=\frac{\P{T=1,\sum_{i=k+1}^n X_i=s-k}}{\P{S=s}}=
+        \E[p]{T\given  S=s}&=\frac{\P[p]{T=1,S=s}}{\P[p]{S=s}}\\
+        &=\frac{\P[p]{T=1,\sum_{i=k+1}^n X_i=s-k}}{\P[p]{S=s}}=
         \begin{cases}
           0&\text{ha $s<k$}\\
           \frac{p^k\binom{n-k}{s-k}p^{s-k}(1-p)^{(n-k)-(s-k)}}{\binom{n}s p^s(1-p)^{n-s}}
@@ -542,7 +547,7 @@
       $\eta$ szimmetrikus eloszlású, amiből $F_\eta$ megkapható.
     \end{itemize}
   \end{frame}
-
+\end{document}
   
   \begin{frame}{Alsó korlát torzítatlan becslés szórásnégyzetére}
     \begin{itemize}
