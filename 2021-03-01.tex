@@ -1,0 +1,1152 @@
+%\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+
+\maketitle
+\begin{frame}{Becslés, torzítatlanság, hatásosság}
+  \begin{df}
+    $\cP=\set{\P[\theta]}{\theta\in \Theta}$. $g:\Theta\to\real$. 
+
+    $T$ statisztika a $g(\theta)$ torzítatlan becslése, ha $\E[\theta]{T}=g(\theta)$.
+
+    $T$ a $g(\theta)$ hatásos becslése, ha torzítatlan $\D[\theta]^2{T}$ véges minden $\theta\in\Theta$-ra 
+    és tetszőleges $T'$ torzítatlan becslésre $\D[\theta]^2{T}\leq\D[\theta]^2{T'}$.
+  \end{df}
+
+  \begin{theorem}[Rao-Blackwell-Kolmogorov]
+    $S$ elégséges a $\cP$ eloszláscsaládra és $T$ torzítatlan $g:\Theta\to\real$-re. 
+    Ekkor $\E[\theta]{T\given  S}=h(S)$ 
+    közös változata torzítatlan $g(\theta)$-ra és $\D[\theta]^2{h(S)}\leq \D[\theta]^2{T}$.
+
+    Ha az $S$ statisztika teljes is, akkor $\E[\theta]{T\given  S}$ hatásos becslés.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Alsó korlát torzítatlan becslés szórásnégyzetére}
+  \begin{itemize}
+    \item $\P[0]$ $\P[1]$ eloszlások, $f_0$, $f_1$ sűrűséggel az $\mfX$ mintatéren, $\P[1]\ll\P[0]$.
+    \item $T$ statisztika, $\E[i]{T}=g(i)$ $i=0,1$. 
+    \begin{displaymath}
+      g(1)-g(0)=\E[1]{T}-\E[0]{T}=\E[0]{T\zjel*{\frac{f_1}{f_0}-1}}
+    \end{displaymath}
+    \item $\E[0]{f_1/f_0-1}=0$ és $U=f_1/f_0-1$ jelöléssel
+    \begin{displaymath}
+      \abs{g(1)-g(0)}=\abs{\cov_0(T,U)}\leq\D[0]{T}\D[0]{U}
+      \quad\implies\quad
+      \D[0]^2{T}\geq \frac{(g(1)-g(0))^2}{\D[0]^2(U)}.
+    \end{displaymath}
+  \end{itemize}
+  \continue
+  Példa
+  \begin{itemize}
+    \item $X$ $n$ elemű minta $U(0,\theta)$ eloszlásból, $\theta>0$.
+    \item $T$ torzítatlan becslés $\theta$-ra. 
+    \item $0< \theta_1=\alpha\theta_0<\theta_0$, mellett $\P[1]\ll\P[0]$ és 
+    $U(x)=\frac{f_1(x)}{f_0(x)}-1$, 
+    $\frac{f_1(x)}{f_0(x)}%=\zfrac*{\theta_0}{\theta_1}^n\I{\max x_i<\theta_1}
+    =\alpha^{-n}\I{\max x_i<\theta_1}$.
+    \begin{displaymath}
+      \D[0]^2{U}=\E[0]{U^2}=\E{\zfrac*{f_1}{f_0}^2}-1=\alpha^{-n}-1
+      %\zjel*{\alpha^{-n}-1}^2\cdot\zfrac*{\theta_1}{\theta_0}^n
+      %+1^2\cdot\zjel*{1-\zfrac*{\theta_1}{\theta_0}^n}=\alpha^{-n}-1
+      \implies \D[0]^2{T}\geq 
+      \theta_0^2 \sup_{\alpha\in(0,1)}\frac{(1-\alpha)^2}{\alpha^{-n}-1}
+      \geq C\frac{\theta_0^2}{n^2},\quad\zjel{\alpha=1-\tfrac1n}.
+      %\frac{(1-\alpha^n)^2}{\alpha^n}+1-\alpha^n(1-\alpha^n)\alpha^{-n}=\alpha^{-n}+1
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa. Indikátor minta}
+  % \begin{itemize}
+  %   \item $\P[0]$ $\P[1]$ eloszlások, $f_0$, $f_1$ sűrűséggel az $\mfX$ mintatéren, $\P[1]\ll\P[0]$.
+  %   \item $T$ statisztika, $\E[i]{T}=g(i)$ $i=0,1$. 
+  %   \item $\E[0]{f_1/f_0-1}=0$ és $U=f_1/f_0-1$ jelöléssel
+  %   \begin{displaymath}
+  %     \abs{g(1)-g(0)}=\abs{\cov_0(T,U)}\leq\D[0]{T}\D[0]{U}
+  %     \quad\implies\quad
+  %     \D[0]^2{T}\geq \frac{(g(1)-g(0))^2}{\D[0]^2(U)}.
+  %   \end{displaymath}
+  % \end{itemize}
+  % \continue
+  % Példa
+  \begin{itemize}
+    \item $X$ $n$ elemű minta $\theta$ paraméterű indikátor mintából, $\theta\in(0,1)$. 
+    \item $T$ torzítatlan becslés $p(\theta)$-ra, ahol $p$ legfeljebb $n$-edfokú polinom. 
+    \item $\P[\theta]$ ekvivalens a számláló mértékkel minden $\theta$ mellett és 
+    $\theta_1,\theta_0\in(0,1)$ esetén 
+    \begin{displaymath}
+      \lim_{\theta_1\to\theta_0}\frac1{\theta_1-\theta_0}\zjel*{\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}-1}
+      =\partial_\theta \ln f_{\theta_0}(x)=\frac{s}{\theta_0}-\frac{n-s}{1-\theta_0},\quad\text{ahol $s=\sum x_i$}.
+      % \frac{f_{\theta_1(x)}}{f_\theta_0(x)}=\frac{\theta_1^s(1-\theta_1)^{n-s}}{\theta_0^s(1-\theta_0)^{n-s}},\quad\text{ahol $s=\sum x_i$},
+      % \quad
+      % \E[\theta_0]{\zfrac{f_{\theta_1}}{f_\theta_0}^2}
+      % =\sum_{s=0}^n \binom{n}{s}\frac{\theta_1^{2s}(1-\theta_1)^{2(n-s)}}{\theta_0^s(1-\theta_0)^{n-s}}
+      % =\zjel*{\frac{\theta^2_1}{\theta_0}+\frac{(1-\theta_1)^2}{1-\theta_0}}^n=
+    \end{displaymath}
+    \item 
+    \begin{displaymath}
+      p'(\theta_0)=\lim_{\theta_1\to\theta_0}\frac{\E[\theta_0]{T\zjel*{\frac{f_{\theta_1}}{f_{\theta_0}}-1}}}{\theta_1-\theta_0}
+      =\cov_{\theta_0}(T,\partial_\theta\ln f_{\theta_0})\leq \D[\theta_0]{T}\D[\theta_0]{\partial_\theta\ln f_{\theta_0}}
+    \end{displaymath}
+    \item
+    \begin{displaymath}
+      \D[\theta]^2{T}\geq 
+      \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}=(p'(\theta))^2 \frac 1n\theta(1-\theta),
+      \quad\text{hiszen}\quad
+      \D[\theta]^2{\partial_\theta\ln f_\theta}
+      =\D[\theta]^2{\frac{\sum X_i}{\theta(1-\theta)}}=\frac{n}{\theta(1-\theta)}.
+    \end{displaymath}
+    Ez a Cramer-Rao egyenlőtlenség speciális esete.
+    \item $p(\theta)=\theta$ esetén az alsó becslés a mintaátlag szórásnégyzete, 
+    azaz a mintaátlag hatásos  becslése a valószínűségnek, vagyis $\theta$-nak.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cramer-Rao egyenlőtlenség, információs határ}
+  \begin{theorem}
+  \begin{itemize}[<*>]
+    \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált család $f_\theta$ sűrűségekkel, $\Theta\subset\real^p$. 
+    \item $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a \textbf{loglikelihood} függvény. 
+    \item $\theta\in\interior\Theta$, $\ell'=\ell'(\theta)=\partial_\theta\ell(\theta)$ ($p$-dimenziós sorvektor) 
+    létezik és $\E[\theta]{\ell'(\theta)}=0$.
+    \item $I(\theta)=\Sigma_\theta((\ell'(\theta))^T)
+    =\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. $I(\theta)$ neve \textbf{Fisher információ}.
+    \item $T:\mfX\to\real^q$ statisztikára $g(\theta)=\E[\theta]{T}$ deriválható és 
+    $g'(\theta)=\E[\theta]{T\ell'(\theta)}$
+  \end{itemize}
+  Ekkor 
+  \begin{displaymath}
+    \Sigma_{\theta}(T)\geq G I^{-1}(\theta)G^T,\quad\text{ahol $G=g'(\theta)\in\real^{q\times p}$ és }
+  \end{displaymath}
+  \end{theorem}
+  \begin{itemize}
+    \item $A\in\real^{q\times p}$ mátrixszal $T-A\partial_\theta\ell(\theta)$ $q$-dimenziós vektor változó.
+    % \item $\ell'=\partial_\theta\ell(\theta)$ jelöléssel 
+    \begin{align*}
+      0\leq \Sigma_\theta(T-A(\ell')^T)
+      &=\Sigma_\theta(T)-A\E[\theta]{(\ell')^T T^T}-\E[\theta]{T\ell'}A^T+A\E[\theta]{(\ell')^T\ell'}A^T \\
+      &=\Sigma_\theta(T)-AG^T-GA^T+A I(\theta) A^T 
+    \end{align*}
+    \item Ha itt $A=G^TI^{-1}(\theta)$, akkor
+     \begin{displaymath}
+       0\leq \Sigma_\theta(T)-G^TI^{-1}(\theta)G\quad\implies\quad \Sigma_\theta(T)\geq G^TI^{-1}(\theta) G.
+     \end{displaymath}
+  \end{itemize}
+  Ha $\E[\theta]{\ell'(\theta)}=0$, akkor az $n$ elemű minta Fisher információja $I_n(\theta)=I_1(\theta)$ 
+  az alsó becslés $1/n G^TI_1^{-1}G$.
+  %\continue
+  %$I(\theta)$ neve \textbf{Fisher} információ. Az ún. \textbf{gyenge regularitási feltétel} garantálja, hogy
+  %a $T$-re kirótt  minimális feltételek mellett a tétel feltételei teljesüljenek.
+\end{frame}
+
+
+\begin{frame}[<*>]{Cramer-Rao egyenlőtlenség, speciális esetek}
+  \begin{theorem}
+    \begin{itemize}[<*>]
+      \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált család $f_\theta$ sűrűségekkel, $\Theta\subset\real^p$. 
+      $\ell(\theta)$ loglikelihooddal. 
+      \item $\theta\in\interior\Theta$, $\ell'$
+      létezik, $\E[\theta]{\ell'(\theta)}=0$, 
+      $I(\theta)=\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. % $I(\theta)$ neve \textbf{Fisher információ}.
+      \item $T:\mfX\to\real^q$ statisztikára $g(\theta)=\E[\theta]{T}$ deriválható és 
+      $g'(\theta)=\E[\theta]{T\ell'(\theta)}$
+    \end{itemize}
+    %Ekkor 
+    \begin{displaymath}
+      \Sigma_{\theta}(T)\geq G I^{-1}(\theta)G^T,\quad\text{ahol $G=g'(\theta)\in\real^{q\times p}$ és }
+    \end{displaymath}
+  \end{theorem}
+
+  \begin{corollary}
+    \begin{itemize}[<*>]
+      \item $\Theta\subset\real$, $g:\Theta\to\real$. Ha a fenti feltételek teljesülnek, akkor
+      \begin{displaymath}
+        \D[\theta]^2(T)\geq \frac{(g'(\theta))^2}{I(\theta)}
+      \end{displaymath}  
+      \item $g(\theta)=\theta$. $T=\hat\theta$ a paraméter torzítatlan becslése. Ha a fenti feltételek teljesülnek, akkor
+      \begin{displaymath}
+        \Sigma_{\theta}(\hat\theta)\geq I^{-1}(\theta).
+      \end{displaymath}  
+    \end{itemize}
+  \end{corollary}
+\end{frame}
+
+  % mi ez, mire jó, példák, összefüggések.
+  % 
+\begin{frame}{Fisher információ}
+  \begin{df}
+    \begin{itemize}[<*>]
+      \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált eloszláscsalád az $\mfX$ mintatéren, ahol $\Theta\subset\real^p$ nyílt.
+      \item $f_\theta=\frac{d\P[\theta]}{d\lambda}$ ahol $\lambda$ a domináló mérték. 
+      $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a \textbf{loglikelihood} függvény.
+      \item 
+      $\ell'(\theta)=\partial_\theta\ell(\theta,x)$ p-dimenziós sorvektor
+      létezik tetszőleges $\theta$ esetén 
+      $\P[\theta]$ majdnem minden $x$ mellett.
+    \end{itemize}
+    \begin{displaymath}
+      I(\theta)=\E[\theta]{\ell'(\theta)^T\ell'(\theta)}
+    \end{displaymath}
+    $I:\Theta\to\real^{p\times p}$ a minta \textbf{Fisher információja}, ha a várható érték létezik. 
+  \end{df}
+  \begin{itemize}
+    \item $I(\theta)$ pozitív szemidefinit mátrix. Ha $a\in\real^p$, akkor 
+    $a^T I(\theta) a=\E[\theta]{\zjel{\ell'(\theta)a}^2}\geq0$.
+    \item A definícióban a sűrűségek ,,szép'' változatát használjuk, 
+    pl. $(\theta,x)\mapsto f_\theta(x)$ mérhető, 
+    sőt általában $\theta$-ban folytonosan deriválható.
+    \item A Fisher információ nem függ a domináló mérték megválasztásától.
+    Ha $\P[0]\in\cP'$, akkor tetszőleges $\lambda$ domináló mértékre
+    \begin{displaymath}
+      f_\theta=\frac{d\P[\theta]}{d\P[0]}\frac{d\P[0]}{d\lambda}
+      \implies 
+      \ell(\theta)
+      =\ln \frac{d\P[\theta]}{d\P[0]}+\ln \frac{d\P[0]}{d\lambda}
+      \implies
+      \partial_\theta \ell(\theta)
+      =\partial_\theta \ln \frac{d\P[\theta]}{d\P[0]}.
+    \end{displaymath} 
+    \item Erősebb feltételek mellett érdemes nézni, 
+    pl. gyenge regularitási feltétel. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Formulák Fisher információ}      
+  \begin{itemize}
+    \item $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a \textbf{loglikelihood} függvény.
+    $f_\theta(x)\geq0$, azaz $\ell(\theta,x)=-\infty$ előfordulhat. Megállapodás $\partial_\theta f_\theta(x)=0$, ha nem létezik, 
+    vagy $f_\theta(x)=0$.
+    \begin{displaymath}
+      \partial_\theta \ell(\theta,x)
+      =\frac{\partial_\theta f_\theta(x)}{f_\theta(x)}
+      =\begin{cases}
+        0 & f_\theta(x) = 0\\
+        \frac{\partial_\theta f_\theta(x)}{f_\theta(x)} & f_\theta(x)>0
+      \end{cases}
+    \end{displaymath}
+    \item Ha $\Theta\subset\real^p$ nyílt, akkor $\ell'(\theta)$ $p$-dimenziós sorvektor értékű statisztika
+    \begin{align*}
+      I(\theta)&=\E{(\ell'(\theta))^T\ell'(\theta)} \\
+      &=\int_{\mfX} \frac{\zjel{\partial_\theta f_\theta(x)}^T\partial_\theta f_\theta(x)} {f^2_\theta(x)}f_\theta(x)\lambda(d x)\\
+      &=\int_{\mfX} \frac{\zjel{\partial_\theta f_\theta(x)}^T\partial_\theta f_\theta(x)} {f_\theta(x)}\lambda(d x)\\
+      &= 4\int_{\mfX}\zjel{\partial_\theta\sqrt{f_\theta(x)}}^T \partial_\theta\sqrt{f_\theta(x)}\lambda(d x)
+    \end{align*}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Fisher információ exponenciális családban}
+  Emlékeztető. $\cP$ exponenciális családot alkot, ha alkalmas domináló mérték és paraméterezés 
+  mellett $\ln f_\theta(x)=\theta T(x)-b(\theta)$ alakú, $\theta\in\Theta$. 
+  \begin{itemize}
+    \item Ha $\Theta$ nyílt, de legalább $\theta\in\interior\Theta$, akkor $\theta+\alpha\in\Theta$-ra 
+    \begin{displaymath}
+      e^{b(\theta+\alpha)}
+      =\int_{\mfX}e^{(\theta+\alpha) T(x)} \lambda(d x)
+      =e^{b(\theta)}\int_{\mfX}e^{\alpha T(x)} e^{\theta T(x)-b(\theta)} \lambda(d x)
+      =e^{b(\theta)}\E[\theta]{e^{\alpha T}} 
+    \end{displaymath}
+    \item $M(\alpha) = e^{b(\theta+\alpha)-b(\theta)}$ a $T$ statisztika momentum generáló függvénye $\P[\theta]$ alatt.
+    \item Kiszámoljuk, hogy ha a momentum generáló függvény véges az origó egy környezetében, akkor ott sima ($C^\infty$) 
+    és a nullabeli deriváltak $T$ momentumait adják. 
+    $\ln M(\alpha) = b(\theta+\alpha)-b(\theta)$ a kummuláns generáló függvény, ez is sima és a nullabeli deriváltakra
+    \begin{displaymath}
+      \E[\theta]{T} = \frac{M'(0)}{M(0)}=(\ln M)'(0) = b'(\theta),\quad
+      \Sigma_\theta{T} = \frac{M''(0)M(0)-M'(0)^TM'(0)}{M^2(0)} =(\ln M)''(0) = b''(\theta).
+    \end{displaymath}
+    \item $\ell'(\theta)= T-b'(\theta)=T-\E[\theta]{T}$. 
+    \begin{displaymath}
+      \E[\theta]{\ell'(\theta)}=0, 
+      \quad  
+      I(\theta)
+      =\E[\theta]{\ell'(\theta)^T\ell'(\theta)}
+      =\Sigma_\theta(T)=b''(\theta)=-\E[\theta]{\ell''(\theta)}   
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Momentum generáló függvény, deriválhatóság}
+  \begin{proposition}
+    Ha $M (\alpha)=\E{e^{\alpha\cdot X}}<\infty$, az origó egy környezetében,
+    akkor ott  $M$ sima és $M'(0)=\E{X}^{T}$, $M''(0)=\E{XX^{T}}$.
+  \end{proposition}
+  \begin{itemize}
+    
+  \item  Létezik $\eps>0$, hogy $\E{e^{h\norm{X}}}<\infty$, ha
+    $h<\eps$.
+
+    $\real^p$ a normák ekvivalensek, elég
+    $\norm{x}_{1}=\frac1p \sum \abs*{x_i}$-re számolni. Mivel $\exp$
+    konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
+    %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
+    \begin{displaymath}
+      e^{h\abs*{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
+      \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
+    \end{displaymath}
+    ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
+  \item ha $\norm{\alpha}$ kicsi, akkor
+    $\abs{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
+    \begin{displaymath}
+      M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
+      =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad 
+      \partial_{i_1,\dots,i_k}M (0) =\E{\prod_{j}X_{i_j}}
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ exponenciális eloszlású minta, ismeretlen $\lambda>0$ paraméterrel.
+    \item A minta eloszlásainak a családja exponenciális családot alkot, 
+    a domináló mérték a Lebesgue mérték, $\mfX=(0,\infty)^n$
+    \begin{displaymath}
+      f_\lambda(x)=\lambda^ne^{-\lambda\sum x_i}=\exp{\lambda T(x)-b(\lambda)},
+      \quad T(x)=-\sum x_i,
+      \quad b(\lambda)=-n\ln(\lambda)
+    \end{displaymath}
+    \item $I(\lambda)=b''(\lambda)=n\lambda^{-2}$
+    \item Definíció alapján számolva:
+      \begin{displaymath}
+        \ell(\lambda)= n\ln \lambda-\lambda \sum X_i,\quad \ell'(\lambda)=\frac{n}{\lambda}-\sum X_i   
+      \end{displaymath}    
+      Itt $-\ell'(\lambda)=\sum X_i-\E{\sum X_i}$ és 
+      $I(\lambda)=\D[\lambda]^2(\sum X_i)=n \D[\lambda]^2(X_1)=n\lambda^{-2}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Átparaméterezés és Fisher információ}
+  \begin{itemize}
+  \item $\Xi\subset\real^q$, nyílt. $h:\Xi\to\Theta$ injektív,
+    differenciálható. ($q\leq p$)
+  \item $H=h'$
+  \item $\cP'=\set{\P[h (\xi)]}{\xi\in \Xi}$. 
+  \item $\cI (\xi)$ a Fisher információ $\cP'$-ben.
+    
+  \item Láncszabály
+    \begin{displaymath}
+      \partial_\xi\log f_{h (\xi)} (x)=\partial_\theta\log
+      f_{\theta} (x)|_{\theta =h (\xi)} H (\xi)
+    \end{displaymath}
+  \item
+    \begin{displaymath}
+      \cI (\xi)=H (\xi)^TI (h (\xi))H (\xi)
+    \end{displaymath}
+  \item Ha $q=1$, akkor $\cI(\xi) = (\theta'(\xi))^2 I(\theta(\xi))$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Átparaméterezés és információs határ}
+  \begin{itemize}
+  \item $\Xi,\Theta\subset\real^p$, nyílt, $h:\Xi\to\Theta$ diffeomorfizmus.
+  \item $H=h'$ invertálható
+  \item $\cP'=\set{\P[h(\xi)]}{\xi\in \Xi}$. 
+  \item $\cI (\xi)$ a Fisher információ $\cP'$-ben, $\cI (\xi)=H (\xi)^TI (h (\xi))H (\xi)$.
+  \begin{displaymath}
+   I(h(\xi))^{-1}= H(\xi)\,\cI^{-1} (\xi)\, H^{T}(\xi)
+  \end{displaymath}
+    
+  \item $g (\theta) =\E[\theta] (T)$, $G=g'$
+    
+  \item $\E[h (\xi)]{T}=g (h(\xi))$, $(g\circ h)'=(G\circ h) H$
+    
+  \item Információs határ. Ha a Cramer-Rao egyenlőtlenség feltételei teljesülnek
+    \begin{align*}
+      \Sigma_{h (\xi)} (T)
+      &\geq G (h(\xi)) H \,\cI (\xi)^{-1}\, H^T G (h (\xi))^{T}\\
+      &=G (h(\xi)) I (h (\xi))^{-1} G (h (\xi))^{T}
+    \end{align*}
+  \end{itemize}
+  \alert{Az információs határ nem változik.}
+\end{frame}
+
+% \begin{frame}{Átparaméterezés hatása}
+  
+% \end{frame}
+
+\begin{frame}{Példa, indikátor minta Fisher információja}
+  \begin{itemize}
+    \item $X_1,\dots, X_n$ indikátor minta $p\in(0,1)$ ismeretlen paraméterrel. 
+    \item $X$ eloszlásainak a családja exponenciális családot alkot a $\theta=\ln\frac{p}{1-p}$ paraméterezéssel:
+    \begin{displaymath}
+      f_p(x)=p^{\sum x_i}(1-p)^{n-\sum x_i}=\exp{\ln\frac{p}{1-p}\sum x_i+n\ln(1-p)}=\exp{\theta S(x)+n\ln{1+e^{\theta}}}
+    \end{displaymath}
+    ahol $S$ a mintaösszeg, $p=1/(1+e^{-\theta})$ $b(\theta)=-n\ln(1-p)=-n\ln(1-\frac1{1+e^{-\theta}})=n\ln(1+e^\theta)$.
+    
+    Ellenőrzés: $e^{b(0)}=\abs{\mfX}=2^{n}$
+    \begin{displaymath}
+      e^{b(\theta)}
+      =e^{b(0)}\E[\theta=0]{e^{\theta S}}
+      =2^{n}\E[\theta=0]^n{e^{\theta X_1}}
+      =2^n\zjel*{\frac12+\frac12e^{\theta}}^n
+      =(1+e^{\theta})^n
+    \end{displaymath}
+
+    \item \begin{displaymath}
+      I(\theta)=b''(\theta)
+    =n\zfrac*{e^\theta}{1+e^{\theta}}'
+    =n\zfrac*{1}{1+e^{-\theta}}'
+    =n\frac{e^{-\theta}}{(1+e^{-\theta})^2}=n p(1-p)=\D^2{S}
+    \end{displaymath}
+
+    \item Eredeti paraméterezés mellett $\cI(p)=\zjel{\theta'(p)}^2I(\theta(p))$
+    \begin{displaymath}
+      \theta(p)=\ln p -\ln (1-p),\quad \theta'(p)=\frac1p+\frac1{1-p}=\frac{1}{p(1-p)},\quad \cI(p)=\frac{n}{p(1-p)}
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Példa, normális minta Fisher információja}
+  \begin{itemize}
+    \item $X=(X_1,\dots,X_n)\sim N(\mu,\sigma^2)$ eloszlású minta ismeretlen $\mu\in\real$, $\sigma>0$ paraméterrel. 
+    \begin{displaymath}
+      f_{\mu,\sigma^2}(x)
+      = \zfrac{1}{\sigma\sqrt{2\pi}}^n\exp{-\frac1{2\sigma^2}\sum (x_i-\mu)^2}
+      = \exp{-\frac12\tau\sum x_i^2+\rho\sum x_i-b(\tau,\rho)}
+      %\exp{\ln\frac{p}{1-p}\sum x_i+n\ln(1-p)}=\exp{\theta S(x)+n\ln{1+e^{\theta}}}
+    \end{displaymath}
+    \item % Elég egy minta elem
+    \begin{align*}
+      \ell(\mu,\sigma)&=C-n\ln\sigma-\frac12\cdot\sum_i \frac{(X_i-\mu)^2}{\sigma^2}
+      %=C-\ln\sigma-\frac12 Z^2,\quad \text{ahol $Z=(X_1-\mu)/sigma\sim N(0,1)}
+      \\
+      \ell'(\mu,\sigma)
+      &=(\sum \frac{X_i-\mu}{\sigma^2},\sum \frac{(X_i-\mu)^2}{\sigma^3}-\frac n\sigma)
+      =\frac1\sigma(\sum Z_i,\sum (Z^2_i-1)),\quad\text{ahol $Z_i=\frac1{\sigma}(X_i-\mu)\sim N(0,1)$}
+    \end{align*}
+    \item $\E[\mu,\sigma]{\ell'(\mu,\sigma)}=0$, 
+    \begin{displaymath}
+      I(\mu,\sigma)
+      =\Sigma_{\mu,\sigma}(\ell'(\mu,\sigma))
+      =\frac{n}{\sigma^2}\Sigma((Z_1,Z_1^2-1))
+      =\frac1{\sigma^2}  
+      \begin{pmatrix}
+        \D^2{Z}&\E{Z^3}\\\E{Z^3}&\D^2{Z^2}
+      \end{pmatrix}
+      =\frac1{\sigma^2}
+      \begin{pmatrix}
+        1&0\\0&2
+      \end{pmatrix}  
+    \end{displaymath}
+    \item A minta eloszlásai exponenciális családot alkotnak
+    % \begin{displaymath}
+    %     f_{\mu,\sigma}(x)
+    %     = \zfrac{1}{\sigma\sqrt{2\pi}}^n \exp{-\frac1{2\sigma^2}\sum (x_i-\mu)^2}
+    %     = \exp{-\frac12\tau\sum x_i^2+\rho\sum x_i-b(\tau,\rho)}
+    % \end{displaymath}
+    
+    HF. $b=?$ Fisher információ a természetes paraméterezés mellett.
+    \item A minta eloszlása eltolás és skála paraméteres család. 
+    HF. Hogyan számolható a Fisher információ eltolás és skála paraméteres családban.
+    
+    Egy mintaelem sűrűsége $f_{\mu,\sigma}(x)=\frac1\sigma f\zfrac{x-\mu}\sigma$, $\mu\in\real$, $\sigma>0$. 
+    $f$ ,,szép'' sűrűségfüggvény,
+    $I(\mu,\sigma)=?$, pl. $f(x)=\frac1{\pi}(1+x^2)^{-1}$ Cauchy eloszlás.
+    % \begin{displayma&th}
+    %   \theta(\mu,\sigma)=\zjel*{\tfrac1\sigma^2,\tfrac{\mu}{\sigma^2}}
+    %   \quad
+    %   \theta'(\mu,\sigma)=\begin{pmatrix}
+    %     0&-2\sigma^{-3}\\\sigma^{-2}&-2\mu\sigma{-3}
+    %   \end{pmatrix}
+    %   \quad
+    %   \cI(\mu,\sigma)=\begin{pmatrix}
+    %     dd
+    %   \end{pmatrix}
+    %   % \theta(p)=\ln p -\ln (1-p),\quad \theta'(p)=\frac1p+\frac1{1-p}=\frac{1}{p(1-p)},\quad \cI(p)=\frac{n}{p(1-p)}
+    % \end{displaymath}
+    % \item $X$ eloszlásainak a családja exponenciális családot alkot a $\theta=(\tau,\rho)
+    % =(\frac1{\sigma^2},\frac{\mu}{\sigma^2})$ paraméterezéssel:
+    % \begin{displaymath}
+    %   f_{\mu,\sigma^2}(x)
+    %   = \zfrac{1}{\sigma\sqrt{2\pi}}^n\exp{-\frac1{2\sigma^2}\sum (x_i-\mu)^2}
+    %   = \exp{-\frac12\tau\sum x_i^2+\rho\sum x_i-b(\tau,\rho)}
+    %   %\exp{\ln\frac{p}{1-p}\sum x_i+n\ln(1-p)}=\exp{\theta S(x)+n\ln{1+e^{\theta}}}
+    % \end{displaymath}
+    % ahol $S=(-\frac12\sum x_i^2,\sum x_i)$. 
+    % \begin{displaymath}
+    %   b(\tau,\rho)
+    %   =\frac{n}2\zjel{\ln\sigma^2+\ln(2\pi)}+\frac{n}2\cdot\frac{\mu^2}{\sigma^2}
+    %   =\frac{n}2\zjel*{-\ln(\tau)+\frac{\rho^2}{\tau}+\ln(2\pi)}. 
+    % \end{displaymath}
+    % \item \begin{displaymath}
+    %   I(\theta)=b''(\theta)=\frac n2
+    %   \begin{pmatrix}
+    %     \frac1{\tau^2}+2\frac{\rho^2}{\tau^3}& -\frac{\rho}{\tau^2}\\
+    %     -\frac{\rho}{\tau^2}&\frac{2}\tau
+    %   \end{pmatrix}
+    %   =\frac n2\begin{pmatrix}
+    %     \sigma^4+2\mu^2\sigma^2 & -\mu\sigma^2\\ -\mu\sigma^2 & 2\sigma^2 
+    %   \end{pmatrix}
+    %   %\Sigma_\theta(S)=n\Sigma_\theta((-\frac12 X_1^2,X_1))= n
+    %   %\begin{pmatrix}
+    %   %  \tfrac14\D[\theta]^2(X_1^2)&-\tfrac12\cov(X_1^2,X_1)\\
+    %   %  -\tfrac12\cov(X_1^2,X_1)&\D[\theta]^2(X_1)
+    %   %\end{pmatrix}
+    % % =n\zfrac*{e^\theta}{1+e^{\theta}}'
+    % % =n\zfrac*{1}{1+e^{-\theta}}'
+    % % =n\frac{e^{-\theta}}{(1+e^{-\theta})^2}=n p(1-p)=\D^2{S}
+    % \end{displaymath}
+
+    % \item Eredeti paraméterezés mellett $\cI(\mu,\sigma)=(\theta'(\mu,\sigma))^TI(\theta(\mu,\sigma))\theta'(\mu,\sigma)$ HF.
+  \end{itemize}  
+\end{frame}
+
+% \begin{frame}{Negatív példák}
+%   \begin{itemize}
+%     \item $X_1$ $U(0,\theta)$ eloszlású egy elemű minta, $\theta>0$ ismeretlen. Formálisan a Fisher információ definiálható
+%     \begin{displaymath}
+%       \ell(\theta,x)=-\ln\theta \I{x<\theta},\quad \ell'(\theta,x)=-\theta^{-1}\I{x<\theta},\quad 
+%       I(\theta)=\E[\theta](\ell'(\theta)^2)=\theta^{-2}
+%     \end{displaymath}
+%     de $\E[\theta]{\ell'(\theta)}=-\theta^{-1}\neq0$.
+%     \item $X_1=\theta (U_1+U_2)$, ahol $U_1,U_2$ független $(0,1)$-en egyenletesek, $\theta>0$ paraméter.
+%     $f_\theta(x)=\frac1\theta f(x/\theta)$, ahol $f(t)=f_{U_1+U_2}(t)=(1-\abs{1-t})\I{t<2}$.
+%     \begin{displaymath}
+%       \ell'(\theta,x)=\frac{-1}{\theta^2}\zjel{f(\tfrac x\theta)+xf'(\tfrac x\theta)}
+%       =\frac{-1}{\theta^2}\zjel{1-\abs{x-\theta}+x\sign(\theta-x)}\I{x<2\theta}
+%       =\frac{-1}{\theta^2}
+%     \end{displaymath}
+%   \end{itemize}
+  
+% \end{frame}
+
+\begin{frame}{Gyenge regularitási feltétel}
+  \begin{df}[$(R)$, azaz gyenge regularitási feltétel]
+    $\cP=\set{f_\theta d\lambda}{\theta\in\Theta}$ dominált mértékcsalád, $\Theta\subset\real^p$ nyílt.
+    \begin{enumerate}[<*>]
+      \item $\lambda$ majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ folytonosan differenciálható.
+      \item $I(\theta)$ véges $\theta$-ban folytonos, nem szinguláris ($\det I(\theta)>0$).
+    \end{enumerate}
+  \end{df}
+  \begin{itemize}
+    \item $(R)$ nem függ a domináló mértéktől.
+    \item Ha $\cP$ exponenciális családot alkot, akkor $(R)$ lényegében mindig teljesül.
+    \item Ha $\cP$ $U(0,\theta)$-ból származó $n$-elemű minta eloszlásainak a családja, akkor 
+    $\theta\mapsto \sqrt{f_\theta(x)}=\theta^{-n/2}\I{\max x_i<\theta}$ nem deriválható folytonosan majdnem minden 
+    $x\in(0,\infty)^n$-re. Nem teljesíti $(R)$-et.
+    \item Ha $\Theta_0\subset\Theta$ nyílt, akkor $\cP_0=\set{\P[\theta]}{\theta\in\Theta_0}$ is teljesíti $(R)$-et.
+    %\item Ha 1. teljesül, akkor majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ és $\theta\mapsto \partial_\theta\sqrt{f_\theta(x)}$
+    %folytonos, vagyis $\ln
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bederiválhatóság gyenge regularitási feltétel mellett}
+  \begin{theorem}
+    $\cP$ teljesíti $(R)$-et. $T$ $r$--dimenziós statisztika, $\E[\theta]{\abs{T}^2}<\infty$ 
+    és lokálisan korlátos $\theta$-ban. Ekkor $\theta\mapsto\E[\theta]{T}$ folytonosan differenciálható 
+    és $\partial_\theta\E[\theta]{T}=\E[\theta]{T\ell'(\theta)}$.
+  \end{theorem}
+  \begin{itemize}
+    \item Elég $r=1$-re igazolni. 
+    %\item Feltehető, hogy $\sup_{\theta\in\Theta} \E[\theta]{\abs{T}^2}<\infty$ 
+    %és $\sup_{\theta\in\Theta} \norm{I(\theta)}<\infty$.
+    %\item Elég a parciális deriváltak létezését és folytonosságát igazolni, ekkor a függvény folytonosan deriválható.
+    %\item 
+    Legyen $g(\theta)=\E[\theta]{T\ell'(\theta)}=\int_{\mfX} T(x) \partial_\theta f_\theta(x)\lambda(dx)$. 
+    \begin{align*}
+      \E[\theta_1]{T}-\E[\theta_0]{T}
+      &=\int_{\mfX} T(x)\zjel*{f_{\theta_1}(x)-f_{\theta_0}(x)}\lambda(d x)\\
+      &\hphantom{{}\hspace{-2em}}=\int_{\mfX} T(x)\int_0^1 \partial_\theta f_{\theta_0+u(\theta_1-\theta_0)}(x)(\theta_1-\theta_0)d u\lambda(d x)
+      =\int_0^1 g(\theta_0+u(\theta_1-\theta_0))d u(\theta_1-\theta_0)
+    \end{align*}
+    \item Elég $g$ folytonossága, ugyanis
+    \begin{align*}
+      \E[\theta_1]{T}-\E[\theta_0]{T}&=\int_0^1 g(\theta_0+u(\theta_1-\theta_0))d u(\theta_1-\theta_0)\\
+      &=g(\theta_0)(\theta_1-\theta_0)+ \int_0^1 g(\theta_0+u(\theta_1-\theta_0))-g(\theta_0)d u(\theta_1-\theta_0)\\
+      &=g(\theta_0)(\theta_1-\theta_0)+o(\abs{\theta_1-\theta_0})
+    \end{align*}
+    % \item Feltehető, hogy a domináló mérték valószínűségi mérték.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\theta\mapsto \E[\theta]{T\ell'(\theta)}$ folytonos}
+  \begin{lemma}
+    Ha $\theta\mapsto\sqrt{f_\theta(x)}$ folytonosan differenciálható $\lambda$ majdnem minden $x$-re,
+    $\theta\mapsto (I(\theta))_{i,i}$ $i=1,\dots,p$ véges értékű, folytonos és 
+    $\sup_{\theta\in\Theta}\E[\theta]{T^2}<\infty$. 
+    
+    Ekkor $\theta\mapsto \E[\theta]{T\ell'(\theta)}$ folytonos. 
+  \end{lemma}
+  \begin{itemize}
+    \item 
+    \begin{displaymath}
+      g(\theta)=\E[\theta]{T\ell'(\theta)}
+      =\int_{\mfX} T(x) \frac{\partial_\theta f_\theta(x)}{f_\theta(x)}f_\theta(x)\lambda(d x)
+      =\int_{\mfX} T(x)\sqrt{f_\theta(x)} 2\partial_\theta \sqrt{f_\theta(x)}\lambda(d x)
+    \end{displaymath}
+    \item Kell: $g(\theta_n)\to g(\theta_0)$, ha $\theta_n\to\theta_0$. 
+    
+    Legyen $h_n(x)=T(x)\sqrt{f_{\theta_n}(x)}$, $k_n(x)= 2 \partial_\theta \sqrt{f_{\theta_n}(x)}$. Ezzel a jelöléssel:
+    \begin{displaymath}
+      g(\theta_n)=\int h_n k_n d\lambda,
+      \quad 
+      g(\theta_0)=\int h_0k_0d\lambda,
+      \quad\text{Cél: \alert{$\int h_n k_{n,i}d\lambda\to\int h_0k_{0,i}d\lambda$}, $i=1,\dots,p$}
+    \end{displaymath}
+    \item Itt
+    \begin{align*}
+      \sup_n \int h_n^2d\lambda=\sup_{n}\E[\theta_n]{T^2}<\infty,
+      \quad
+      \int k_{n,i}^2d\lambda = (I(\theta_n))_{i,i}\to (I(\theta_0))_{i,i}=\int k_{0,i}^2 d\lambda, \quad i=1,\dots,p 
+    \end{align*}
+    és $\theta\mapsto\sqrt{f_\theta(x)}\in C^1$ $\lambda$ m.m. $x$ miatt $h_n\to h_0$ és $k_n\to k_0$ $\lambda$-m.m. 
+    és feltehető, hogy $\lambda(\mfX)=1$. % valószínűségi mérték.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Technikai lemma}
+  \begin{lemma}
+    $h_n,h_0,k_n,k_0:\mfX\to\real$, $\lambda$ valószínűségi mérték $\B(\mfX)$-en.
+    %Jelölés: $\int f =\int_{\mfX} f d\lambda$.
+
+    $h_n\to h_0$, $k_n\to k_0$ $\lambda$ m.m., 
+    $\sup_n \int h_n^2d\lambda<\infty$, 
+    $\int k_n^2d\lambda\to\int k_0^2d\lambda<\infty$.
+    
+    Ekkor $\int h_nk_nd\lambda\to\int h_0k_0d\lambda$.
+  \end{lemma}
+  Jelölés $\int h=\int_{\mfX} h d\lambda$. Vázlat:
+  \begin{itemize}
+    % \item %, ugyanis 
+    % $\sup_n\int h_n^2<\infty$ $\implies$ $\set{h_n}{n\geq 1}$ egyenletesen integrálható $+$ $h_n\to h_0$ 
+    % $\implies$ $\int \abs{h_n-h_0} \to0$. %\int h_0d\lambda$
+    \item Csonkolás. ($\eps>0$, $\approx_\eps$ jelentése a két oldal eltérése legfeljebb $\eps$) 
+    
+    Ha elég nagy $K$-ra és elég nagy $n_0$-tól kezdve
+    \begin{displaymath}
+      \int h_n k_n
+      \approx_{2\eps}
+      \int h_n k_n\I{\abs{k_n}<2\abs{k_0}<K}
+      \approx_{\eps} 
+      \int h_0 k_0\I{2\abs{k_0}<K}
+      \approx_\eps 
+      \int h_0k_0
+      \quad\implies\quad \int h_n k_n\to\int h_0k_0
+    \end{displaymath}
+    %akkor nagy $n$-ekre $\int h_n k_n\approx_{5\eps}\int h_0 k_0$ és $\int h_n k_n\to\int h_0k_0$
+    \item Cél: ha $K$ olyan nagy, hogy $R\int k_0^2\I{2\abs{k_0}\geq K}<\eps^2$, ahol $R=\sup_n\int h_n^2$, akkor 
+    \begin{align*}
+      \limsup_{n\to\infty} \int h_n^2\int k^2_n(1-\I{\abs{k_n}<2\abs{k_0}<K}) &\leq 4R\int k_0^2\I{2\abs{k_0}\geq K}<4\eps^2 \tag{$*$}\\
+      \lim_{n\to\infty} \abs*{\int h_n k_n\I{\abs{k_n}<2\abs{k_0}<K}-h_0 k_0\I{2\abs{k_0}<K}}&=0
+    \end{align*}
+    \item Cauchy-Schwarz: $K$ választása $\implies$ utolsó lépés hibája $\leq\eps$,
+
+    \hphantom{Cauchy-Schwarz: }$(*)$ $\implies$ első lépés hibája $\leq 2\eps$,  elég nagy $n_0$-tól kezdve.
+
+
+    % \begin{displaymath}  
+    %   \int h_n k_n\I{\abs{k_n}<2\abs{k_0}<K}
+    %   %=\int (h_n-h_0)k_n\I{\abs{k_n}<2\abs{k_0}<K}d\lambda + \int h_0k_n\I{\abs{k_n}<2\abs{k_0}<K}d\lambda
+    %   \to \int h_0k_0\I{2\abs{k_0}<K},
+    %   \quad\text{mert $k_n\I{\abs{k_n}<2\abs{k_0}<K}\to k_0\I{2\abs{k_0}<K}$}.
+    % \end{displaymath}
+    % \item A csonkolással elkövetett hiba ,,egyenletesen kicsi'' ($\limsup$ kicsivé tehető, ha $K$ nagy):
+    
+    % $\eps>0$-hoz létezik $K$, hogy $R\int k^2_0\I{2\abs{k_0}\geq K}\leq \eps^2$ ahol $R=\zjel*{\sup_n\int h_n^2}$.
+    % \begin{displaymath}
+    %   \zjel*{\smallint h_n k_n(1-\I{\abs{k_n}<2\abs{k_0}<K})}^2\leq
+    %   R %\sup_n\int h_n^2 
+    %   \zjel*{\smallint k_n^2\I{\abs{k_n}>2\abs{k_0}}+4k_0^2\I{2\abs{k_0}>K}} 
+    %   < 2\eps^2,
+    %   \quad\text{ha $n$ elég nagy.}
+    % \end{displaymath}
+    % Ugyanis $\int k_n^2\I{\abs{k_n}>2\abs{k_0}}\to0$. Ez indoklásra szorul, később.
+    % \item Nagy $n$-re ($\approx_\eps$ jelentése a két oldal eltérése legfeljebb $\eps$)
+    % \begin{displaymath}
+    %   \smallint h_n k_n 
+    %   \approx_{2\eps} 
+    %   \smallint h_n k_n\I{\abs{k_n}<2\abs{k_0}<K} 
+    %   \approx_\eps 
+    %   \smallint h_0k_0\I{2\abs{k_0}<K}
+    %   \approx_\eps
+    %   \smallint h_0k_0
+    %   % \abs*{\int h_n k_n-h_0k_0}\leq
+    %   % \abs*{\int h_n k_n\I{\abs{k_n}<2\abs{k_0}<K}-h_0k_0\I{2\abs{k_0}\geq K}}
+    %   % +\abs*{\int h_n k_n(1-\I{\abs{k_n}<2\abs{k_0}<K})}
+    %   % +\abs*{\int h_0k_0\I{2\abs{k_0}\geq K}}\leq 4\eps\quad\text{ha $n$ elég nagy.}
+    % \end{displaymath}
+    % % \begin{displaymath}
+    % %   k_n^2\I{\abs{k_n}<2\abs{k_0}}\to k_0^2,\quad k_n^2\I{\abs{k_n}<2\abs{k_0}}\leq 4k_0^2,\implies
+    % %   \int k_n^2\I{\abs{k_n}<2\abs{k_0}}\to \int k_0^2=\lim \int k_n^2 
+    % %   \implies \int k_n^2\I{\abs{k_n}\geq2\abs{k_0}}\to0  
+    % % \end{displaymath}
+    % % \item 
+    % % %   \zjel*{\int h_nk_n\I*{A_n^c}d\lambda}\leq \int h_n^2d\lambda \int k_n^2\I*{A_n^c}d\lambda
+    % % % \end{displaymath}
+    % % % \item 
+    % % % \begin{displaymath}
+    % % %   k_n^2\I*{A_n}\to k_0^2,\quad k_n^2\I*{A_n}\leq 4k_0^2,\implies
+    % % %   \int k_n^2 \I*{A_n}d\lambda\to \int k_0^2 d\lambda=\lim \int k_n^2d\lambda 
+    % % %   \implies \int k_n^2\I*{A_n^{c}}d\lambda\to0  
+    % % % \end{displaymath}
+    % % % \item 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Technikai lemma részletei} 
+  % Jelölés $\int h=\int_{\mfX} h d\lambda$.
+  \begin{proposition}
+    $k_n,k_0:\mfX\to\real$,
+    $k_n\to k_0$ $\lambda$ m.m., 
+    $\int k_n^2\to\int k_0^2<\infty$.
+    
+    Ekkor $\int k^2_n\I{\abs{k_n}\geq 2\abs{k_0}}\to0$.
+  \end{proposition}
+  \continue
+  %\begin{itemize}
+  %  \item 
+  $k^2_n\I{\abs{k_n}< 2\abs{k_0}}\to k_0^2$. Dominált konvergencia tétel ($4k_0^2$ integrálható majoráns)
+    \begin{displaymath}
+      \smallint k^2_n\I{\abs{k_n}\leq 2\abs{k_0}} \to\smallint k_0^2=\lim\smallint k_n^2 
+      \quad\implies\quad 
+      \smallint k_n^2(1-\I{\abs{k_n}<2\abs{k_0}})\to0 
+    \end{displaymath}
+  %\end{itemize}
+  \pause
+  \begin{corollary}
+    \begin{displaymath}
+      \limsup_{n\to\infty} \smallint k^2_n(1-\I{\abs{k_n}<2\abs{k_0}<K}) \leq 4\smallint k_0^2\I{2\abs{k_0}\geq K}
+    \end{displaymath}
+  \end{corollary}
+  \begin{align*}
+    \smallint k^2_n(1-\I{\abs{k_n}<2\abs{k_0}<K})
+    &= \smallint k_n^2\I{\abs{k_n}>2\abs{k_0}}+\smallint k_n^2\I{\abs{k_n}<2\abs{k_0}\geq K}\\
+    &\leq \smallint k_n^2\I{\abs{k_n}>2\abs{k_0}}+\smallint 4k_0^2\I{2\abs{k_0}\geq K}
+    \to \smallint 4 k_0^2\I{2\abs{k_0}\geq K}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Technikai lemma részletei}
+  \begin{proposition}
+    $h_n,h_0,k_n,k_0:\mfX\to\real$, \alert{$\lambda(\mfX)=1$},
+    %$\lambda$ valószínűségi mérték $\B(\mfX)$-en.
+    %
+    $h_n\to h_0$, $k_n\to k_0$ $\lambda$ m.m., 
+    $R=\sup_n \int h_n^2d\lambda<\infty$. Ekkor
+    %
+    %$
+    \begin{displaymath}
+      \int h_n k_n\I{\abs{k_n}<2\abs{k_0}<K}\to \int h_0 k_0\I{2\abs{k_0}<K}  
+    \end{displaymath}
+    %$
+  \end{proposition}
+  \begin{itemize}
+    \item $h_0 k_n\I{\abs{k_n}<2\abs{k_0}<K}\to h_0k_0\I{2\abs{k_0}<K}$ és $\abs{h_0}K$ integrálható majoráns.
+    \begin{displaymath}
+      \lim \smallint h_0 k_n\I{\abs{k_n}<2\abs{k_0}<K} =\smallint h_0k_0\I{2\abs{k_0}<K}
+    \end{displaymath}
+    \item $h_n$ $L^2$-ben korlátos, ezért egyenletesen integrálható. Emlékeztető:
+    \begin{displaymath}
+      \sup_n\int \abs{h_n} \I{\abs{h_n}\geq L}\leq \sup_n\frac1L\int h_n^2=\frac{R}{L}\to0\quad \text{ha $L\to\infty$}.
+    \end{displaymath}
+    \item $\set{h_n}{n\geq1}$ egyenletesen integrálható, $h_n\to h_0$ m.m. $\implies$ $\int \abs{h_n-h_0}\to0$ $\implies$
+    \begin{displaymath}
+      \smallint (h_n-h_0) k_n\I{\abs{k_n}<2\abs{k_0}<K}\to0
+    \end{displaymath}
+    \item 
+    \begin{displaymath}
+      \smallint h_0k_0\I{2\abs{k_0}<K}
+      =\lim \smallint h_0 k_n\I{\abs{k_n}<2\abs{k_0}<K}
+      =\lim \smallint h_n k_n\I{\abs{k_n}<2\abs{k_0}<K}.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$(R)$ következményei}
+  \begin{df}[$(R)$, azaz gyenge regularitási feltétel]
+    $\cP=\set{f_\theta d\lambda}{\theta\in\Theta}$ dominált mértékcsalád, $\Theta\subset\real^p$ nyílt.
+    \begin{enumerate}[<*>]
+      \item $\lambda$ majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ folytonosan differenciálható.
+      \item $I(\theta)$ véges $\theta$-ban folytonos, nem szinguláris ($\det I(\theta)>0$).
+    \end{enumerate}
+  \end{df}
+  \begin{lemma}[Már igazoltuk]
+    $(R)$ + $\sup_{\theta\in\Theta}\E[\theta]{\abs{T}^2}<\infty$ $\implies$ 
+    $g(\theta)=\E[\theta]{T}$ deriválható, $g'(\theta)=\E[\theta]{T\ell'(\theta)}$ folytonos, ahol 
+    $\ell(\theta,x)=\log f_{\theta}(x)$.
+  \end{lemma}
+  \begin{itemize}
+    \item $(R)$ teljesül, $T\equiv1$. 
+    Ekkor $0=\E[\theta]{\ell'(\theta)}=\int_{\mfX} \partial_\theta f_\theta(x)\lambda(dx)$ 
+    $\implies$ $n$ elemű minta Fisher információja az egy elemű minta $I_1(\theta)$ Fisher információjának $n$-szerese.
+    \item $(R)$ teljesül, $T$ torzítatlan $g(\theta)$-ra, %ahol $g$ folytonosan deriválható. 
+    $\E[\theta]^2{\abs{T}^2}$ 
+    lokálisan korlátos. Cramer-Rao egyenlőtlenség feltételei teljesülnek:
+    
+    ($\ell'$ létezik, $\E[\theta]{\ell'(\theta)}=0$,  $I(\theta)=\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. 
+    $g(\theta)=\E[\theta]{T}$ deriválható és $g'(\theta)=\E[\theta]{T\ell'(\theta)}$)
+    \begin{displaymath}
+      \Sigma_\theta(T)\geq g'(\theta) I(\theta)^{-1}g'(\theta)^T =\frac1n g'(\theta) I_1(\theta)^{-1}g'(\theta)^T%\tag{$*$}
+    \end{displaymath}
+    
+    %\item Összefoglalva: $(R)$ $+$ $g(\theta)=\E[\theta]{T}$ és $\E[\theta]{\abs{T}^2}$ lokálisan korlátos
+    %$\theta$-ban $\implies$ $g\in C^{1}$ és  $(*)$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példák}
+  \begin{itemize}
+    \item Ha $\cP$ exponenciális családot alkot $\Theta\subset\real^p$ nyílt. 
+    \begin{displaymath}
+      f_\theta(x)=\exp{\theta T(x)-b(\theta)},\quad \sqrt{f_\theta(x)}=\exp{\tfrac12\theta T(x)-\tfrac12b(\theta)}
+    \end{displaymath}
+    ahol $b(\theta)$ sima $\Theta$-n, azaz $\theta\mapsto \sqrt{f_\theta}(x)$ folytonosan differenciálható.
+    
+    $I(\theta)=b''(\theta)=\Sigma_\theta(T)$, azaz $I(\theta)$ véges értékű és folytonos, 
+    $\det I(\theta)>0$ teljesül, ha $T$ a $\real^p$ nem egy valódi affin altérből veszi fel az értékeit.
+    \item $X$ Cauchy eloszlás eltolás paraméteres családjából származó $n$ elemű minta. 
+    $X$ eloszlásai nem alkotnak exponenciális családot, de
+    \begin{displaymath}
+      \sqrt{f_\theta(x)}=\prod(1+(x_i-\theta)^2)^{-1/2}
+    \end{displaymath}
+    folytonosan deriválható, és 
+    \begin{displaymath}
+      \hphantom{\hspace{-2em}}
+      \ell(\theta,x)=\sum_{i} \frac{-1}{2}\ln(1+(x_i-\theta)^2),
+      \quad
+      \ell'(\theta,x)=\sum_i \frac{x_i-\theta}{1+(x_i-\theta)^2}
+      %\quad 
+      %\E[\theta]{\ell'(\theta)}=\E[0]{\ell'(0)}=\sum_i \int_{\real} \frac{x_i}{\pi (1+x_i^2)^2} d x_i=0
+      %\quad
+      % I(\theta) = \E[\theta]{(\ell'(\theta))^2}
+    %   =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x=\frac{n}{4}<\infty 
+    \end{displaymath}
+    \begin{displaymath}
+      \E[\theta]{\ell'(\theta)} = n\int_{\real} \frac{x}{\pi (1+x^2)^2} d x=0
+      \quad
+      I(\theta) = \D[\theta]^2{\ell'(\theta)}
+      =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x<\infty 
+    \end{displaymath}
+    $I(\theta)$ véges, folytonos és nem nulla. 
+    $X$ eloszlásainak családja teljesíti a gyenge regularitási feltételt.
+    %$\ell'(\theta)$ eloszlása 
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Független minták Fisher információja összeadódik}
+  \begin{df}[$(R)$, azaz gyenge regularitási feltétel]
+    $\cP=\set{f_\theta d\lambda}{\theta\in\Theta}$ dominált mértékcsalád, $\Theta\subset\real^p$ nyílt.
+    \begin{enumerate}[<*>]
+      \item $\lambda$ majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ folytonosan differenciálható.
+      \item $I(\theta)$ véges $\theta$-ban folytonos, nem szinguláris ($\det I(\theta)>0$).
+    \end{enumerate}
+  \end{df}
+  \begin{proposition}
+    $X$, $Y$ minden $\theta\in\Theta$ mellett függetlenek és eloszlásaikra teljesül $(R)$.
+
+    Ekkor $(X,Y)$ együttes eloszlásaira is teljesül $(R)$ és $I_{X,Y}(\theta)=I_{X}(\theta)+I_{Y}(\theta)$.
+  \end{proposition}
+  \begin{itemize}
+    \item $X$ eloszlásainak domináló mértéke $\lambda_X$, $Y$-ra $\lambda_Y$. Ekkor $(X,Y)$ eloszlásait 
+    $\lambda_X\otimes\lambda_Y$ dominálja. 
+    \item $f_{(X,Y),\theta}(x,y)=f_{X,\theta}(x)f_{Y,\theta}(y)$. Ha $\sqrt{f_{X,\theta}(x)}$ $\sqrt{f_{Y,\theta}(y)}$ 
+    folytonosan deriválható $\theta$-ban $\lambda_X$ majdnem minden $x$-re ill. $\lambda_Y$ majdnem minden $y$-ra, akkor 
+    $\sqrt{f_{X,Y,\theta}(x,y)}$ is folytonosan differenciálható $\lambda_X\otimes\lambda_Y$ m.m $(x,y)$-ra. 
+    \item $\ln f_{X,Y,\theta}(x,y)=\ln f_{X,\theta}(x)+\ln f_{Y,\theta}(y)$. 
+    Ebből $I_{X+Y}(\theta)=I_X(\theta)+I_{Y}(\theta)$ következik. 
+    \item $I_{X+Y}(\theta)$ folytonos, véges értékű.
+    \item $I_{X+Y}\geq I_{X}$, amiből $\ker I_{X+Y}\subset \ker I_X=\smallset{0}$, 
+    $I_{X+Y}$ is invertálható, minden $\theta$-ra.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$S(X)$ Fisher információja nem lehet $X$ információ tartalmánál nagyobb}
+  \begin{proposition}
+    $X$ eloszlásainak a családjára teljesül $(R)$. $S$ statisztika. Ekkor $S$ eloszlásainak a családja is dominált.
+
+    Ha $S$ eloszlásainak családjára is teljesül $(R)$, akkor $I_{S(X)}(\theta)\leq I_X(\theta)$.
+  \end{proposition}
+  \begin{itemize}
+    %\item $(R)$ nem függ a domináló mértéktől, $\P[0]\in \cP'$ választható. 
+    %($\cP'=\set{\sum c_i\cP[\theta_i]}{c_i\geq0,\,\sum c_i=1}$). 
+    \item $\lambda\circ S^{-1}$ domináló mérték $S$ eloszlásaihoz: 
+    \begin{displaymath}
+      \P[\theta]{S\in H}
+      =\int_{\mfX} f_\theta(x) \I{S(x)\in H} \lambda (d x)
+      % =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\I{S\in H}}
+      =\int_H g_\theta(s) \lambda\circ S^{-1}(d s), 
+      \quad g_\theta(S)= \frac{d\P[\theta]|_{\sigma(S)}} {d\lambda|_{\sigma(S)}}. 
+    \end{displaymath}
+    \item Ha $S$ eloszlásai is teljesítik $(R)$-et, $\P[\theta]{S\in H}$-re adott mindkét formulában az 
+    integrálon belül lehet deriválni $\theta$ szerint.
+    $\ell_X(\theta,x)=\ln f_{\theta}(x)$ 
+    és $\ell_S(\theta,s)=\ln g_\theta(s)$ jelöléssel
+    \begin{displaymath}
+      %\partial_\theta \P[\theta]{S\in H}
+      %=
+      \int_{\mfX} \partial_\theta  f_{\theta}(x)\I{S(x)\in H} \lambda(d x)
+      =\E[\theta]{\I{S\in H} \ell_X'(\theta,X)}
+      =\int_{H} g_\theta'(s) \lambda\circ S^{-1}(d s)
+      =\E[\theta]{\I{S\in H}\ell'_S(\theta,S)}
+    \end{displaymath}
+    \item $\E[\theta]{\ell'_X(\theta,X)|S}=\ell'_S(\theta,S)$ és a teljes szórásnégyzet tétel szerint 
+    $I_S(\theta)\leq I_X(\theta)$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Elégséges statisztika Fisher információja}
+  \begin{proposition}
+    $X$ minta eloszlásainak családjára teljesül $(R)$, $S$ elégséges statisztika. 
+    Ekkor $S$ eloszlásainak a családjára is teljesül $(R)$ és $I_{S(X)}(\theta)=I_{X}(\theta)$.
+  \end{proposition}
+  \begin{itemize}
+    \item  $(R)$ nem függ a domináló mértéktől, $\P[0]\in \cP'$ választható. 
+    ($\cP'=\set{\sum c_i\cP[\theta_i]}{c_i\geq0,\,\sum c_i=1}$). 
+    \item $S$ elégséges, ezért $\P[0]$-ra vonatkozó sűrűségek $f_{\theta}(x)=g_{\theta}(S(x))$ alakúak.
+    \item $g_\theta$ $S$ eloszlásának a sűrűsége a $\P[0]\circ S^{-1}$ domináló mértékre nézve.
+    \item $\sqrt{f_{\theta}(x)}=\sqrt{g_\theta(S(x))}$, azaz ha $(R)$ teljesül, 
+    akkor $\sqrt{g_\theta(s)}$ folytonosan deriválható $\P[0]\circ S^{-1}$ m.m. $s$-re. 
+    \item $\ell_X'(\theta,X)=\ell_{S}'(\theta,S)$, amiből $I_X(\theta)=I_{S}(\theta)$ és $(R)$ $I$-re vonatkozó 
+    előírásai $I_S$-re is igazak.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fisher információ és elégséges statisztika}
+  \begin{proposition}
+    $(R)$ teljesül $X$ és az $S$ statisztika  eloszlásainak családjára is.
+     $f_\theta>0$ a mintatéren minden $\theta\in\Theta$-ra és $\Theta$ összefüggő nyílt.
+    
+     Ha $I_X(\theta)=I_{S(X)}(\theta)$, akkor $S$ elégséges.
+  \end{proposition}
+  \begin{itemize}
+    \item $\P[0]=\P[\theta_0]$ $\theta_0\in \Theta$ választható domináló mértéknek, $f_{\theta_0}\equiv1$.
+    \item Láttuk, hogy $\E[\theta]{(\partial_\theta \ln f_\theta)(X)|S }=\E{(\partial_\theta \ln g_\theta)(S)}$, 
+    ahol $g_\theta$ $S$ eloszlásainak sűrűsége $\P[\theta_0]\circ S^{-1}$-re.
+    \item A feltétel szerint $I_X=I_S$, ami csak akkor lehet, ha 
+    $\partial_\theta\ln f_\theta(x)=\partial_\theta g_\theta(S(x))$ minden $\theta$-ra $\P[0]$ m.m..
+    \item $\partial_\theta\ln f_\theta(x)$, $\partial_\theta\ln g_\theta(x)$ $\P[0]$ m.m. 
+    $x$-re folytonos $\theta$-ban $(R)$ miatt. 
+    \item $\P[0]{ \forall\theta\in\Theta,\,\partial_\theta\ln f_\theta(x)=\partial_\theta g_\theta(S(x))}=1$.
+    \item 
+    \begin{displaymath}
+      \ln f_{\theta_1}(x)-\ln f_{\theta_0} (x) = \int_{\gamma} \partial_\theta \ln f_\theta(x) d\theta=
+      \int_\gamma \partial_\theta \ln g_\theta (S(x))d\theta= \ln g_{\theta_1}(S(x))-\ln g_{\theta_0}(S(x))
+    \end{displaymath}
+    \begin{displaymath}
+      f_\theta(x)=\frac{g_\theta(S(x))}{g_{\theta_0}(S(x))}
+    \end{displaymath}
+    azaz $S$ elégséges a faktorizációs tétel miatt.
+  \end{itemize}
+\end{frame}
+\end{document}
+\begin{frame}{Összefoglalás}
+  
+\end{frame}
+
+\begin{frame}{Becslési Módszerek}
+  \begin{itemize}
+    
+  \item Tapasztalati becslések
+  \item Momentum módszer
+  \item Maximum likelihood becslés
+  \item Bayes becslés
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Néhány fogalom}
+    \begin{df}[Tapasztalati eloszlás]
+      $X_1,\dots, X_n$ minta, $P_n^*=\frac1n \sum_{i}\delta_{X_i}$ a
+      tapasztalati eloszlás.
+    \end{df}
+
+    Ki fogjuk számolni, hogy ha $X_1,X_2,\dots$ a $P$ eloszlásból
+    származó független megfigyelések, akkor
+    $P_n^*\dto P$ egy valószínűséggel.
+    (Glivenko-Cantelli tétel)
+
+    \begin{df}
+      $\cP=\set{\P[\theta]}{\theta\in
+        \Theta}$,
+      $X_1,X_2,\dots$ iid. minta,
+      $T_n=T_n (X_1,\dots,X_n)$ 
+      $g (\theta)$ becslése $n$ elemű mintából.
+
+      A $T_n$
+      becsléssorozat konzisztens, ha $T_n\pto g (\theta)$, és erősen
+      konzisztens ha $T_n\to g (\theta)$ egy valószínűséggel.
+    \end{df}
+
+\end{frame}
+
+\begin{frame}{Tapasztalati becslések}
+  \begin{df}
+      $\cP$ eloszlások egy családja, amely tartalmazza a véges sok
+      pontra koncentrált eloszlásokat. $\phi$ a $\cP$-n értelmezett
+      funkcionál.
+
+      $\phi (P)$ tapasztalati becslése $\phi (P_n^*)$, ahol $P_n^*$ a
+      tapasztalati eloszlás. 
+    \end{df}
+
+  \begin{itemize}
+  \item Példa. $N (\mu,1)$ eloszláscsaládnál kézenfekvő a paramétert a
+    mintaátlaggal becsülni.
+  \item A paraméter a várható érték, ami véges tartójú eloszlásokra is
+    létezik. A becslés a tapasztalati eloszlásból számolt várható érték.
+  
+  \item Ha a minta a $P$ eloszlásból származik, akkor $P_n^*\dto P$
+    egy valószínűséggel, azaz ha $\phi$ a gyenge konvergenciára 
+    nézve folytonos, akkor $\phi$ tapasztalati becslése erősen
+    konzisztens
+    
+  \item pl. tapasztalati medián, ha egyértelmű, erősen konzisztens a mediánra.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Momentum módszer}
+  \begin{itemize}
+  \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$, $\theta$-t akarjuk
+    becsülni.
+  \item Legyen $g:\mathfrak X_1\to\real^p$, és $\phi
+    (\theta)=\E[\theta] (g (X_1))$.
+    Tegyük fel, hogy $\phi:\Theta\to T$ kölcsönösen egyértelmű és oda-vissza
+    folytonos, $T$ nyílt. 
+  \item $\psi=\phi (\theta)$  tapasztalati becslése
+    \begin{displaymath}
+      \hat\psi_n=\frac1n \sum_i g (X_i)
+    \end{displaymath}
+  \item Ha $n$ elég nagy, akkor $\hat\psi\in T$ és
+    $\hat\theta=\phi^{-1} (\hat\psi)$ értelmes. 
+  \item $\hat\psi_n\to\psi$ egy valószínűséggel és $\phi^{-1}$ folytonossága
+    miatt $\hat\theta_n$ erősen konzisztens, de általában nem torzítatlan.
+
+    $\hat\psi_n$ torzítatlan $\psi$, de $\phi^{-1}$ általában nem
+    lineáris.
+    
+  \item Klasszikus momentum módszernél $g (x)=(x_1^1,\dots,x_1^p)$.
+  \end{itemize}
+
+\end{frame}
+ 
+\begin{frame}{Példa}
+  
+\end{frame}
+
+\begin{frame}{Maximum likelihood becslés}
+  \begin{itemize}
+  \item $\cP$ dominált mértékcsalád, $f_\theta$ a sűrűségfüggvény,
+    $\ell (\theta)$ a loglikelihood.
+    \begin{df}
+      A $\theta$ paraméter maximum likelihood becslése $\hat\theta (X)$,
+      ha $f_{\hat{\theta}} (X)=\sup_{\theta}f_{\theta} (X)$.
+    \end{df}
+
+  \item Nem biztos, hogy létezik, nem biztos, hogy egyértelmű.
+
+    pl. $U (\theta,\theta+1)$ eloszláscsalád. $f_\theta
+    (x)=\I{X_n^*-1\leq \theta\leq X_1^*}$, azaz ha  $T (X)\in
+    [X_n^*-1,X_1^*]$, akkor $T$ maximum likelihood becslése
+    $\theta$-nak.
+
+    pl. $f (x)$ sűrűségfüggvény $\real$-en.
+    $$f_{\mu,\sigma}
+    (x)=\frac{1}\sigma f \zfrac*{x-\mu}{\sigma}
+    $$
+    $\Theta=\real\times (0,\infty)$. $c\in\real$, $f (c)>0$, $x$ a
+    megfigyelt érték
+    \begin{displaymath}
+      \sup_{\mu,\sigma}\frac{1}{\sigma}f \zfrac*{x-\mu}{\sigma}\geq
+      \lim_{\sigma\to0}\frac{1}{\sigma} f\zfrac*{x- (x+c\sigma)}{\sigma}=\infty
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Maximum likelihood becslés}
+  $\psi=g(\theta)$ becslése maximum likelihood elvvel. Ha $g$ kölcsönösen
+  egyértelmű, akkor csak átparamétereztük a családot,
+  $\hat\psi=g(\hat\theta)$.
+
+  Ha $g$ nem injektív, akkor az indukált likelihoodot szokták
+  maximalizálni
+  \begin{displaymath}
+    f^*_\psi (x)=\sup\set{f_\theta (x)}{g (\theta)=\psi}
+  \end{displaymath}
+
+  \begin{proposition}
+    \begin{itemize}
+    \item Ha $T$ elégséges statisztika és létezik ML becslés, akkor
+      van olyan is, amelyik $T$ függvénye.
+    \item Ha $\hat\theta$ a $\theta$ ML becslése, akkor $g
+      (\hat\theta)$ a $g (\theta)$ ML becslése.
+    \end{itemize}
+  \end{proposition}
+  \begin{itemize}
+  \item Ha a maximum hely egyértelmű, akkor a faktorizációs tétel
+    miatt $f_\theta (x)=g_\theta (T (x)) h (x)$ csak $T (x)$-en
+    keresztül függ a megfigyeléstől. Ha nem egyértelmű, akkor arra
+    kell figyelni, hogy $T (x)$ függvényében válasszunk.
+    
+    pl. $U (\theta,\theta+1)$ esetén elégséges statisztika
+    $T (X) =(X_1^*,X_n^*)$. $\hat\theta(=X_n^*-1+X_1^*)/2$ ML becslés $T$
+    függvényei között,
+    \begin{displaymath}
+      \hat\theta+\sin (X_1)\frac{X_1^*-(X_n^*-1)}2
+    \end{displaymath}
+    pedig nem (feltéve, hogy a minta elemszáma legalább 2).
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Bayes becslés, bevezetés}
+  $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád. $g
+  (\theta)$-t szeretnénk becsülni.
+  \begin{displaymath}
+    L (\theta,T)=(g(\theta)-T)^2,\quad R_T(\theta)=\E[\theta] (L (\theta,T))
+  \end{displaymath}
+  $L (\theta,T)$ a veszteség, amit a $T$ becslés okoz, $R_T (\theta)$
+  az átlagos veszteség, más néven rizikó.
+
+  Bayes becslésnél a cél a
+  \begin{displaymath}
+    R_T (Q)=\int_\Theta R_T (\theta) Q (d\theta)\quad \text{apriori rizikó}
+  \end{displaymath}
+  minimalizálása.
+
+  $Q$ gyakran valószínűség eloszlás. Ilyenkor úgy gondolhatunk a feladatra,
+  hogy $\theta$ is valószínűségi változó, melynek eloszlása (a priori eloszlás)
+  $Q$.
+  $\P[t]$ a minta feltételes eloszlása a $\theta=t$ feltétel mellett.
+
+  \begin{displaymath}
+    R_T (Q)=\E{L (\theta,T)}=\E{(g (\theta)-T (X))^2}\geq \E{(g (\theta)-\E{g (\theta)|X})^2}
+  \end{displaymath}
+
+  A Bayes becslés $g (\theta)$ feltételes várható értéke a mintára nézve.
+\end{frame}
+
+\end{document}
+
+\begin{frame}{Momentum generáló függvény, deriválhatóság}
+    \begin{proposition}
+      Ha $M (\alpha)=\E{e^{\alpha\cdot X}}<\infty$, az origó egy környezetében,
+      akkor ott  $M$ deriválható.
+    \end{proposition}
+    \begin{itemize}
+      
+    \item  Létezik $\eps>0$, hogy $\E{e^{h\norm{X}}}<\infty$, ha
+      $h<\eps$.
+  
+      $\real^p$ a normák ekvivalensek, elég
+      $\norm{x}_{1}=\frac1p \sum \abs*{x_i}$-re számolni. Mivel $\exp$
+      konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
+      %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
+      \begin{displaymath}
+        e^{h\abs*{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
+        \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
+      \end{displaymath}
+      ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
+    \item ha $\norm{\alpha}$ kicsi, akkor
+      $\abs**{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
+      \begin{displaymath}
+        M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
+        =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad 
+        \partial_{i_1,\dots,i_k}M (0) =\E{\prod_{j}X_{i_j}}
+      \end{displaymath}
+    \end{itemize}
+  
+  \end{frame}
+  

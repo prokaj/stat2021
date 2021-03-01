@@ -347,19 +347,22 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $\cS$ minimális elégséges $\sigma$-algebra, ha elégséges és tetszőleges  
     $\cS'$ elégséges $\sigma$-algebrára: $\cS^*\subset (\cS')^*$.
 
-    $S$ minimális elégséges statisztika, ha $\sigma(S)$ minimális elégséges $\sigma$-algebra.
+    $S$ minimális elégséges statisztika, ha $\sigma(S)$ minimális 
+    elégséges $\sigma$-algebra.
   \end{df}
   %\continue
   % Megjegyzések:
   \begin{itemize}
-    \item Ha $S$ minimális elégséges és $T$ elégséges, akkor $\sigma(S)\subset\sigma(S)^*\subset \sigma(T)^*$ 
+    \item Ha $S$ minimális elégséges és $T$ elégséges, 
+    akkor $\sigma(S)\subset\sigma(S)^*\subset \sigma(T)^*$ 
     és $\P{S=g(T)}=1$ minden $\P\in\cP$-re, alkalmas mérhető $g$-vel.
     \item Ha $\cP$ dominált, akkor $\cS=\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$,
     minimális elégséges $\sigma$-algebra.
     \pause
 
     $\cS'$ pontosan akkor elégséges, 
-    ha $\frac{d\P}{d\P[0]}\sim(\cS')^*$ minden $\P\in\cP$-re, amiből $\cS\subset(\cS')^*$.
+    ha $\frac{d\P}{d\P[0]}\sim(\cS')^*$ minden $\P\in\cP$-re, 
+    amiből $\cS\subset(\cS')^*$.
 
     \item Ha $\cP=\set*{\P[n]}{n\geq1}$ megszámlálható, % mértékcsalád, 
     akkor  dominált és van minimális elégséges statisztika.
@@ -368,7 +371,7 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     $\P[0]=\sum_n 2^{-n}\P[n]$ domináló mérték.
     $\cS=\sigma(\set*{\frac{d\P}{d\P[0]}}{\P\in\cP})$ megszámlálhatóan generált. 
 
-    $\cS$ generátorrendszere $\set*{H_n}{n\geq1}$, $T=\sum_n 3^{-n} 2\I[H_n]$, ekkor 
+    $\cS$ generátorrendszere $\set*{H_n}{n\geq1}$, $T=\sum_n 3^{-n} 2\I*{H_n}$, ekkor 
     $\cS=\sigma(T)$.
 
     (HF. ellenőrizni, útmutatás: $\event*{\cbr*{3^{n-1} T}>1/2}=H_n$).
@@ -633,25 +636,30 @@ Ha $\P=\sum_i c_i\P[i]\in\cP'$, akkor
     \begin{displaymath}
       \frac{f_\theta(x)}{f_\theta(y)}=\zfrac*{\theta}{1-\theta}^{\sum x_i-\sum y_i}  
     \end{displaymath}
-    ez csak akkor nem függ $\theta$-tól, ha $\sum x_i=\sum y_i$, azaz a mintaösszeg minimális elégséges.
+    ez csak akkor nem függ $\theta$-tól, ha $\sum x_i=\sum y_i$, 
+    azaz a mintaösszeg minimális elégséges.
     \pause
     \item Ugyanez másképp. 
     
-    $\cS$ elégséges $\sigma$-algebra. $\P[\theta]{X\in A\given \cS}$ nem függ $\theta$-tól, 
+    $\cS$ elégséges $\sigma$-algebra. 
+    $\P[\theta]{X\in A\given \cS}$ nem függ $\theta$-tól, 
     $T_A$ jelöli a közös változatot.
-    \item $S$ a mintaösszeg elégséges, $\E[\theta]{\I{X\in A}-T_A\given S}=h(S)$ a közös változat. Ekkor 
+    \item $S$ a mintaösszeg elégséges, 
+    $\E[\theta]{\I{X\in A}-T_A\given S}=h(S)$ a közös változat. Ekkor 
     \begin{displaymath}
       \E[\theta]{h(S)}=\E[\theta]{\I{X\in A}-T_A}
-      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I[A]\given \cS}}=0.
+      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I*{A}\given \cS}}=0.
     \end{displaymath}
     \item $S$ binomiális eloszlású $n$-renddel 
     és $\theta$ paraméterrel:
     \begin{displaymath}
       0=\E[\theta]{h(S)}=
-      \sum_{k=0}^n h(k)\binom n k \theta^k(1-\theta)^{n-k}\quad\text{minden $\theta\in(0,1)$}.
+      \sum_{k=0}^n h(k)\binom n k \theta^k(1-\theta)^{n-k}
+      \quad\text{minden $\theta\in(0,1)$}.
     \end{displaymath}
-    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I[A]-T_A\given S}$.
-    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I[A]-\E{T_A\given S}$ és $T_A=\I[A]$, vagyis $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
+    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I*{A}-T_A\given S}$.
+    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I*{A}-\E{T_A\given S}$ és $T_A=\I*{A}$, 
+    vagyis $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
   \end{itemize}
 \end{frame}
 \end{document}

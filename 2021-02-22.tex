@@ -38,7 +38,7 @@
     \item $S$ a mintaösszeg elégséges, $\E[\theta]{\I{X\in A}-T_A\given S}=h(S)$ a közös változat. Ekkor 
     \begin{displaymath}
       \E[\theta]{h(S)}=\E[\theta]{\I{X\in A}-T_A}
-      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I[A]\given \cS}}=0.
+      =\P[\theta]{A}-\E[\theta]{\E[\theta]{\I*{A}\given \cS}}=0.
     \end{displaymath}
     \item $S$ binomiális eloszlású $n$-renddel 
     és $\theta$ paraméterrel:
@@ -46,11 +46,13 @@
       0=\E[\theta]{h(S)}=
       \sum_{k=0}^n h(k)\binom n k \theta^k(1-\theta)^{n-k}\quad\text{minden $\theta\in(0,1)$}.
     \end{displaymath}
-    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I[A]-T_A\given S}$.
-    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I[A]-\E{T_A\given S}=0$, azaz $\E{\E{\I[A]\given \cS}\given S}=\I[A]$.
+    Így $h(k)=0$, $k=0,1,\dots,n$ és $0=h(S)=\E[\theta]{\I*{A}-T_A\given S}$.
+    \item Ha $A\in\sigma(S)$, akkor $h(S)=\I*{A}-\E{T_A\given S}=0$, 
+    azaz $\E{\E{\I*{A}\given \cS}\given S}=\I*{A}$.
     \item A feltételes várható érték képzés $L^2$-ben merőleges vetítés, 
     ha nem csökkenti az $L^2$ normát akkor nem is változtathat. 
-    \item $\I[A]\sim \cS^*$  minden $A\in\sigma(S)$-re, vagyis $\sigma(S)\subset \cS^*$, 
+    \item $\I*{A}\sim \cS^*$  minden $A\in\sigma(S)$-re, 
+    vagyis $\sigma(S)\subset \cS^*$, 
     amiből $\sigma(S)^*\subset\cS^*$ és $\sigma(S)$ minimális elégséges.    
   \end{itemize}
 \end{frame}
@@ -116,14 +118,14 @@
     \end{theorem}
     \begin{itemize}
       \item $A\in\sigma(S)$, $\cS$ tetszőleges elégséges $\sigma$-algebra, $T_A=\P[\theta]{X\in A\given  \cS}$ közös változat.
-      \item $h(S)=\E[\theta]{\I[A]-T_A\given  S}=\I[A]-\E{T_A\given  S}$ korlátos statisztika, 
+      \item $h(S)=\E[\theta]{\I*{A}-T_A\given  S}=\I*{A}-\E{T_A\given  S}$ korlátos statisztika, 
       $\E[\theta]{h(S)}=\P[\theta]{A}-\P[\theta]{A}=0$.
-      \item Teljesség miatt $h(S)=0$, azaz $\I[A]=\E{T_A\given  S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
+      \item Teljesség miatt $h(S)=0$, azaz $\I*{A}=\E{T_A\given  S}$ $\cP$ majdnem mindenütt. $0\leq T_A\leq 1$ miatt
       \begin{displaymath}
-        \E[\theta]{(\I[A]-T_A)^2\given  S}=\E{\I[A]-2\I[A]T_A+T_A^2\given  S}
-        = \E{T_A^2\given  S}-\I[A]\leq\E{T_A\given  S}-\I[A]=0.
+        \E[\theta]{(\I*{A}-T_A)^2\given  S}=\E{\I*{A}-2\I*{A}T_A+T_A^2\given  S}
+        = \E{T_A^2\given  S}-\I*{A}\leq\E{T_A\given  S}-\I*{A}=0.
       \end{displaymath}
-      \item $\P[\theta]{\I[A]=T_A}=1$ minden $\theta$-ra, 
+      \item $\P[\theta]{\I*{A}=T_A}=1$ minden $\theta$-ra, 
       azaz $\P[\theta]{A\circ \event*{T_A=1}}=0$, így $A\in\cS^*$ és $\sigma(S)\subset\cS^*$.
     \end{itemize}
   \end{frame}
@@ -549,133 +551,7 @@
   \end{frame}
 \end{document}
   
-  \begin{frame}{Alsó korlát torzítatlan becslés szórásnégyzetére}
-    \begin{itemize}
-      \item $\P[0]$ $\P[1]$ eloszlások, $f_0$, $f_1$ sűrűséggel az $\mfX$ mintatéren, $\P[1]\ll\P[0]$.
-      \item $T$ statisztika, $\E[i]{T}=g(i)$ $i=0,1$. 
-      \begin{displaymath}
-        g(1)-g(0)=\E[1]{T}-\E[0]{T}=\E[0]{T\zjel*{\frac{f_1}{f_0}-1}}
-      \end{displaymath}
-      \item $\E[0]{f_1/f_0-1}=0$ és $U=f_1/f_0-1$ jelöléssel
-      \begin{displaymath}
-        \abs{g(1)-g(0)}=\abs{\cov_0(T,U)}\leq\D[0]{T}\D[0]{U}
-        \quad\implies\quad
-        \D[0]^2{T}\geq \frac{(g(1)-g(0))^2}{\D[0]^2(U)}.
-      \end{displaymath}
-    \end{itemize}
-    \continue
-    Példa
-    \begin{itemize}
-      \item $X$ $n$ elemű minta $U(0,\theta)$ eloszlásból, $\theta>0$.
-      \item $T$ torzítatlan becslés $\theta$-ra. 
-      \item $0< \theta_1=\alpha\theta_0<\theta_0$, mellett $\P[1]\ll\P[0]$ és 
-      $U(x)=\frac{f_1(x)}{f_0(x)}-1$, 
-      $\frac{f_1(x)}{f_0(x)}%=\zfrac*{\theta_0}{\theta_1}^n\I{\max x_i<\theta_1}
-      =\alpha^{-n}\I{\max x_i<\theta_1}$.
-      \begin{displaymath}
-        \D[0]^2{U}=\E[0]{U^2}=\E{\zfrac*{f_1}{f_0}^2}-1=\alpha^{-n}-1
-        %\zjel*{\alpha^{-n}-1}^2\cdot\zfrac*{\theta_1}{\theta_0}^n
-        %+1^2\cdot\zjel*{1-\zfrac*{\theta_1}{\theta_0}^n}=\alpha^{-n}-1
-        \implies \D[0]^2{T}\geq 
-        \theta_0^2 \sup_{\alpha\in(0,1)}\frac{(1-\alpha)^2}{\alpha^{-n}-1}
-        \geq C\frac{\theta_0^2}{n^2},\quad\zjel{\alpha=1-\tfrac1n}.
-        %\frac{(1-\alpha^n)^2}{\alpha^n}+1-\alpha^n(1-\alpha^n)\alpha^{-n}=\alpha^{-n}+1
-      \end{displaymath}
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}{Példa. Indikátor minta}
-    % \begin{itemize}
-    %   \item $\P[0]$ $\P[1]$ eloszlások, $f_0$, $f_1$ sűrűséggel az $\mfX$ mintatéren, $\P[1]\ll\P[0]$.
-    %   \item $T$ statisztika, $\E[i]{T}=g(i)$ $i=0,1$. 
-    %   \item $\E[0]{f_1/f_0-1}=0$ és $U=f_1/f_0-1$ jelöléssel
-    %   \begin{displaymath}
-    %     \abs{g(1)-g(0)}=\abs{\cov_0(T,U)}\leq\D[0]{T}\D[0]{U}
-    %     \quad\implies\quad
-    %     \D[0]^2{T}\geq \frac{(g(1)-g(0))^2}{\D[0]^2(U)}.
-    %   \end{displaymath}
-    % \end{itemize}
-    % \continue
-    % Példa
-    \begin{itemize}
-      \item $X$ $n$ elemű minta $\theta$ paraméterű indikátor mintából, $\theta\in(0,1)$. 
-      \item $T$ torzítatlan becslés $p(\theta)$-ra, ahol $p$ legfeljebb $n$-edfokú polinom. 
-      \item $\P[\theta]$ ekvivalens a számláló mértékkel minden $\theta$ mellett és 
-      $\theta_1,\theta_0\in(0,1)$ esetén 
-      \begin{displaymath}
-        \lim_{\theta_1\to\theta_0}\frac1{\theta_1-\theta_0}\zjel*{\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}-1}
-        =\partial_\theta \ln f_{\theta_0}(x)=\frac{s}{\theta_0}-\frac{n-s}{1-\theta_0},\quad\text{ahol $s=\sum x_i$}.
-        % \frac{f_{\theta_1(x)}}{f_\theta_0(x)}=\frac{\theta_1^s(1-\theta_1)^{n-s}}{\theta_0^s(1-\theta_0)^{n-s}},\quad\text{ahol $s=\sum x_i$},
-        % \quad
-        % \E[\theta_0]{\zfrac{f_{\theta_1}}{f_\theta_0}^2}
-        % =\sum_{s=0}^n \binom{n}{s}\frac{\theta_1^{2s}(1-\theta_1)^{2(n-s)}}{\theta_0^s(1-\theta_0)^{n-s}}
-        % =\zjel*{\frac{\theta^2_1}{\theta_0}+\frac{(1-\theta_1)^2}{1-\theta_0}}^n=
-      \end{displaymath}
-      \item 
-      \begin{displaymath}
-        p'(\theta_0)=\lim_{\theta_1\to\theta_0}\frac{\E[\theta_0]{T\zjel*{\frac{f_{\theta_1}}{f_{\theta_0}}-1}}}{\theta_1-\theta_0}
-        =\cov_{\theta_0}(T,\partial_\theta\ln f_{\theta_0})\leq \D[\theta_0]{T}\D[\theta_0]{\partial_\theta\ln f_{\theta_0}}
-      \end{displaymath}
-      \item
-      \begin{displaymath}
-        \D[\theta]^2{T}\geq \frac{\zjel{p'(\theta)}^2}{\D[\theta]^2{\partial_\theta\ln f_\theta}}.
-      \end{displaymath}
-      Ez a Cramer-Rao egyenlőtlenség speciális esete.
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}{Cramer-Rao egyenlőtlenség, információs határ}
-    \begin{theorem}
-    \begin{itemize}[<*>]
-      \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ dominált család $f_\theta$ sűrűségekkel, $\Theta\subset\real^p$. 
-      \item $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a \textbf{loglikelihood} függvény. 
-      \item $\theta\in\interior\Theta$, $\ell'=\ell'(\theta)=\partial_\theta\ell(\theta)$ ($p$-dimenziós sorvektor) 
-      létezik és $\E[\theta]{\ell'(\theta)}=0$.
-      \item $I(\theta)=\Sigma_\theta((\ell'(\theta))^T)
-      =\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. $I(\theta)$ neve \textbf{Fisher információ}.
-      \item $T:\mfX\to\real^q$ statisztikára $g(\theta)=\E[\theta]{T}$ deriválható és 
-      $g'(\theta)=\E[\theta]{T\ell'(\theta)}$
-    \end{itemize}
-    Ekkor 
-    \begin{displaymath}
-      \Sigma_{\theta}(T)\geq G I^{-1}(\theta)G^T,\quad\text{ahol $G=g'(\theta)\in\real^{q\times p}$ és }
-    \end{displaymath}
-    \end{theorem}
-    \begin{itemize}
-      \item $A\in\real^{q\times p}$ mátrixszal $T-A\partial_\theta\ell(\theta)$ $q$-dimenziós vektor változó.
-      % \item $\ell'=\partial_\theta\ell(\theta)$ jelöléssel 
-      \begin{align*}
-        0\leq \Sigma_\theta(T-A(\ell')^T)
-        &=\Sigma_\theta(T)-A\E[\theta]{(\ell')^T T^T}-\E[\theta]{T\ell'}A^T+A\E[\theta]{(\ell')^T\ell'}A^T \\
-        &=\Sigma_\theta(T)-AG^T-GA^T+A I(\theta) A^T 
-      \end{align*}
-      \item Ha itt $A=G^TI^{-1}(\theta)$, akkor
-       \begin{displaymath}
-         0\leq \Sigma_\theta(T)-G^TI^{-1}(\theta)G\quad\implies\quad \Sigma_\theta(T)\geq G^TI^{-1}(\theta) G.
-       \end{displaymath}
-    \end{itemize}
-    %\continue
-    %$I(\theta)$ neve \textbf{Fisher} információ. Az ún. \textbf{gyenge regularitási feltétel} garantálja, hogy
-    %a $T$-re kirótt  minimális feltételek mellett a tétel feltételei teljesüljenek.
-  \end{frame}
-
-\end{document}
-  \begin{frame}{Fisher információ}
-    
-  \end{frame}
-
-  \begin{frame}{Gyenge regularitási feltétel}
-    
-  \end{frame}
-
-  \begin{frame}{Fisher információ tulajdonságai gyenge regularitási feltétel mellett}
-    
-  \end{frame}
   
-  \begin{frame}
-  
-  \end{frame}
-
   \end{document}
 
   \begin{frame}{Nem minden eloszláscsalád exponenciális}
@@ -711,35 +587,6 @@
   
   \end{document}
   
-  \begin{frame}{Momentum generáló függvény, deriválhatóság}
-    \begin{proposition}
-      Ha $M (\alpha)=\E{e^{\alpha\cdot X}}<\infty$, az origó egy környezetében,
-      akkor ott  $M$ deriválható.
-    \end{proposition}
-    \begin{itemize}
-      
-    \item  Létezik $\eps>0$, hogy $\E{e^{h\norm{X}}}<\infty$, ha
-      $h<\eps$.
-  
-      $\real^p$ a normák ekvivalensek, elég
-      $\norm{x}_{1}=\frac1p \sum \abs*{x_i}$-re számolni. Mivel $\exp$
-      konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
-      %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
-      \begin{displaymath}
-        e^{h\abs*{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
-        \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
-      \end{displaymath}
-      ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
-    \item ha $\norm{\alpha}$ kicsi, akkor
-      $\abs**{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
-      \begin{displaymath}
-        M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
-        =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad 
-        \partial_{i_1,\dots,i_k}M (0) =\E{\prod_{j}X_{i_j}}
-      \end{displaymath}
-    \end{itemize}
-  
-  \end{frame}
   
   \end{document}
   

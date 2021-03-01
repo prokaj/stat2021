@@ -63,7 +63,7 @@
 \let\eps\varepsilon
 \def\ito/{It\^o}
 \let\Ito=\ito
-\def\eqinlaw{\stackrel{p}{=}}
+\def\eqinlaw{\stackrel{d}{=}}
 
 \def\strip#1{%
     \expandafter\stripi\detokenize{#1}\relax
@@ -108,6 +108,20 @@
 \newcommand{\I}[1][]{%
   \Isymb\ifblank{#1}{\substr}{_{#1}}%
 }
+
+\def\Isymb{{\mathbb 1}}
+
+\def\I{\@ifstar\I@star\I@}
+\def\I@star{%
+  %\message{I@star arg:|#1|^^J}%
+  \Isymb\ifbrace{_}{}% } %{_{#1}}%
+  }
+\newcommand{\I@}[2][\zjel]{%
+  \Isymb_{#1{#2}}% } %{_{#1}}%
+}
+
+
+
 \def\interior{\operatorname{int}}
 \def\tg{\operatorname{tg}}
 \DeclarePairedDelimiterX{\zfrac}[2](){\frac{#1}{#2}}
@@ -128,8 +142,11 @@
 \let\PEfont\mathbb
 \def\npto{\buildrel p\over \nrightarrow}
 \def\ndto{\buildrel d\over \nrightarrow}
-\def\dto{\buildrel d\over \rightarrow}
+%\def\dto{\buildrel d\over \rightarrow}
 \def\dto{\stackrel{d}{\to}}
+\def\pto{\stackrel{p}{\to}}
+\def\tr{\operatorname{Tr}}
+\def\arctg{\operatorname{arctg}}
 \let\nto\nrightarrow
 
 \def\Leb{\operatorname{Leb}}
