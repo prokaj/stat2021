@@ -1120,33 +1120,4 @@
 
 \end{document}
 
-\begin{frame}{Momentum generáló függvény, deriválhatóság}
-    \begin{proposition}
-      Ha $M (\alpha)=\E{e^{\alpha\cdot X}}<\infty$, az origó egy környezetében,
-      akkor ott  $M$ deriválható.
-    \end{proposition}
-    \begin{itemize}
-      
-    \item  Létezik $\eps>0$, hogy $\E{e^{h\norm{X}}}<\infty$, ha
-      $h<\eps$.
-  
-      $\real^p$ a normák ekvivalensek, elég
-      $\norm{x}_{1}=\frac1p \sum \abs*{x_i}$-re számolni. Mivel $\exp$
-      konvex $e^{\norm{x}_1}\leq\frac1p \sum e^{\abs*{x_i}}$ és
-      %$\norm{h}_1=\sum h_i=1$ és $h_i\geq0$, akkor
-      \begin{displaymath}
-        e^{h\abs*{X_i}}\leq e^{hX_i}+e^{-hX_i},\quad
-        \E{e^{h\norm{X}_1}}\leq \frac1p \sum_i(M (h e_i)+M (-h e_i))<\infty
-      \end{displaymath}
-      ahol $e_1,\dots,e_p$ a természetes bázis $\real^p$-ben.
-    \item ha $\norm{\alpha}$ kicsi, akkor
-      $\abs**{\alpha\cdot X}<\eps\norm{X}$ és a dominált konvergencia tétel miatt
-      \begin{displaymath}
-        M (\alpha)=\E{\sum_k \frac{(\alpha\cdot X)^n}{n!}}
-        =\sum_n \frac{\E{(\alpha\cdot X)^n}}{n!}\quad\implies\quad 
-        \partial_{i_1,\dots,i_k}M (0) =\E{\prod_{j}X_{i_j}}
-      \end{displaymath}
-    \end{itemize}
-  
-  \end{frame}
   
