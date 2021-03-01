@@ -1,0 +1,343 @@
+%\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Példák}
+    \begin{itemize}
+      \item Ha $\cP$ exponenciális családot alkot $\Theta\subset\real^p$ nyílt. 
+      \begin{displaymath}
+        f_\theta(x)=\exp{\theta T(x)-b(\theta)},\quad \sqrt{f_\theta(x)}=\exp{\tfrac12\theta T(x)-\tfrac12b(\theta)}
+      \end{displaymath}
+      ahol $b(\theta)$ sima $\Theta$-n, azaz $\theta\mapsto \sqrt{f_\theta}(x)$ folytonosan differenciálható.
+      
+      $I(\theta)=b''(\theta)=\Sigma_\theta(T)$, azaz $I(\theta)$ véges értékű és folytonos, 
+      $\det I(\theta)>0$ teljesül, ha $T$ a $\real^p$ nem egy valódi affin altérből veszi fel az értékeit.
+      \item $X$ Cauchy eloszlás eltolás paraméteres családjából származó $n$ elemű minta. 
+      $X$ eloszlásai nem alkotnak exponenciális családot, de
+      \begin{displaymath}
+        \sqrt{f_\theta(x)}=\prod \pi^{-1/2} (1+(x_i-\theta)^2)^{-1/2}
+      \end{displaymath}
+      folytonosan deriválható, és 
+      \begin{displaymath}
+        \hphantom{\hspace{-2em}}
+        \ell(\theta,x)=c+\sum_{i} \frac{-1}{2}\ln(1+(x_i-\theta)^2),
+        \quad
+        \ell'(\theta,x)=\sum_i \frac{x_i-\theta}{1+(x_i-\theta)^2}
+        %\quad 
+        %\E[\theta]{\ell'(\theta)}=\E[0]{\ell'(0)}=\sum_i \int_{\real} \frac{x_i}{\pi (1+x_i^2)^2} d x_i=0
+        %\quad
+        % I(\theta) = \E[\theta]{(\ell'(\theta))^2}
+      %   =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x=\frac{n}{4}<\infty 
+      \end{displaymath}
+      \begin{displaymath}
+        \E[\theta]{\ell'(\theta)} = n\int_{\real} \frac{x}{\pi (1+x^2)^2} d x=0
+        \quad
+        I(\theta) = \D[\theta]^2{\ell'(\theta)}
+        =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x<\infty 
+      \end{displaymath}
+      $I(\theta)$ véges, folytonos és nem nulla. 
+      $X$ eloszlásainak családja teljesíti a gyenge regularitási feltételt.
+      %$\ell'(\theta)$ eloszlása 
+    \end{itemize}  
+  \end{frame}
+  
+  \begin{frame}{Független minták Fisher információja összeadódik}
+    \begin{df}[$(R)$, azaz gyenge regularitási feltétel]
+      $\cP=\set{f_\theta d\lambda}{\theta\in\Theta}$ dominált mértékcsalád, $\Theta\subset\real^p$ nyílt.
+      \begin{enumerate}[<*>]
+        \item $\lambda$ majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ folytonosan differenciálható.
+        \item $I(\theta)$ véges $\theta$-ban folytonos, nem szinguláris ($\det I(\theta)>0$).
+      \end{enumerate}
+    \end{df}
+    \begin{proposition}
+      $X$, $Y$ minden $\theta\in\Theta$ mellett függetlenek és eloszlásaikra teljesül $(R)$.
+  
+      Ekkor $(X,Y)$ együttes eloszlásaira is teljesül $(R)$ és $I_{X,Y}(\theta)=I_{X}(\theta)+I_{Y}(\theta)$.
+    \end{proposition}
+    \begin{itemize}
+      \item $X$ eloszlásainak domináló mértéke $\lambda_X$, $Y$-ra $\lambda_Y$. Ekkor $(X,Y)$ eloszlásait 
+      $\lambda_X\otimes\lambda_Y$ dominálja. 
+      \item $f_{(X,Y),\theta}(x,y)=f_{X,\theta}(x)f_{Y,\theta}(y)$. Ha $\sqrt{f_{X,\theta}(x)}$ $\sqrt{f_{Y,\theta}(y)}$ 
+      folytonosan deriválható $\theta$-ban $\lambda_X$ majdnem minden $x$-re ill. $\lambda_Y$ majdnem minden $y$-ra, akkor 
+      $\sqrt{f_{X,Y,\theta}(x,y)}$ is folytonosan differenciálható $\lambda_X\otimes\lambda_Y$ m.m $(x,y)$-ra. 
+      \item $\ln f_{X,Y,\theta}(x,y)=\ln f_{X,\theta}(x)+\ln f_{Y,\theta}(y)$. 
+      Ebből $I_{X+Y}(\theta)=I_X(\theta)+I_{Y}(\theta)$ következik. 
+      \item $I_{X+Y}(\theta)$ folytonos, véges értékű.
+      \item $I_{X+Y}\geq I_{X}$, amiből $\ker I_{X+Y}\subset \ker I_X=\smallset{0}$, 
+      $I_{X+Y}$ is invertálható, minden $\theta$-ra.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{$S(X)$ Fisher információja nem lehet $X$ információ tartalmánál nagyobb}
+    \begin{proposition}
+      $X$ eloszlásainak a családjára teljesül $(R)$. $S$ statisztika. Ekkor $S$ eloszlásainak a családja is dominált.
+  
+      Ha $S$ eloszlásainak családjára is teljesül $(R)$, akkor $I_{S(X)}(\theta)\leq I_X(\theta)$.
+    \end{proposition}
+    \begin{itemize}
+      %\item $(R)$ nem függ a domináló mértéktől, $\P[0]\in \cP'$ választható. 
+      %($\cP'=\set{\sum c_i\cP[\theta_i]}{c_i\geq0,\,\sum c_i=1}$). 
+      \item $\lambda\circ S^{-1}$ domináló mérték $S$ eloszlásaihoz: 
+      \begin{displaymath}
+        \P[\theta]{S\in H}
+        =\int_{\mfX} f_\theta(x) \I{S(x)\in H} \lambda (d x)
+        % =\E[0]{\frac{d\P[\theta]|_{\sigma(S)}}{d\P[0]|_{\sigma(S)}}\I{S\in H}}
+        =\int_H g_\theta(s) \lambda\circ S^{-1}(d s), 
+        \quad g_\theta(S)= \frac{d\P[\theta]|_{\sigma(S)}} {d\lambda|_{\sigma(S)}}. 
+      \end{displaymath}
+      \item Ha $S$ eloszlásai is teljesítik $(R)$-et, $\P[\theta]{S\in H}$-re adott mindkét formulában az 
+      integrálon belül lehet deriválni $\theta$ szerint.
+      $\ell_X(\theta,x)=\ln f_{\theta}(x)$ 
+      és $\ell_S(\theta,s)=\ln g_\theta(s)$ jelöléssel
+      \begin{displaymath}
+        %\partial_\theta \P[\theta]{S\in H}
+        %=
+        \int_{\mfX} \partial_\theta  f_{\theta}(x)\I{S(x)\in H} \lambda(d x)
+        =\E[\theta]{\I{S\in H} \ell_X'(\theta,X)}
+        =\int_{H} g_\theta'(s) \lambda\circ S^{-1}(d s)
+        =\E[\theta]{\I{S\in H}\ell'_S(\theta,S)}
+      \end{displaymath}
+      \item $\E[\theta]{\ell'_X(\theta,X)|S}=\ell'_S(\theta,S)$ és a teljes szórásnégyzet tétel szerint 
+      $I_S(\theta)\leq I_X(\theta)$.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Elégséges statisztika Fisher információja}
+    \begin{proposition}
+      $X$ minta eloszlásainak családjára teljesül $(R)$, $S$ elégséges statisztika. 
+      Ekkor $S$ eloszlásainak a családjára is teljesül $(R)$ és $I_{S(X)}(\theta)=I_{X}(\theta)$.
+    \end{proposition}
+    \begin{itemize}
+      \item  $(R)$ nem függ a domináló mértéktől, $\P[0]\in \cP'$ választható. 
+      ($\cP'=\set{\sum c_i\cP[\theta_i]}{c_i\geq0,\,\sum c_i=1}$). 
+      \item $S$ elégséges, ezért $\P[0]$-ra vonatkozó sűrűségek $f_{\theta}(x)=g_{\theta}(S(x))$ alakúak.
+      \item $g_\theta$ $S$ eloszlásának a sűrűsége a $\P[0]\circ S^{-1}$ domináló mértékre nézve.
+      \item $\sqrt{f_{\theta}(x)}=\sqrt{g_\theta(S(x))}$, azaz ha $(R)$ teljesül, 
+      akkor $\sqrt{g_\theta(s)}$ folytonosan deriválható $\P[0]\circ S^{-1}$ m.m. $s$-re. 
+      \item $\ell_X'(\theta,X)=\ell_{S}'(\theta,S)$, amiből $I_X(\theta)=I_{S}(\theta)$ és $(R)$ $I$-re vonatkozó 
+      előírásai $I_S$-re is igazak.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Fisher információ és elégséges statisztika}
+    \begin{proposition}
+      $(R)$ teljesül $X$ és az $S$ statisztika  eloszlásainak családjára is.
+       $f_\theta>0$ a mintatéren minden $\theta\in\Theta$-ra és $\Theta$ összefüggő nyílt.
+      
+       Ha $I_X(\theta)=I_{S(X)}(\theta)$, akkor $S$ elégséges.
+    \end{proposition}
+    \begin{itemize}
+      \item $\P[0]=\P[\theta_0]$ $\theta_0\in \Theta$ választható domináló mértéknek, $f_{\theta_0}\equiv1$.
+      \item Láttuk, hogy $\E[\theta]{(\partial_\theta \ln f_\theta)(X)|S }=\E{(\partial_\theta \ln g_\theta)(S)}$, 
+      ahol $g_\theta$ $S$ eloszlásainak sűrűsége $\P[\theta_0]\circ S^{-1}$-re.
+      \item A feltétel szerint $I_X=I_S$, ami csak akkor lehet, ha 
+      $\partial_\theta\ln f_\theta(x)=\partial_\theta g_\theta(S(x))$ minden $\theta$-ra $\P[0]$ m.m..
+      \item $\partial_\theta\ln f_\theta(x)$, $\partial_\theta\ln g_\theta(x)$ $\P[0]$ m.m. 
+      $x$-re folytonos $\theta$-ban $(R)$ miatt. 
+      \item $\P[0]{ \forall\theta\in\Theta,\,\partial_\theta\ln f_\theta(x)=\partial_\theta g_\theta(S(x))}=1$.
+      \item 
+      \begin{displaymath}
+        \ln f_{\theta_1}(x)-\ln f_{\theta_0} (x) = \int_{\gamma} \partial_\theta \ln f_\theta(x) d\theta=
+        \int_\gamma \partial_\theta \ln g_\theta (S(x))d\theta= \ln g_{\theta_1}(S(x))-\ln g_{\theta_0}(S(x))
+      \end{displaymath}
+      \begin{displaymath}
+        f_\theta(x)=\frac{g_\theta(S(x))}{g_{\theta_0}(S(x))}
+      \end{displaymath}
+      azaz $S$ elégséges a faktorizációs tétel miatt.
+    \end{itemize}
+  \end{frame}
+  \end{document}
+  \begin{frame}{Összefoglalás}
+    
+  \end{frame}
+  
+  \begin{frame}{Becslési Módszerek}
+    \begin{itemize}
+      
+    \item Tapasztalati becslések
+    \item Momentum módszer
+    \item Maximum likelihood becslés
+    \item Bayes becslés
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Néhány fogalom}
+      \begin{df}[Tapasztalati eloszlás]
+        $X_1,\dots, X_n$ minta, $P_n^*=\frac1n \sum_{i}\delta_{X_i}$ a
+        tapasztalati eloszlás.
+      \end{df}
+  
+      Ki fogjuk számolni, hogy ha $X_1,X_2,\dots$ a $P$ eloszlásból
+      származó független megfigyelések, akkor
+      $P_n^*\dto P$ egy valószínűséggel.
+      (Glivenko-Cantelli tétel)
+  
+      \begin{df}
+        $\cP=\set{\P[\theta]}{\theta\in
+          \Theta}$,
+        $X_1,X_2,\dots$ iid. minta,
+        $T_n=T_n (X_1,\dots,X_n)$ 
+        $g (\theta)$ becslése $n$ elemű mintából.
+  
+        A $T_n$
+        becsléssorozat konzisztens, ha $T_n\pto g (\theta)$, és erősen
+        konzisztens ha $T_n\to g (\theta)$ egy valószínűséggel.
+      \end{df}
+  
+  \end{frame}
+  
+  \begin{frame}{Tapasztalati becslések}
+    \begin{df}
+        $\cP$ eloszlások egy családja, amely tartalmazza a véges sok
+        pontra koncentrált eloszlásokat. $\phi$ a $\cP$-n értelmezett
+        funkcionál.
+  
+        $\phi (P)$ tapasztalati becslése $\phi (P_n^*)$, ahol $P_n^*$ a
+        tapasztalati eloszlás. 
+      \end{df}
+  
+    \begin{itemize}
+    \item Példa. $N (\mu,1)$ eloszláscsaládnál kézenfekvő a paramétert a
+      mintaátlaggal becsülni.
+    \item A paraméter a várható érték, ami véges tartójú eloszlásokra is
+      létezik. A becslés a tapasztalati eloszlásból számolt várható érték.
+    
+    \item Ha a minta a $P$ eloszlásból származik, akkor $P_n^*\dto P$
+      egy valószínűséggel, azaz ha $\phi$ a gyenge konvergenciára 
+      nézve folytonos, akkor $\phi$ tapasztalati becslése erősen
+      konzisztens
+      
+    \item pl. tapasztalati medián, ha egyértelmű, erősen konzisztens a mediánra.
+    \end{itemize}
+    
+  \end{frame}
+  
+  \begin{frame}{Momentum módszer}
+    \begin{itemize}
+    \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$, $\theta$-t akarjuk
+      becsülni.
+    \item Legyen $g:\mathfrak X_1\to\real^p$, és $\phi
+      (\theta)=\E[\theta] (g (X_1))$.
+      Tegyük fel, hogy $\phi:\Theta\to T$ kölcsönösen egyértelmű és oda-vissza
+      folytonos, $T$ nyílt. 
+    \item $\psi=\phi (\theta)$  tapasztalati becslése
+      \begin{displaymath}
+        \hat\psi_n=\frac1n \sum_i g (X_i)
+      \end{displaymath}
+    \item Ha $n$ elég nagy, akkor $\hat\psi\in T$ és
+      $\hat\theta=\phi^{-1} (\hat\psi)$ értelmes. 
+    \item $\hat\psi_n\to\psi$ egy valószínűséggel és $\phi^{-1}$ folytonossága
+      miatt $\hat\theta_n$ erősen konzisztens, de általában nem torzítatlan.
+  
+      $\hat\psi_n$ torzítatlan $\psi$, de $\phi^{-1}$ általában nem
+      lineáris.
+      
+    \item Klasszikus momentum módszernél $g (x)=(x_1^1,\dots,x_1^p)$.
+    \end{itemize}
+  
+  \end{frame}
+   
+  \begin{frame}{Példa}
+    
+  \end{frame}
+  
+  \begin{frame}{Maximum likelihood becslés}
+    \begin{itemize}
+    \item $\cP$ dominált mértékcsalád, $f_\theta$ a sűrűségfüggvény,
+      $\ell (\theta)$ a loglikelihood.
+      \begin{df}
+        A $\theta$ paraméter maximum likelihood becslése $\hat\theta (X)$,
+        ha $f_{\hat{\theta}} (X)=\sup_{\theta}f_{\theta} (X)$.
+      \end{df}
+  
+    \item Nem biztos, hogy létezik, nem biztos, hogy egyértelmű.
+  
+      pl. $U (\theta,\theta+1)$ eloszláscsalád. $f_\theta
+      (x)=\I{X_n^*-1\leq \theta\leq X_1^*}$, azaz ha  $T (X)\in
+      [X_n^*-1,X_1^*]$, akkor $T$ maximum likelihood becslése
+      $\theta$-nak.
+  
+      pl. $f (x)$ sűrűségfüggvény $\real$-en.
+      $$f_{\mu,\sigma}
+      (x)=\frac{1}\sigma f \zfrac*{x-\mu}{\sigma}
+      $$
+      $\Theta=\real\times (0,\infty)$. $c\in\real$, $f (c)>0$, $x$ a
+      megfigyelt érték
+      \begin{displaymath}
+        \sup_{\mu,\sigma}\frac{1}{\sigma}f \zfrac*{x-\mu}{\sigma}\geq
+        \lim_{\sigma\to0}\frac{1}{\sigma} f\zfrac*{x- (x+c\sigma)}{\sigma}=\infty
+      \end{displaymath}
+    \end{itemize}  
+  \end{frame}
+  
+  \begin{frame}{Maximum likelihood becslés}
+    $\psi=g(\theta)$ becslése maximum likelihood elvvel. Ha $g$ kölcsönösen
+    egyértelmű, akkor csak átparamétereztük a családot,
+    $\hat\psi=g(\hat\theta)$.
+  
+    Ha $g$ nem injektív, akkor az indukált likelihoodot szokták
+    maximalizálni
+    \begin{displaymath}
+      f^*_\psi (x)=\sup\set{f_\theta (x)}{g (\theta)=\psi}
+    \end{displaymath}
+  
+    \begin{proposition}
+      \begin{itemize}
+      \item Ha $T$ elégséges statisztika és létezik ML becslés, akkor
+        van olyan is, amelyik $T$ függvénye.
+      \item Ha $\hat\theta$ a $\theta$ ML becslése, akkor $g
+        (\hat\theta)$ a $g (\theta)$ ML becslése.
+      \end{itemize}
+    \end{proposition}
+    \begin{itemize}
+    \item Ha a maximum hely egyértelmű, akkor a faktorizációs tétel
+      miatt $f_\theta (x)=g_\theta (T (x)) h (x)$ csak $T (x)$-en
+      keresztül függ a megfigyeléstől. Ha nem egyértelmű, akkor arra
+      kell figyelni, hogy $T (x)$ függvényében válasszunk.
+      
+      pl. $U (\theta,\theta+1)$ esetén elégséges statisztika
+      $T (X) =(X_1^*,X_n^*)$. $\hat\theta(=X_n^*-1+X_1^*)/2$ ML becslés $T$
+      függvényei között,
+      \begin{displaymath}
+        \hat\theta+\sin (X_1)\frac{X_1^*-(X_n^*-1)}2
+      \end{displaymath}
+      pedig nem (feltéve, hogy a minta elemszáma legalább 2).
+    \end{itemize}  
+  \end{frame}
+  
+  \begin{frame}{Bayes becslés, bevezetés}
+    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád. $g
+    (\theta)$-t szeretnénk becsülni.
+    \begin{displaymath}
+      L (\theta,T)=(g(\theta)-T)^2,\quad R_T(\theta)=\E[\theta] (L (\theta,T))
+    \end{displaymath}
+    $L (\theta,T)$ a veszteség, amit a $T$ becslés okoz, $R_T (\theta)$
+    az átlagos veszteség, más néven rizikó.
+  
+    Bayes becslésnél a cél a
+    \begin{displaymath}
+      R_T (Q)=\int_\Theta R_T (\theta) Q (d\theta)\quad \text{apriori rizikó}
+    \end{displaymath}
+    minimalizálása.
+  
+    $Q$ gyakran valószínűség eloszlás. Ilyenkor úgy gondolhatunk a feladatra,
+    hogy $\theta$ is valószínűségi változó, melynek eloszlása (a priori eloszlás)
+    $Q$.
+    $\P[t]$ a minta feltételes eloszlása a $\theta=t$ feltétel mellett.
+  
+    \begin{displaymath}
+      R_T (Q)=\E{L (\theta,T)}=\E{(g (\theta)-T (X))^2}\geq \E{(g (\theta)-\E{g (\theta)|X})^2}
+    \end{displaymath}
+  
+    A Bayes becslés $g (\theta)$ feltételes várható értéke a mintára nézve.
+  \end{frame}
+  
+  \end{document}
+  
+    

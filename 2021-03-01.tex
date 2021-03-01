@@ -50,7 +50,8 @@
     $\frac{f_1(x)}{f_0(x)}%=\zfrac*{\theta_0}{\theta_1}^n\I{\max x_i<\theta_1}
     =\alpha^{-n}\I{\max x_i<\theta_1}$.
     \begin{displaymath}
-      \D[0]^2{U}=\E[0]{U^2}=\E{\zfrac*{f_1}{f_0}^2}-1=\alpha^{-n}-1
+      \D[0]^2{U}=\D[0]^2{\frac{f_1}{f_0}} %=\E{\zfrac*{f_1}{f_0}^2}-1
+      =\alpha^{-n}-1
       %\zjel*{\alpha^{-n}-1}^2\cdot\zfrac*{\theta_1}{\theta_0}^n
       %+1^2\cdot\zjel*{1-\zfrac*{\theta_1}{\theta_0}^n}=\alpha^{-n}-1
       \implies \D[0]^2{T}\geq 
@@ -117,7 +118,7 @@
     \item $I(\theta)=\Sigma_\theta((\ell'(\theta))^T)
     =\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. $I(\theta)$ neve \textbf{Fisher információ}.
     \item $T:\mfX\to\real^q$ statisztikára $g(\theta)=\E[\theta]{T}$ deriválható és 
-    $g'(\theta)=\E[\theta]{T\ell'(\theta)}$
+    $g'(\theta)=\int_{\mfX} T(x)\partial_\theta f_\theta(x)\lambda(dx)=\E[\theta]{T\ell'(\theta)}$.
   \end{itemize}
   Ekkor 
   \begin{displaymath}
@@ -360,8 +361,8 @@
       &\geq G (h(\xi)) H \,\cI (\xi)^{-1}\, H^T G (h (\xi))^{T}\\
       &=G (h(\xi)) I (h (\xi))^{-1} G (h (\xi))^{T}
     \end{align*}
-  \end{itemize}
   \alert{Az információs határ nem változik.}
+  \end{itemize}
 \end{frame}
 
 % \begin{frame}{Átparaméterezés hatása}
@@ -373,9 +374,10 @@
     \item $X_1,\dots, X_n$ indikátor minta $p\in(0,1)$ ismeretlen paraméterrel. 
     \item $X$ eloszlásainak a családja exponenciális családot alkot a $\theta=\ln\frac{p}{1-p}$ paraméterezéssel:
     \begin{displaymath}
-      f_p(x)=p^{\sum x_i}(1-p)^{n-\sum x_i}=\exp{\ln\frac{p}{1-p}\sum x_i+n\ln(1-p)}=\exp{\theta S(x)+n\ln{1+e^{\theta}}}
+      f_p(x)=p^{\sum x_i}(1-p)^{n-\sum x_i}=\exp{\ln\frac{p}{1-p}\sum x_i+n\ln(1-p)}=\exp{\theta S(x)-n\ln(1+e^{\theta})}
     \end{displaymath}
-    ahol $S$ a mintaösszeg, $p=1/(1+e^{-\theta})$ $b(\theta)=-n\ln(1-p)=-n\ln(1-\frac1{1+e^{-\theta}})=n\ln(1+e^\theta)$.
+    ahol $S$ a mintaösszeg, $p=1/(1+e^{-\theta})$ és 
+    $b(\theta)=-n\ln(1-p)=-n\ln(1-\frac1{1+e^{-\theta}})=n\ln(1+e^\theta)$.
     
     Ellenőrzés: $e^{b(0)}=\abs{\mfX}=2^{n}$
     \begin{displaymath}
@@ -415,8 +417,8 @@
       %=C-\ln\sigma-\frac12 Z^2,\quad \text{ahol $Z=(X_1-\mu)/sigma\sim N(0,1)}
       \\
       \ell'(\mu,\sigma)
-      &=(\sum \frac{X_i-\mu}{\sigma^2},\sum \frac{(X_i-\mu)^2}{\sigma^3}-\frac n\sigma)
-      =\frac1\sigma(\sum Z_i,\sum (Z^2_i-1)),\quad\text{ahol $Z_i=\frac1{\sigma}(X_i-\mu)\sim N(0,1)$}
+      &=\zjel*{\sum \frac{X_i-\mu}{\sigma^2},\sum \frac{(X_i-\mu)^2}{\sigma^3}-\frac n\sigma}
+      =\frac1\sigma\zjel*{\sum Z_i,\sum (Z^2_i-1)},\quad\text{ahol $Z_i=\frac{X_i-\mu}{\sigma}\sim N(0,1)$}
     \end{align*}
     \item $\E[\mu,\sigma]{\ell'(\mu,\sigma)}=0$, 
     \begin{displaymath}
@@ -557,7 +559,7 @@
     \begin{align*}
       \E[\theta_1]{T}-\E[\theta_0]{T}&=\int_0^1 g(\theta_0+u(\theta_1-\theta_0))d u(\theta_1-\theta_0)\\
       &=g(\theta_0)(\theta_1-\theta_0)+ \int_0^1 g(\theta_0+u(\theta_1-\theta_0))-g(\theta_0)d u(\theta_1-\theta_0)\\
-      &=g(\theta_0)(\theta_1-\theta_0)+o(\abs{\theta_1-\theta_0})
+      &=g(\theta_0)(\theta_1-\theta_0)+o(\abs{\theta_1-\theta_0}),\quad\text{ha $\theta_1\to\theta_0$}.
     \end{align*}
     % \item Feltehető, hogy a domináló mérték valószínűségi mérték.
   \end{itemize}
@@ -714,8 +716,8 @@
   \end{corollary}
   \begin{align*}
     \smallint k^2_n(1-\I{\abs{k_n}<2\abs{k_0}<K})
-    &= \smallint k_n^2\I{\abs{k_n}>2\abs{k_0}}+\smallint k_n^2\I{\abs{k_n}<2\abs{k_0}\geq K}\\
-    &\leq \smallint k_n^2\I{\abs{k_n}>2\abs{k_0}}+\smallint 4k_0^2\I{2\abs{k_0}\geq K}
+    &= \smallint k_n^2\I{\abs{k_n}\geq 2\abs{k_0}}+\smallint k_n^2\I{\abs{k_n}<2\abs{k_0}\geq K}\\
+    &\leq \smallint k_n^2\I{\abs{k_n}\geq 2\abs{k_0}}+\smallint 4k_0^2\I{2\abs{k_0}\geq K}
     \to \smallint 4 k_0^2\I{2\abs{k_0}\geq K}
   \end{align*}
 \end{frame}
@@ -774,7 +776,7 @@
     Ekkor $0=\E[\theta]{\ell'(\theta)}=\int_{\mfX} \partial_\theta f_\theta(x)\lambda(dx)$ 
     $\implies$ $n$ elemű minta Fisher információja az egy elemű minta $I_1(\theta)$ Fisher információjának $n$-szerese.
     \item $(R)$ teljesül, $T$ torzítatlan $g(\theta)$-ra, %ahol $g$ folytonosan deriválható. 
-    $\E[\theta]^2{\abs{T}^2}$ 
+    $\E[\theta]{\abs{T}^2}$ 
     lokálisan korlátos. Cramer-Rao egyenlőtlenség feltételei teljesülnek:
     
     ($\ell'$ létezik, $\E[\theta]{\ell'(\theta)}=0$,  $I(\theta)=\E[\theta]{\ell'(\theta))^T\ell'(\theta)}$ invertálható. 
@@ -787,6 +789,7 @@
     %$\theta$-ban $\implies$ $g\in C^{1}$ és  $(*)$.
   \end{itemize}
 \end{frame}
+\end{document}
 
 \begin{frame}{Példák}
   \begin{itemize}
@@ -801,12 +804,12 @@
     \item $X$ Cauchy eloszlás eltolás paraméteres családjából származó $n$ elemű minta. 
     $X$ eloszlásai nem alkotnak exponenciális családot, de
     \begin{displaymath}
-      \sqrt{f_\theta(x)}=\prod(1+(x_i-\theta)^2)^{-1/2}
+      \sqrt{f_\theta(x)}=\prod \pi^{-1/2} (1+(x_i-\theta)^2)^{-1/2}
     \end{displaymath}
     folytonosan deriválható, és 
     \begin{displaymath}
       \hphantom{\hspace{-2em}}
-      \ell(\theta,x)=\sum_{i} \frac{-1}{2}\ln(1+(x_i-\theta)^2),
+      \ell(\theta,x)=c+\sum_{i} \frac{-1}{2}\ln(1+(x_i-\theta)^2),
       \quad
       \ell'(\theta,x)=\sum_i \frac{x_i-\theta}{1+(x_i-\theta)^2}
       %\quad 
