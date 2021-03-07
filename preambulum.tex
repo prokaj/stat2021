@@ -91,6 +91,11 @@
     \def\do##1{\csdef{#1\strip##1}{{#2{##1}}}}%
     \ifbrace\dolist\do
 }
+\def\defpostfix#1#2{
+    \def\do##1{\csdef{\strip##1#1}{{#2{##1}}}}%
+    \ifbrace\dolist\do
+}
+
 
 \defprefix{c}{\mathcal}{XAPIDLCSGTHEN}
 \defprefix{b}{\bar}{hX}
@@ -143,13 +148,18 @@
 \def\npto{\buildrel p\over \nrightarrow}
 \def\ndto{\buildrel d\over \nrightarrow}
 %\def\dto{\buildrel d\over \rightarrow}
-\def\dto{\stackrel{d}{\to}}
-\def\pto{\stackrel{p}{\to}}
+\def\defto#1{\stackrel{#1}{\to}}
+\defpostfix{to}{\defto}{dpw}
+% \def\dto{\stackrel{d}{\to}}
+% \def\pto{\stackrel{p}{\to}}
+% \def\pto{\stackrel{w}{\to}}
+
 \def\tr{\operatorname{Tr}}
 \def\arctg{\operatorname{arctg}}
 \let\nto\nrightarrow
 
 \def\Leb{\operatorname{Leb}}
+\def\im{\operatorname{im}}
 
 
 \def\readrest#1\enddate{}

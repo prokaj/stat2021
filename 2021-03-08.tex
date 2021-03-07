@@ -8,52 +8,122 @@
 
 \maketitle
 
-\begin{frame}{Példák}
-    \begin{itemize}
-      \item Ha $\cP$ exponenciális családot alkot $\Theta\subset\real^p$ nyílt. 
-      \begin{displaymath}
-        f_\theta(x)=\exp{\theta T(x)-b(\theta)},\quad \sqrt{f_\theta(x)}=\exp{\tfrac12\theta T(x)-\tfrac12b(\theta)}
-      \end{displaymath}
-      ahol $b(\theta)$ sima $\Theta$-n, azaz $\theta\mapsto \sqrt{f_\theta}(x)$ folytonosan differenciálható.
-      
-      $I(\theta)=b''(\theta)=\Sigma_\theta(T)$, azaz $I(\theta)$ véges értékű és folytonos, 
-      $\det I(\theta)>0$ teljesül, ha $T$ a $\real^p$ nem egy valódi affin altérből veszi fel az értékeit.
-      \item $X$ Cauchy eloszlás eltolás paraméteres családjából származó $n$ elemű minta. 
-      $X$ eloszlásai nem alkotnak exponenciális családot, de
-      \begin{displaymath}
-        \sqrt{f_\theta(x)}=\prod \pi^{-1/2} (1+(x_i-\theta)^2)^{-1/2}
-      \end{displaymath}
-      folytonosan deriválható, és 
-      \begin{displaymath}
-        \hphantom{\hspace{-2em}}
-        \ell(\theta,x)=c+\sum_{i} \frac{-1}{2}\ln(1+(x_i-\theta)^2),
-        \quad
-        \ell'(\theta,x)=\sum_i \frac{x_i-\theta}{1+(x_i-\theta)^2}
-        %\quad 
-        %\E[\theta]{\ell'(\theta)}=\E[0]{\ell'(0)}=\sum_i \int_{\real} \frac{x_i}{\pi (1+x_i^2)^2} d x_i=0
-        %\quad
-        % I(\theta) = \E[\theta]{(\ell'(\theta))^2}
-      %   =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x=\frac{n}{4}<\infty 
-      \end{displaymath}
-      \begin{displaymath}
-        \E[\theta]{\ell'(\theta)} = n\int_{\real} \frac{x}{\pi (1+x^2)^2} d x=0
-        \quad
-        I(\theta) = \D[\theta]^2{\ell'(\theta)}
-        =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x<\infty 
-      \end{displaymath}
-      $I(\theta)$ véges, folytonos és nem nulla. 
-      $X$ eloszlásainak családja teljesíti a gyenge regularitási feltételt.
-      %$\ell'(\theta)$ eloszlása 
-    \end{itemize}  
-  \end{frame}
+\begin{frame}{Emlékeztető}
+  $\cP=\set{\P[\theta]}{\theta\in\Theta}$, $\Theta\subset\real^p$ nyílt, eloszláscsalád az $\mfX$ mintatéren, 
+  $\lambda$ domináló mértékkel.
+
+  $\ell:\Theta\times\mfX\to\real$, $\ell(\theta)=\ell(\theta,x)=\ln f_\theta(x)$ a loglikelihood függvény, 
+  $f_\theta=\frac{d\P[\theta]}{d\lambda}$. 
   
-  \begin{frame}{Független minták Fisher információja összeadódik}
+  \begin{df}[Fisher információ]
+    $I(\theta)=\E[\theta]{\ell'(\theta)^T\ell'(\theta)}\in\real^{p\times p}$
+    a minta Fisher információja, ha a formula értelmes.
+  \end{df}
+
+  \begin{df}[Exponenciális család]
+    $\cP$ exponenciális családot alkot, ha alkalmas $\lambda$ és paraméterezés 
+  mellett  $\ell(\theta,x)=\theta T(x)-b(\theta)$ alakú. 
+  \end{df}
+  
+  \begin{df}[Gyenge regularitási feltétel, $(R)$]
+    $\lambda$ m.m. $x$-re $\theta\mapsto \sqrt{f_\theta(x)}\in C^1$.
+    $I(\theta)$ véges, $\theta$-ban folytonos, és $I(\theta)$ nem szinguláris ($\det I(\theta)>0$).
+  \end{df}
+  
+  \begin{theorem}
+    $(R)$ + $\theta\mapsto\E[\theta]{\abs{T}^2}$ lokálisan korlátos 
+    $\implies$  $g(\theta)=\E[\theta]{T}$ folytonosan deriválható és $g'(\theta)=\E[\theta]{T\ell'(\theta)}$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Gyenge regularitási feltétel exponenciális családban}
+  \begin{proposition}[Emlékeztető]
+    Ha $Y$ $p$-dimenziós vektorváltozó és $Y\in L^2$, akkor $\P{Y\in \E{Y}+\im\sigma(Y)}=1$ 
+  \end{proposition}
+  $a\in\real^p$-re $\D^2{a^T Y}=a^T\Sigma(Y)a$ $\implies$ 
+  $\forall a\perp \im\Sigma(Y)$ vektorra $\D^2{a^T Y}=0$ és $\P{a^T (Y-\E{Y})=0}=1$. 
+  
+  $a_1,\dots,a_r$ $(\im\Sigma(Y))^{\perp}$  bázisa, %ortokomplementerében, 
+  $\P{a_i^T (Y-\E{Y})=0,\,i=1,\dots,r}=1$ 
+  és így $\P{Y-\E{Y}\in \im\Sigma(Y)}=1$.
+
+  \begin{itemize}
+  \item 
+   %Tegyük fel, hogy 
+    $\cP=\set{f_\theta d\lambda}{\theta\in\Theta}$ exponenciális családot alkot és $\Theta\subset\real^p$ nyílt. 
+    \begin{displaymath}
+      f_\theta(x)=\exp{\theta T(x)-b(\theta)},\quad \sqrt{f_\theta(x)}=\exp{\tfrac12\theta T(x)-\tfrac12b(\theta)}
+    \end{displaymath}
+    Itt $b:\Theta\to\real$ %(\theta)$ 
+    sima, azaz $\theta\mapsto \sqrt{f_\theta}(x)$ folytonosan differenciálható.
+    
+    \item $I(\theta)=b''(\theta)=\Sigma_\theta(T)$, azaz $I(\theta)$ véges értékű és folytonos.
+    
+    \item A $\P[\theta]$ eloszlások ekvivalensek, ugyanez igaz $T$ eloszlásaira is.  
+    % $T$ eloszlásainak a családja abszolút folytonos a $\P[\theta_0]\circ T^{-1}$ mértékre nézve. $T$ sűrűségfüggvénye
+    % \begin{displaymath}
+    %   \frac{d\P[\theta]\circ T^{-1}}{d\P[0]\circ T^{-1}}=\exp{(\theta-\theta_0)T(x)-(b(\theta)-b(\theta_0))}
+    % \end{displaymath}
+    Tetszőleges $V$ affin altérre
+    $\P[\theta_0]{T\in V}=1$ $\iff$ $\P[\theta]{T\in V}=1$ minden $\theta\in\Theta$-ra.  
+    \item $(R)$ teljesül, ha $T$ a $\real^p$ nem egy valódi affin altérből veszi fel az értékeit, 
+    pl. ha a paraméterezés egyértelmű, akkor $(R)$ teljesül.
+    \item Ha $T\in V\subset\real^p$ valódi $V$ affin altérrel,
+     akkor alacsonyabb dimenziós paraméterezést is választhatunk és $(R)$ teljesül. 
+  \end{itemize}  
+  \continue
+  Azaz, ha exponenciális családunk van nyílt paramétertérrel, akkor $(R)$ lényegében mindig teljesül.
+\end{frame}
+
+\begin{frame}{További példák}
+  \begin{itemize}
+    \item $X$ Cauchy eloszlás eltolás paraméteres családjából származó $n$ elemű minta. 
+    $X$ eloszlásai nem alkotnak exponenciális családot, de
+    \begin{displaymath}
+      \sqrt{f_\theta(x)}=\prod \pi^{-1/2} (1+(x_i-\theta)^2)^{-1/2}
+    \end{displaymath}
+    folytonosan deriválható, és 
+    \begin{displaymath}
+      \hphantom{\hspace{-2em}}
+      \ell(\theta,x)=c+\sum_{i} \frac{-1}{2}\ln(1+(x_i-\theta)^2),
+      \quad
+      \ell'(\theta,x)=\sum_i \frac{x_i-\theta}{1+(x_i-\theta)^2}
+    \end{displaymath}
+    \begin{displaymath}
+      \E[\theta]{\ell'(\theta)} = n\int_{\real} \frac{x}{\pi (1+x^2)^2} d x=0
+      \quad
+      I(\theta) = \D[\theta]^2{\ell'(\theta)}
+      =n\int_{\real} \frac{x^2}{(1+x^2)^2}\frac{1}{\pi(1+x^2)}d x<\infty 
+    \end{displaymath}
+    $I(\theta)$ véges, folytonos és nem nulla. 
+    $X$ eloszlásainak családja teljesíti a gyenge regularitási feltételt.
+  \item $X$ a $(0,\theta)$ intervallumon egyenletes eloszlású, $\theta>0$. 
+  Ekkor  $\P[\theta]{X<y}=1\wedge \frac{y}{\theta}$
+  \begin{displaymath}
+    %\P[\theta]{X<y}=1\wedge \frac{y}{\theta},
+    %\quad
+    \partial_\theta\P[\theta]{X<y}=\frac{-y}{\theta^2}\I{y<\theta},
+    \quad 
+    \E[\theta]{\I{X<y}\ell'(\theta)}
+    =\int_0^\infty \I{x<y} \partial_\theta f_\theta(x) d x 
+    = \int_0^\theta \I{x<y}\frac{-1}{\theta^2} d x
+    = \frac{-y\wedge\theta}{\theta^2} 
+  \end{displaymath}
+  $X$ eloszlásainak a családja nem teljesíti $(R)$-et.
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Független minták Fisher információja összeadódik}
     \begin{df}[$(R)$, azaz gyenge regularitási feltétel]
       $\cP=\set{f_\theta d\lambda}{\theta\in\Theta}$ dominált mértékcsalád, $\Theta\subset\real^p$ nyílt.
-      \begin{enumerate}[<*>]
-        \item $\lambda$ majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ folytonosan differenciálható.
-        \item $I(\theta)$ véges $\theta$-ban folytonos, nem szinguláris ($\det I(\theta)>0$).
-      \end{enumerate}
+
+      $\lambda$ m.m. $x$-re $\theta\mapsto \sqrt{f_\theta(x)}\in C^1$. % folytonosan differenciálható.
+    %és 
+    $I(\theta)$ véges, $\theta$-ban folytonos, és $I(\theta)$ nem szinguláris ($\det I(\theta)>0$).
+      % \begin{enumerate}[<*>]
+      %   \item $\lambda$ majdnem minden $x$-re $\theta\mapsto \sqrt{f_\theta(x)}$ folytonosan differenciálható.
+      %   \item $I(\theta)$ véges $\theta$-ban folytonos, nem szinguláris ($\det I(\theta)>0$).
+      % \end{enumerate}
     \end{df}
     \begin{proposition}
       $X$, $Y$ minden $\theta\in\Theta$ mellett függetlenek és eloszlásaikra teljesül $(R)$.
@@ -152,168 +222,594 @@
       azaz $S$ elégséges a faktorizációs tétel miatt.
     \end{itemize}
   \end{frame}
-  \end{document}
+  
+  
   \begin{frame}{Összefoglalás}
-    
-  \end{frame}
-  
-  \begin{frame}{Becslési Módszerek}
+    Ha az $X$, $Y$ minta és $S(X)$ eloszlásainak családja teljesíti $(R)$-et, akkor
     \begin{itemize}
-      
-    \item Tapasztalati becslések
-    \item Momentum módszer
-    \item Maximum likelihood becslés
-    \item Bayes becslés
+      \item $X$, $Y$ függetlenek $I_{X,Y}(\theta)=I_X(\theta)+I_Y(\theta)$, 
+      pl. $n$ elemű mintára $I_n(\theta) = nI_1(\theta)$.
+      \item $I_{S(X)}(\theta)\leq I_X(\theta)$
+      \item $I_{S(X)}(\theta)=I_X(\theta)$, ha $S$ elégséges.
+      \item Ha $I_{S(X)}(\theta)=I_X(\theta)$, és $f_\theta>0$ $\mfX$-en, akkor $S$ elégséges.
     \end{itemize}
   \end{frame}
   
-  \begin{frame}{Néhány fogalom}
-      \begin{df}[Tapasztalati eloszlás]
-        $X_1,\dots, X_n$ minta, $P_n^*=\frac1n \sum_{i}\delta_{X_i}$ a
-        tapasztalati eloszlás.
-      \end{df}
-  
-      Ki fogjuk számolni, hogy ha $X_1,X_2,\dots$ a $P$ eloszlásból
-      származó független megfigyelések, akkor
-      $P_n^*\dto P$ egy valószínűséggel.
-      (Glivenko-Cantelli tétel)
-  
-      \begin{df}
-        $\cP=\set{\P[\theta]}{\theta\in
-          \Theta}$,
-        $X_1,X_2,\dots$ iid. minta,
-        $T_n=T_n (X_1,\dots,X_n)$ 
-        $g (\theta)$ becslése $n$ elemű mintából.
-  
-        A $T_n$
-        becsléssorozat konzisztens, ha $T_n\pto g (\theta)$, és erősen
-        konzisztens ha $T_n\to g (\theta)$ egy valószínűséggel.
-      \end{df}
-  
-  \end{frame}
-  
-  \begin{frame}{Tapasztalati becslések}
-    \begin{df}
-        $\cP$ eloszlások egy családja, amely tartalmazza a véges sok
-        pontra koncentrált eloszlásokat. $\phi$ a $\cP$-n értelmezett
-        funkcionál.
-  
-        $\phi (P)$ tapasztalati becslése $\phi (P_n^*)$, ahol $P_n^*$ a
-        tapasztalati eloszlás. 
-      \end{df}
-  
+  \begin{frame}{Becslési módszerek}
     \begin{itemize}
-    \item Példa. $N (\mu,1)$ eloszláscsaládnál kézenfekvő a paramétert a
-      mintaátlaggal becsülni.
-    \item A paraméter a várható érték, ami véges tartójú eloszlásokra is
-      létezik. A becslés a tapasztalati eloszlásból számolt várható érték.
-    
-    \item Ha a minta a $P$ eloszlásból származik, akkor $P_n^*\dto P$
-      egy valószínűséggel, azaz ha $\phi$ a gyenge konvergenciára 
-      nézve folytonos, akkor $\phi$ tapasztalati becslése erősen
-      konzisztens
       
-    \item pl. tapasztalati medián, ha egyértelmű, erősen konzisztens a mediánra.
+    %\item Tapasztalati becslések
+    \item Momentum módszer: válasszuk azt a paramétert, ami az első néhány tapasztalati momentumra illeszkedik.
+    \item Maximum likelihood becslés: válasszuk azt a paramétert, ami a minta likelihoodját maximalizálja.
+    \item Bayes becslés: válasszuk azt a paramétert ami az ,,a priori'' rizikót minimalizálja (részletek később).
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Momentum módszer indikátor mintára}
+    \begin{itemize} 
+      \item $X_1,\dots,X_n$ indikátor minta ismeretlen $\theta\in[0,1]$ paraméterrel. 
+      \item $\theta=\E[\theta]{X_1}$
+      \item $S=\sum X_i$ a mintaösszeg, akkor $\frac1n S$ a mintaátlag a várható érték ,,tapasztalati'' becslése.
+      \item $\hat{\theta}_{MM}=\frac1n S$.
+    \end{itemize}
+    \continue
+    Itt a $\phi(\theta)=\E[\theta]{X_1}$ jelöléssel a 
+    $\phi(\hat{\theta}_{MM})=\frac1n\sum X_i$ összefüggést oldottuk meg.
     
   \end{frame}
-  
-  \begin{frame}{Momentum módszer}
+
+  \begin{frame}{Maximum likelihood elv indikátor mintára}
     \begin{itemize}
-    \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$, $\theta$-t akarjuk
-      becsülni.
-    \item Legyen $g:\mathfrak X_1\to\real^p$, és $\phi
-      (\theta)=\E[\theta] (g (X_1))$.
-      Tegyük fel, hogy $\phi:\Theta\to T$ kölcsönösen egyértelmű és oda-vissza
-      folytonos, $T$ nyílt. 
-    \item $\psi=\phi (\theta)$  tapasztalati becslése
+      \item $X_1,\dots,X_n$ indikátor minta ismeretlen $\theta\in[0,1]$ paraméterrel. 
+      
+      $\hat{\theta}_{ML}=\arg\max_\theta f_{\theta}(x)$.
+      
+      \item $f_\theta(x)=\theta^{S(x)}(1-\theta)^{n-S(x)}$, ahol $S(x)=\sum x_i$. 
+      % \item A maximumhely létezik és egyértelmű.
+      \item Ha $S=0$, vagy $S=n$, akkor a $\hat{\theta}=\frac1n S$.
+      \item Ha $0<S<n$ akkor áttérhetünk a loglikelihoodra:
+      Likelihood egyenlet:
       \begin{displaymath}
-        \hat\psi_n=\frac1n \sum_i g (X_i)
+        0=\ell'(\theta,x)=\frac{S}{\theta}-\frac{n-S}{1-\theta}\iff \theta=\frac{1}n S
       \end{displaymath}
-    \item Ha $n$ elég nagy, akkor $\hat\psi\in T$ és
-      $\hat\theta=\phi^{-1} (\hat\psi)$ értelmes. 
-    \item $\hat\psi_n\to\psi$ egy valószínűséggel és $\phi^{-1}$ folytonossága
-      miatt $\hat\theta_n$ erősen konzisztens, de általában nem torzítatlan.
-  
-      $\hat\psi_n$ torzítatlan $\psi$, de $\phi^{-1}$ általában nem
-      lineáris.
-      
-    \item Klasszikus momentum módszernél $g (x)=(x_1^1,\dots,x_1^p)$.
+      $\hat\theta_{ML}=\frac1n S$ a mintaátlag.
     \end{itemize}
-  
-  \end{frame}
-   
-  \begin{frame}{Példa}
-    
-  \end{frame}
-  
-  \begin{frame}{Maximum likelihood becslés}
+    \continue
+    Megjegyzések:
     \begin{itemize}
-    \item $\cP$ dominált mértékcsalád, $f_\theta$ a sűrűségfüggvény,
-      $\ell (\theta)$ a loglikelihood.
-      \begin{df}
-        A $\theta$ paraméter maximum likelihood becslése $\hat\theta (X)$,
-        ha $f_{\hat{\theta}} (X)=\sup_{\theta}f_{\theta} (X)$.
-      \end{df}
-  
-    \item Nem biztos, hogy létezik, nem biztos, hogy egyértelmű.
-  
-      pl. $U (\theta,\theta+1)$ eloszláscsalád. $f_\theta
-      (x)=\I{X_n^*-1\leq \theta\leq X_1^*}$, azaz ha  $T (X)\in
-      [X_n^*-1,X_1^*]$, akkor $T$ maximum likelihood becslése
-      $\theta$-nak.
-  
-      pl. $f (x)$ sűrűségfüggvény $\real$-en.
-      $$f_{\mu,\sigma}
-      (x)=\frac{1}\sigma f \zfrac*{x-\mu}{\sigma}
-      $$
-      $\Theta=\real\times (0,\infty)$. $c\in\real$, $f (c)>0$, $x$ a
-      megfigyelt érték
-      \begin{displaymath}
-        \sup_{\mu,\sigma}\frac{1}{\sigma}f \zfrac*{x-\mu}{\sigma}\geq
-        \lim_{\sigma\to0}\frac{1}{\sigma} f\zfrac*{x- (x+c\sigma)}{\sigma}=\infty
-      \end{displaymath}
-    \end{itemize}  
-  \end{frame}
-  
-  \begin{frame}{Maximum likelihood becslés}
-    $\psi=g(\theta)$ becslése maximum likelihood elvvel. Ha $g$ kölcsönösen
-    egyértelmű, akkor csak átparamétereztük a családot,
-    $\hat\psi=g(\hat\theta)$.
-  
-    Ha $g$ nem injektív, akkor az indukált likelihoodot szokták
-    maximalizálni
+      \item A paraméter teret $[0,1]$-nek választottuk, hogy akkor is legyen maximumhely, ha $S(X)=0$ vagy $S(X)=n$.
+      \item A maximum helyet gyakran a likelihood egyenlet megoldásával keressük.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bayes módszer indikátor mintára}
+  \begin{itemize}
+    \item Adatok nélkül minden paraméter érték ,,egyformán valószínű''.
+    Az a priori eloszlás $\Theta=(0,1)$ paraméter téren egyenletes. (Más a priori eloszlást is választhatunk).
+    \item $\theta$ is valószínűségi változó, $\Omega=\Theta\times\mfX$ a valószínűségi mező alaphalmaza. 
+    $\theta:\Omega\to\Theta$ az első, $X:\Omega\to\mfX$ a második koordináta leképezés.
     \begin{displaymath}
-      f^*_\psi (x)=\sup\set{f_\theta (x)}{g (\theta)=\psi}
+      \P{H}=\int_{\Theta}\int_{\mfX} \I{(t,x)\in H} \P[t]{dx}d t.  
     \end{displaymath}
+    \item Négyzetes veszteség esetén $R_T(t)=\E{(t-T)^2}$ a rizikó függvény, 
+    $R_T=\E{R_T(\theta)}=\E{(\theta-T)^2}$ az a priori rizikó.
+    \item $T$ csak a megfigyeléstől függhet  (azaz $\sigma(X)$ mérhető), ezért 
+    az a priori rizikót $T(X)=\E{\theta\given X}$ minimalizálja.
+    \begin{align*}
+      \P{\theta\in A |X=x}
+      =\frac{\P{\theta\in A,\, X=x}}{\P{X=x}}
+      &=\frac{\int_A t^{S(x)}(1-t)^{n-S(x)}d t}{\int_{(0,1)}t^{S(x)}(1-t)^{n-S(x)}} d t\\
+      &= \int_A C(\alpha,\beta) t^{\alpha-1}(1-t)^{\beta-1}d t|_{\alpha=S(X)+1,\beta=n-S(X)+1} d t
+    \end{align*}
+    Azaz $\theta$ $X$-re vonatkozó feltételes eloszlása $\text{Béta}(S(X)+1,n+1-S(X))$. 
+    \item $\E{\theta|X}=\frac{S+1}{n+2}$, $S$ A mintaösszeg. (Laplace simítás).
+    \item Ha $g(\theta)$-t szeretnénk becsülni, akkor $\E{g(\theta)|X}$ lenne a Bayes becslés.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tapasztalati eloszlás}
+  \begin{df}[Tapasztalati eloszlás, tapasztalati eloszlásfüggvény]
+      $X_1,\dots, X_n$ minta, $P_n^*=\frac1n \sum_{i}\delta_{X_i}$ a
+      tapasztalati eloszlás, $F_n^*(t)=P_n^*((-\infty,t))=\frac1n\sum_i\I{X_i<t}$ a tapasztalati eloszlásfüggvény. 
+  \end{df}
+  \begin{itemize}
+      \item $P_n^*$ véletlen valószínűségi mérték $F_n^*$ véletlen függvény (folyamat).
+      \item $\mu_n,\mu$ valószínűségi mértékek $(\real,\B(\real))$-en. 
+      $\mu_n\wto \mu$, ha minden $h$ folytonos korlátos függvényre $\int h d\mu_n\to\int h d\mu$.
+
+      $\mu_n\wto\mu$ pontosan akkor, ha $\mu_n((-\infty,t))\to \mu((-\infty,t))$ minden olyan $t$-re, amire $\mu(\smallset{t})=0$.
+
+      % \item $F_n^*(t)=P_n^*((-\infty,t))=\frac1n\sum_i \I{X_i<t}$. $F_n^*$ a tapasztalati eloszlás függvény.
+      \item $F_n^*(t)\to F(t)$ egy valószínűséggel, ahol $F$ a mintaelemek közös eloszlásfüggvénye. Ez a nagy számok törvénye a 
+      $\I{X_1<t},\I{X_2<t},\dots$ iid sorozatra. 
+  \end{itemize}
+  Több is igaz.
+  \begin{theorem}[Glivenko-Cantelli tétel (statisztika alaptétele)]
+      $\sup_{t\in\real}\abs{F_n^*(t)-F(t)}\to0$ egy valószínűséggel.
+  \end{theorem}
+  \continue
+  Ebből $P_n^*\wto P$ egy valószínűséggel következik.
+\end{frame}
+
+\begin{frame}{Tapasztalati becslések}
+  \begin{df}
+    $\cP$ eloszlások egy családja, amely tartalmazza a véges sok
+    pontra koncentrált eloszlásokat. $\phi$ a $\cP$-n értelmezett
+    funkcionál.
+    %
+    $\phi (P)$ \textbf{tapasztalati becslése} $\phi (P_n^*)$, ahol $P_n^*$ a
+    tapasztalati eloszlás. 
+  \end{df}
+
+  \begin{df}
+    %$\set{P_\theta}{\theta\in\Theta}$ eloszláscsalád $(\real,\B(\real))$-en. 
+    $X_1,X_2,\dots$ iid. minta a $P$ eloszlásból,
+    $\phi(P)$ becslése $n$ elemű mintából $T_n=T_n (X_1,\dots,X_n)$.
+
+    A $T_n$ %becsléssorozat 
+    konzisztens, ha $T_n\pto\phi(P)$, és erősen
+    konzisztens, ha $T_n\to\phi(P)$ egy valószínűséggel.
+  \end{df}
+
+  \begin{itemize}
+  \item Példa. $N (\mu,1)$ eloszlásból származó $n$ elemű minta esetén kézenfekvő a paramétert a
+    mintaátlaggal becsülni. 
+  %\item 
+    Itt a paraméter a várható érték, ami véges tartójú eloszlásokra is
+    létezik. %A becslés a tapasztalati eloszlásból számolt várható érték.
+    \begin{displaymath}
+      \cP=\set{P}{\text{$\mu$ valószínűségi Borel mérték $\real$-en, 
+      $\smallint \abs{x} P(dx)<\infty$}},\quad \phi(P)=\smallint x P(d x). 
+    \end{displaymath}
+    $P_n^*\in\cP$ és $\phi(P_n^*)=\int x \zjel{\frac1n\sum \delta_{X_i}(d x)}=\frac1n\sum_i X_i$.
+
+    Ebben a példában $\phi(P_n^*)\to\phi(P)$, de $\phi$ nem gyengén folytonos $\cP$-n,
+    sőt $N(\mu,1)$-ben sem.
+
+  \item A minta a $P$ eloszlásból származik, $\phi$ gyengén folytonos a $P$ pontban. 
+    Ekkor $\phi$ tapasztalati becslése erősen
+    konzisztens, hiszen $P_n^*\wto P$ a Glivenko-Cantelli tétel szerint.
+    
+    Pl. Ha mintaelemek közös eloszlásának mediánja egyértelmű, akkor 
+    a tapasztalati medián erősen konzisztens a mediánra.
+  \end{itemize}
   
-    \begin{proposition}
-      \begin{itemize}
-      \item Ha $T$ elégséges statisztika és létezik ML becslés, akkor
-        van olyan is, amelyik $T$ függvénye.
-      \item Ha $\hat\theta$ a $\theta$ ML becslése, akkor $g
-        (\hat\theta)$ a $g (\theta)$ ML becslése.
-      \end{itemize}
-    \end{proposition}
+\end{frame}
+
+\begin{frame}{Momentum módszer}
+  \begin{itemize}
+  \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$,  $\Theta\subset\real^p$. 
+  %$\theta$-t akarjuk becsülni.
+  \item Legyen %$g:\mfX _1\to\real^p$, és 
+    $\phi(\theta)=\E[\theta] (g (X_1))$.
+    Tegyük fel, hogy $\phi:\Theta\to T\subset\real^p$ kölcsönösen egyértelmű és oda-vissza
+    folytonos. %, $T$ nyílt. 
+  \item $\psi=\phi (\theta)$  tapasztalati becslése
+    \begin{displaymath}
+      \hat\psi_n=\frac1n \sum_i g (X_i)
+    \end{displaymath}
+  \item $\hat\psi_n\to \psi$ a nagy számok törvénye szerint. 
+    Ha $n$ elég nagy és $\psi\in \interior T$, akkor $\hat\psi\in T$ és
+    $\hat\theta=\phi^{-1} (\hat\psi)$ értelmes. 
+  \item $\hat\psi_n\to\psi$ egy valószínűséggel és $\phi^{-1}$ folytonossága
+    miatt $\hat\theta_n$ erősen konzisztens, de általában nem torzítatlan.
+
+    $\hat\psi_n$ torzítatlan $\psi$-re, de $\phi^{-1}$ általában nem
+    lineáris.
+    
+  \item Klasszikus momentum módszernél $g (x)=(x_1^1,\dots,x_1^p)$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példák}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ a $(-\theta,3\theta)$ intervallumon egyenletes eloszlásból származó minta, $\theta>0$.
+    
+    $\E[\theta]{X_1}=\theta$. 
+    
+    $\hat\theta_{MM}$ a mintaátlag. Minden $n$-re pozitív valószínűséggel $\hat\theta_{MM}<0$.
+    
+    \item $X_1,\dots,X_n$ $\text{Béta}(\alpha,\beta)$, $\alpha,\beta>0$, eloszlásból származó $n$ elemű minta.
+    \begin{displaymath}
+      (\E{X_1},\E{X_1^2})=\phi(\alpha,\beta),
+       \quad\text{ahol}\quad 
+       \phi(\alpha,\beta)=\zjel*{\frac{\alpha}{\alpha+\beta},\frac{\alpha(\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)}}
+    \end{displaymath}
+
+    $\hat\alpha_{MM},\hat\beta_{MM}$ a $\phi(\hat\alpha,\hat\beta)=(\bar{X},\bar{X^2})$ egyenlet megoldása. HF.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli tétel}
+  \begin{theorem}[Statisztika alaptétele]
+    $X_1,X_2,\dots$ független azonos eloszlású változók, a közös
+    eloszlásfüggvény $F$.
+    % A tapasztalati eloszlásfüggvény
+    % \begin{displaymath}
+    %  F_n (t)=\frac1n\sum_{i=1}^n\I{X_i<t}
+    %\end{displaymath}
+    Ekkor
+    \begin{displaymath}
+      \lim_{n\to\infty}\sup_t \abs*{F_n (t)-F (t)}=0\quad
+      \text{egy valószínűséggel, ahol $F_n(t)=\frac1n\sum\nolimits_{i=1}^n \I{X_i<t}$} % a tapasztalati eloszlásfüggvény}
+    \end{displaymath}
+  \end{theorem}
+  Megjegyzések.
+  \begin{itemize}
+  \item Vektor értékű megfigyelésekre is igaz. $X_i$ $\real^d$
+    értékű. Ilyenkor $t\in\real^d$ és $X_i<t$ ha minden koordinátára
+    igaz az egyenlőtlenség.
+  \item Balról folytonosság miatt $\sup_{t}\abs*{F_n (t)-F (t)}=\sup_{t\in\Q}\abs*{F_n (t)-F
+      (t)}$, azaz a szuprémum valószínűségi változót definiál.
+  \item Rögzített $t$-re $F_n (t)$ független $F (t)$ várható értékű
+    indikátorok átlaga. A nagy számok törvényéből $F_n (t)\to F (t)$ egy
+    valószínűséggel.
+    
+  \item CHT: rögzített $t$-re $\sqrt{n}(F_n (t)-F (t))\dto N (0,F (t) (1-F (t)))$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli igazolása}
+  \begin{theorem}[Statisztika alaptétele]
+    $X_1,X_2,\dots$ független azonos eloszlású változók, a közös
+    eloszlás $P$ eloszlásfüggvény $F$.
+    Ekkor
+    \begin{displaymath}
+      \lim_{n\to\infty}\sup_t \abs*{F_n (t)-F (t)}=0\quad
+      \text{egy valószínűséggel, ahol $F_n(t)=\frac1n\sum\nolimits_{i=1}^n \I{X_i<t}$}
+    \end{displaymath}
+  \end{theorem}
+  \begin{itemize}
+    \item $k\geq 1$.  $t_i=\inf\set{t\in\real}{F(t)\geq \frac ik}$, $i=1,\dots,k-1$, $t_0=-\infty$, $t_k=\infty$ és
+    $\cS(k)=\set{(-\infty,t_i),(-\infty,t_i]\cap\real}{i=0,\dots k}$ véges halmaz rendszer.
+    
+    \item Ha $t\in\real$ létezik $A,B\in \cS$, hogy $A\subset(-\infty,t)\subset B$ 
+    és %$%P(A)\leq F(t)\leq 
+    $P(B)\leq F(A)+\frac1k$. 
+    
+    Ha $t\in \smallset{t_1,\dots,t_k}$, akkor $A=B=(-\infty,t)$ jó, különben létezik $i$ hogy $t_i<t<t_{i+1}$ és 
+    $A=(-\infty,t_i]$, $B=(-\infty,t_{i+1})$ jó ($P(B)=F(t_{i+1})\leq \frac{i+1}k$ és $P(A)=F(t_i+)\geq \frac ik$).
+    \pause
+    \begin{displaymath}
+      F_n(t)-F(t)\leq P_n^*(B)-P(B)+P(B)-P(A),\quad F(t)-F_n(t)\leq P(B)-P(A)+P(A)-P^*_n(A)
+    \end{displaymath}
+
+    \item A nagy számok törvénye alapján $P_n^*(H)\to P(H)$ minden $H\in\cC(k)$-ra
+    \begin{displaymath}
+      \limsup_{n\to\infty} \sup_{t\in\real}\abs{F_n(t)-F(t)}
+      \leq \inf_k\limsup_{n\to\infty}\zjel*{\max_{H\in \cS(k)}\abs{P_n^*(H)-P(H)}+\tfrac1k}=\inf_k \tfrac1k=0
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli tétel igazolása}.
+  \begin{df}
+    $P$ valószínűségi mérték $(\mfX ,\B)$-n.
+    $\cC\subset\B$ halmazrendszer végesen approximálható, ha létezik $\eps>0$-ra
+    $\cS (\eps)\subset\B$ véges rendszer úgy, hogy minden $C\in\cC$-re, 
+    létezik $A,B\in\cS (\eps)$, amire $A\subset C\subset B$ és
+    $P(B)\le  P(A)+\eps$.
+  \end{df}
+  \continue
+  A skaláreset azon múlt, hogy $\cC=\set{(-\infty,t)}{t\in\real}$ végesen approximálható, továbbá
+  \begin{proposition}
+    Ha $\cC$ végesen approximálható, akkor
+      $\sup_{H\in\cC}\abs*{P (H)-P^*_n (H)}\leq
+      \eps + \max_{A\in\cS (\eps)}  \abs*{P(A)-P^*_n (A)}$
+  \end{proposition}
+  és a tapasztalati eloszlásra $P_n^*(A)\to P(A)$ minden $A$-ra egy valószínűséggel.
+  
+  \continue
+  A vektor esethez csak annyit kell hozzátenni, hogy
+  \begin{proposition}
+    Ha $\cC',\cC''$ végesen approximálható, akkor
+     $\cC' (\cap)\cC''=\set{C'\cap C''}{C'\in\cC',\,C''\in\cC''}$ is végesen approximálható.
+  \end{proposition}  
+\end{frame}
+
+\begin{frame}{Glivenko-Cantelli másképp, vázlat}
+  $X_1,X_2,\dots $ iid változók, közös $F$ eloszlásfüggvénnyel. 
+  $(X'_n)_{n\geq 1}\eqinlaw (X_n)_{n\geq1}$ és $(X'_n)_{n\geq 1}$ független $(X_n)_{n\geq1}$-től.
+  $F_n(t)=\frac1n\sum_{i\leq n}\I{X_i<t}$, $F'_n(t)=\frac1n\sum_{i\leq n}\I{X'_i<t}$
+
+  \begin{proposition}[Első randomizálás]
+    %\begin{displaymath}
+      $\P{\sup_t \abs{F_n(t)-F(t)}>2\eps}\leq 2\P{\sup_t \abs{F_n(t)-F'_n(t)}>\eps}$ ha $n>2 \eps^{-2}$.
+      %\quad\text{ha $n>8 \eps^{-2}$}.
+    %\end{displaymath}
+  \end{proposition}
+  \begin{proposition}[Második randomizálás]
+    \begin{displaymath}
+      \P{\sup \abs{F_n-F'_n}>\eps}
+      =2\P{\sup_t F_n-F'_n >\eps}
+      =2\P{\sup\nolimits_t\tfrac1n \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}>\eps} 
+    \end{displaymath}
+    ahol $\xi_1,\dots,\xi_n$ független véletlen előjelek, egymástól és az $(X_k)$, $(X'_k)$ változóktól is ($\P{\xi=\pm1}=1/2$). 
+  \end{proposition}
+  \begin{proposition}[Hoeffding egyenlőtlenség alkalmazása]
+    $\P{\sup\nolimits_t \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}> n\eps\given X,X'}\leq (2n+1)\exp{-\frac12 n\eps^2}$
+  \end{proposition}
+  Összefoglalva:     Létezik $c_1,c_2>0$, hogy $\P{\sup\abs{F_n-F}>\eps}\leq c_1ne^{-c_2n\eps^2}$ ha $n>8\eps^{-2}$.
+  
+  Innen $\sup\abs{F_n-F}\to0$ egy valószínűséggel a Borel--Cantelli lemma alkalmazásával.
+ 
+\end{frame}
+
+\begin{frame}{Első randomizálás részletei}
+  $X_1,X_2,\dots $ iid változók, közös $F$ eloszlásfüggvénnyel. 
+  $(X'_n)_{n\geq 1}\eqinlaw (X_n)_{n\geq1}$ és $(X'_n)_{n\geq 1}$ független $(X_n)_{n\geq1}$-től.
+  $F_n(t)=\frac1n\sum_{i\leq n}\I{X_i<t}$, $F'_n(t)=\frac1n\sum_{i\leq n}\I{X'_i<t}$
+
+  \begin{proposition}[Első randomizálás]
+    %\begin{displaymath}
+      $\P{\sup_t \abs{F_n(t)-F(t)}>2\eps}\leq 2\P{\sup_t \abs{F_n(t)-F'_n(t)}>\eps}$ ha $n>2 \eps^{-2}$.
+      %\quad\text{ha $n>8 \eps^{-2}$}.
+    %\end{displaymath}
+  \end{proposition}
+  \begin{itemize}
+    \item Legyen $T=T(X)$ olyan változó, hogy $\abs{F_n-F} (T)>2\eps$, 
+    a $\event{\sup\abs{F_n-F}>2\eps}$ eseményen.
+    \begin{align*}
+      &\P{\sup\abs{F_n-F}>2\eps}
+      =\P{\abs{F_{n}-F}(T)>2\eps}\\
+      &=\P{\abs{F_{n}-F}(T)>2\eps,\,\abs{F'_{n}-F}(T)>\eps}
+      +\P{\abs{F_{n}-F}(T)>2\eps,\,\abs{F'_{n}-F}(T)\leq\eps} 
+      %\\
+      %&\leq\P{\abs{F_{n}(T)-F(T)}>\eps}\sup\nolimits_{t}\P{\abs{F'_{n}(t)-F(t)}>\tfrac12\eps}
+      %+\P{\sup \abs{F_{n}-F_n'}>\tfrac12\eps}
+    \end{align*}
+    \item 
+    % ahol azt használtuk, hogy
+    \begin{align*}
+      \P{\abs{F_{n}-F}(T)>2\eps,\,\abs{F'_{n}-F}(T)>\eps\given(X_n)_{n\geq1}}
+      &=\I{\abs{F_{n}-F}(T)>2\eps}\P{\abs{F'_{n}(t)-F(t)}>\eps}|_{t=T}\\
+      &\leq\I{\abs{F_{n}(T)-F(T)}>2\eps}\sup_t \P{\abs{F'_{n}(t)-F(t)}>\eps}
+    \end{align*}
+    és $\P{\abs{F'_{n}(t)-F(t)}>\eps}\leq \D^2{F_n'(t)} \eps^{-2}\leq \frac14n^{-1}\eps^{-2}<\frac12$, ha $n>2\eps^{-2}$.
+    \item $\P{\sup\abs{F_n-F}>2\eps}\leq \frac12\P{\sup\abs{F_n-F}>2\eps}+\P{\sup\abs{F_n-F_n'}>\eps}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Második randomizálás részletei}
+  \begin{proposition}[Második randomizálás]
+    \begin{displaymath}
+      \P{\sup \abs{F_n-F'_n}>\eps}
+      =2\P{\sup\nolimits_t F_n-F'_n >\eps}
+      =2\P{\sup\nolimits_t\tfrac1n \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}>\eps} 
+    \end{displaymath}
+    ahol $\xi_1,\dots,\xi_n$ független előjelek, egymástól és az $(X_k)$, $(X'_k)$ változóktól is. 
+  \end{proposition}
+  \begin{itemize}
+    \item $\sup F_n-F_n'\eqinlaw =\sup F_n'-F_n$ $\implies$ $\P{F_n-F'_n>\eps}=\P{F_n-F'_n<-\eps}$.
+    \item Legyen $S=\sup_t  \tfrac1n \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}$. 
+    \begin{displaymath}
+      \P{S>\eps|\xi_1,\dots,\xi_n}=\P{\sup F_n-F_n'>\eps},
+    \end{displaymath}
+    mert $\xi_1,\dots,\xi_n$ hatása csak annyi, hogy ha $\xi_i=-1$, akkor $X_i$ és $X_i'$ szerepet cserél.
+
+    Formálisan. ha $\sup F_n-F_n'=g(X,X')$, akkor $S=g(T(\xi, X,X'))$, ahol 
+    \begin{displaymath}
+      T(\xi,X,X')=(Y,Y')\quad\text{és}\quad (Y_i,Y'_i)=\I{\xi_i=1}(X_i,X_i')+\I{\xi_i=-1}(X'_i,X_i)
+    \end{displaymath}
+    $T(x,X,X')\eqinlaw (X,X')$ minden $x\in\smallset{-1,1}^n$ előjelsorozatra, vagyis 
+    \begin{displaymath}
+      \P{S>\eps\given\xi}=\P{g(T(\xi,X,X'))>\eps\given\xi}=\P{g(T(x,X,X'))>\eps}|_{x=\xi}=\P{g(X,X')>\eps}
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Hoeffding egyenlőtlenség}
+  \begin{proposition}
+    $Z_i$ független nulla várható értékű változók, $\abs{Z_i}\leq 1$, $\eps>0$. 
+    Ekkor $\P{\sum Z_i> n\eps}\leq e^{-\frac12n\eps^2}$
+  \end{proposition}
+  \begin{itemize}
+    \item 
+    \begin{displaymath}
+      \P{\sum Z_i>\eps}\leq \inf_{t>0}\E{e^{t \sum_i Z_i}} e^{-t n\eps} %=\inf_{\lambda>0}\prod\E{e^{\lambda}}
+    \end{displaymath}
+    \item Függetlenség miatt $\E{e^{t\sum Z_i}}=\prod\E{e^{t Z_i}}$
+    \item $Z=Z_i$-vel: $g(t)=\E{e^{t Z}}$, $g$ a $Z$ momentum generáló függvénye.
+    $\ln g(0)=0$, $(\ln g)'(0)=\frac{g'(0)}{g(0)}=\E{Z}=0$ és 
+    \begin{displaymath}
+      (\ln g)''(s)=\frac{g''(s)}{g'(s)}-\zfrac{g'(s)}{g(s)}^2=\E{Z^2\frac{e^{sZ}}{g(s)}}-\E^2{Z\frac{e^{sZ}}{g(s)}}=\D[s]^2{Z},
+      \quad\text{ahol $\frac{d\P[s]}{d\P}=\frac{e^{sZ}}{g(s)}$}.
+    \end{displaymath}
+    \item $\D[s]^2{Z}\leq \E[s]{Z^2}\leq1$, így
+    \begin{displaymath}
+      \ln g(t)=\int_0^t (\ln g)'(s) d s=\int_0^t \int_0^s (\ln g)''(u)d u d s\leq \tfrac12 t^2 .
+    \end{displaymath}
+    \item 
+    \begin{displaymath}
+      \P{\sum Z_i>\eps}
+      \leq \inf_{t>0} e^{\frac{n}2\zjel{t^2-2t\eps}}
+      =\inf_{t>0} e^{\frac n2\zjel{(t-\eps)^2-\eps^2}}=e^{-\frac 12 n\eps^2}.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoeffding egyenlőtlenség alkalmazása}
+  \begin{proposition}[Hoeffding egyenlőtlenség alkalmazása]
+    $\P{\sup\nolimits_t \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}> n\eps\given X,X'}\leq (2n+1)\exp{-\frac12 n\eps^2}$
+  \end{proposition}
+  \begin{itemize}
+    \item Az $X_1,\dots,X_n,X_1',\dots,X'_n$ pontok legfeljebb $2n+1$ részre osztják a számegyenest. 
+    \item $\sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}$ az egyes felosztás darabokon konstans. 
+    \item $X,X'$ alapján mindegyikből válaszunk a felosztás darabokból egy-egy $t_k=t_k(X,X')$ pontot.
+    \begin{align*}
+      &\P{\sup\nolimits_t \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}> n\eps\given X,X'}\\
+      &\leq 
+      \sum_{k} 
+      \P{\sum \xi_i\zjel{\I{X_i<t_k(X,X')}-\I{X_i'<t_k(X,X')}}> n\eps\given X,X'}\\
+      &=
+      \sum_k\P{\sum \xi_i\zjel{\I{x_i<t_k(x,x')}-\I{x_i'<t_k(x,x')}}> n\eps}|_{(x,x')=(X,X')}
+    \end{align*}
+    \item $Z_i=\xi_i\zjel{\I{x_i<t_k(x,x')}-\I{x_i'<t_k(x,x')}}$, 
+    $i=1,\dots,n$ független változók, $\abs{Z_i}\leq1$ 
+    és $\E{Z_i}=0$.
+    \item Hoeffding egyenlőtlenség alapján a felső becslés mindegyik tagja legfeljebb $e^{-\frac12 n\eps^2}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli tétel, vektorváltozó esete. Részletek I}
+  \begin{proposition}
+    Ha $\cC$ végesen approximálható, akkor
+      $\sup_{H\in\cC}\abs*{P (H)-P^*_n (H)}\leq
+      \eps + \max_{A\in\cS (\eps)}  \abs*{P(A)-P^*_n (A)}$
+  \end{proposition}
+  $H\in\cC$, $A,B\in\cS (\eps)$ $A\subset H\subset B$
+    és $P (B\setminus A)\leq\eps$.
+    \begin{align*}
+      P (H)-P_n^* (H)
+      &\leq P (B)-P_n^* (A)\\
+      &=P (B\setminus A)+P(A)-P_n^* (A_1)\\
+      &\leq \eps+\max_{A\in\cS}  \abs*{P(A)-P^*_n (A)}\\
+      P_n^* (H)-P (H)
+      &\leq
+        P_n^* (B)-Q (A)\\
+      &=P (B\setminus A)+P_n^*(B)-P (B)\\
+      &\leq \eps+\max_{A\in\cS}  \abs*{P(A)-P^*_n (A)}
+    \end{align*}
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli tétel, vektorváltozó esete. Részletek II.}
+  \begin{proposition}
+    Ha $\cC$ végesen approximálható, akkor
+    \begin{displaymath}\textstyle
+      \sup_{H\in\cC}\abs*{P (H)-P^*_n (H)}\leq
+      \eps + \max_{A\in\cS (\eps)}  \abs*{P(A)-P^*_n (A)}
+      % \sup_{}\to0,\quad\text{egy valószínűséggel.}
+    \end{displaymath}
+  \end{proposition}
+  \begin{corollary}
+    Ha $\cC$ végesen approximálható, akkor
+    \begin{displaymath}\textstyle
+      \sup_{H\in\cC}\abs*{P(H)-P^*_n (H)} %=\max_{A\in\cS}  \abs*{Q (A)-Q^*_n (A)}
+    \to0,\quad\text{egy valószínűséggel.}
+    \end{displaymath}
+  \end{corollary}
+  \begin{displaymath}
+    \limsup_{n\to\infty}\sup_{H\in\cC}\abs*{P (H)-P^*_n (H)}
+    \leq \eps+\lim_{n\to\infty}\max_{A\in\cS (\eps)}  \abs*{P (A)-P^*_n (A)}=\eps
+  \end{displaymath}
+  Ez minden $\eps>0$-ra igaz, azaz a $\limsup$ nulla és a limesz is az.
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli tétel, vektorváltozó esete. Részletek III.}
+  \begin{proposition}
+    Ha $\cC',\cC''$ végesen approximálható, akkor
+    $\cC' (\cap)\cC''=\set{C'\cap C''}{C'\in\cC',\,C''\in\cC''}$
+    is végesen approximálható.
+    %\begin{displaymath}\textstyle
+    %  \cC' (\cap)\cC''=\set{C'\cap C''}{C'\in\cC',\,C''\in\cC''}
+    %  ,\quad\text{$\cC' (\cap)\cC''$ is végesen approximálható}
+    %\end{displaymath}
+  \end{proposition}
+
+  \begin{itemize}
+  \item $\cS' (\eps/2)$, $\cS'' (\eps/2)$ véges approximáló
+    halmazrendszerek $\cC'$ ill. $\cC''$-höz.
+  \item $C'\in\cC'$-höz létezik $A'_1,A_2'\in\cS' (\eps/2)$, amire
+    $A'_1\subset C'\subset A_2'$ és $Q (A_2'\setminus A_1')<\eps/2$.
+  \item Hasonlóan $C''\in\cC''$-höz létezik $A''_1,A_2''\in\cS''
+    (\eps/2)$.
+  \item
+    \begin{displaymath}
+      A_1=A_1'\cap A_1''\subset C'\cap C''\subset A_2=A_2'\cap A_2'',\quad
+      A_2\setminus A_1\subset A_2'\setminus A_1' \cup  A_2''\setminus
+      A_1'',\quad
+      Q (A_2\setminus A_1)<\eps
+    \end{displaymath}
+  \item $\set{A'\cap A''}{A'\in\cS (\eps/2),\,A''\in\cS (\eps/2)}$
+    véges $\eps$ approximáló rendszer $\cC' (\cap)\cC''$-höz.
+  \item Hasonló állítás igaz unióval és komplementerrel.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Glivenko--Cantelli tétel, vektorváltozó esete. Részletek IV.}
+  \begin{proposition}
+    $\cC=\set{\prod_{i=1}^r (-\infty,t_i)}{t\in\real^{r}}$ végesen approximálható.
+  \end{proposition}
+  \begin{itemize}
+  \item Skalár esetet, $r=1$ láttuk, ha $P$ eloszlás $(\real,\B(\real))$-en, akkor alkalmas $(t_i)_{i=0}^{k}$ osztópontokkal
+   $\cS_1=\set{(-\infty,t_i),(-\infty,t_i]\cap\real}{i=0,\dots k}$ véges $1/k$-approximáló rendszer 
+   $\cC_1=\set{(-\infty,t)}{t\in\real}$-hez.
+  \item $\cC_i=\set{\real^{i-1}\times (-\infty,t)\times\real^{n-i}}{t\in\real}$ 
+  lényegében az egy dimenziós eset, azaz végesen approximálható, és $\cC=(\cap)_{i=1}^r \cC_i$.
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+\begin{frame}{Maximum likelihood becslés}
+  $\cP$ dominált mértékcsalád, $f_\theta$ a sűrűségfüggvény,
+  $\ell (\theta)$ a loglikelihood.
+  \begin{df}
+    A $\theta$ paraméter maximum likelihood becslése $\hat\theta (X)$,
+    ha $f_{\hat{\theta}} (X)=\sup_{\theta}f_{\theta} (X)$.
+  \end{df}
+  Nem biztos, hogy létezik, nem biztos, hogy egyértelmű  
+  \begin{itemize}
+  \item $U (\theta,\theta+1)$ eloszláscsalád. $f_\theta
+    (x)=\I{X_n^*-1\leq \theta\leq X_1^*}$, azaz ha  $T (X)\in
+    [X_n^*-1,X_1^*]$, akkor $T$ maximum likelihood becslése
+    $\theta$-nak.
+
+  \item $f (x)$ sűrűségfüggvény $\real$-en.
+    $$f_{\mu,\sigma}
+    (x)=\frac{1}\sigma f \zfrac*{x-\mu}{\sigma}
+    $$
+    $\Theta=\real\times (0,\infty)$. $c\in\real$, $f (c)>0$, $x$ a
+    megfigyelt érték
+    \begin{displaymath}
+      \sup_{\mu,\sigma}\frac{1}{\sigma}f \zfrac*{x-\mu}{\sigma}\geq
+      \lim_{\sigma\to0}\frac{1}{\sigma} f\zfrac*{x- (x+c\sigma)}{\sigma}=\infty
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Maximum likelihood becslés}
+  $\psi=g(\theta)$ becslése maximum likelihood elvvel. Ha $g$ kölcsönösen
+  egyértelmű, akkor csak átparamétereztük a családot,
+  $\hat\psi=g(\hat\theta)$.
+
+  Ha $g$ nem injektív, akkor az indukált likelihoodot szokták
+  maximalizálni
+  \begin{displaymath}
+    f^*_\psi (x)=\sup\set{f_\theta (x)}{g (\theta)=\psi}
+  \end{displaymath}
+
+  \begin{proposition}
     \begin{itemize}
-    \item Ha a maximum hely egyértelmű, akkor a faktorizációs tétel
-      miatt $f_\theta (x)=g_\theta (T (x)) h (x)$ csak $T (x)$-en
-      keresztül függ a megfigyeléstől. Ha nem egyértelmű, akkor arra
-      kell figyelni, hogy $T (x)$ függvényében válasszunk.
-      
-      pl. $U (\theta,\theta+1)$ esetén elégséges statisztika
-      $T (X) =(X_1^*,X_n^*)$. $\hat\theta(=X_n^*-1+X_1^*)/2$ ML becslés $T$
-      függvényei között,
-      \begin{displaymath}
-        \hat\theta+\sin (X_1)\frac{X_1^*-(X_n^*-1)}2
-      \end{displaymath}
-      pedig nem (feltéve, hogy a minta elemszáma legalább 2).
-    \end{itemize}  
-  \end{frame}
+    \item Ha $T$ elégséges statisztika és létezik ML becslés, akkor
+      van olyan is, amelyik $T$ függvénye.
+    \item Ha $\hat\theta$ a $\theta$ ML becslése, akkor $g
+      (\hat\theta)$ a $g (\theta)$ ML becslése.
+    \end{itemize}
+  \end{proposition}
+  \begin{itemize}
+  \item Ha a maximum hely egyértelmű, akkor a faktorizációs tétel
+    miatt $f_\theta (x)=g_\theta (T (x)) h (x)$ csak $T (x)$-en
+    keresztül függ a megfigyeléstől. Ha nem egyértelmű, akkor arra
+    kell figyelni, hogy $T (x)$ függvényében válasszunk.
+    
+    pl. $U (\theta,\theta+1)$ esetén elégséges statisztika
+    $T (X) =(X_1^*,X_n^*)$. $\hat\theta(=X_n^*-1+X_1^*)/2$ ML becslés $T$
+    függvényei között,
+    \begin{displaymath}
+      \hat\theta+\sin (X_1)\frac{X_1^*-(X_n^*-1)}2
+    \end{displaymath}
+    pedig nem (feltéve, hogy a minta elemszáma legalább 2).
+  \end{itemize}  
+\end{frame}
+
+ 
   
-  \begin{frame}{Bayes becslés, bevezetés}
-    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád. $g
-    (\theta)$-t szeretnénk becsülni.
+\begin{frame}{Bayes becslés, bevezetés}
+    $\cP=\set{\P[\theta]}{\theta\in\Theta}$ eloszláscsalád. 
+    $g(\theta)$-t szeretnénk becsülni.
     \begin{displaymath}
       L (\theta,T)=(g(\theta)-T)^2,\quad R_T(\theta)=\E[\theta] (L (\theta,T))
     \end{displaymath}
@@ -336,8 +832,8 @@
     \end{displaymath}
   
     A Bayes becslés $g (\theta)$ feltételes várható értéke a mintára nézve.
-  \end{frame}
+\end{frame}
   
-  \end{document}
+\end{document}
   
-    
+       
