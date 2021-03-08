@@ -38,7 +38,7 @@
 
 \begin{frame}{Gyenge regularitási feltétel exponenciális családban}
   \begin{proposition}[Emlékeztető]
-    Ha $Y$ $p$-dimenziós vektorváltozó és $Y\in L^2$, akkor $\P{Y\in \E{Y}+\im\sigma(Y)}=1$ 
+    Ha $Y$ $p$-dimenziós vektorváltozó és $Y\in L^2$, akkor $\P{Y\in \E{Y}+\im\Sigma(Y)}=1$ 
   \end{proposition}
   $a\in\real^p$-re $\D^2{a^T Y}=a^T\Sigma(Y)a$ $\implies$ 
   $\forall a\perp \im\Sigma(Y)$ vektorra $\D^2{a^T Y}=0$ és $\P{a^T (Y-\E{Y})=0}=1$. 
@@ -137,10 +137,10 @@
       folytonosan deriválható $\theta$-ban $\lambda_X$ majdnem minden $x$-re ill. $\lambda_Y$ majdnem minden $y$-ra, akkor 
       $\sqrt{f_{X,Y,\theta}(x,y)}$ is folytonosan differenciálható $\lambda_X\otimes\lambda_Y$ m.m $(x,y)$-ra. 
       \item $\ln f_{X,Y,\theta}(x,y)=\ln f_{X,\theta}(x)+\ln f_{Y,\theta}(y)$. 
-      Ebből $I_{X+Y}(\theta)=I_X(\theta)+I_{Y}(\theta)$ következik. 
-      \item $I_{X+Y}(\theta)$ folytonos, véges értékű.
-      \item $I_{X+Y}\geq I_{X}$, amiből $\ker I_{X+Y}\subset \ker I_X=\smallset{0}$, 
-      $I_{X+Y}$ is invertálható, minden $\theta$-ra.
+      Ebből $I_{X,Y}(\theta)=I_X(\theta)+I_{Y}(\theta)$ következik. 
+      \item $I_{X,Y}(\theta)$ folytonos, véges értékű.
+      \item $I_{X,Y}\geq I_{X}$, amiből $\ker I_{X+Y}\subset \ker I_X=\smallset{0}$, 
+      $I_{X,Y}$ is invertálható, minden $\theta$-ra.
     \end{itemize}
   \end{frame}
   
@@ -185,7 +185,7 @@
     \end{proposition}
     \begin{itemize}
       \item  $(R)$ nem függ a domináló mértéktől, $\P[0]\in \cP'$ választható. 
-      ($\cP'=\set{\sum c_i\cP[\theta_i]}{c_i\geq0,\,\sum c_i=1}$). 
+      ($\cP'=\set{\sum c_i\P[\theta_i]}{c_i\geq0,\,\sum c_i=1}$). 
       \item $S$ elégséges, ezért $\P[0]$-ra vonatkozó sűrűségek $f_{\theta}(x)=g_{\theta}(S(x))$ alakúak.
       \item $g_\theta$ $S$ eloszlásának a sűrűsége a $\P[0]\circ S^{-1}$ domináló mértékre nézve.
       \item $\sqrt{f_{\theta}(x)}=\sqrt{g_\theta(S(x))}$, azaz ha $(R)$ teljesül, 
@@ -204,22 +204,24 @@
     \end{proposition}
     \begin{itemize}
       \item $\P[0]=\P[\theta_0]$ $\theta_0\in \Theta$ választható domináló mértéknek, $f_{\theta_0}\equiv1$.
-      \item Láttuk, hogy $\E[\theta]{(\partial_\theta \ln f_\theta)(X)|S }=\E{(\partial_\theta \ln g_\theta)(S)}$, 
+      \item Láttuk, hogy $\E[\theta]{(\partial_\theta \ln f_\theta)(X)|S }=(\partial_\theta \ln g_\theta)(S)$, 
       ahol $g_\theta$ $S$ eloszlásainak sűrűsége $\P[\theta_0]\circ S^{-1}$-re.
       \item A feltétel szerint $I_X=I_S$, ami csak akkor lehet, ha 
-      $\partial_\theta\ln f_\theta(x)=\partial_\theta g_\theta(S(x))$ minden $\theta$-ra $\P[0]$ m.m..
+      $\partial_\theta\ln f_\theta(x)=\partial_\theta \ln g_\theta(S(x))$ minden $\theta$-ra $\P[0]$ m.m..
       \item $\partial_\theta\ln f_\theta(x)$, $\partial_\theta\ln g_\theta(x)$ $\P[0]$ m.m. 
       $x$-re folytonos $\theta$-ban $(R)$ miatt. 
-      \item $\P[0]{ \forall\theta\in\Theta,\,\partial_\theta\ln f_\theta(x)=\partial_\theta g_\theta(S(x))}=1$.
-      \item 
-      \begin{displaymath}
-        \ln f_{\theta_1}(x)-\ln f_{\theta_0} (x) = \int_{\gamma} \partial_\theta \ln f_\theta(x) d\theta=
-        \int_\gamma \partial_\theta \ln g_\theta (S(x))d\theta= \ln g_{\theta_1}(S(x))-\ln g_{\theta_0}(S(x))
-      \end{displaymath}
-      \begin{displaymath}
-        f_\theta(x)=\frac{g_\theta(S(x))}{g_{\theta_0}(S(x))}
-      \end{displaymath}
-      azaz $S$ elégséges a faktorizációs tétel miatt.
+      \item $\P[0]{ \forall\theta\in\Theta,\,\partial_\theta\ln f_\theta(x)=\partial_\theta \ln g_\theta(S(x))}=1$.
+      \item $\ln f_\theta(x)-\ln g_\theta(S(x))$ majdnem minden $x$-re 
+      $\theta$-ban konstans, azaz $f_\theta(x)=g_\theta(S(x))h(x)$ alakú, ahol $h(x)=f_{\theta_0}(x)/g_{\theta_0(S(x))}$.
+      % \begin{displaymath}
+      %   \ln f_{\theta_1}(x)-\ln f_{\theta_0} (x) = \int_{\gamma} \partial_\theta \ln f_\theta(x) d\theta=
+      %   \int_\gamma \partial_\theta \ln g_\theta (S(x))d\theta= \ln g_{\theta_1}(S(x))-\ln g_{\theta_0}(S(x))
+      % \end{displaymath}
+      % \begin{displaymath}
+      %   f_\theta(x)=\frac{g_\theta(S(x))}{g_{\theta_0}(S(x))}
+      % \end{displaymath}
+      % és 
+      $S$ elégséges a faktorizációs tétel miatt.
     \end{itemize}
   \end{frame}
   
@@ -246,6 +248,7 @@
   \end{frame}
 
   \begin{frame}{Momentum módszer indikátor mintára}
+    ,,\textit{Válasszuk azt a paramétert, ami az első néhány tapasztalati momentumra illeszkedik}''
     \begin{itemize} 
       \item $X_1,\dots,X_n$ indikátor minta ismeretlen $\theta\in[0,1]$ paraméterrel. 
       \item $\theta=\E[\theta]{X_1}$
@@ -259,6 +262,7 @@
   \end{frame}
 
   \begin{frame}{Maximum likelihood elv indikátor mintára}
+    ,,\textit{Válasszuk az a paramétert, ami a megfigyelés likelihoodját $f_\theta(x)$-et maximalizálja.}
     \begin{itemize}
       \item $X_1,\dots,X_n$ indikátor minta ismeretlen $\theta\in[0,1]$ paraméterrel. 
       
@@ -285,23 +289,32 @@
 \begin{frame}{Bayes módszer indikátor mintára}
   \begin{itemize}
     \item Adatok nélkül minden paraméter érték ,,egyformán valószínű''.
-    Az a priori eloszlás $\Theta=(0,1)$ paraméter téren egyenletes. (Más a priori eloszlást is választhatunk).
+    Az \textbf{a priori eloszlás} a  $\Theta=(0,1)$ paramétertéren egyenletes, $q\equiv1$ a sűrűségfüggvénye. 
+    (Más eloszlást is választhatunk).
     \item $\theta$ is valószínűségi változó, $\Omega=\Theta\times\mfX$ a valószínűségi mező alaphalmaza. 
     $\theta:\Omega\to\Theta$ az első, $X:\Omega\to\mfX$ a második koordináta leképezés.
     \begin{displaymath}
-      \P{H}=\int_{\Theta}\int_{\mfX} \I{(t,x)\in H} \P[t]{dx}d t.  
+      \P{H}=\int_{\Theta}\int_{\mfX} \I{(t,x)\in H} \P[t]{dx}q(t) d t=\int_{H} f_t(x) q(t) d t\otimes\lambda(dx).  
     \end{displaymath}
-    \item Négyzetes veszteség esetén $R_T(t)=\E{(t-T)^2}$ a rizikó függvény, 
-    $R_T=\E{R_T(\theta)}=\E{(\theta-T)^2}$ az a priori rizikó.
+    ahol $\lambda$ a számláló mérték $\mfX$-en, $dt$ a ,,Lebesgue mérték''.
+    \item Négyzetes veszteség esetén $R_T(\theta)=\E[\theta]{(\theta-T)^2}=\E{(\theta-T)^2|\theta}$ a rizikó függvény, 
+    $R_T=\E{R_T(\theta)}=\E{(\theta-T)^2}$ az \textbf{a priori rizikó}. 
+    Ez az átlagos veszteség, ha a $T$ statisztikát használjuk becslésként.
     \item $T$ csak a megfigyeléstől függhet  (azaz $\sigma(X)$ mérhető), ezért 
-    az a priori rizikót $T(X)=\E{\theta\given X}$ minimalizálja.
-    \begin{align*}
-      \P{\theta\in A |X=x}
-      =\frac{\P{\theta\in A,\, X=x}}{\P{X=x}}
-      &=\frac{\int_A t^{S(x)}(1-t)^{n-S(x)}d t}{\int_{(0,1)}t^{S(x)}(1-t)^{n-S(x)}} d t\\
-      &= \int_A C(\alpha,\beta) t^{\alpha-1}(1-t)^{\beta-1}d t|_{\alpha=S(X)+1,\beta=n-S(X)+1} d t
-    \end{align*}
-    Azaz $\theta$ $X$-re vonatkozó feltételes eloszlása $\text{Béta}(S(X)+1,n+1-S(X))$. 
+    az a priori rizikót $T(X)=\E{\theta\given X}$ minimalizálja. 
+    $(\theta,X)$ együttes sűrűségfüggvénye ($d t\times\lambda(d x)$-re nézve) $f_t(x) q(t)$,
+    a feltételes sűrűségfüggvény:
+    \begin{displaymath}
+      f_{\theta|X}(t|x)=\frac{f_{\theta,X}(t,x)}{f_{X}(x)}=C(x) t^{\sum x_i} (1-t)^{n-\sum x_i}
+    \end{displaymath}
+    % \begin{align*}
+    %   \P{\theta\in A |X=x}
+    %   =\frac{\P{\theta\in A,\, X=x}}{\P{X=x}}
+    %   &=\frac{\int_A t^{S(x)}(1-t)^{n-S(x)}d t}{\int_{(0,1)}t^{S(x)}(1-t)^{n-S(x)}} d t\\
+    %   &= \int_A C(\alpha,\beta) t^{\alpha-1}(1-t)^{\beta-1}d t|_{\alpha=S(X)+1,\beta=n-S(X)+1} d t
+    % \end{align*}
+    Azaz $\theta$ $X$-re vonatkozó feltételes eloszlása $\text{Béta}(S+1,n+1-S)$, ahol $S$ a mintaösszeg. 
+    % (Itt valójában a feltételes sűrűségfüggvény formuláját számoltuk ki újra.)
     \item $\E{\theta|X}=\frac{S+1}{n+2}$, $S$ A mintaösszeg. (Laplace simítás).
     \item Ha $g(\theta)$-t szeretnénk becsülni, akkor $\E{g(\theta)|X}$ lenne a Bayes becslés.
   \end{itemize}
@@ -323,11 +336,11 @@
       \item $F_n^*(t)\to F(t)$ egy valószínűséggel, ahol $F$ a mintaelemek közös eloszlásfüggvénye. Ez a nagy számok törvénye a 
       $\I{X_1<t},\I{X_2<t},\dots$ iid sorozatra. 
   \end{itemize}
+  \continue
   Több is igaz.
   \begin{theorem}[Glivenko-Cantelli tétel (statisztika alaptétele)]
       $\sup_{t\in\real}\abs{F_n^*(t)-F(t)}\to0$ egy valószínűséggel.
   \end{theorem}
-  \continue
   Ebből $P_n^*\wto P$ egy valószínűséggel következik.
 \end{frame}
 
@@ -376,7 +389,7 @@
   
 \end{frame}
 
-\begin{frame}{Momentum módszer}
+\begin{frame}[<*>]{Momentum módszer}
   \begin{itemize}
   \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$,  $\Theta\subset\real^p$. 
   %$\theta$-t akarjuk becsülni.
@@ -386,7 +399,7 @@
     folytonos. %, $T$ nyílt. 
   \item $\psi=\phi (\theta)$  tapasztalati becslése
     \begin{displaymath}
-      \hat\psi_n=\frac1n \sum_i g (X_i)
+      \hat\psi_n=\frac1n \sum_{i=1}^n g (X_i)
     \end{displaymath}
   \item $\hat\psi_n\to \psi$ a nagy számok törvénye szerint. 
     Ha $n$ elég nagy és $\psi\in \interior T$, akkor $\hat\psi\in T$ és
@@ -397,7 +410,7 @@
     $\hat\psi_n$ torzítatlan $\psi$-re, de $\phi^{-1}$ általában nem
     lineáris.
     
-  \item Klasszikus momentum módszernél $g (x)=(x_1^1,\dots,x_1^p)$.
+  \item Klasszikus momentum módszernél $g (x)=(x,x^2,\dots,x^p)$.
   \end{itemize}
 \end{frame}
 
@@ -435,6 +448,7 @@
       \text{egy valószínűséggel, ahol $F_n(t)=\frac1n\sum\nolimits_{i=1}^n \I{X_i<t}$} % a tapasztalati eloszlásfüggvény}
     \end{displaymath}
   \end{theorem}
+  \continue
   Megjegyzések.
   \begin{itemize}
   \item Vektor értékű megfigyelésekre is igaz. $X_i$ $\real^d$
@@ -466,15 +480,15 @@
     
     \item Ha $t\in\real$ létezik $A,B\in \cS$, hogy $A\subset(-\infty,t)\subset B$ 
     és %$%P(A)\leq F(t)\leq 
-    $P(B)\leq F(A)+\frac1k$. 
+    $P(B)\leq P(A)+\frac1k$. 
     
     Ha $t\in \smallset{t_1,\dots,t_k}$, akkor $A=B=(-\infty,t)$ jó, különben létezik $i$ hogy $t_i<t<t_{i+1}$ és 
     $A=(-\infty,t_i]$, $B=(-\infty,t_{i+1})$ jó ($P(B)=F(t_{i+1})\leq \frac{i+1}k$ és $P(A)=F(t_i+)\geq \frac ik$).
-    \pause
+    \continue
     \begin{displaymath}
       F_n(t)-F(t)\leq P_n^*(B)-P(B)+P(B)-P(A),\quad F(t)-F_n(t)\leq P(B)-P(A)+P(A)-P^*_n(A)
     \end{displaymath}
-
+    \pause
     \item A nagy számok törvénye alapján $P_n^*(H)\to P(H)$ minden $H\in\cC(k)$-ra
     \begin{displaymath}
       \limsup_{n\to\infty} \sup_{t\in\real}\abs{F_n(t)-F(t)}
@@ -486,7 +500,7 @@
 \begin{frame}{Glivenko--Cantelli tétel igazolása}.
   \begin{df}
     $P$ valószínűségi mérték $(\mfX ,\B)$-n.
-    $\cC\subset\B$ halmazrendszer végesen approximálható, ha létezik $\eps>0$-ra
+    $\cC\subset\B$ halmazrendszer végesen approximálható, ha  minde $\eps>0$-ra létezik
     $\cS (\eps)\subset\B$ véges rendszer úgy, hogy minden $C\in\cC$-re, 
     létezik $A,B\in\cS (\eps)$, amire $A\subset C\subset B$ és
     $P(B)\le  P(A)+\eps$.
@@ -515,7 +529,7 @@
 
   \begin{proposition}[Első randomizálás]
     %\begin{displaymath}
-      $\P{\sup_t \abs{F_n(t)-F(t)}>2\eps}\leq 2\P{\sup_t \abs{F_n(t)-F'_n(t)}>\eps}$ ha $n>2 \eps^{-2}$.
+      $\P{\sup_t \abs{F_n(t)-F(t)}>2\eps}\leq 2\P{\sup_t \abs{F_n(t)-F'_n(t)}>\eps}$, ha $n>2 \eps^{-2}$.
       %\quad\text{ha $n>8 \eps^{-2}$}.
     %\end{displaymath}
   \end{proposition}
@@ -530,7 +544,8 @@
   \begin{proposition}[Hoeffding egyenlőtlenség alkalmazása]
     $\P{\sup\nolimits_t \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}> n\eps\given X,X'}\leq (2n+1)\exp{-\frac12 n\eps^2}$
   \end{proposition}
-  Összefoglalva:     Létezik $c_1,c_2>0$, hogy $\P{\sup\abs{F_n-F}>\eps}\leq c_1ne^{-c_2n\eps^2}$ ha $n>8\eps^{-2}$.
+  \continue
+  Összefoglalva: Létezik $c_1,c_2>0$, hogy $\P{\sup\abs{F_n-F}>\eps}\leq c_1ne^{-c_2n\eps^2}$ ha $n>8\eps^{-2}$.
   
   Innen $\sup\abs{F_n-F}\to0$ egy valószínűséggel a Borel--Cantelli lemma alkalmazásával.
  
@@ -581,14 +596,15 @@
     ahol $\xi_1,\dots,\xi_n$ független előjelek, egymástól és az $(X_k)$, $(X'_k)$ változóktól is. 
   \end{proposition}
   \begin{itemize}
-    \item $\sup F_n-F_n'\eqinlaw =\sup F_n'-F_n$ $\implies$ $\P{F_n-F'_n>\eps}=\P{F_n-F'_n<-\eps}$.
+    \item $\sup F_n-F_n'\eqinlaw\sup F_n'-F_n$ $\implies$ $\P{F_n-F'_n>\eps}=\P{F_n-F'_n<-\eps}$.
     \item Legyen $S=\sup_t  \tfrac1n \sum \xi_i\zjel{\I{X_i<t}-\I{X_i'<t}}$. 
     \begin{displaymath}
       \P{S>\eps|\xi_1,\dots,\xi_n}=\P{\sup F_n-F_n'>\eps},
     \end{displaymath}
     mert $\xi_1,\dots,\xi_n$ hatása csak annyi, hogy ha $\xi_i=-1$, akkor $X_i$ és $X_i'$ szerepet cserél.
-
-    Formálisan. ha $\sup F_n-F_n'=g(X,X')$, akkor $S=g(T(\xi, X,X'))$, ahol 
+    \continue
+    
+    Formálisan. Ha $\sup F_n-F_n'=g(X,X')$, akkor $S=g(T(\xi, X,X'))$, ahol 
     \begin{displaymath}
       T(\xi,X,X')=(Y,Y')\quad\text{és}\quad (Y_i,Y'_i)=\I{\xi_i=1}(X_i,X_i')+\I{\xi_i=-1}(X'_i,X_i)
     \end{displaymath}
@@ -607,13 +623,13 @@
   \begin{itemize}
     \item 
     \begin{displaymath}
-      \P{\sum Z_i>\eps}\leq \inf_{t>0}\E{e^{t \sum_i Z_i}} e^{-t n\eps} %=\inf_{\lambda>0}\prod\E{e^{\lambda}}
+      \P{\sum Z_i>n\eps}\leq \inf_{t>0}\E{e^{t \sum_i Z_i}} e^{-t n\eps} %=\inf_{\lambda>0}\prod\E{e^{\lambda}}
     \end{displaymath}
     \item Függetlenség miatt $\E{e^{t\sum Z_i}}=\prod\E{e^{t Z_i}}$
     \item $Z=Z_i$-vel: $g(t)=\E{e^{t Z}}$, $g$ a $Z$ momentum generáló függvénye.
     $\ln g(0)=0$, $(\ln g)'(0)=\frac{g'(0)}{g(0)}=\E{Z}=0$ és 
     \begin{displaymath}
-      (\ln g)''(s)=\frac{g''(s)}{g'(s)}-\zfrac{g'(s)}{g(s)}^2=\E{Z^2\frac{e^{sZ}}{g(s)}}-\E^2{Z\frac{e^{sZ}}{g(s)}}=\D[s]^2{Z},
+      (\ln g)''(s)=\frac{g''(s)}{g'(s)}-\zfrac*{g'(s)}{g(s)}^2=\E{Z^2\frac{e^{sZ}}{g(s)}}-\E^2{Z\frac{e^{sZ}}{g(s)}}=\D[s]^2{Z},
       \quad\text{ahol $\frac{d\P[s]}{d\P}=\frac{e^{sZ}}{g(s)}$}.
     \end{displaymath}
     \item $\D[s]^2{Z}\leq \E[s]{Z^2}\leq1$, így
@@ -622,7 +638,7 @@
     \end{displaymath}
     \item 
     \begin{displaymath}
-      \P{\sum Z_i>\eps}
+      \P{\sum Z_i>n\eps}
       \leq \inf_{t>0} e^{\frac{n}2\zjel{t^2-2t\eps}}
       =\inf_{t>0} e^{\frac n2\zjel{(t-\eps)^2-\eps^2}}=e^{-\frac 12 n\eps^2}.
     \end{displaymath}
@@ -689,6 +705,7 @@
     \to0,\quad\text{egy valószínűséggel.}
     \end{displaymath}
   \end{corollary}
+  \continue
   \begin{displaymath}
     \limsup_{n\to\infty}\sup_{H\in\cC}\abs*{P (H)-P^*_n (H)}
     \leq \eps+\lim_{n\to\infty}\max_{A\in\cS (\eps)}  \abs*{P (A)-P^*_n (A)}=\eps
