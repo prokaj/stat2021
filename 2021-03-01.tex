@@ -133,12 +133,15 @@
       &=\Sigma_\theta(T)-A\E[\theta]{(\ell')^T T^T}-\E[\theta]{T\ell'}A^T+A\E[\theta]{(\ell')^T\ell'}A^T \\
       &=\Sigma_\theta(T)-AG^T-GA^T+A I(\theta) A^T 
     \end{align*}
-    \item Ha itt $A=G^TI^{-1}(\theta)$, akkor
+    \item Ha itt $A=GI^{-1}(\theta)$, akkor
      \begin{displaymath}
-       0\leq \Sigma_\theta(T)-G^TI^{-1}(\theta)G\quad\implies\quad \Sigma_\theta(T)\geq G^TI^{-1}(\theta) G.
+       0\leq \Sigma_\theta(T)-GI^{-1}(\theta)G^T
+       \quad\implies\quad 
+       \Sigma_\theta(T)\geq GI^{-1}(\theta) G^T.
      \end{displaymath}
   \end{itemize}
-  Ha $\E[\theta]{\ell'(\theta)}=0$, akkor az $n$ elemű minta Fisher információja $I_n(\theta)=I_1(\theta)$ 
+  Ha $\E[\theta]{\ell'(\theta)}=0$, akkor az $n$ elemű minta 
+  Fisher információja $I_n(\theta)=nI_1(\theta)$ 
   az alsó becslés $1/n G^TI_1^{-1}G$.
   %\continue
   %$I(\theta)$ neve \textbf{Fisher} információ. Az ún. \textbf{gyenge regularitási feltétel} garantálja, hogy
