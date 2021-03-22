@@ -8,4 +8,753 @@
 
 \maketitle
 
+\begin{frame}{Becslési módszerek, emlékeztető}
+  \begin{itemize}    
+    %\item Tapasztalati becslések
+    \item Momentum módszer: válasszuk azt a paramétert, ami az első néhány tapasztalati momentumra illeszkedik.
+    \item Maximum likelihood becslés: válasszuk azt a paramétert, ami a minta likelihoodját maximalizálja.
+    \item Bayes becslés: válasszuk azt a paramétert ami az ,,a priori'' rizikót minimalizálja.
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Maximum likelihood becslés}
+    $\cP$ dominált mértékcsalád, $f_\theta$ a sűrűségfüggvény,
+    $\ell (\theta)$ a loglikelihood.
+    \begin{df}
+      A $\theta$ paraméter maximum likelihood becslése $\hat\theta (X)$,
+      ha $f_{\hat{\theta}} (X)=\sup_{\theta}f_{\theta} (X)$.
+    \end{df}
+    Nem biztos, hogy létezik, nem biztos, hogy egyértelmű  
+    \begin{itemize}
+    \item $U (\theta,\theta+1)$ eloszlásból származó minta, mintaelemszám legalább kettő. 
+    $f_\theta (x)=\I{x_n^*-1\leq \theta\leq x_1^*}$, azaz ha  
+    $T (X)\in [X_n^*-1,X_1^*]$, akkor $T$ maximum likelihood becslése
+      $\theta$-nak. Pl. $T_\alpha=\alpha X_1^*+(1-\alpha)X_n^*$, $\alpha\in[0,1]$.
+
+      Ebben az esetben a maximum likelihood becslés nem egyértelmű.
+  
+    \item $f (x)$ sűrűségfüggvény $\real$-en.
+      $$f_{\mu,\sigma}
+      (x)=\frac{1}\sigma f \zfrac*{x-\mu}{\sigma}
+      $$
+      $\Theta=\real\times (0,\infty)$. $c\in\real$, $f (c)>0$, $x$ a
+      megfigyelt érték
+      \begin{displaymath}
+        \sup_{\mu,\sigma}\frac{1}{\sigma}f \zfrac*{x-\mu}{\sigma}\geq
+        \lim_{\sigma\to0}\frac{1}{\sigma} f\zfrac*{x- (x+c\sigma)}{\sigma}=\infty
+      \end{displaymath}
+      A maximum likelihood becslés nem létezik.
+    \end{itemize}  
+  \end{frame}
+
+  \begin{frame}{ML becslés keverék eloszlásra}
+    \begin{itemize}
+      \item $X_1,\dots,X_n$ $n$ elemű minta. A közös sűrűségfüggvény:
+      \begin{displaymath}
+        f(x)=\tfrac12 f_{\mu,\sigma}(x)+\tfrac12 f_{0,1}(x)
+      \end{displaymath}
+      ahol $f_{\mu,\sigma}$ az $N(\mu,\sigma)$ eloszlás sűrűségfüggvénye.
+      \item A loglikelihood függvény:
+      \begin{displaymath}
+        \ell(\mu,\sigma) \geq \log \tfrac12 f_{\mu,\sigma}(x_1)+\sum_{i=2}^n \log\tfrac12f_{0,1}(x_i)\to\infty,
+        \quad\text{ha $\mu=x_1$, $\sigma\to0$}
+      \end{displaymath}
+      \item $\mu\in\smallset{x_1,\dots,x_n}$, $\sigma\to0$ mellett a limesz $\infty$.
+      \item Nem létezik maximum likelihood becslés.
+      \item Ez nem jelenti azt, hogy nem érdemes  a loglikelihood függvény lokális maximum helyét megkeresni. 
+      EM algoritmus.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Maximum likelihood becslés}
+    $\psi=g(\theta)$ becslése maximum likelihood elvvel. Ha $g$ kölcsönösen
+    egyértelmű, akkor csak átparamétereztük a családot,
+    $\hat\psi=g(\hat\theta)$.
+  
+    Ha $g$ nem injektív, akkor az indukált likelihoodot szokták
+    maximalizálni
+    \begin{displaymath}
+      f^*_\psi (x)=\sup\set{f_\theta (x)}{g (\theta)=\psi}
+    \end{displaymath}
+  
+    \begin{proposition}
+      \begin{itemize}[<*>]
+      \item Az ML becslés nem függ a domináló mérték megválasztásától.
+      \item Ha $T$ elégséges statisztika és létezik ML becslés, akkor
+        van olyan is, amelyik $T$ függvénye.
+      \item Ha $\hat\theta$ a $\theta$ ML becslése, akkor $g
+        (\hat\theta)$ a $g (\theta)$ ML becslése.
+      \end{itemize}
+    \end{proposition}
+    \begin{itemize}
+    \item Ha a maximum hely egyértelmű, akkor a faktorizációs tétel
+      miatt $f_\theta (x)=g_\theta (T (x)) h (x)$ csak $T (x)$-en
+      keresztül függ a megfigyeléstől. Ha nem egyértelmű, akkor arra
+      kell figyelni, hogy $T (x)$ függvényében válasszunk.
+      
+      pl. $U (\theta,\theta+1)$ esetén elégséges statisztika
+      $T (X) =(X_1^*,X_n^*)$. $\hat\theta=(X_n^*-1+X_1^*)/2$ ML becslés $T$
+      függvényei között,
+      \begin{displaymath}
+        \hat\theta+\sin (X_1)\frac{X_1^*-(X_n^*-1)}2
+      \end{displaymath}
+      pedig nem (feltéve, hogy a minta elemszáma legalább 2).
+    \end{itemize}  
+  \end{frame}
+  
+  \begin{frame}{Maximum likelihood becslés exponenciális családban}
+    \begin{itemize}
+      \item $X_1,\dots,X_n$ $n$ elemű minta, $\Theta$  nyílt és 
+      \begin{displaymath}
+        f_\theta(x)= \exp{\theta T_n(x)-b_n(\theta)}
+      \end{displaymath}
+      pl. Binomiális, Poisson, exponenciális, normális stb. minta.
+      \item A loglikelihood: $\ell(\theta,x)=\theta T_n(x)-b_{n}(\theta)$.
+      \item $b_n''(\theta)=\Sigma_\theta(T_n)\geq 0$. Láttuk, hogy $\Sigma(T_n)$ pozitív definit,
+      azaz $\theta\mapsto \ell$  szigorúan konkáv. 
+      
+      Ha $\ell'(\theta)=0$, akkor $\theta$ maximum hely, azaz a maximum likelihood becslés.
+      \item Megmutatható, hogy $T_n(n)=\sum_{i=1}^n T(x_i)$ alakú és $b_n(\theta)=nb_1(\theta)$.
+      \item A likelihood egyenlet:
+      \begin{displaymath}
+        \ell'(\theta)=0\quad\iff\quad \tfrac1n\sum_{i=1}^n T_1(x_i)=b'_1(\theta).
+      \end{displaymath}
+      Itt $b'_1(\theta)=\E[\theta]{T_1(X)}$, azaz a maximum likelihood becslés 
+      ,,általánosított momentum módszeres'' becslésnek tekinthető: 
+      azt a paramétert választjuk, amelyik $\E[\theta]{T_1(X)}=\frac1n \sum_i T_1(X_i)$. 
+    \end{itemize}
+  \end{frame}
+
+  %% cél: maximum likelihood becslés exponenciális családban konzisztens és aszimptotikusan normális. 
+  %% $I(\theta)^{-1}$ aszimptotikus kovariancia mátrixszal.
+  %% kiterjesztés (RR) mellett.
+  %% Cauchy eltolás paraméteres családja, teljesíti-e (RR)-t?
+
+  %% Bayes becslés következő alkalom. 
+  %% szünet után, hipotézis vizsgálat!
+  \begin{frame}{Maximum likelihood becslés aszimptotikus viselkedése exponenciális eloszlás családban}
+    $\cP=\set{\P[\theta]}{\theta\in \Theta}$, exponenciális család, $\Theta$ konvex, nyílt. $f_\theta$ jelöli 
+    \textbf{egy mintaelem} sűrűségfüggvényét.
+    \begin{theorem}
+      $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$ ($\theta_0\in\Theta$) 
+      közös sűrűségfüggvényű eloszlásból. $\hat\theta_n$ a $\theta$ ML becslése az első $n$ megfigyelés alapján.
+      %
+      Ekkor $\hat\theta_n\to\theta_0$ és $\sqrt{n}\zjel{\hat\theta_n-\theta_0}\dto N(0, I(\theta_0)^{-1})$.
+    \end{theorem}
+    \textbf{Az ML becslés (szép eloszláscsaládban) konzisztens és aszimptotikusan normális}.
+    \begin{itemize}
+      \item  Egy mintaelem sűrűségfüggvénye:
+      % $X_1,X_2,\dots$ független azonos eloszlású megfigyelések, $f_{\theta_0}$ közös sűrűségfüggvénnyel, ahol
+      \begin{displaymath}
+        f_\theta(x)=\exp{\theta T(x)-b(\theta)},\quad 
+        \theta\in \Theta\subset \real^p,
+        \quad\text{$\Theta$ nyílt.}
+      \end{displaymath}
+      \item $\Theta$ nyílt, a paraméterezés egyértelmű, azaz $T$ értékkészlete nem lehet egy valódi affin altér része. 
+      Így $b''(\theta)=\Sigma_{\theta}(T(X_1))$ pozitív definit és $b$ szigorúan konvex. 
+      \item $\hat\theta_n$,  $\theta$ maximum likelihood becslése  $X_1,\dots,X_n$ alapján. 
+      Feltesszük, hogy létezik maximum hely, és mivel $-\ell(\theta)$ szigorúan konvex, 
+      a maximum hely a likelihood egyenlet egyetlen megoldása.
+      \begin{displaymath}
+        \hat\theta_n=\arg\max_\theta \frac1n\ell_n(\theta),
+        \quad \iff\quad
+        \frac1n\ell_n'(\hat\theta_n)=0
+        \quad \iff\quad
+        \frac1n\sum_{i=1}^n T(X_i)=b'(\hat\theta_n)
+        % \frac1n\ell_n(\theta)=\theta \frac1n \sum_{i=1}^n T(X_i)-b(\theta).
+      \end{displaymath}
+      % \begin{displaymath}
+      %   \frac 1n\ell_n(\theta)
+      %   =\theta\frac1n\sum_{i} T(X_i)-b(\theta)\to \theta b'(\theta_0)-b(\theta)
+      % \end{displaymath}
+      % \item A konvergencia $\theta$-ban lokálisan egyenletes, hiszen 
+      % \begin{displaymath}
+      %   \frac 1n\ell_n(\theta)-\zjel*{\frac 1n\ell_n(\theta)}
+      %   =\theta\zjel*{\frac1n \sum_{i=1}^n T(X_i)-b'(\theta_0)}
+      % \end{displaymath}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Maximum likelihood becslés konzisztenciája exponenciális eloszlás családban}
+    $\cP=\set{\P[\theta]}{\theta\in \Theta}$, exponenciális család, $\Theta$ konvex, nyílt. $f_\theta$ jelöli 
+    \textbf{egy mintaelem} sűrűségfüggvényét.
+    \begin{theorem}
+      $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$ ($\theta_0\in\Theta$) 
+      közös sűrűségfüggvényű eloszlásból. $\hat\theta_n$ a $\theta$ ML becslése az első $n$ megfigyelés alapján.
+      %
+      Ekkor $\hat\theta_n\to\theta_0$.
+    \end{theorem}
+    \begin{itemize}
+      \item Ha $n\to\infty$, akkor $\frac1n\sum_{i=1}^n T(X_i)\to \E[\theta_0]{T(X_1)}=b'(\theta_0)$ 
+      a nagy számok törvénye szerint.
+      \item $b''$ folytonos, pozitív definit mátrix értékű $\implies$ $b'$ invertálható és az inverz folytonos.
+        
+      Valóban, ha $\theta\in \Theta$, $e\in\real^p$ egységvektor:
+      \begin{displaymath}
+        e^T\cdot (b'(\theta+ te )-b'(\theta)) =
+        \int_0^t e^T b''(\theta+u e)e d u
+        \geq c\cdot (t\wedge \delta)
+      \end{displaymath}
+      ahol $b''(\theta)\geq 2 c \Id_p$  és $\delta$ olyan kicsi, hogy $b''(\theta_1)\geq c\Id_p$,
+      ha $\abs{\theta_1-\theta}<\delta $
+      
+      \item $b'$ injektív
+
+      \item $b'$ inverz folytonos: ha $b'(\theta_n)\to b'(\theta)$ akkor $\abs{\theta_n-\theta}>\eta$ végtelen 
+      sok $n$-re nem teljesülhet és $\theta_n\to\theta$.
+ 
+      \item $\hat\theta_n=(b')^{-1}\zjel*{\frac1n\sum_{i=1}^n T(X_i)}\to (b')^{-1}(b'(\theta_0))=\theta_0$.
+      
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Többdimenziós normális eloszlás I.}
+    \begin{itemize}
+    \item $X$ egy dimenziós normális változó, ha $X\eqinlaw \sigma
+      Z+\mu$, ahol $Z\sim N (0,1)$ és $\sigma\geq0$, $\mu\in\real$.
+    \item Elfajult eloszlás ($\sigma=0$) is normális.
+    \item Karakterisztikus függvény
+      \begin{displaymath}
+        \phi_{Z} (t)= \E{e^{itZ}}=e^{-\frac12 t^2},\quad
+        \phi_{\sigma Z+\mu} (t)=
+        \E{e^{it (\sigma Z+\mu)}}=
+        e^{it\mu}\phi_{Z} (t\sigma)=e^{it\mu-\frac12t^2\sigma^2}.
+      \end{displaymath}
+    \item $X$ $d$-dimenziós vektorváltozó karakterisztikus függvénye
+      \begin{displaymath}\textstyle
+        \phi_X:\real^d\to\C,\quad\phi_X (t)=\E{\exp{i\sum_j t_j
+            X_j}}=\E{e^{i t\cdot X}}
+      \end{displaymath}
+      Vektorváltozóra is van inverziós formula, azaz $X$
+      karakterisztikus függvénye  $X$ eloszlását meghatározza.
+    \item Következmény. $X$ eloszlását a lineáris kombinációk $\sum_j
+      a_jX_j$ ($a\in\real^d$) eloszlásai meghatározzák.
+    \end{itemize}
+    \begin{df}
+      $X$ $d$--dimenziós normális vektorváltozó, ha minden
+      $a\in\real^d$-re $\sum_j a_jX_j$ egy dimenziós normális.
+    \end{df}
+  \end{frame}
+  
+  \begin{frame}{Többdimenziós normális eloszlás II.}
+  
+    \begin{itemize}
+    \item Példa. Ha $Z_1,\dots,Z_d$ független standard normálisok, akkor $Z=
+      (Z_1,\dots,Z_d)$. Ekkor $Z$ normális vektorváltozó.
+      \begin{displaymath}
+        \phi_Z (t)=\E{e^{it\cdot Z}}=\E{\prod e^{i t_jZ_j}}=\prod
+        e^{-\frac12 t_j^2}=e^{-\frac12\norm*{t}^2}
+      \end{displaymath}
+      Ha $a\in\real^d$, akkor
+      \begin{displaymath}
+        \phi_{a\cdot Z} (t)=\E{e^{it a\cdot Z}}=\phi_{Z} (ta)=e^{-\frac12t^2\norm*{a}^2}
+      \end{displaymath}
+      Azaz $Z$ $d$ dimenziós normális.
+      $Z$-t \textbf{$d$--dimenziós standard normális} változónak
+      hívjuk.
+    \item
+      Ha $Z$ $d$ dimenziós standard normális változó és
+      $A\in\real^{k\times d}$, $m\in\real^k$, akkor $X=AZ+m$ $k$-dimenziós
+      normális, hiszen $a\in\real^k$-ra
+      \begin{displaymath}
+        a\cdot X= (A^Ta)\cdot Z+a\cdot m\quad\text{egy dimenziós normális}
+      \end{displaymath}    
+    \item $Z$ $d$-dimenziós normális $X=AZ+m$ várható érték vektora $m$,
+      kovariancia mátrixa $AA^T$.
+    \item Tetszőleges pozitív szemidefinit $\Sigma$  mátrix
+      faktorizálható $AA^T$ alakban, sőt $A$ alsó háromszög mátrixnak is
+      választható  (Cholesky  felbontás).
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Többdimenziós normális eloszlás III.}
+    \begin{itemize}
+      \item Ha $X= (X_1,\dots,X_d)$ $d$--dimenziós normális vektor, akkor
+      minden $j$-re $X_j$ egy dimenziós normális, vagyis $X_j\in L^2$.
+    \item Jelölje $m$, $\Sigma$ az $X$ várható érték vektorát, és
+      kovariancia mátrixát. Ekkor $t\in\real^d$ esetén $Y=\sum_j
+      t_jX_j\sim N (t\cdot m,t^T\Sigma t)$
+      \begin{displaymath}
+        %\E{Y}=\sum_j t_j m_j=t\cdot m,\quad D^2 (Y)=t^T\Sigma t,\quad
+        \phi_X(t)=\E{e^{i t\cdot X}}=\phi_{t\cdot X} (1)=e^{i t\cdot m-\frac12t^T\Sigma t}.
+      \end{displaymath}
+    \item Többdimenziós normális eloszlást a várható érték vektor és a
+      kovariancia mátrix meghatározza.
+  
+      Jelölés $N (\mu,\Sigma)$.
+    \end{itemize}
+    \continue 
+    Emlékeztető.
+    \begin{theorem}[Centrális határeloszlás tétel]
+      $\xi_1,\xi_2,\dots$ iid vektor változók, $\E{\xi_1}=0$, $\Sigma(\xi_1)=\Sigma$.
+      Ekkor $\eta_n = \frac1{\sqrt{n}}\sum_{k=1}^n \xi_k\dto N(0,\Sigma)$.
+    \end{theorem}
+    \continue
+    Ellenőrzés karakterisztikus függvénnyel. 
+    $\phi_{\eta_n}(\alpha)=\phi_{\alpha\cdot\eta_n}(1)$. 
+    $\alpha\cdot\eta_n=\frac1{\sqrt{n}}\sum_{k=1}^n \alpha\cdot\xi_k\dto N(0,\alpha^T\Sigma\alpha)$ és   
+    így $\phi_{\eta_n}(\alpha)\to e^{-\frac12\alpha^T\Sigma \alpha}$, ami az $N(0,\Sigma)$ 
+    eloszlás karakterisztikus függvénye.
+
+    \pause
+    Példa (HF).
+    $Z$ standard normális, $\xi\independent Z$ és
+    $\P{\xi=\pm1}=\frac12$.
+    Legyen $Z_1=Z$, $Z_2=\xi Z$. Ekkor $Z_1$, $Z_2$  standard
+    normálisok, de  a $(Z_1, Z_2)$ vektor változó eloszlása nem normális. 
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Maximum likelihood becslés aszimptotikus normalitása exponenciális eloszlás családban}
+    $\cP=\set{\P[\theta]}{\theta\in \Theta}$, exponenciális család, $\Theta$ konvex, nyílt. $f_\theta$ jelöli 
+    \textbf{egy mintaelem} sűrűségfüggvényét.
+    \begin{theorem}
+      $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$ ($\theta_0\in\Theta$) 
+      közös sűrűségfüggvényű eloszlásból. $\hat\theta_n$ a $\theta$ ML becslése az első $n$ megfigyelés alapján.
+      Ekkor $\sqrt{n}\zjel{\hat\theta_n-\theta_0}\dto N(0, I(\theta_0)^{-1})$.
+    \end{theorem}
+    \begin{itemize}
+      \item $\hat\theta_n$ a likelihood egyenlet egyetlen megoldása: $\ell'_n(\hat\theta_n)=0$.
+      \item Legyen $h(t)=\frac1n \zjel*{\ell'_n(t+\theta_0)-\ell'_n(\theta_0)}$. 
+      Ekkor $h$ determinisztikus $h(t)=b'(\theta_0)-b'(\theta_0+t)$, 
+      $h'(0)= -I(\theta_0)$ nem szinguláris és  $h(\hat\theta_n-\theta_0)=-\frac{1}{n}\ell'_n(\theta_0)$.
+      \item 
+      A $\xi_n=\hat\theta_n-\theta_0$ jelöléssel $\xi_n\pto0$ a konzisztencia miatt 
+      és $\sqrt{n} h(\xi_n)\dto N(0,I(\theta_0))$, a CHT szerint, 
+      hiszen
+      \begin{displaymath}
+        \sqrt{n} h(\xi_n)
+        =-\sqrt{n}\tfrac1n\ell'_n(\theta_0) 
+        = %-\frac{1}{\sqrt{n}}
+        n^{-1/2}\sum\nolimits_{i=1}^n -\ell'_1(\theta_0, X_i)
+        %= \frac1{\sqrt{n}}\sum\nolimits_{i=1}^n(b'(\theta_0)-T(X_i)) 
+      \end{displaymath}
+    \end{itemize}
+    \vspace{-2ex}
+    \begin{proposition}
+      $\xi_n\pto0$, $\sqrt{n}h(\xi_n)\dto N(0,\Sigma)$, $h(0)=0$, létezik $h'(0)$ és $(h'(0))^{-1}$. % deriválható a nullában, 
+      Ekkor $h'(0)\sqrt{n}\xi_n\dto N(0,\Sigma)$.
+    \end{proposition}  
+    \continue
+    $\sqrt{n}I(\theta_0)\zjel*{\hat\theta_n-\theta_0}\dto \xi\sim N(0,I(\theta_0))$ $\implies$  
+    $\sqrt{n}\zjel*{\hat\theta_n-\theta_0}\dto I^{-1}(\theta_0) \xi\sim N(0,I^{-1}(\theta_0))$.
+  \end{frame}
+
+\begin{frame}{Lemma ellenőrzése}
+  Emlékeztető.
+  Ha $\zeta_n\dto Z$ és $Y_n\pto0$, akkor $\zeta_n+Y_n\dto Z$. Ok: elegendő egy korlátú  Lipschitz-1  folytonos $h$-ra ellenőrizni, 
+  hogy $\E{h(\zeta_n+Y_n)}\to\E{h(Z)}$ és $\abs*{\E{h(\zeta_n+Y_n)-h(\zeta_n)}}\leq \E{1\wedge\abs{Y_n}}\to0$.
+  \begin{proposition}
+    $\xi_n\pto0$, $\sqrt{n}h(\xi_n)\dto N(0,\Sigma)$, $h(0)=0$, létezik $h'(0)$ és $(h'(0))^{-1}$. % deriválható a nullában, 
+    Ekkor $h'(0)\sqrt{n}\xi_n\dto N(0,\Sigma)$.
+  \end{proposition}  
+  \continue Elég, hogy $\sqrt{n}(h(\xi_n)-h'(0)\xi_n)\pto 0 $. %, mert ekkor 
+  \begin{itemize}
+  \item $h$ deriválható a $0$-ban, és $h'(0)$ invertálható mátrix: $\eps>0$-hoz létezik $\delta=\delta(\eps)>0$ úgy, hogy 
+  $\abs{h(t)-h'(0)t}\leq \eps \abs{t}\leq \eps \norm{(h'(0))^{-1}}\abs{h'(0) t}$ ha $\abs{t}<\delta$. Ebből
+  \begin{displaymath}
+    (1-\eps')\abs{h'(0)t}\leq \abs{h(t)}\leq (1+\eps')\abs{h'(0) t},
+    \quad 
+    \text{ha $\abs{t}<\delta$, ahol $\eps'=\eps\norm{(h'(0))^{-1}}$}
+  \end{displaymath}
+  \item 
+  \begin{displaymath}
+    \abs{h(t)-h'(0)t}< \eps' \abs{h'(0)t}\leq \frac{\eps'}{1-\eps'} \abs{h(t)}\quad\text{ha $\eps'=\norm{(h'(0))^{-1}}\eps <1$ és $\abs{t}<\delta(\eps)$}. 
+  \end{displaymath}
+  \item $\eta>0$
+  \begin{align*}
+    \limsup_{n\to\infty} {}&\P{\sqrt{n}\abs*{h(\xi_n)-h'(0)\xi_n} > \eta}
+    \leq 
+    \inf_{\eps>0,\,\eps'<1} \limsup_{n\to\infty}\P{\abs{\xi_n}>\delta(\eps)}+\P{\sqrt{n}\frac{\eps'}{1-\eps'}\abs{h(\xi_n)}>\eta}\\
+    &=
+    \inf_{\eps>0,\,\eps'<1} \P{\abs{\xi}>\frac{\eta(1-\eps')}{\eps'}}=0,\quad\text{ahol $\xi\sim N(0,\Sigma)$}.
+    \implies  \sqrt{n}\zjel*{h(\xi_n)-h'(0)\xi_n}\pto 0
+  \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A Lemma egy variációja}
+  \begin{lemma}
+    $\xi_n\pto 0$, $\sqrt{n}\xi_n\dto \xi$, $h(0)=0$ és $h$ differenciálható $0$-ban. Ekkor $\sqrt{n}h(\xi_n)\dto h'(0)\xi$.
+  \end{lemma}
+  \begin{itemize}
+    \item $h(\xi_n)= h'(0)\xi_n + R_n$. Elég, hogy $\sqrt{n} R_n\pto0$.
+    \item $h$ differenciálható nullában és $h(0)=0$. $\eps>0$-hoz létezik $\delta>0$ úgy, hogy $\abs{h(t)-h'(0)t}\leq \eps\abs{t}$, ha $\abs{t}<\delta$.
+    \begin{displaymath}
+      \limsup_{n\to\infty}\P{\sqrt{n}\abs{R_n}>\eta}
+      \leq 
+      \inf_{\eps>0 }\limsup_{n\to\infty}\P{\abs{\xi_n}>\delta}+\P{\eps\sqrt{n}\abs{\xi_n}>\eta}
+      =\inf_{\eps>0}\P{\abs{\xi}>\frac{\eta}{\eps}}=0
+    \end{displaymath}
+    \item 
+    $\sqrt{n}R_n\pto0$, amiből $\sqrt{n} h(\xi_n)$ és $h'(0)\sqrt{n}\xi_n$ eloszlásbeli 
+    limesze azonos és az utóbbié $h'(0)\xi$.
+  \end{itemize}
+
+  Előadáson ez a dia nem szerepelt, helyette az eredményt az előző dia lemmájából vezettem le.
+  
+\end{frame}
+
+\begin{frame}{Példa, normális eloszlás}
+  \begin{itemize}
+    \item $N(\mu,\sigma^2)$, $\mu\in\real$, $\sigma>0$. 
+    Exponenciális eloszláscsalád, de nem ez a természetes paraméterezés.
+    \item $\theta_1=\frac1{\sigma^2}$, $\theta_2=\frac\mu{\sigma^2}$, $(\mu,\sigma)= h(\theta)$.
+    \item $\sqrt{n}\zjel*{\hat\theta_n-\theta_0}\dto N(0, I^{-1}(\theta_0))$.
+    \item $\sqrt{n}\zjel*{h(\hat\theta_n)-h(\theta_0)}\dto N(0,h'(\theta_0)I^{-1}(\theta_0)h'(\theta_0)^T)$ a lemma alapján.
+    \item $I(\theta) =\Sigma_{\theta} ((\ell\circ h)'(\theta_0))^T)=h'(\theta)^T I(\mu,\sigma)h'(\theta)$, 
+    amiből 
+    \begin{displaymath}
+      I^{-1}(\theta) =(h'(\theta)^{-1} I^{-1}(\mu,\sigma) (h'(\theta)^T)^{-1}
+      \implies
+      I^{-1}(\mu,\sigma) = h'(\theta_0)I^{-1}(\theta_0)h'(\theta_0)^T
+    \end{displaymath}
+    \item $\sqrt{n} \zjel*{(\hat\mu_n,\hat\sigma_n)-(\mu_0,\sigma_0)}\dto N(0,I^{-1}(\mu,\sigma))$. 
+    Az ML becslés aszimptotikusan normális.
+    \item $I(\mu,\sigma)=\frac1{\sigma^2}\diag(1,2)$ és $\hat\mu_n=\bar{X}$, $\hat\sigma_n=s_n$.
+    
+    Később kiszámoljuk, hogy normális minta esetén $\bar{X}$ és $s_n^2$ függetlenek, 
+    nem csak aszimptotikusan korrelálatlanok továbbá
+    $\sqrt{n}(\hat\mu_n-\mu)\sim N(0,\sigma^2)$ és $\hat\sigma^2_n \sim \frac{\sigma^2}{n}\chi_{n-1}^2$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa. $\sqrt{n}\zjel{\hat\theta_n-\theta_0}$ aszimptotikus kovariancia mátrixa lehet szinguláris}
+  \begin{itemize}
+    \item $X_1,X_2,\dots $ független $U(0,1)$ eloszlású változók. Ha $U(0,\theta)$, $\theta>0$ eloszláscsaládban becsüljük $\theta$-t, 
+    akkor $\hat\theta_{n}=X_n^{(n)}$. Az első $n$ megfigyelésből számított rendezett mintát $X_1^{(n)},\dots,X_n^{(n)}$-nel jelöljük.
+    \item $\theta_0=1$, $X_n^{(n)}-1\eqinlaw -X_1^{(n)}$, hiszen 
+    $X_n^{(n)}-1=\max_{k\leq n}(X_k-1)=-\min_{k\leq n} (1-X_k)$ és $1-X_1,1-X_2\dots$ független $U(0,1)$ eloszlású változók.
+    \item $\sqrt{n}\zjel*{X_n^{(n)}-1}\eqinlaw -\sqrt{n}X_1^{(n)}$
+    \begin{displaymath}
+      \P{\sqrt{n} X_1^{(n)}>\eps}=\zjel*{1-\frac{\eps}{\sqrt{n}}}^n\to0\quad\text{minden $\eps>0$-ra}\quad
+      \implies \sqrt{n}(X_n^{(n)}-1)\pto0.
+    \end{displaymath}
+    \item Ha $\sqrt{n}$ helyett $n$-nel normálunk, akkor
+    \begin{displaymath}
+      \P{nX_1^{(n)}>t}=\zjel*{1-\frac tn}^n\to e^{-t},\quad\text{azaz}\quad n(X_n^{(n)}-1)\dto -\exp(1) %\quad\text{}
+    \end{displaymath}
+    a határeloszlás egységnyi paraméterű exponenciális ellentettje.
+  \end{itemize}
+\end{frame}
+\end{document}
+
+\begin{frame}[<*>]{Általánosítás, konzisztencia}
+
+  $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$  közös sűrűségfüggvénnyel. 
+  $\Theta\subset\real^p$ nyílt. $f_\theta$, $\theta\in\Theta$ teljesíti a gyenge regularitási feltételt.
+
+  Alkalmas feltételek mellett a következő lépések igazak.
+ \begin{itemize}
+
+    \item Elég kicsi $\delta>0$-ra  
+      \begin{displaymath}
+        S_n = \sup_{\abs{t}\leq \delta} 
+        \tfrac1n\zjel{\ell_n(\theta_0+t)-\ell_n(\theta_0)}+ \tfrac14 t^T I(\theta_0) t,
+        \quad 
+        \text{ekkor}
+        \quad
+        \lim_{n\to\infty} S_n\leq 0\quad\text{egy valószínűséggel.}
+      \end{displaymath}
+    \item $I(\theta_0)>0$, ezért $\frac14 t^T I(\theta_0) t \geq c\abs{t}^2$ alkalmas $c>0$-val.
+    \item Ha $\hat\theta_n$ $\ell_n$ maximum helye $\set{\theta}{\abs{\theta-\theta_0}\leq\delta}$ halmazon, 
+      akkor 
+      \begin{displaymath}
+        0\leq \tfrac1n\zjel{\ell_n(\hat\theta_n)-\ell_n(\theta_0)}
+        \leq S_n-c\abs{\hat\theta_n-\theta_0}^2 %\frac14 t^T I(\theta_0) t
+        \quad\text{amiből $\abs{\hat\theta_n-\theta_0}^2\leq S_n/c\to 0$}.
+      \end{displaymath}
+    \item Elég nagy $n$-től kezdve $\abs{\hat\theta_n-\theta_0}<\delta$ és $\ell_n'(\hat\theta_n)=0$.
+    
+    Ez adja az ML becslés konzisztenciáját.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[<*>]{Általánosítás, aszimptotikus normalitás}
+
+  $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$  közös sűrűségfüggvénnyel. 
+  $\Theta\subset\real^p$ nyílt. $f_\theta$, $\theta\in\Theta$ teljesíti a gyenge regularitási feltételt.
+
+  Alkalmas feltételek mellett a következő lépések igazak.
+ \begin{itemize}
+    \item CHT alapján:
+    \begin{displaymath}
+      n^{-1/2}\ell'_n(\theta_0)=n^{-1/2}\sum_{i=1}^n \ell'(\theta_0,X_i)\dto N(0,I(\theta_0))  
+    \end{displaymath}
+    \item 
+    \begin{displaymath}
+      n^{-1/2}\zjel{\ell'(\hat\theta_n)-\ell'(\theta_0)}
+      =\frac{1}{n}\ell_n''(\theta_0)\sqrt{n}(\hat\theta_n-\theta_0)+R_n  
+    \end{displaymath}
+    $R_n\pto0$ és $\frac1n\ell_n''(\theta_0)\to \E[\theta_0]{\ell''(\theta_0, X_1)}=\alert{-I(\theta_0)}$
+    \item 
+    \begin{displaymath}
+      I(\theta_0)\sqrt{n}(\hat\theta_n-\theta_0)\dto N(0,I(\theta_0))
+      \implies
+      \sqrt{n}(\hat\theta_n-\theta_0)\dto N(0,I^{-1}(\theta_0)).
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Erős regularitási feltétel}
+  \begin{df}[$(RR)$]
+    $(R)$ + $\theta\mapsto\ell(\theta,x)\in C^2$ 
+    és $\cP$ m.m. $x$-re és majorálható ,,egyenletesen integrálható''
+    $M$-mel. Azaz
+    \begin{itemize}
+    \item $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+    \item $\sup_\theta\E[\theta]{M^2}<\infty$. 
+    \end{itemize}
+  \end{df}
+  
+  \begin{theorem}
+    $X_1,X_2,\dots$ iid sorozat $f_{\theta_0}$ sűrűségfüggvényből. 
+    $(RR)$  teljesül a $\set{f_\theta}{\theta\in\Theta}$ eloszláscsaládra.
+
+    $\ell_n(\theta) = \sum_{i=1}^n \ell_1(\theta,X_i)$ az $n$ elemű minta loglikelihoodja.
+    \begin{itemize}
+    \item Az $\ell'_n(\theta)=0$ likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+      amely lokális maximum és erősen konzisztens
+    \item Erre a gyökre  
+    $\sqrt{n} (\hat\theta_n-\theta_0)\dto N(0,I^{-1} (\theta_0))$ 
+    \end{itemize}
+  \end{theorem}  
+  $(RR)$-t elég lokálisan megkövetelni.
+\end{frame}
+
+\begin{frame}{Erős regularitási feltétel következményei I.}
+  \begin{df}[RR]
+    (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
+    m.m. $x$-re és majorálható ,,egyenletesen integrálható''
+    $M$-mel. Azaz
+    \begin{itemize}
+    \item $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+    \item $\sup_\theta\E[\theta]{M^2}<\infty$. 
+    \end{itemize}
+  \end{df}
+  
+  \begin{lemma}
+    (RR) esetén
+    \begin{displaymath}
+      \eta (\eps)
+      = \E[\theta]{\sup_{\abs{t}<\eps}\norm{\ell''(\theta+t)-\ell''(\theta)}}
+      \to0\quad\text{ha $\eps\to0$}
+    \end{displaymath}
+  \end{lemma}
+  Dominált konvergencia tétel:
+  \begin{displaymath}
+    \sup_{\abs{t}\leq\eps}\norm*{\ell''(\theta+t,x)-\ell''(\theta,x)}\leq 2M (x)
+  \end{displaymath}
+  és $t\mapsto \ell''(t,x)$ folytonos. 
+  
+\end{frame}
+
+\begin{frame}{Erős regularitási feltétel következményei II.}
+  \begin{df}[RR]
+    (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
+    m.m. $x$-re és %majorálható ,,egyenletesen integrálható'' $M$-mel. Azaz
+    $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+    $\sup_\theta\E[\theta]{M^2}<\infty$. 
+  \end{df}
+  
+  \begin{lemma}
+    (RR) esetén $\theta\mapsto \E[\theta]{\ell''(\theta)}$ folytonos.
+  \end{lemma}
+  \begin{itemize}
+    \item $\theta_n\to \theta$
+    \begin{displaymath}
+      \E[\theta_n]{\ell''(\theta_n)}-\E[\theta]{\ell''(\theta)}=\E[\theta]{\ell''(\theta_n)-\ell''(\theta)}+
+      \int \ell''(\theta_n,x)\zjel{f_{\theta_n}(x)-f_{\theta}(x)}dx
+    \end{displaymath}
+    \item $\ell''(\theta_n)\to \ell''(\theta)$ $\cP$ m.m. és $2M$ integrálható majoráns $\implies$
+       $ \lim_{n\to\infty}\E[\theta]{\ell'(\theta_n)-\ell'(\theta)}=0$
+    \item Levágás $+$ Scheffé tétel
+    \begin{align*}
+      \norm*{\smallint \ell''(\theta_n,x)\zjel{f_{\theta_n}(x)-f_{\theta}(x)}dx}
+      &\leq 
+      \smallint \norm*{\ell''(\theta_n,x)}\abs{f_{\theta_n}(x)-f_{\theta}(x)}dx
+      \leq \smallint M(x)\abs{f_{\theta_n}(x)-f_{\theta}(x)} dx\\
+      &\leq K\smallint \abs{f_{\theta_n}(x)-f_{\theta}(x)} dx +\E[\theta_n]{M\I{M>K}}+\E[\theta]{M\I{M>K}}
+    \end{align*}
+    Első tag nullához tart  minden rögzített $K$-ra a Scheffé tétel miatt.
+    $\sup_\theta \E[\theta]{M\I{M>K}}\leq \frac1 K \sup_{\theta}\E[\theta] {M^2}\to0$ ha $K\to\infty$.
+    $(RR)$ miatt.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Erős regularitási feltétel következményei III.}
+  % \begin{df}[RR]
+  %   (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
+  %   m.m. $x$-re és %majorálható ,,egyenletesen integrálható'' $M$-mel. Azaz
+  %   %\begin{itemize}
+  %   %\item 
+  %   $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+  %   %\item 
+  %   $\sup_\theta\E[\theta]{M^2}<\infty$. 
+  %   %\end{itemize}
+  % \end{df}
+  
+  \begin{lemma}
+    (RR) esetén $\theta\mapsto \E[\theta]{\ell''(\theta)}$ folytonos.
+  \end{lemma}
+  \begin{corollary}
+    (RR) esetén % $\int \partial_\theta^2 f_\theta(x) dx=0$ és 
+    $\E[\theta]{\ell''(\theta)}=-I(\theta)$.
+  \end{corollary}
+  \begin{itemize}
+    \item $(R)$ miatt $\int \partial_\theta f_\theta(x)dx=0$ minden $\theta\in\Theta$-ra.
+    \item $e\in\real^p$ egység vektor
+    \begin{displaymath}
+      0 = \int \partial_\theta f_{\theta_1+t  e}(x)-\partial_\theta f_{\theta_1}(x)dx=
+      \int_0^1 \int \partial^2_\theta f_{\theta_1+u te}(x) dx te
+    \end{displaymath}
+    \item 
+    \begin{displaymath}
+      \int \partial^2_\theta f_{\theta}(x) dx=\E[\theta]{\ell''(\theta)}+I(\theta),
+      \quad\text{hiszen}\quad
+      (\ln f)'' =\frac{f''}{f}-\frac{(f')^T f'}{f^2}
+    \end{displaymath}
+    \item $t\to0$ mellett, minden $e\in\real^p$ egységvektorra
+    \begin{displaymath}
+      0 = \int_0^1   \E[\theta]{\ell''(\theta+ut e)}+I(\theta+ute) du e
+      \to  (\E[\theta]{\ell''(\theta)}+I(\theta)) e 
+      \implies \E[\theta]{\ell''(\theta)}+I(\theta)=0.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+  \begin{theorem}
+    (RR) esetén a  likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+      amely lokális maximum és erősen konzisztens
+  \end{theorem}
+  \begin{itemize}
+    \item $L_n(\theta)=\frac1n\ell_n(\theta)=\frac1n\sum_{i=1}^n\ell (\theta,X_i)$. % Ha $\norm{h}=\eps$
+    \begin{displaymath}
+      L _n(\theta+t)-L_ (\theta)=L'_n (\theta) t+t^T\zjel*{\tfrac12 L_n''(\theta) + R_n(t)} t
+    \end{displaymath}
+    \item Hibatag:  
+    \begin{displaymath}
+      R_n(t)=\int_0^1\int_0^v L''_n (\theta+u t)-L_n''(\theta) d u d v
+    \end{displaymath}
+    és %$\norm*{h}\leq\eps$
+    \begin{multline*}
+      \sup_{t:\norm*{t}\leq \delta}\norm*{R_n(t)}\leq
+      \frac12\sup_{\norm*{t}\leq\delta}\norm{L_n''(\theta+t)-L_n''(\theta)}
+      \leq
+      \frac12\frac1n\sum_{i=1}^n\sup_{\abs*{t}\leq\delta}
+      \norm{\partial^2\ell(t+\theta,X_i)-\partial^2\ell(\theta,X_i)}\\
+      \\
+      \to
+      \frac12\E[\theta]{\sup_{\norm*{t}\leq\delta}
+        \norm{\partial^2_\theta\ell(t+\theta,X_1)-\partial^2_\theta\ell (\theta,X_1)}}
+      =\frac12\eta(\delta),\quad\text{ahol $(RR)$ miatt $\lim_{\delta\to0}\eta (\eps)=0$.}
+    \end{multline*}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+  \begin{theorem}
+    (RR) esetén a  likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+      amely lokális maximum és erősen konzisztens
+  \end{theorem}
+  $L_n(\theta)=\frac1n\sum_{i=1}^n\ell (\theta,X_i)$. %Ha $\norm{h}=\eps$
+  \begin{displaymath}
+    \sup_{\abs{t}\leq \delta} L_n (\theta+t)-L (\theta)+\tfrac14 t^T I(\theta) t
+    = \sup _{\abs{t}\leq \delta} L_n' (\theta) t+t^T\zjel{\tfrac12L_n''(\theta)+\tfrac14 I(\theta) +R_n(t)}t
+  \end{displaymath}
+
+  \begin{displaymath}
+    \tfrac12L_n''(\theta)+\tfrac14 I(\theta)\to \tfrac12\E[\theta]{\ell''(\theta)}+\tfrac14I(\theta)=-\tfrac14I(\theta)
+  \end{displaymath}
+  \continue
+  Ha $\delta$ olyan kicsi, hogy $\tfrac12\eta(\delta)\Id_p<\tfrac14 I(\theta)$, akkor
+  \begin{displaymath}
+    \lim_{n\to\infty} \sup_{\abs{t}\leq \delta} t^T\zjel{\tfrac12L_n''(\theta)+\tfrac14 I(\theta) +R_n(t)}t\leq 0
+  \end{displaymath}
+  míg
+  \begin{displaymath}
+    L_n' (\theta) t\to \E[\theta]{\ell'(\theta)} t=0
+  \end{displaymath}
+ \end{frame}
+
+
+
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+  \begin{theorem}
+    (RR) esetén
+    \begin{itemize}
+    \item A likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+      amely lokális maximum és erősen konzisztens
+    \item Erre a gyökre
+      $\sqrt{n} (\hat\theta_n-\theta)\dto N (0,I^{-1} (\theta))$
+      ($\P[\theta]$ alatt), vagyis $\hat\theta_n$ aszimptotikusan
+      normális. %optimális.
+    \end{itemize}
+  \end{theorem}
+
+  Legyen $\xi_n=\hat\theta_n-\theta$. Ekkor
+  $\xi_n\to0$ egy valószínűséggel.
+  Mivel $\hat\theta_n$ a likelihood egyenlet megoldása
+  \begin{displaymath}
+    0=L'_n (\hat\theta_n)
+    =L'_n (\theta)+\zjel{ L''_n (\theta)+ R_n}\xi_n
+  \end{displaymath}
+  amiből
+  \begin{displaymath}
+    -\zjel{L''_n(\theta)+ R_n}\sqrt{n} \xi_n
+    =\sqrt{n}L_n' (\theta)
+  \end{displaymath}
+  ahol nagy $n$-re $\sqrt{n}L_n' (\theta)$ eloszlása közel $N(0,I (\theta))$ a CHT miatt, 
+  míg $-\zjel{L''_n(\theta)+ R_n}$ nagy valószínűséggel $I (\theta)$-van közel a nagy
+  számok erős törvénye miatt.
+
+  Ebből $\sqrt{n}\xi_n$ eloszlása közel $N (0,I^{-1} (\theta))$, ha $n$ nagy.
+\end{frame}
+
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+  \begin{theorem}
+    (RR) esetén
+    \begin{itemize}
+    \item A likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+      amely lokális maximum és erősen konzisztens
+    \item Erre a gyökre
+      $\sqrt{n} (\hat\theta_n-\theta)\dto N (0,I^{-1} (\theta))$
+      ($\P[\theta]$ alatt), vagyis $\hat\theta_n$ aszimptotikusan
+      optimális.
+    \end{itemize}
+  \end{theorem}
+
+  \begin{displaymath}
+    R_n=\int_0^1 L''(\theta+u \xi_n)-L''(\theta) d u
+    \quad\text{amiből}\quad
+    \limsup\norm{R_n}\leq \inf_{\delta>0} \lim_{n\to\infty}\sup_{\abs{t}
+    \leq\abs{\delta}} \norm{L''_n(\theta+t)-L''_n(\theta)}=\inf_{\delta>0}\eta (\delta)=0
+  \end{displaymath}
+
+  \begin{displaymath}
+    K_n =
+    \begin{cases}
+      -(L''_n(\theta)+R_n)^{-1}&\text{ha
+        $(L''_n(\theta)+R_n)$ invertálható}\\
+      \text{egységmátrix}&\text{különben}
+    \end{cases}
+  \end{displaymath}
+  $I (\theta)$ invertálható
+  \begin{displaymath}
+    -(L''_n(\theta)+R_n)\to I (\theta)\quad\implies\quad
+    \sqrt{n}\xi_n-K_n\sqrt{n}L'_n (\theta)\to0\quad\text{és}\quad K_n\to I (\theta)^{-1}
+  \end{displaymath}
+  Azaz $\sqrt{n}\xi_n$ és $K_n\sqrt{n}L'_n (\theta)$ eloszlásbeli limesze
+  egyszerre létezik és megegyezik
+  \begin{displaymath}
+    \sqrt{n}L'_n (\theta)\dto N (0,I (\theta)),\quad\implies\quad
+    K_n\sqrt n L'_n (\theta)\dto N (0,I^{-1} (\theta)I(\theta)I^{-1} (\theta))
+    =N (0,I^{-1} (\theta))
+  \end{displaymath}
+    
+\end{frame}
+
 \end{document}
