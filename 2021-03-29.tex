@@ -8,4 +8,747 @@
 
 \maketitle
 
+\begin{frame}{Rásonyi Miklós habilitációs előadása}
+\vfill
+  \begin{center}
+    \textbf{Centrális határeloszlás tétel}
+    
+    \vspace{1cm}
+
+    2021. április 16. (péntek), 10 óra 30 perc
+\end{center}
+\vfill
+
+\url{https://zoom.us/j/99761822815?pwd=dTdKM3l5M1NpTER6T0JLbW5MNVhiZz09}{}\\
+%\begin{verbatim}
+Meeting ID: 997 6182 2815\\
+Passcode: 286612
+%\end{verbatim}
+\end{frame}
+
+\begin{frame}{Emlékeztető}
+  $\cP=\set{\P[\theta]}{\theta\in \Theta}$, exponenciális család, $\Theta$ konvex, nyílt. $f_\theta$ jelöli 
+  \textbf{egy mintaelem} sűrűségfüggvényét.
+  \begin{theorem}
+    $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$ ($\theta_0\in\Theta$) 
+    közös sűrűségfüggvényű eloszlásból. $\hat\theta_n$ a $\theta$ ML becslése az első $n$ megfigyelés alapján.
+    %
+    Ekkor $\hat\theta_n\to\theta_0$ és $\sqrt{n}\zjel{\hat\theta_n-\theta_0}\dto N(0, I(\theta_0)^{-1})$.
+  \end{theorem}
+  \textbf{Az ML becslés (szép eloszláscsaládban) konzisztens és aszimptotikusan normális}.
+\end{frame}
+
+\begin{frame}[<*>]{Általánosítás, konzisztencia}
+
+    $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$  közös sűrűségfüggvénnyel. 
+    $\Theta\subset\real^p$ nyílt. $f_\theta$, $\theta\in\Theta$ teljesíti a gyenge regularitási feltételt.
+  
+    Alkalmas feltételek mellett a következő lépések igazak.
+   \begin{itemize}
+  
+      \item Elég kicsi $\delta>0$-ra  
+        \begin{displaymath}
+          S_n = \sup_{\abs{t}\leq \delta} 
+          \tfrac1n\zjel{\ell_n(\theta_0+t)-\ell_n(\theta_0)}+ \tfrac14 t^T I(\theta_0) t,
+          \quad 
+          \text{jelöléssel}
+          \quad
+          \lim_{n\to\infty} S_n\leq 0\quad\text{egy valószínűséggel.}
+        \end{displaymath}
+      \item $I(\theta_0)>0$, ezért $\frac14 t^T I(\theta_0) t \geq c\abs{t}^2$ alkalmas $c>0$-val.
+      \item Jelölje $\hat\theta_n$ a loglikehood $\ell_n$ maximum helyét 
+      a $\set{\theta}{\abs{\theta-\theta_0}\leq\delta}$ halmazon.  
+        \begin{displaymath}
+          0\leq \tfrac1n\zjel{\ell_n(\hat\theta_n)-\ell_n(\theta_0)}
+          \leq S_n-c\abs{\hat\theta_n-\theta_0}^2 %\frac14 t^T I(\theta_0) t
+          \quad\text{amiből $\abs{\hat\theta_n-\theta_0}^2\leq S_n/c\to 0$}.
+        \end{displaymath}
+      \item Elég nagy $n$-től kezdve $\abs{\hat\theta_n-\theta_0}<\delta$ és $\ell_n'(\hat\theta_n)=0$.
+      
+      Ez adja az ML becslés konzisztenciáját.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[<*>]{Általánosítás, aszimptotikus normalitás}
+  
+    $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$  közös sűrűségfüggvénnyel. 
+    $\Theta\subset\real^p$ nyílt. $f_\theta$, $\theta\in\Theta$ teljesíti a gyenge regularitási feltételt.
+  
+  Alkalmas feltételek mellett a következő lépések igazak.
+  \begin{itemize}
+    \item CHT alapján:
+      \begin{displaymath}
+        n^{-1/2}\ell'_n(\theta_0)
+        =n^{-1/2}\sum_{i=1}^n \ell'(\theta_0,X_i)\dto N(0,I(\theta_0))  
+      \end{displaymath}
+    \item $\hat\theta_n=\arg\max_{\abs{\theta-\theta_0}\leq \delta} \ell_n(\theta)$. 
+    Ekkor $n^{-1/2}\ell'_n(\hat\theta_n)\to0$
+      \begin{displaymath}
+        n^{-1/2}\zjel{\ell'(\hat\theta_n)-\ell'(\theta_0)}
+        =\zjel*{\frac{1}{n}\ell_n''(\theta_0)+R_n}\sqrt{n}(\hat\theta_n-\theta_0)\dto N(0,I(\theta_0))
+      \end{displaymath}
+      Itt $R_n\pto0$ és 
+      $\frac1n\ell_n''(\theta_0)\to \E[\theta_0]{\ell''(\theta_0, X_1)}=\alert{-I(\theta_0)}$.
+    \item $I(\theta_0)$ invertálható. Létezik $K_n$ sorozat, 
+    hogy $K_n\zjel*{\frac{1}{n}\ell_n''(\theta_0)+R_n}=\Id_p$ ha $n$ elég nagy. 
+    
+    Ebből $K_n\to I^{-1}(\theta_0)$ és 
+      \begin{displaymath}
+        \sqrt{n}(\hat\theta_n-\theta_0)-K_n n^{-1/2}\zjel{\ell'(\hat\theta_n)-\ell'(\theta_0)}\to0\implies
+        \sqrt{n}(\hat\theta_n-\theta_0)\dto N(0,I^{-1}(\theta_0))
+        %\implies
+        %\sqrt{n}(\hat\theta_n-\theta_0)\dto N(0,I^{-1}(\theta_0)).
+      \end{displaymath}
+      hiszen $K_n n^{-1/2}\zjel{\ell'(\hat\theta_n)-\ell'(\theta_0)}\dto N(0,I^{-1}(\theta_0))$.
+  \end{itemize}
+\end{frame}
+  
+\begin{frame}{Erős regularitási feltétel}
+  \begin{df}[$(RR)$]
+      $(R)$ + $\theta\mapsto\ell(\theta,x)\in C^2$ 
+      és $\cP$ m.m. $x$-re és majorálható ,,egyenletesen integrálható''
+      $M$-mel. Azaz
+      \begin{itemize}
+      \item $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+      \item $\sup_\theta\E[\theta]{M^2}<\infty$. 
+      \end{itemize}
+  \end{df}
+    
+  \begin{theorem}
+      $X_1,X_2,\dots$ iid sorozat $f_{\theta_0}$ sűrűségfüggvényből. 
+      $(RR)$  teljesül a $\set{f_\theta}{\theta\in\Theta}$ eloszláscsaládra.
+  
+      $\ell_n(\theta) = \sum_{i=1}^n \ell_1(\theta,X_i)$ az $n$ elemű minta loglikelihoodja.
+      \begin{itemize}
+      \item Az $\ell'_n(\theta)=0$ likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+        amely lokális maximum és erősen konzisztens
+      \item Erre a gyökre  
+      $\sqrt{n} (\hat\theta_n-\theta_0)\dto N(0,I^{-1} (\theta_0))$ 
+      \end{itemize}
+  \end{theorem}  
+    $(RR)$-t elég lokálisan megkövetelni.
+\end{frame}
+  
+\begin{frame}{Erős regularitási feltétel következményei I.}
+  \begin{df}[RR]
+      (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
+      m.m. $x$-re és majorálható ,,egyenletesen integrálható''
+      $M$-mel. Azaz
+      \begin{itemize}
+      \item $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+      \item $\sup_\theta\E[\theta]{M^2}<\infty$. 
+      \end{itemize}
+  \end{df}
+    
+  \begin{lemma}
+      (RR) esetén
+      \begin{displaymath}
+        \eta (\eps)
+        = \E[\theta]{\sup_{\abs{t}<\eps}\norm{\ell''(\theta+t)-\ell''(\theta)}}
+        \to0\quad\text{ha $\eps\to0$}
+      \end{displaymath}
+  \end{lemma}
+    Dominált konvergencia tétel:
+    \begin{displaymath}
+      \sup_{\abs{t}\leq\eps}\norm*{\ell''(\theta+t,x)-\ell''(\theta,x)}\leq 2M (x)
+    \end{displaymath}
+    és $t\mapsto \ell''(t,x)$ folytonos. 
+    
+\end{frame}
+  
+\begin{frame}{Erős regularitási feltétel következményei II.}
+    \begin{df}[RR]
+      (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
+      m.m. $x$-re és %majorálható ,,egyenletesen integrálható'' $M$-mel. Azaz
+      $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+      $\sup_\theta\E[\theta]{M^2}<\infty$. 
+    \end{df}
+    
+    \begin{lemma}
+      (RR) esetén $\theta\mapsto \E[\theta]{\ell''(\theta)}$ folytonos.
+    \end{lemma}
+    \begin{itemize}
+      \item $\theta_n\to \theta$
+      \begin{displaymath}
+        \E[\theta_n]{\ell''(\theta_n)}-\E[\theta]{\ell''(\theta)}=\E[\theta]{\ell''(\theta_n)-\ell''(\theta)}+
+        \int \ell''(\theta_n,x)\zjel{f_{\theta_n}(x)-f_{\theta}(x)}dx
+      \end{displaymath}
+      \item $\ell''(\theta_n)\to \ell''(\theta)$ $\cP$ m.m. és $2M$ integrálható majoráns $\implies$
+         $ \lim_{n\to\infty}\E[\theta]{\ell'(\theta_n)-\ell'(\theta)}=0$
+      \item Levágás $+$ Scheffé tétel
+      \begin{align*}
+        \norm*{\smallint \ell''(\theta_n,x)\zjel{f_{\theta_n}(x)-f_{\theta}(x)}dx}
+        &\leq 
+        \smallint \norm*{\ell''(\theta_n,x)}\abs{f_{\theta_n}(x)-f_{\theta}(x)}dx
+        \leq \smallint M(x)\abs{f_{\theta_n}(x)-f_{\theta}(x)} dx\\
+        &\leq K\smallint \abs{f_{\theta_n}(x)-f_{\theta}(x)} dx +\E[\theta_n]{M\I{M>K}}+\E[\theta]{M\I{M>K}}
+      \end{align*}
+      Első tag nullához tart  minden rögzített $K$-ra a Scheffé tétel miatt.
+      $\sup_\theta \E[\theta]{M\I{M>K}}\leq \frac1 K \sup_{\theta}\E[\theta] {M^2}\to0$ ha $K\to\infty$.
+      $(RR)$ miatt.
+    \end{itemize}
+\end{frame}
+  
+\begin{frame}{Erős regularitási feltétel következményei III.}
+    % \begin{df}[RR]
+    %   (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
+    %   m.m. $x$-re és %majorálható ,,egyenletesen integrálható'' $M$-mel. Azaz
+    %   %\begin{itemize}
+    %   %\item 
+    %   $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
+    %   %\item 
+    %   $\sup_\theta\E[\theta]{M^2}<\infty$. 
+    %   %\end{itemize}
+    % \end{df}
+    
+    \begin{lemma}
+      (RR) esetén $\theta\mapsto \E[\theta]{\ell''(\theta)}$ folytonos.
+    \end{lemma}
+    \begin{corollary}
+      (RR) esetén % $\int \partial_\theta^2 f_\theta(x) dx=0$ és 
+      $\E[\theta]{\ell''(\theta)}=-I(\theta)$.
+    \end{corollary}
+    \begin{itemize}
+      \item $(R)$ miatt $\int \partial_\theta f_\theta(x)dx=0$ minden $\theta\in\Theta$-ra.
+      \item $e\in\real^p$ egység vektor
+      \begin{displaymath}
+        0 = \int \partial_\theta f_{\theta_1+t  e}(x)-\partial_\theta f_{\theta_1}(x)d x=
+        \int_0^1 \int \partial^2_\theta f_{\theta_1+u te}(x) d x d u t e
+      \end{displaymath}
+      \item 
+      \begin{displaymath}
+        \int \partial^2_\theta f_{\theta}(x) dx=\E[\theta]{\ell''(\theta)}+I(\theta),
+        \quad\text{hiszen}\quad
+        (\ln f)'' =\frac{f''}{f}-\frac{(f')^T f'}{f^2}
+      \end{displaymath}
+      \item $t\to0$ mellett, minden $e\in\real^p$ egységvektorra
+      \begin{displaymath}
+        0 = \int_0^1   \E[\theta]{\ell''(\theta+ut e)}+I(\theta+u t e) d u e
+        \to  (\E[\theta]{\ell''(\theta)}+I(\theta)) e 
+        \implies \E[\theta]{\ell''(\theta)}+I(\theta)=0.
+      \end{displaymath}
+    \end{itemize}
+\end{frame}
+  
+  
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+    \begin{theorem}
+      (RR) esetén a  likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+        amely lokális maximum és erősen konzisztens
+    \end{theorem}
+    \begin{itemize}
+      \item $L_n(\theta)=\frac1n\ell_n(\theta)=\frac1n\sum_{i=1}^n\ell (\theta,X_i)$. % Ha $\norm{h}=\eps$
+      \begin{displaymath}
+        L _n(\theta+t)-L_n (\theta)=L'_n (\theta) t+t^T\zjel*{\tfrac12 L_n''(\theta) + R_n(t)} t
+      \end{displaymath}
+      \item Hibatag:  
+      \begin{displaymath}
+        R_n(t)=\int_0^1\int_0^v L''_n (\theta+u t)-L_n''(\theta) d u d v
+      \end{displaymath}
+      és %$\norm*{h}\leq\eps$
+      \begin{multline*}
+        \sup_{t:\norm*{t}\leq \delta}\norm*{R_n(t)}\leq
+        \frac12\sup_{\norm*{t}\leq\delta}\norm{L_n''(\theta+t)-L_n''(\theta)}
+        \leq
+        \frac12\frac1n\sum_{i=1}^n\sup_{\abs*{t}\leq\delta}
+        \norm{\partial^2\ell(t+\theta,X_i)-\partial^2\ell(\theta,X_i)}\\
+        \\
+        \to
+        \frac12\E[\theta]{\sup_{\norm*{t}\leq\delta}
+          \norm{\partial^2_\theta\ell(t+\theta,X_1)-\partial^2_\theta\ell (\theta,X_1)}}
+        =\frac12\eta(\delta),\quad\text{ahol $(RR)$ miatt $\lim_{\delta\to0}\eta (\eps)=0$.}
+      \end{multline*}
+    \end{itemize}  
+\end{frame}
+  
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+    \begin{theorem}
+      (RR) esetén a  likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+        amely lokális maximum és erősen konzisztens
+    \end{theorem}
+    $L_n(\theta)=\frac1n\sum_{i=1}^n\ell (\theta,X_i)$. %Ha $\norm{h}=\eps$
+    \begin{displaymath}
+      \sup_{\abs{t}\leq \delta} L_n (\theta+t)-L (\theta)+\tfrac14 t^T I(\theta) t
+      = \sup _{\abs{t}\leq \delta} L_n' (\theta) t+t^T\zjel{\tfrac12L_n''(\theta)+\tfrac14 I(\theta) +R_n(t)}t
+    \end{displaymath}
+  
+    \begin{displaymath}
+      \tfrac12L_n''(\theta)+\tfrac14 I(\theta)\to \tfrac12\E[\theta]{\ell''(\theta)}+\tfrac14I(\theta)=-\tfrac14I(\theta)
+    \end{displaymath}
+    \continue
+    Ha $\delta$ olyan kicsi, hogy $\tfrac12\eta(\delta)\Id_p<\tfrac14 I(\theta)$, akkor
+    \begin{displaymath}
+      \lim_{n\to\infty} \sup_{\abs{t}\leq \delta} t^T\zjel{\tfrac12L_n''(\theta)+\tfrac14 I(\theta) +R_n(t)}t\leq 0
+    \end{displaymath}
+    míg
+    \begin{displaymath}
+      L_n' (\theta) t\to \E[\theta]{\ell'(\theta)} t=0
+    \end{displaymath}
+\end{frame}
+  
+  
+  
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+    \begin{theorem}
+      (RR) esetén
+      \begin{itemize}
+      \item A likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+        amely lokális maximum és erősen konzisztens
+      \item Erre a gyökre
+        $\sqrt{n} (\hat\theta_n-\theta)\dto N (0,I^{-1} (\theta))$
+        ($\P[\theta]$ alatt), vagyis $\hat\theta_n$ aszimptotikusan
+        normális. %optimális.
+      \end{itemize}
+    \end{theorem}
+  
+    Legyen $\xi_n=\hat\theta_n-\theta$. Ekkor
+    $\xi_n\to0$ egy valószínűséggel.
+    Mivel $\hat\theta_n$ a likelihood egyenlet megoldása
+    \begin{displaymath}
+      0=L'_n (\hat\theta_n)
+      =L'_n (\theta)+\zjel{ L''_n (\theta)+ R_n}\xi_n
+    \end{displaymath}
+    amiből
+    \begin{displaymath}
+      -\zjel{L''_n(\theta)+ R_n}\sqrt{n} \xi_n
+      =\sqrt{n}L_n' (\theta)
+    \end{displaymath}
+    ahol nagy $n$-re $\sqrt{n}L_n' (\theta)$ eloszlása közel $N(0,I (\theta))$ a CHT miatt, 
+    míg $-\zjel{L''_n(\theta)+ R_n}$ nagy valószínűséggel $I (\theta)$-hoz van közel a nagy
+    számok erős törvénye miatt.
+  
+    Ebből $\sqrt{n}\xi_n$ eloszlása közel $N (0,I^{-1} (\theta))$, ha $n$ nagy.
+\end{frame}
+  
+\begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
+    \begin{theorem}
+      (RR) esetén
+      \begin{itemize}
+      \item A likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
+        amely lokális maximum és erősen konzisztens
+      \item Erre a gyökre
+        $\sqrt{n} (\hat\theta_n-\theta)\dto N (0,I^{-1} (\theta))$
+        ($\P[\theta]$ alatt), vagyis $\hat\theta_n$ aszimptotikusan
+        optimális.
+      \end{itemize}
+    \end{theorem}
+  
+    \begin{displaymath}
+      R_n=\int_0^1 L''(\theta+u \xi_n)-L''(\theta) d u
+      \quad\text{amiből}\quad
+      \limsup\norm{R_n}\leq \inf_{\delta>0} \lim_{n\to\infty}\sup_{\abs{t}
+      \leq\abs{\delta}} \norm{L''_n(\theta+t)-L''_n(\theta)}=\inf_{\delta>0}\eta (\delta)=0
+    \end{displaymath}
+  
+    \begin{displaymath}
+      K_n =
+      \begin{cases}
+        -(L''_n(\theta)+R_n)^{-1}&\text{ha
+          $(L''_n(\theta)+R_n)$ invertálható}\\
+        \text{egységmátrix}&\text{különben}
+      \end{cases}
+    \end{displaymath}
+    $I (\theta)$ invertálható
+    \begin{displaymath}
+      -(L''_n(\theta)+R_n)\to I (\theta)\quad\implies\quad
+      \sqrt{n}\xi_n-K_n\sqrt{n}L'_n (\theta)\to0\quad\text{és}\quad K_n\to I (\theta)^{-1}
+    \end{displaymath}
+    Azaz $\sqrt{n}\xi_n$ és $K_n\sqrt{n}L'_n (\theta)$ eloszlásbeli limesze
+    egyszerre létezik és megegyezik
+    \begin{displaymath}
+      \sqrt{n}L'_n (\theta)\dto N (0,I (\theta)),\quad\implies\quad
+      K_n\sqrt n L'_n (\theta)\dto N (0,I^{-1} (\theta)I(\theta)I^{-1} (\theta))
+      =N (0,I^{-1} (\theta))
+    \end{displaymath}
+      
+\end{frame}
+
+\begin{frame}{Példa, keverék eloszlás}
+  \begin{itemize}
+    \item Egy mintaelem sűrűségfüggvénye $f_{\btheta}(x)=\sum_k p_k g_{\theta_k}(x)$, ahol 
+    $\btheta=(p,(\theta_k)_{k=1}^r)$ és $p\in\Delta_r=\set{p\in (0,1)^r}{\sum p_i=1}$, 
+    $g_{\theta}$, $\theta\in\Theta$ exponenciális családot alkot. 
+    \item Megmutatható, hogy $f_\btheta$, $\btheta\in\bTheta=\Delta\times\Theta^k$ 
+    teljesíti az erős regularitási feltételt, minden olyan $\btheta=(p,(\theta_k)_{k=1}^r)$ pont körül, amire 
+    $\theta_1,\dots,\theta_r$ mind különbözőek.
+    \item A likelihood egyenletnek létezik olyan megoldása, ami konzisztens becsléssorozatot ad.
+    \item A loglikelihood függvény deriváltjai:
+    \begin{displaymath}  
+    \begin{aligned}
+      \partial_{p_k} \ln f_{\btheta}(x) & =\sum_{i=1}^n q_k(\btheta, x_i) \frac1{p_k}\\
+      \partial_{\theta_k} \ln f_{\btheta}(x) & =\sum_{i=1}^n q_k(\btheta, x_i) \partial_{\theta_k} \ln g_{\theta_k}(x_i)
+    \end{aligned}
+    \quad\text{ahol}\quad
+    q_{k,i}(\btheta) = \frac{p_k g_{\theta_k}(x)}{\sum_j p_j g_{\theta_j}(x)}
+    \end{displaymath}
+    \item A likelihood egyenlet:
+    \begin{align*}
+      \partial_{p_k} \ln f_{\btheta}(x) & =\sum_{i=1}^n q_{k,i}(\btheta) \frac1{p_k}=\lambda 
+      \implies p_k = \frac{\sum_{i} q_{k,i}(\btheta)}{\sum_{i,j} q_{j,i}(\btheta))} ,
+      \\
+      \partial_{\theta_k} \ln f_{\btheta}(x) & =\sum_{i=1}^n q_{k,i}(\btheta) \partial_{\theta_k} \ln g_{\theta_k}(x_i)=0
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{EM algoritmus}
+  \begin{itemize}
+    \item Rekurzív eljárás: $\btheta^{(t)}$ a paraméter a $t$. lépés után.
+    \begin{align*}
+      q_{k,i}^{(t)}=q_{k,i}(\btheta^{(t)}) &= \frac{p_k g_{\theta^{(t)}_k}(x_i)}{\sum_j p_j g_{\theta^{(t)}_j}(x_i)} &
+      \btheta^{(t+1)} &=\arg\max_{\btheta} \sum_{i,k} q_{k,i}^{(t)} \ln (p_k g_{\theta_k}(x_i))
+    \end{align*}    
+    Azaz
+    \begin{displaymath}
+       p^{(t+1)}_k = \frac{\sum_{i} q_{k,i}^{(t)}}{\sum_{i,k} q_{k,i}^{(t)}} ,
+      \qquad  
+      \sum_{i} q_{k,i}^{(t)} \partial_{\theta_k}\ln g_{\theta^{(t+1)}_k}(x_i)=0 
+    \end{displaymath}
+    Ha $\btheta^{(t)}$ konvergens, akkor $\btheta=\lim_{t\to\infty}\btheta^{(t)}$ megoldja a likelihood egyenletet.
+
+    Ezt hívják EM algoritmusnak. $q$ kiszámítása az E-lépés (expectation) 
+    $\btheta$ frissítése az M-lépés (maximization).
+  \end{itemize}
+
+  \begin{proposition}
+    $\ell(\theta^{(t)})$ a  $t$ monoton növő függvénye. 
+  \end{proposition}
+\end{frame}
+
+
+\begin{frame}{Az EM algoritmus minden lépése növeli  a likelihood értékét} 
+  \begin{proposition}
+    $\ell(\theta^{(t)})$ a  $t$ monoton növő függvénye. 
+  \end{proposition}
+  \begin{itemize}
+    \item 
+    \begin{align*}
+      q_{k,i}^{(t)} &= \frac{p_k g_{\theta^{(t)}_k}(x_i)}{\sum_j p_j g_{\theta^{(t)}_j}(x_i)} &
+      \btheta^{(t+1)} &=\arg\max_{\btheta} \sum_{i,k} q_{k,i}^{(t)} \ln (p_k g_{\theta_k}(x_i))
+    \end{align*} 
+    \item 
+    \begin{displaymath}
+      F(q,\btheta) = \sum_{k,i} q_{k,i} \ln (p_k g_{\theta_k}(x_i))= \sum_{k,i} q_{k,i}\ln q_{k,i}(\btheta)+\sum_i \ell(\btheta,x_i)
+    \end{displaymath}
+    Így 
+    \begin{displaymath}
+      \ell(\btheta^{(t+1)})-\ell(\btheta^{(t)}) = 
+      F(q^{(t)},\btheta^{(t+1)})-F(q^{(t)},\btheta^{(t)}) - \sum_{k,i} q^{(t)}_{k,i}\ln\frac{q^{(t+1)}_{k,i}}{q^{(t)}_{k,i}}
+    \end{displaymath}
+    Mivel $-\ln$ konvex, ezért
+    \begin{displaymath} 
+      -\sum_{k} q^{(t)}_{k,i}\ln\frac{q^{(t+1)}_{k,i}}{q^{(t)}_{k,i}}\geq \ln\zjel*{\sum_k q^{(t+1)}_{k,i}}=0 
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Becslések tulajdonságai I.}
+  \begin{itemize}
+  \item $\set{\P[\theta]}{\theta\in \cP}$ eloszláscsalád, $g (\theta)$
+    értékét akarjuk becsülni, erre a  $T$ statisztikát használjuk.
+    
+  \item Egy $T$ becslés ,,jóságát'' mérhetjük az átlagos veszteséggel
+    \begin{displaymath}
+      R_T (\theta)=\E[\theta]{W (T,\theta)}
+    \end{displaymath}
+    $R_T$ neve: rizikó függvény. 
+  \item $W (t,\theta)$ a veszteség, amit $g
+    (\theta)$ a $t$ értékkel történő közelítésekor kapunk.
+
+  \item Négyzetes
+    veszteség: $W (t,\theta)=(g(\theta)-t)(g(\theta)-t)^T$ ha $g$ vektor
+    értékű és $ %W (t,\theta)=
+    (g(\theta)-t)^2$, ha $g$ skalár
+    értékű.
+    
+  \item Általánosabban $W$ lehetne tetszőleges nem negatív, első
+    változóban  konvex  függvény, amire $W(g (\theta),\theta)=0$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Becslések tulajdonságai II.}
+  \begin{itemize}
+  \item $\set{\P[\theta]}{\theta\in \cP}$ eloszláscsalád, $g (\theta)$
+    értékét akarjuk becsülni, erre a  $T$ statisztikát használjuk.
+    
+  \item Rizikó függvény %Egy $T$ becslés ,,jóságát'' mérhetjük az átlagos veszteséggel
+    \begin{displaymath}
+      R_T (\theta)=\E[\theta]{W (T,\theta)},\quad
+      W (t,\theta)= (g (\theta)-t)^2\quad\text{négyzetes rizikó és veszteség}
+    \end{displaymath}
+    % $R_T$ neve: rizikó függvény. 
+  \item $T$ torzítatlan, ha $\E[\theta]{T}=g(\theta)$, ha nem
+    torzítatlan, akkor a torzítása (bias) $b (\theta)=\E[\theta]{T}-g (\theta)$.
+
+  \item $T$ és $S$ ekvivalens becslések, ha $R_T (\theta) =R_S
+    (\theta)$, minden $\theta$-ra. 
+  \item $T$ egyenletesen jobb (nem rosszabb), mint $S$, ha  $R_T (\theta)\leq R_S
+    (\theta)$, minden $\theta$-ra és nem ekvivalensek.
+  \item Ha $\cD$ becslések (statisztikák) egy családja,
+    pl. torzítatlan becslések, akkor $T\in\cD$ \textbf{megengedhető}
+    ($\cD$-re nézve), ha nincs nála jobb becslés $\cD$-ben, azaz
+    tetszőleges $S\in\cD$-re, $R_S\leq R_T$-ből $R_S=R_T$ következik.
+  \item $T\in\cD$ \textbf{optimális}, ha $\cD$ minden eleménél jobb vagy
+    ekvivalens,
+    azaz $R_T\leq R_S$ minden $S\in\cD$-re.
+
+    Ha $\cD$ a torzítatlan becslések családja, akkor az optimális
+    becslés neve \textbf{hatásos} becslés és jobb helyett hatásosabbat
+    mondunk.
+  \item $T\in \cD$ \textbf{minimax}, $\sup_{\theta\in\Theta}R_T
+    (\theta)\leq \sup_{\theta\in\Theta}R_S (\theta)$, minden $S\in\cD$-re.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Becslések tulajdonságai III.}
+  \begin{itemize}
+  \item $R_T (\theta)=\E[\theta] {W(T,\theta)}$,  pl. $R_T (\theta) =\E[\theta] {(T-g (\theta))^2}$
+  %\item $T$ és $S$ ekvivalens, ha $R_T=R_S$ 
+  \item $T\in\cD$ \textbf{megengedhető} ha 
+    tetszőleges $S\in\cD$-re, $R_S\leq R_T$-ből $R_S=R_T$ következik.
+  \item $T\in\cD$ \textbf{optimális}, $R_T=\min_{S\in\cD}R_S$
+  \item $T\in \cD$ \textbf{minimax}, ha $\sup_{\theta\in\Theta}R_T
+    (\theta)\leq \sup_{\theta\in\Theta}R_S (\theta)$, minden $S\in\cD$-re.
+  \end{itemize}
+  \begin{proposition}
+    Ha $T$ optimális, akkor $T$ megengedhető és minimax.
+
+    Ha $\cD$ konvex, $W$ első változójában szigorúan konvex, akkor az
+    optimális becslés egyértelmű (ha létezik).
+  \end{proposition}
+
+  Ha $T_1,T_2$ optimális, akkor $R_{T_1}=R_{T_2}$. Ha $\cD$ konvex, akkor $T=\frac12
+  (T_1+T_2)\in\cD$ és
+  \begin{align*}
+    R_T (\theta)
+    &=\E[\theta]{W (\textstyle{\frac12 T_1+\frac12 T_2},\theta)}\\
+    &\leq
+    \frac12\E[\theta]{W (T_1,\theta)}+\frac12\E[\theta]{W (T_2,\theta)}
+    =\frac12R_{T_1} (\theta)+\frac12R_{T_2} (\theta)=R_{T_1} (\theta)=R_{T_2} (\theta)
+  \end{align*}
+  Ha $\P[\theta]{T_1\neq T_2}>0$, akkor
+  $\P[\theta]{W(T,\theta)<\frac12(
+    W(T_1,\theta)+W(T_2,\theta))}>0$ és $R_T (\theta)<R_{T_1} (\theta)$.
+\end{frame}
+
+\begin{frame}{Emlékeztető, Bayes becslés}
+  \begin{itemize}
+  \item $\theta\mapsto \P[\theta] (A)$ mérhető minden $A\in\B
+    (\mathfrak X)$-re, ekkor $\theta\mapsto R_T (\theta)$ mérhető.
+
+    pl. dominált mérték család és $(\theta,x)\mapsto f_\theta (x)$
+    mérhető.
+  \item $Q$ valószínűségi mérték $\Theta$-n.
+  \item $R_T (Q)=\int_\Theta R_T (t) Q (t)$ a priori rizikó
+  \item $T$ Bayes becslés ($Q$-Bayes), ha $R_T (Q)\leq R_S (Q)$ minden
+    $S$-re.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Emlékeztető, Bayes becslés}
+  \begin{itemize}
+  \item $\theta\mapsto \P[\theta] (A)$ mérhető minden $A\in\B
+    (\mathfrak X)$-re, ekkor $\theta\mapsto R_T (\theta)$ mérhető.
+
+  \item
+    \begin{displaymath}
+      \P{A}=\int_\Theta\int_{\mathfrak X} \I{(t,x)\in A}\P[t] (dx)Q
+      (d t),\quad A\in\B (\Theta)\otimes\B (\mathfrak X)
+    \end{displaymath}
+    valószínűségi mérték $\Theta\times\mathfrak X$-en. $\theta (t,x)=t$, $X
+    (t,x)=x$ valószínűségi váltózók a $(\Omega=\Theta\times\mathfrak X,\B
+    (\Theta)\otimes\B (\mathfrak X),\P)$ valószínűségi mezőn. És
+    \begin{displaymath}
+      \P{X\in H|\theta}=\P[\theta] (H)
+    \end{displaymath}
+  \item
+    \begin{displaymath}
+      R_T (Q)=\int_\Theta R_T (t)Q(d t)
+      =\int_\Theta\int_{\mathfrak X} W (T (x),t)\P[t] (d x)Q (d t)=
+      \E{W(T,\theta)}
+    \end{displaymath}
+  \item Négyzetes veszteség esetén ($\E{g(\theta)^2}<\infty$)
+    \begin{displaymath}
+      \E{(T-g(\theta))^2}=\E{(T-\E{g (\theta)|X})^2} +
+      \E{(g (\theta)-\E{g (\theta)|X})^2}
+    \end{displaymath}
+    a Bayes becslés $T (X)=\E{g(\theta)|X}$
+    
+  \item $\P{\theta\in H|X}$-nek létezik reguláris változata, ez az
+    a posteriori eloszlás. Jelölés $Q^* (dt|x)$.
+  \item A Bayes  becslés az a posteriori eloszlásból számolt várható érték.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bayes becslés aszimptotikus normalitása}
+
+  $f_\theta$, $\ell (\theta,x)$ egy mintaelem sűrűségfüggvénye,
+  ill. loglikelihoodja. $X_1,X_2,\dots$ minta $\P[\theta_0]$ eloszlásból
+  \begin{displaymath}
+    L_n (\theta)=\frac1n\sum_{i=1}^n\ell (\theta,X_i)
+  \end{displaymath}
+
+  \begin{theorem}[Bizonyítás nélkül]
+    \begin{itemize}
+    \item (RR) teljesül
+    \item Minden $\eps>0$-ra
+      \begin{displaymath}
+        \lim_{\delta\to0}\liminf_{n\to\infty}
+        \P[\theta_0]^n{\sup_{\norm*{h}\geq\eps}L_n (\theta_0+h)\leq L_n (\theta_0) -\delta} = 1
+      \end{displaymath}
+    \item $Q$ abszolút folytonos és $q (\theta_0)>0$
+    \item $\int_{\Theta} \norm*{t}q (t)dt<\infty$.
+    \end{itemize}
+    $\theta_n$ a Bayes becslés $n$ elemű mintából.  Ekkor
+    $\sqrt n (\theta_n-\theta)\dto N (0,I (\theta_0)^{-1})$. 
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Bayes becslés tulajdonságai I.}
+  \begin{proposition}
+    Ha $T$ Bayes becslés, akkor triviális esettől eltekintve nem torzítatlan.
+  \end{proposition}
+  Ha $T=\E{g (\theta)|X}=\E{g(\theta)|T}$ torzítatlan, akkor
+  \begin{displaymath}
+    \E{T|\theta}=\E[\theta]{T}=g (\theta)=\E{T|g (\theta)}
+  \end{displaymath}
+
+  \begin{lemma}
+    Ha $X,Y\in L^1$, $\E{X|Y}=Y$ és $\E{Y|X}=X$, akkor $X=Y$ egy valószínűséggel
+  \end{lemma}
+
+  A Lemma alapján $T$ torzítatlan  Bayes becslésre
+  $\P{g(\theta)=T (x)}=1$.
+
+  Azaz $Q$ majdnem minden $t$-re $\P[t] (g(t)=T)=1$, vagyis létezik
+  $\Theta'\subset \Theta$ $Q$ teljes mértékű halmaz,
+  $\theta_1,\theta_2\in\Theta'$, $g(\theta_1)\neq g (\theta_2)$ esetén
+  $\P[\theta_1]$ és $\P[\theta_2]$ diszjunkt halmazokra koncentrálódik.    
+\end{frame}
+
+\begin{frame}{Lemma bizonyítása}
+  \begin{lemma}
+    Ha $X,Y\in L^1$, $\E{X|Y}=Y$ és $\E{Y|X}=X$, akkor $X=Y$ egy valószínűséggel
+  \end{lemma}
+  \begin{itemize}
+  \item Ugyanis, ha $X,Y\in L^2$, akkor
+    \begin{displaymath}
+      \E{(X-Y)^2}=\E{X^2}+\E{Y^2}-2\E{XY},\quad\E{XY}=\E{\E{XY|Y}}=\E{Y^2}=\E{X^2}
+    \end{displaymath}
+  \item 
+    Ha $X,Y\in L^1$, akkor legyen $h (x)=x\arctg x$ szigorúan konvex
+    (HF).
+    $h (X),h (Y)\in L^1$ és a Jensen egyenlőtlenség alapján
+    \begin{displaymath}
+      \E{h (X)}\geq \E{h (\E{X|Y})}=\E{h (Y)}=\E{h (X)}
+    \end{displaymath}
+    % $h$ szigorúan konvex
+    \begin{displaymath}
+      h (X)> h (Y)+h' (Y) (X-Y)\quad\text{az $\event{X\neq Y}$
+        eseményen}
+      \quad\implies\quad \P{X=Y}=1
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bayes becslés tuladonságai II.}
+  \begin{itemize}
+  \item $X$ peremeloszlása $\P$ alatt a prediktív eloszlás
+    \begin{displaymath}
+      \P[Q] (H)=\int_{\Theta}\P[t] (X\in H) Q (dt)
+  \end{displaymath}
+  \item $R_T (\theta)=\E[\theta] {W(T,\theta)}$,  pl. $R_T (\theta) =\E[\theta] {(T-g (\theta))^2}$
+  %\item $T$ és $S$ ekvivalens, ha $R_T=R_S$ 
+  \item $T\in\cD$ \textbf{megengedhető} ha 
+    tetszőleges $S\in\cD$-re, $R_S\leq R_T$-ből $R_S=R_T$ következik.
+  %\item $T\in \cD$ \textbf{minimax}, ha $\sup_{\theta\in\Theta}R_T
+  %  (\theta)\leq \sup_{\theta\in\Theta}R_S (\theta)$, minden $S\in\cD$-re.
+  \end{itemize}
+
+  \begin{proposition}
+    Tegyük fel, hogy $\P[Q]\sim \cP$.
+    Ekkor ha $T$ Bayes becslés, akkor megengedhető.
+  \end{proposition}
+  Legyen $S$ statisztika, amire $R_S\leq R_T$. Ekkor $S$ is Bayes
+  becslés ($R_S (Q)\leq R_T (Q)$) és ezért $S=\E{g (\theta)|X}=T$,
+  vagyis $\P{S=T}=1$. $S$ és $T$ a minta függvénye
+  \begin{displaymath}
+    \P[Q]{T=S}=1\quad\implies \quad \text{$T=S$ $\cP$ majdnem mindenütt}
+  \end{displaymath}  
+\end{frame}
+
+\begin{frame}{Bayes becslés tuladonságai III.}
+  \begin{itemize}
+    
+  % \item $X$ peremeloszlása $\P$ alatt a prediktív eloszlás
+  %   \begin{displaymath}
+  %     \P[Q] (H)=\int_{\Theta}\P[t] (X\in H) Q (dt)
+  % \end{displaymath}
+  \item $R_T (\theta)=\E[\theta] {W(T,\theta)}$,  pl. $R_T (\theta) =\E[\theta] {(T-g (\theta))^2}$
+  %\item $T$ és $S$ ekvivalens, ha $R_T=R_S$ 
+  %\item $T\in\cD$ \textbf{megengedhető} ha 
+  %  tetszőleges $S\in\cD$-re, $R_S\leq R_T$-ből $R_S=R_T$ következik.
+  \item $T\in \cD$ \textbf{minimax}, ha $\sup_{\theta\in\Theta}R_T
+    (\theta)\leq \sup_{\theta\in\Theta}R_S (\theta)$, minden $S\in\cD$-re.
+  \end{itemize}
+
+  \begin{proposition}
+    Ha a $T$ Bayes becslés rizikója konstans, akkor $T$ minimax becslés.
+  \end{proposition}
+
+  $S$ tetszőleges becslés
+  \begin{displaymath}
+    \sup_\theta R_S (\theta)\geq \int_{\Theta}R_S (t)Q (dt)=R_S
+    (Q)\geq R_T (Q)=\int_{\Theta}R_T (t)Q (dt)=\sup_\theta R_T (\theta)
+  \end{displaymath}
+
+  \begin{proposition}
+    Dominált mértékcsalád esetén,
+    ha $S$ elégséges statisztika, akkor létezik Bayes becslés $S$
+    függvényei között is.
+  \end{proposition}
+  \begin{displaymath}
+    q^*(t|x)=\frac{g_\theta (S (x))h (x) q (t)}{\int_\Theta g_t (S
+      (x))h (x)q (t)dt}=
+    \frac{g_\theta (S (x)) q (t)}{\int_\Theta g_t (S (x))q (t)dt}
+  \end{displaymath}
+  Azaz az  a posteriori sűrűség csak $S (X)$-en keresztül függ $X$, a
+  feltételes várható érték is ilyen.
+\end{frame}
+
+\begin{frame}{Minimax becslés indikátor mintából}
+  \begin{itemize}
+  \item $Q=\text{Béta} (\alpha,\beta)$
+  \item $r_n (X)=\frac1n\sum_{i=1}^n X_i$,
+    \begin{displaymath}
+     \hat\theta=\frac{\alpha+S}{\alpha+\beta+n}=a+b r_n 
+    \end{displaymath}
+    ahol $b=\frac{n}{\alpha+\beta+n}$, $a=\frac{\alpha}{\alpha+\beta+n}$.
+  \item
+    \begin{align*}
+      R_{\hat\theta}(\theta)
+      &=\E[\theta]{\zjel*{a+br_n-\theta}^2}= (a-
+        (1-b)\theta)^2+b^2\frac{\theta (1-\theta)}n\\
+%      \gamma^2\zjel{\frac{\alpha}{\alpha+\beta}-\theta}^2+
+%        (1-\gamma)^2D^2\zfrac Sn\\
+%      &=
+%        \gamma^2\zjel{\frac{\alpha}{\alpha+\beta}-\theta}^2+
+%        (1-\gamma)^2\frac{\theta (1-\theta)}n\\
+       &=\theta^2\zjel*{(1-b)^2-\tfrac{b^2}{n}}
+       +\theta\zjel*{\tfrac{b^2}{n}-2a(1-b)}+a^2
+    \end{align*}
+  \item $R_T$ konstans, ha $b=\frac{\sqrt{n}}{1+\sqrt n}$, és
+    $a=\frac12\frac{1}{1+\sqrt{n}}$ és
+    $\alpha=n\frac{a}{b}=\frac{\sqrt{n}}2$ és 
+    $\beta=\frac{n}{b}-\alpha-n=\sqrt{n}-\frac{\sqrt n}2=\frac{\sqrt{n}}2$.
+
+  \item Ha $Q=\text{Béta} (\frac{\sqrt n}2,\frac{\sqrt n}2)$, 
+      akkor a Bayes becslés, azaz
+    \begin{displaymath}
+      T (X)=\frac{\frac12\sqrt{n}+\sum X_i}{\sqrt{n}+n}
+    \end{displaymath}
+    minimax
+  \end{itemize}
+\end{frame}
+
 \end{document}
