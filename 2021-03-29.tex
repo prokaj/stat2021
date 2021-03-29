@@ -38,7 +38,7 @@ Passcode: 286612
   \textbf{Az ML becslés (szép eloszláscsaládban) konzisztens és aszimptotikusan normális}.
 \end{frame}
 
-\begin{frame}[<*>]{Általánosítás, konzisztencia}
+\begin{frame}{Általánosítás, konzisztencia}
 
     $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$  közös sűrűségfüggvénnyel. 
     $\Theta\subset\real^p$ nyílt. $f_\theta$, $\theta\in\Theta$ teljesíti a gyenge regularitási feltételt.
@@ -69,7 +69,7 @@ Passcode: 286612
     \end{itemize}
   \end{frame}
   
-  \begin{frame}[<*>]{Általánosítás, aszimptotikus normalitás}
+  \begin{frame}{Általánosítás, aszimptotikus normalitás}
   
     $X_1,X_2,\dots$ független azonos eloszlású megfigyelések $f_{\theta_0}$  közös sűrűségfüggvénnyel. 
     $\Theta\subset\real^p$ nyílt. $f_\theta$, $\theta\in\Theta$ teljesíti a gyenge regularitási feltételt.
@@ -108,7 +108,7 @@ Passcode: 286612
       $(R)$ + $\theta\mapsto\ell(\theta,x)\in C^2$ 
       és $\cP$ m.m. $x$-re és majorálható ,,egyenletesen integrálható''
       $M$-mel. Azaz
-      \begin{itemize}
+      \begin{itemize}[<*>]
       \item $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
       \item $\sup_\theta\E[\theta]{M^2}<\infty$. 
       \end{itemize}
@@ -119,22 +119,23 @@ Passcode: 286612
       $(RR)$  teljesül a $\set{f_\theta}{\theta\in\Theta}$ eloszláscsaládra.
   
       $\ell_n(\theta) = \sum_{i=1}^n \ell_1(\theta,X_i)$ az $n$ elemű minta loglikelihoodja.
-      \begin{itemize}
+      \begin{itemize}[<*>]
       \item Az $\ell'_n(\theta)=0$ likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
         amely lokális maximum és erősen konzisztens
       \item Erre a gyökre  
       $\sqrt{n} (\hat\theta_n-\theta_0)\dto N(0,I^{-1} (\theta_0))$ 
       \end{itemize}
   \end{theorem}  
+  \continue
     $(RR)$-t elég lokálisan megkövetelni.
 \end{frame}
   
 \begin{frame}{Erős regularitási feltétel következményei I.}
-  \begin{df}[RR]
+  \begin{df}<*>[RR]
       (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
       m.m. $x$-re és majorálható ,,egyenletesen integrálható''
       $M$-mel. Azaz
-      \begin{itemize}
+      \begin{itemize}[<*>]
       \item $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
       \item $\sup_\theta\E[\theta]{M^2}<\infty$. 
       \end{itemize}
@@ -148,6 +149,7 @@ Passcode: 286612
         \to0\quad\text{ha $\eps\to0$}
       \end{displaymath}
   \end{lemma}
+  \continue
     Dominált konvergencia tétel:
     \begin{displaymath}
       \sup_{\abs{t}\leq\eps}\norm*{\ell''(\theta+t,x)-\ell''(\theta,x)}\leq 2M (x)
@@ -157,7 +159,7 @@ Passcode: 286612
 \end{frame}
   
 \begin{frame}{Erős regularitási feltétel következményei II.}
-    \begin{df}[RR]
+    \begin{df}<*>[RR]
       (R) + $\theta\mapsto\ell(\theta,x)\in C^2$ $\mathcal P$
       m.m. $x$-re és %majorálható ,,egyenletesen integrálható'' $M$-mel. Azaz
       $\norm{\partial_\theta^2\ell (\theta,x)}\leq M (x)$,
@@ -201,7 +203,7 @@ Passcode: 286612
     %   %\end{itemize}
     % \end{df}
     
-    \begin{lemma}
+    \begin{lemma}<*>
       (RR) esetén $\theta\mapsto \E[\theta]{\ell''(\theta)}$ folytonos.
     \end{lemma}
     \begin{corollary}
@@ -223,7 +225,7 @@ Passcode: 286612
       \end{displaymath}
       \item $t\to0$ mellett, minden $e\in\real^p$ egységvektorra
       \begin{displaymath}
-        0 = \int_0^1   \E[\theta]{\ell''(\theta+ut e)}+I(\theta+u t e) d u e
+        0 = \int_0^1   \E[\theta+u t e]{\ell''(\theta+ut e)}+I(\theta+u t e) d u e
         \to  (\E[\theta]{\ell''(\theta)}+I(\theta)) e 
         \implies \E[\theta]{\ell''(\theta)}+I(\theta)=0.
       \end{displaymath}
@@ -256,7 +258,7 @@ Passcode: 286612
         \to
         \frac12\E[\theta]{\sup_{\norm*{t}\leq\delta}
           \norm{\partial^2_\theta\ell(t+\theta,X_1)-\partial^2_\theta\ell (\theta,X_1)}}
-        =\frac12\eta(\delta),\quad\text{ahol $(RR)$ miatt $\lim_{\delta\to0}\eta (\eps)=0$.}
+        =\frac12\eta(\delta),\quad\text{ahol $(RR)$ miatt $\lim_{\delta\to0}\eta (\delta)=0$.}
       \end{multline*}
     \end{itemize}  
 \end{frame}
@@ -291,7 +293,7 @@ Passcode: 286612
 \begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
     \begin{theorem}
       (RR) esetén
-      \begin{itemize}
+      \begin{itemize}[<*>]
       \item A likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
         amely lokális maximum és erősen konzisztens
       \item Erre a gyökre
@@ -300,7 +302,7 @@ Passcode: 286612
         normális. %optimális.
       \end{itemize}
     \end{theorem}
-  
+    \continue
     Legyen $\xi_n=\hat\theta_n-\theta$. Ekkor
     $\xi_n\to0$ egy valószínűséggel.
     Mivel $\hat\theta_n$ a likelihood egyenlet megoldása
@@ -323,7 +325,7 @@ Passcode: 286612
 \begin{frame}{Maximum likelihood becslés aszimptotikus tulajdonságai}
     \begin{theorem}
       (RR) esetén
-      \begin{itemize}
+      \begin{itemize}[<*>]
       \item A likelihood egyenletnek létezik olyan $\hat\theta_n$ gyöke,
         amely lokális maximum és erősen konzisztens
       \item Erre a gyökre
@@ -332,34 +334,36 @@ Passcode: 286612
         optimális.
       \end{itemize}
     \end{theorem}
-  
-    \begin{displaymath}
-      R_n=\int_0^1 L''(\theta+u \xi_n)-L''(\theta) d u
-      \quad\text{amiből}\quad
-      \limsup\norm{R_n}\leq \inf_{\delta>0} \lim_{n\to\infty}\sup_{\abs{t}
-      \leq\abs{\delta}} \norm{L''_n(\theta+t)-L''_n(\theta)}=\inf_{\delta>0}\eta (\delta)=0
-    \end{displaymath}
-  
-    \begin{displaymath}
-      K_n =
-      \begin{cases}
-        -(L''_n(\theta)+R_n)^{-1}&\text{ha
-          $(L''_n(\theta)+R_n)$ invertálható}\\
-        \text{egységmátrix}&\text{különben}
-      \end{cases}
-    \end{displaymath}
-    $I (\theta)$ invertálható
-    \begin{displaymath}
-      -(L''_n(\theta)+R_n)\to I (\theta)\quad\implies\quad
-      \sqrt{n}\xi_n-K_n\sqrt{n}L'_n (\theta)\to0\quad\text{és}\quad K_n\to I (\theta)^{-1}
-    \end{displaymath}
-    Azaz $\sqrt{n}\xi_n$ és $K_n\sqrt{n}L'_n (\theta)$ eloszlásbeli limesze
-    egyszerre létezik és megegyezik
-    \begin{displaymath}
-      \sqrt{n}L'_n (\theta)\dto N (0,I (\theta)),\quad\implies\quad
-      K_n\sqrt n L'_n (\theta)\dto N (0,I^{-1} (\theta)I(\theta)I^{-1} (\theta))
-      =N (0,I^{-1} (\theta))
-    \end{displaymath}
+    \begin{itemize}
+      \item \begin{displaymath}
+        R_n=\int_0^1 L''_n(\theta+u \xi_n)-L''_n(\theta) d u
+        \quad\text{amiből}\quad
+        \limsup\norm{R_n}\leq \inf_{\delta>0} \lim_{n\to\infty}\sup_{\abs{t}
+        \leq\abs{\delta}} \norm{L''_n(\theta+t)-L''_n(\theta)}=\inf_{\delta>0}\eta (\delta)=0
+      \end{displaymath}
+      \item
+      \begin{displaymath}
+        K_n =
+        \begin{cases}
+          -(L''_n(\theta)+R_n)^{-1}&\text{ha
+            $(L''_n(\theta)+R_n)$ invertálható}\\
+          \text{egységmátrix}&\text{különben}
+        \end{cases}
+      \end{displaymath}
+      \item $I (\theta)$ invertálható
+      \begin{displaymath}
+        -(L''_n(\theta)+R_n)\to I (\theta)\quad\implies\quad
+        \sqrt{n}\xi_n-K_n\sqrt{n}L'_n (\theta)\to0\quad\text{és}\quad K_n\to I (\theta)^{-1}
+      \end{displaymath}
+      \item Azaz $\sqrt{n}\xi_n$ és $K_n\sqrt{n}L'_n (\theta)$ eloszlásbeli limesze
+      egyszerre létezik és megegyezik
+      \begin{displaymath}
+        \sqrt{n}L'_n (\theta)\dto N (0,I (\theta)),\quad\implies\quad
+        K_n\sqrt n L'_n (\theta)\dto N (0,I^{-1} (\theta)I(\theta)I^{-1} (\theta))
+        =N (0,I^{-1} (\theta))
+      \end{displaymath}
+      
+    \end{itemize}
       
 \end{frame}
 
@@ -375,11 +379,13 @@ Passcode: 286612
     \item A loglikelihood függvény deriváltjai:
     \begin{displaymath}  
     \begin{aligned}
-      \partial_{p_k} \ln f_{\btheta}(x) & =\sum_{i=1}^n q_k(\btheta, x_i) \frac1{p_k}\\
-      \partial_{\theta_k} \ln f_{\btheta}(x) & =\sum_{i=1}^n q_k(\btheta, x_i) \partial_{\theta_k} \ln g_{\theta_k}(x_i)
+      \partial_{p_k} \ln f_{\btheta}(x) 
+      & =\sum_{i=1}^n q_{k,i}(\btheta) \frac1{p_k}\\
+      \partial_{\theta_k} \ln f_{\btheta}(x) 
+      & =\sum_{i=1}^n q_{k,i}(\btheta) \partial_{\theta_k} \ln g_{\theta_k}(x_i)
     \end{aligned}
     \quad\text{ahol}\quad
-    q_{k,i}(\btheta) = \frac{p_k g_{\theta_k}(x)}{\sum_j p_j g_{\theta_j}(x)}
+    q_{k,i}(\btheta) = \frac{p_k g_{\theta_k}(x_i)}{\sum_j p_j g_{\theta_j}(x_i)}
     \end{displaymath}
     \item A likelihood egyenlet:
     \begin{align*}
@@ -433,18 +439,18 @@ Passcode: 286612
     Így 
     \begin{displaymath}
       \ell(\btheta^{(t+1)})-\ell(\btheta^{(t)}) = 
-      F(q^{(t)},\btheta^{(t+1)})-F(q^{(t)},\btheta^{(t)}) - \sum_{k,i} q^{(t)}_{k,i}\ln\frac{q^{(t+1)}_{k,i}}{q^{(t)}_{k,i}}
+      F(q^{(t)},\btheta^{(t+1)})-F(q^{(t)},\btheta^{(t)}) - \sum_{k,i} q^{(t)}_{k,i}\ln\frac{q^{(t+1)}_{k,i}}{q^{(t)}_{k,i}}\geq 0,
     \end{displaymath}
-    Mivel $-\ln$ konvex, ezért
+    mivel az utolsó nem negatív a $-\ln$ függvény konvexitása miatt
     \begin{displaymath} 
-      -\sum_{k} q^{(t)}_{k,i}\ln\frac{q^{(t+1)}_{k,i}}{q^{(t)}_{k,i}}\geq \ln\zjel*{\sum_k q^{(t+1)}_{k,i}}=0 
+      -\sum_{k} q^{(t)}_{k,i}\ln\frac{q^{(t+1)}_{k,i}}{q^{(t)}_{k,i}}\geq -\ln\zjel*{\sum_k q^{(t+1)}_{k,i}}=0 
     \end{displaymath}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Becslések tulajdonságai I.}
   \begin{itemize}
-  \item $\set{\P[\theta]}{\theta\in \cP}$ eloszláscsalád, $g (\theta)$
+  \item $\set{\P[\theta]}{\theta\in \Theta}$ eloszláscsalád, $g (\theta)$
     értékét akarjuk becsülni, erre a  $T$ statisztikát használjuk.
     
   \item Egy $T$ becslés ,,jóságát'' mérhetjük az átlagos veszteséggel
@@ -468,7 +474,7 @@ Passcode: 286612
 
 \begin{frame}{Becslések tulajdonságai II.}
   \begin{itemize}
-  \item $\set{\P[\theta]}{\theta\in \cP}$ eloszláscsalád, $g (\theta)$
+  \item $\set{\P[\theta]}{\theta\in \Theta}$ eloszláscsalád, $g (\theta)$
     értékét akarjuk becsülni, erre a  $T$ statisztikát használjuk.
     
   \item Rizikó függvény %Egy $T$ becslés ,,jóságát'' mérhetjük az átlagos veszteséggel
@@ -516,7 +522,7 @@ Passcode: 286612
     Ha $\cD$ konvex, $W$ első változójában szigorúan konvex, akkor az
     optimális becslés egyértelmű (ha létezik).
   \end{proposition}
-
+  \continue
   Ha $T_1,T_2$ optimális, akkor $R_{T_1}=R_{T_2}$. Ha $\cD$ konvex, akkor $T=\frac12
   (T_1+T_2)\in\cD$ és
   \begin{align*}
@@ -589,7 +595,7 @@ Passcode: 286612
   \end{displaymath}
 
   \begin{theorem}[Bizonyítás nélkül]
-    \begin{itemize}
+    \begin{itemize}[<*>]
     \item (RR) teljesül
     \item Minden $\eps>0$-ra
       \begin{displaymath}
@@ -600,7 +606,7 @@ Passcode: 286612
     \item $\int_{\Theta} \norm*{t}q (t)dt<\infty$.
     \end{itemize}
     $\theta_n$ a Bayes becslés $n$ elemű mintából.  Ekkor
-    $\sqrt n (\theta_n-\theta)\dto N (0,I (\theta_0)^{-1})$. 
+    $\sqrt n (\theta_n-\theta_0)\dto N (0,I (\theta_0)^{-1})$. 
   \end{theorem}
 \end{frame}
 
@@ -608,6 +614,7 @@ Passcode: 286612
   \begin{proposition}
     Ha $T$ Bayes becslés, akkor triviális esettől eltekintve nem torzítatlan.
   \end{proposition}
+  \continue
   Ha $T=\E{g (\theta)|X}=\E{g(\theta)|T}$ torzítatlan, akkor
   \begin{displaymath}
     \E{T|\theta}=\E[\theta]{T}=g (\theta)=\E{T|g (\theta)}
@@ -616,7 +623,7 @@ Passcode: 286612
   \begin{lemma}
     Ha $X,Y\in L^1$, $\E{X|Y}=Y$ és $\E{Y|X}=X$, akkor $X=Y$ egy valószínűséggel
   \end{lemma}
-
+  \continue
   A Lemma alapján $T$ torzítatlan  Bayes becslésre
   $\P{g(\theta)=T (x)}=1$.
 
@@ -652,7 +659,7 @@ Passcode: 286612
 \end{frame}
 
 \begin{frame}{Bayes becslés tuladonságai II.}
-  \begin{itemize}
+  \begin{itemize}[<*>]
   \item $X$ peremeloszlása $\P$ alatt a prediktív eloszlás
     \begin{displaymath}
       \P[Q] (H)=\int_{\Theta}\P[t] (X\in H) Q (dt)
@@ -669,6 +676,7 @@ Passcode: 286612
     Tegyük fel, hogy $\P[Q]\sim \cP$.
     Ekkor ha $T$ Bayes becslés, akkor megengedhető.
   \end{proposition}
+  \continue
   Legyen $S$ statisztika, amire $R_S\leq R_T$. Ekkor $S$ is Bayes
   becslés ($R_S (Q)\leq R_T (Q)$) és ezért $S=\E{g (\theta)|X}=T$,
   vagyis $\P{S=T}=1$. $S$ és $T$ a minta függvénye
@@ -678,7 +686,7 @@ Passcode: 286612
 \end{frame}
 
 \begin{frame}{Bayes becslés tuladonságai III.}
-  \begin{itemize}
+  \begin{itemize}[<*>]
     
   % \item $X$ peremeloszlása $\P$ alatt a prediktív eloszlás
   %   \begin{displaymath}
@@ -695,7 +703,7 @@ Passcode: 286612
   \begin{proposition}
     Ha a $T$ Bayes becslés rizikója konstans, akkor $T$ minimax becslés.
   \end{proposition}
-
+  \continue
   $S$ tetszőleges becslés
   \begin{displaymath}
     \sup_\theta R_S (\theta)\geq \int_{\Theta}R_S (t)Q (dt)=R_S
@@ -707,6 +715,7 @@ Passcode: 286612
     ha $S$ elégséges statisztika, akkor létezik Bayes becslés $S$
     függvényei között is.
   \end{proposition}
+  \continue
   \begin{displaymath}
     q^*(t|x)=\frac{g_\theta (S (x))h (x) q (t)}{\int_\Theta g_t (S
       (x))h (x)q (t)dt}=
