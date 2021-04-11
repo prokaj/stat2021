@@ -1,0 +1,780 @@
+\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Rásonyi Miklós habilitációs előadása}
+\vfill
+  \begin{center}
+    \textbf{Centrális határeloszlás tétel}
+    
+    \vspace{1cm}
+
+    2021. április 16. (péntek), 10 óra 30 perc
+\end{center}
+\vfill
+
+\url{https://zoom.us/j/99761822815?pwd=dTdKM3l5M1NpTER6T0JLbW5MNVhiZz09}{}\\
+%\begin{verbatim}
+Meeting ID: 997 6182 2815\\
+Passcode: 286612
+%\end{verbatim}
+\end{frame} 
+
+\begin{frame}{Hipotézis vizsgálati feladatok, példák}
+  \begin{itemize}
+    \item A kérdés nem az ismeretlen paraméter értéke hanem az, hogy egy állítás (hipotézis) teljesül-e rá.
+    \item Egy gyártósor működése elfogadható, ha a selejt arány $5\%$ alatt van. Ha a gépet beállítják, 
+    akkor ez az arány $1\%$, de a használat során a gépsor elállítódik és a selejt arány idővel nő.
+    \item Minden nap végén mintát veszünk a termékekből, ez alapján szeretnénk dönteni arról, 
+    hogy időszerű-e a gépsor beállítása. 
+    \item Itt a hipotézis (nullhipotézis) az, hogy selejt arány az elfogadható szint alatt van.
+    \item Egy döntési szabály (statisztikai próba) lehet az, hogy ha a mintában a selejt arány egy \textit{kritikus értéket} 
+    meghalad, akkor a gép beállítása mellett döntünk, ellenkező esetben folyhat tovább a termelés.
+    \item Mekkora legyen a kritikus érték?
+    
+    Ha a kritikus érték túl nagy, akkor a selejt arány elfogadhatatlanul magas lesz, ha túl kicsi akkor 
+    feleslegesen áll a termelés a gép beállítása alatt.
+  \end{itemize}  
+\end{frame}
+
+
+\begin{frame}{Hipotézis vizsgálati feladat, fogalmak}
+    \begin{itemize}
+    \item \textbf{Statisztikai hipotézis}. A minta eloszlásának valamely
+      jellemzőjére vonatkozó kijelentés.
+      
+      $(\Omega,\cA,\cP)$ statisztikai mező. $\cP=\cP_0\cup\cP_1$,
+      ($\cP_0\cap\cP_1=\emptyset$).
+      
+      $H_0$ \textbf{nullhipotézis}: a valódi eloszlás $\in\cP_0$,
+      
+      $H_1$ \textbf{ellenhipotézis}: a valódi eloszlás $\in\cP_1$.
+    
+   
+    \item Ha $\cP=\set{\P[\theta]}{\theta\in\Theta}$ paraméteres család,
+      akkor $\cP=\cP_0\cup^*\cP_1$ megfelel egy
+      $\Theta=\Theta_0\cup^*\Theta_1$ felbontásnak. 
+      $H_0:\,\theta\in\Theta_0$, $H_1:\,\theta\in\Theta_1$.
+    
+    \item A bevezető példában indikátor mintánk volt $\Omega=\mfX=\smallset{0,1}^n$. 
+      $\theta\in\Theta=(0,1)$ az ismeretlen selejt arány. 
+      
+      $H_0: \theta\leq 0.05$, $H_1: \theta>0.05$, $\Theta_0=(0,0.05]$ és $\Theta_1=(0,05,1)$.
+    \item A $H_0$, ill. $H_1$ hipotézis egyszerű, ha $\cP_0$, ill.
+      $\cP_1$ egy elemű.
+    \item Egy hipotézis összetett, ha nem egyszerű, azaz a $\cP_0$
+      vagy $\cP_1$ több elemű.
+    \item \textbf{Statisztikai próba}. Döntés a minta alapján
+      $H_0$-ról. Azaz $\mfX=\mfX_0\cup^*\mfX_1$. Ha
+      a megfigyelés $X\in\mfX_0$, akkor elfogadjuk a nullhipotézist, ellenkező
+      esetben elutasítjuk.
+  
+      $\mfX_0$ neve \textbf{elfogadási tartomány}
+  
+      $\mfX_1$ neve elutasítási, vagy \textbf{kritikus tartomány}
+    \item A bevezető példában ha $c$ a kritikus érték, akkor $\mfX_1=\set{x\in\mfX}{\bar{x}>c}$.
+    \end{itemize}
+    
+  \end{frame}
+  
+  
+  \begin{frame}{Hiba lehetőségek}
+   
+    \begin{itemize}
+    \item 
+    
+    \textbf{Elsőfajú hiba}. A nullhipotézis igaz, de elvetjük
+      (téves elutasítás)
+    
+      \textbf{Másodfajú hiba}. A nullhipotézis nem igaz, de mégis elfogadjuk
+      (téves elfogadás)
+    
+    \item A bevezető példában: elsőfajú hibát követünk el, ha a gép beállítása még nem időszerű, 
+    de a mintában a selejt arány a kritikus érték felett van.
+
+    Másodfajú hibát követünk el, ha a selejt arány a mintában kicsi, pedig a gép beállítása időszerű.
+
+    \item \textbf{Fix mintaelemszám esetén az egyik fajta hiba valószínűségét
+      csak a másik növelése árán lehet csökkenteni.}
+      
+    \item Feladat. Az elsőfajú hiba valószínűsége legyen kicsi (tipikusan
+      nem nagyobb, mint 5\%) és ezen feltétel mellett a másodfajú hiba valószínűsége
+      legyen minél kisebb.
+
+    \item Jelentés. A nullhipotézist, ha lehet elfogadjuk. Csak akkor
+      utasítjuk el, ha az adatok ennek ,,ellentmondanak''.
+  
+      $H_0$ elfogadása csak annyit jelent, hogy az adatok alapján lehetséges
+      hogy  $H_0$ igaz.
+  
+      $H_0$ elutasítása az \textbf{informatív döntés}, ez ugyanis annyit jelent,
+      hogy a megfigyelések $H_0$ ellen szólnak, az valószínűleg nem igaz.
+    \end{itemize}
+  
+
+    Példák.
+    \begin{itemize}
+    \item Gyógyszerkutatásban: $H_0$ az új hatóanyag hatástalan, $H_1$
+      az új hatóanyag hatásos. 
+    \item Növénynemesítés. $H_0$ az új változat termésátlaga nem nagyobb
+      mint a most használt fajtáké. $H_1$ az új változat termésátlaga nagyobb.
+    \end{itemize}
+    
+  \end{frame}
+  
+  \begin{frame}{Véletlenített próba, próbafüggvény, terjedelem, szint, erő}
+    \begin{itemize}
+    \item Egy statisztikai próba leírható az elutasítási tartomány
+      $\mfX_1$ indikátorával. $\phi (x)=\I{x\in \mfX_1}$.
+  
+      Ekkor $\phi (x)$ az elutasítás valószínűsége, ha a megfigyelés
+      $x$. $\phi$ neve \textbf{próbafüggvény} vagy \textbf{döntési függvény}.
+      
+    \item Véletlenített próba. $\phi:\mfX\to[0,1]$.
+  
+      Ha $\phi:\mfX\to\smallset{0,1}$, akkor a próba nem véletlenített.
+      
+    \item A $\phi$ próba \textbf{terjedelme} az elsőfajú hiba elkövetésének
+      maximális valószínűsége
+      \begin{displaymath}
+        \alpha (\phi) =\sup_{\theta\in\Theta_0}\E[\theta]{\phi}
+      \end{displaymath}
+    \item A $\phi$ próba \textbf{ereje} annak a valószínűsége, hogy $H_0$ nem
+      teljesül és ezt felismerjük. Ez egy $\Theta_1$-n értelmezett
+      $\psi$ függvény, az \textbf{erőfüggvény}
+      \begin{displaymath}
+        \psi (\theta)=\psi (\theta,\phi)=\E[\theta]{\phi}, \quad \theta\in\Theta_1
+      \end{displaymath}
+    \item Az azonos terjedelmű próbákat az erőfüggvény alapján hasonlíthatjuk össze. 
+    \end{itemize}
+    \continue
+    Megjegyzés. Gyakran a legfeljebb $\alpha$ terjedelmű próbát is
+    $\alpha$ terjedelműnek mondják.
+  
+    Ha a próba terjedelme $\alpha$, akkor a szintje $1-\alpha$.
+  \end{frame}
+  
+  \begin{frame}{Statisztikai próbák jellemzői}
+  
+    $\phi:\mfX\to[0,1]$ próba függvény. $\phi (x)$ a
+    $H_0$ %nullhipotézis
+    elutasításának valószínűsége, ha a megfigyelés $x$. 
+    \begin{itemize}
+    \item $\phi$ \textbf{torzítatlan}, ha ereje nem kisebb a
+      terjedelménél:
+      \begin{displaymath}
+        \sup_{\theta\in\Theta_0} \E[\theta] {\phi (X)}\leq \inf_{\theta\in\Theta_1}\E[\theta]{\phi (X)}
+      \end{displaymath}
+    \item $\phi$ \textbf{egyenletesen legerősebb} próba (e.l.p.), ha
+      ereje legalább akkora, mint tetszőleges vele azonos terjedelmű
+      próba ereje.
+      \begin{displaymath}
+        \psi (\theta,\phi)=\E[\theta]{\phi}=\sup\set{\psi
+          (\theta,\phi')}{\alpha (\phi')=\alpha (\phi)} \quad\forall\theta\in\Theta_1
+      \end{displaymath}
+      $\alpha (\phi)=\sup_{\theta\in\Theta_0}\E[\theta]{\phi}$.
+  
+      Egyenletesen legerősebb próba nem feltétlenül létezik.
+  
+      Ha $\phi$ egyenletesen legerősebb, akkor torzítatlan is, mert ereje
+      legalább akkora, mint a %az $\alpha (\phi)$ terjedelmű
+      $\phi'(x)=\alpha (\phi)$ próba ereje.
+    \item $\phi$ \textbf{legszigorúbb}, ''ha legjobban közelíti az
+      erőfüggvény burkolóját'', azaz $\phi$ minimalizálja
+      \begin{displaymath}
+        \sup_{\theta\in\Theta_1}(\bpsi (\theta,\alpha)-\psi(\theta,\phi))
+        \quad\text{értékét, ahol}\quad
+        \bpsi (\theta,\alpha)=\sup\set{\psi (\theta,\phi)}{\alpha
+          (\phi)=\alpha},\quad\theta\in\Theta_1
+        % \quad
+        %\text{\phi minimalizálja}&\quad
+        %=\inf\set{\psi (\theta,\alpha)-\psi
+        %(\theta,\phi_1)}{\alpha (\phi_1)=\alpha (\phi)}
+      \end{displaymath}
+      
+    \item  $\phi_n$ $n$-elemű mintára épülő $\alpha$ terjedelmű próba.
+      $(\phi_n)$ \textbf{konzisztens}, ha $\psi (\theta,\phi_n)\to1$
+      %minden
+      $\forall\theta\in\Theta_1$-re.
+    \end{itemize}
+  \end{frame}
+  
+  
+  \begin{frame}{Próbák konstruálása}
+    \begin{itemize}
+    \item Látni fogjuk, hogy a legtöbb próba $\phi (x)=\I{T (x)>c}$
+      alakú. 
+    \item $T$ olyan statisztika, ami $\theta\in\Theta_1$ mellett
+      tipikusan nagy értékekre vezet, míg $\theta\in\Theta_0$ esetén
+      nem.
+    \item $T$ neve \textbf{próba statisztika}, $c$ neve \textbf{kritikus
+        érték}
+    \item Ha $S$ elégséges statisztika, akkor $\phi'
+      =\E[\theta]{\phi|S}$ nem függ $\theta$-tól, terjedelme, ereje
+      azonos $\phi$-vel. Azaz $\phi$-t elég az elégséges statisztika
+      függvényei között keresni.
+    \item Ha determinisztikus próbával a megengedett $\alpha$
+      terjedelem nem érhető el, akkor véletlenítéssel lehet javítani a
+      próbán.
+  
+      Azaz
+      \begin{displaymath}
+        \alpha'=\sup_{\theta\in\Theta0}\P[\theta]{T>c}<\alpha\quad
+        \sup_{\theta\in\Theta0}\P[\theta]{T\geq c}\geq\alpha
+      \end{displaymath}
+      akkor
+      \begin{displaymath}
+        \phi (x)=
+        \begin{cases}
+          1 &T (x)>c\\
+          p &T (x)=c\\
+          0 &T (x)<c
+        \end{cases}
+      \end{displaymath}
+      $p\sup_{\theta\in\Theta_0}\P[\theta]{T=c}=\alpha-\alpha'$.
+    \end{itemize}    
+  \end{frame}
+  
+  \begin{frame}{Neyman--Pearson lemma I.}
+    
+    \begin{lemma}
+      Egyszerű hipotézis vizsgálati feladatban a likelihood hányados próba
+      a legerősebb a vele azonos terjedelmű próbák között.
+      
+      Azaz, ha $c>0$, $g:\mfX\to [0,1]$, és
+      \begin{displaymath}
+        \phi (x)=
+        \begin{cases}
+          1 & f_1 (x)> cf_0 (x)\\
+          g(x) & f_1 (x)=cf_0 (x)\\
+          0 & f_1 (x)<cf_0 (x)
+        \end{cases}
+      \end{displaymath}
+      akkor tetszőleges $\phi'$ próbafüggvényre
+      \begin{displaymath}
+        \E[0]{\phi'}\leq \E[_0]{\phi}\quad\implies\quad
+        \E[1]{\phi'}\leq \E[1]{\phi}
+      \end{displaymath}
+    \end{lemma}
+  
+    \begin{displaymath}
+      \E[1]{\phi-\phi'}=\int_{\mfX}
+      (\phi-\phi')f_1d\lambda\geq
+      \int_{\mfX}
+      (\phi-\phi')cf_0d\lambda=c\E[0]{\phi-\phi'}\geq0
+    \end{displaymath}
+    Ugyanis $(\phi-\phi')(f_1-cf_0)\geq 0$. Ez eset szétválasztással látható.
+  \end{frame}
+  
+  \begin{frame}{Neyman--Pearson lemma II.}
+    
+    \begin{lemma}[Egzisztencia]
+      Egyszerű hipotézis vizsgálati feladatban tetszőleges $\alpha\in
+      (0,1)$-re létezik $\alpha$ terjedelmű  likelihood hányados próba.
+    \end{lemma}
+    Megjegyzés. Ez a legerősebb a legfeljebb $\alpha$ terjedelmű próbák között.
+    \continue
+      
+    $c>0$, $p\in [0,1]$, megválasztásával elérhető, hogy a
+    \begin{displaymath}
+        \phi (x)=
+        \begin{cases} 
+          1 & f_1 (x)> cf_0 (x)\\
+          p & f_1 (x)=cf_0 (x)\\
+          0 & f_1 (x)<cf_0 (x)
+        \end{cases}
+      \end{displaymath}
+      próba terjedelme pontosan $\alpha$ legyen. 
+
+      Ha $c=\inf\set{c>0}{\P[0]{f_1(X)>cf_0(X)}<\alpha}$, akkor 
+      \begin{displaymath}
+        \P[0]{f_1(X)\alert{>}cf_0(X)}\leq \alpha \leq \P[0]{f_1(X)\alert{\geq} cf_0(X)}. 
+      \end{displaymath}
+      és így létezik $p\in[0,1]$, hogy
+      \begin{displaymath}
+        \alpha = (1-p)\P[0]{f_1(X)\alert{>}cf_0(X)}+p\P[0]{f_1(X)\alert{\geq}cf_0(X)}=\E[0]{\phi}.
+      \end{displaymath} 
+      % $\P{\P[0]{f_1(X)\geq cf_0(X)}\geq\alpha$
+      % \begin{displaymath}
+      %   \E[0]{\phi}=\P[0]{f_1(X)>cf_0(X)}+p\P{f_1(X)=cf_0(X)}
+      % \end{displaymath}
+      % Itt $c=\inf\set{c}{\P[0]{f_1(X)>cf_0(X)}<\alpha}$. Ekkor $\P{\P[0]{f_1(X)\geq cf_0(X)}\geq\alpha$.
+
+  \end{frame}
+  
+  
+  \begin{frame}{Neyman--Pearson lemma III.}
+    
+    \begin{lemma}[Unicitás]
+      Egyszerű hipotézis vizsgálati feladatban, ha  $\phi_1$ legerősebb
+      próba a legfeljebb $\alpha$ terjedelmű próbák között, akkor $\phi_1$
+      likelihood hányados próba és vagy $\alpha (\phi_1)=\alpha$ vagy $\psi (\phi_1)=1$.
+    \end{lemma}
+    \begin{itemize}
+    \item Legyen $\phi$ a pontosan $\alpha$ terjedelmű (esetleg
+      véletlenített) likelihood hányados próba ($c$ a kritikus
+      értéke). Ekkor
+      \begin{displaymath}
+        0\geq \E[1]{\phi-\phi_1}-c\E[0]{\phi-\phi_1}=\int (f_1-cf_0)
+        (\phi-\phi_1)d\lambda\geq 0
+      \end{displaymath}
+  
+     
+    \item Azaz $(f_1-cf_0) (\phi-\phi_1)=0$ $\lambda$ m.m., Vagyis $\phi_1$
+      is likelihood hányados próba.
+      
+    \item Ha $\alpha (\phi_1)<\alpha$, és $\psi (\phi)<1$, akkor véletlenítéssel növelhető
+      lenne az ereje. Mivel $\phi_1$ a legerősebb próba, ez nem
+      lehetséges, tehát vagy $\alpha (\phi_1)=\alpha$ vagy $\psi (\phi_1)=1$. 
+    \end{itemize}  
+  \end{frame}
+
+  \begin{frame}{Példa}
+    \begin{itemize}
+      \item $X_1,\dots,X_n$ indikátor minta. $H_0: \theta=\theta_0$, $H_1:\theta=\theta_1$, ahol $\theta_0<\theta_1$.
+      \item Ekkor $f_i(x)=\theta_i^{\sum x_k}(1-\theta_i)^{\sum(1-x_k)}$ és
+      \begin{displaymath}
+        \frac{f_1(x)}{f_0(x)}=\zfrac*{1-\theta_0}{1-\theta_1}^n\cdot\zjel*{\frac{\theta_1}{1-\theta_1}:\frac{\theta_0}{1-\theta_0}}^{\sum x_i}.
+      \end{displaymath}
+      \item A likelihood hányados a $\sum X_i$ statisztika monoton növő függvénye, 
+      azaz a likelihood hányados próba döntési függvénye:
+      \begin{displaymath}
+        \phi(x)=\I{\sum x_k>c}+p\I{\sum x_k=c},
+      \end{displaymath}
+      ahol $c$ és $p$ értékét a $\E[0]{\phi(X)}=\alpha$ összefüggés határozza meg.
+
+      Vegyük észre, hogy  a döntési függvény nem függ $\theta_1$ konkrét értékétől, 
+      csak a $\theta_1>\theta_0$ összefüggést használtuk. A kapott próba egyenletesen 
+      legerősebb a $H_1: \theta>\theta_0$ ellenhipotézissel szemben is.
+    \end{itemize}    
+  \end{frame}
+
+  \begin{frame}{Példa folytatása, aszimptotikus viselkedés}
+    \begin{itemize}
+      \item $X_1,\dots,X_n$ indikátor minta. $H_0: \theta=\theta_0$, $H_1:\theta=\theta_1$, ahol $\theta_0<\theta_1$.
+      \item A likelihood hányados a $\sum X_i$ statisztika monoton növő függvénye, 
+      azaz a likelihood hányados próba döntési függvénye:
+      \begin{displaymath}
+        \phi(x)=\I{\sum x_k>c}+p\I{\sum x_k=c},\quad
+        \text{ahol $c$ és $p$ értékét a $\E[0]{\phi(X)}=\alpha$ összefüggés adja.}
+      \end{displaymath}
+      %ahol $c$ és $p$ értékét a $\E[0]{\phi(X)}=\alpha$ összefüggés határozza meg.
+      \item Ha $n$ nagy, akkor $n^{-1/2}\sum_i (X_i-\theta_0)$ közelítőleg $N(0,\theta_0(1-\theta_0))$ eloszlású 
+      és a kritikus érték ez alapján választható. $c_n=n\theta_0+\sqrt{n\theta_0(1-\theta_0)}\Phi^{-1}(1-\alpha)$,
+      nagy $n$-re $p=0$ értékét vehetjük nullának.
+      % \item A próba ereje:
+      % \begin{displaymath}
+      %   \psi(\theta_1)=
+      %   \P[1]{\sum X_i>c_n}
+      %   %=\P[1]{\frac{\sum(X_i-\theta_1)}{\sqrt{n(\theta_1(1-\theta_1))}}>\frac{c_n-n\theta_1}{\sqrt{n\theta_1(1-\theta_1)}}}
+      %   %=\P{Z> -a\sqrt{n}+b}=\P{-Z<a\sqrt{n}-b},
+      %   %\quad\text{ahol $Z\sim N(0,1)$}
+      % \end{displaymath}
+      %$a=-(\theta_0-\theta_1)>0$, $b=\sqrt{\frac{\theta_0(1-\theta_0)}{\theta_1(1-\theta_1)}}\Phi^{-1}(1-\alpha)>0$.
+      \item Emlékeztető
+      \begin{proposition}[Hoeffding egyenlőtlenség]
+        $Z_1,\dots,Z_n$ független változók, $0\leq Z_i\leq 1$, $\eps>0$. 
+        Ekkor $\P{\sum Z_i> \sum \E{Z_i}+n\eps}\leq e^{-2n\eps^2}$
+      \end{proposition}
+      $(1-Z)$-re áttérve: $\P{\sum Z_i<\sum \E{Z_i}-n\eps}\leq e^{-2n\eps^2}$.
+      \begin{displaymath}
+        1-\psi(\theta_1)
+        =\P[1]{\sum_{i=1}^n X_i<c_n}
+        %=\P[1]{\sum_{i=1}^n (1-X_i)>n-c_n}
+        \leq \exp{-2n\zfrac*{n\theta_1-c_n}{n}^2}
+        \leq e^{-2n(\theta_1-\theta_0)+a\sqrt{n}+b}
+      \end{displaymath}
+      Azaz az erő geometriai sebességgel tart egyhez, 
+      ha minta elemszám végtelenhez tart.
+    \end{itemize} 
+  \end{frame}
+  
+  \begin{frame}{Általánosítás: kritikus érték aszimptotikája}
+    \begin{itemize}
+    \item Egyszerű hipotézis vizsgálati feladat. $f_1,f_0$ egy mintaelem
+      sűrűségfüggvénye. Tegyük fel, hogy $f_1,f_0>0$.
+    \item %Jelölés
+      \begin{displaymath}
+        \xi_i=-\log  \frac{f_1(X_i)}{f_0 (X_i)},\quad\text{ekkor}\quad
+        \E[0]{\xi_i}=\int \log\frac{f_0}{f_1}f_0d\lambda= D(\P[0]\|\P[1])>0            
+      \end{displaymath}
+      Tegyük fel, hogy $\E[0]{\xi_i}<\infty$ és $\sigma^2=\D[0]^2{\xi}<\infty$.
+    \item A likelihood hányados próba $\sum_i\xi_i$-vel is felírható.
+      \begin{displaymath}
+        T_n=\prod_{i=1}^n\frac{f_1 (X_i)}{f_0 (X_i)}>c_n\quad\iff\quad
+        \sum\frac{\xi_i- D(\P[0]\|\P[1])}{\sqrt{n}\sigma}<t_n,\quad
+        c_n=\exp{-n D(\P[0]\|\P[1])-\sqrt{n}\sigma t_n}
+      \end{displaymath}
+    \item Terjedelem $\alpha$. A CHT alapján
+      \begin{displaymath}
+        \sum_{i=1}^n\frac{\xi_i-D(\P[0]\|\P[1])}{\sqrt{n}\sigma}\dto N (0,1)
+        \quad\text{ha $H_0$ igaz, és}\quad 
+        \P[0]{\sum_{i=1}^n\frac{\xi_i-D(\P[0]\|\P[1])}{\sqrt{n}\sigma}<t_n}\to\alpha
+        %\implies\quad
+        %t_n\to\Phi^{-1} (\alpha)
+      \end{displaymath}
+      Belátjuk, hogy ebből $t_n\to \Phi^{-1}(\alpha)$ következik.
+    \item Ha
+      \begin{displaymath}
+        \hat c_n=\exp{-n D(\P[0]\|\P[1])-\sqrt{n}\sigma \Phi^{-1}
+          (\alpha)},\quad\hat\phi_n (x)=\I{T_n>\hat c_n},\quad
+        \text{akkor}\quad\alpha (\hat\phi_n)\to\alpha
+      \end{displaymath}      
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Két apróság}
+    \begin{proposition}
+      $\Phi$ $N (0,1)$ eloszlásfüggvénye, $(F_n)$ eloszlásfüggvények
+      sorozata és  $F_n (t)\to \Phi (t)$ minden $t$-re.  Ekkor
+      \begin{enumerate}
+      \item $\sup\abs*{F_n-\Phi}\to0$ 
+      \item $F_n (t_n)\to \Phi (t)$ pontosan akkor ha $t_n\to t$.
+      \end{enumerate}
+    \end{proposition}
+    \begin{itemize}
+    \item (1)-et láttuk a  Glivenko--Cantelli
+      tétel kapcsán. $F_n,\Phi$ monoton, ha $t_i=\Phi^{-1}(\frac in)$, $i=1,\dots,n-1$, akkor
+      $F_n(t_i)\to\Phi(t_i)=\frac in$ és tetszőleges $t$-re $\limsup \abs{F_n(t)-\Phi(t)}\leq 2\eps$.
+    \item (2) Ha $t_n\to t$ ($t=\pm\infty$ is lehet)
+      \begin{displaymath}
+        \abs*{F_n (t_n)-\Phi (t)}\leq \abs*{F_n (t_n)-\Phi (t_n)}+\abs*{\Phi(t_n)-\Phi (t)}
+        \leq \sup\abs*{F_n-\Phi}+\abs*{\Phi(t_n)-\Phi (t)}\to0
+      \end{displaymath}
+      
+    \item (2) Ha $t_n\not\to t$, akkor létezik $(t'_n)\subset (t_n)$
+      részsorozat, aminek létezik limesze $t'$ és az nem $t$ ($t'_n\to\pm\infty$ lehetséges)
+      \begin{displaymath}
+        F_n (t'_n)\to\Phi (t')\neq\Phi (t)
+      \end{displaymath}
+      azaz $F_n (t_n)\not\to\Phi (t)$.
+    \end{itemize}
+    Következmény. Ha $t_n=\sup\set{t}{F_n (t)<\alpha}$, akkor $t_n\to\Phi^{-1} (\alpha)$.
+  \end{frame}
+
+  \begin{frame}{Erő aszimptotikája}
+    \begin{itemize}
+    \item Egyszerű hipotézis vizsgálati feladat. $f_1,f_0$ egy mintaelem
+      sűrűségfüggvénye. Tegyük fel, hogy $f_1,f_0>0$.
+    \item Az $\alpha$ terjedelmű likelihood hányados próba
+    \begin{displaymath}
+      \phi_n(x)=\I{T_n(x)>c_n}+p_n\I{T_n(x)=c_n},\quad\text{ahol}\quad
+      T_n(x)=\prod_{i=1}^n \frac{f_1(x_i)}{f_0(x_i)},\quad
+      c_n=e^{-n D(\P[0]\|\P[1])-\sqrt{n}\sigma t_n},\quad t_n\to\Phi^{-1}(\alpha)
+    \end{displaymath}
+    % \item %Jelölés
+    %   \begin{displaymath}
+    %     \xi_i=-\log  \frac{f_1(X_i)}{f_0 (X_i)},\quad\text{ekkor}\quad
+    %     \E[0]{\xi_i}=\int \log\frac{f_0}{f_1}f_0d\lambda= D(\P[0]\|\P[1])>0            
+    %   \end{displaymath}
+    %   Tegyük fel, hogy $\E[0]{\xi_i}<\infty$ és $\sigma^2=\D[0]^2{\xi}<\infty$.
+    \item $\psi_n$ az erő. A Markov egyenlőtlenségből
+      \begin{displaymath}
+        1-\psi_n\leq
+        \P[1]{\prod_{i=1}^n\frac{f_1 (X_i)}{f_0 (X_i)}\leq c_n}
+        =\P[1]{\prod_{i=1}^n\frac{f_0 (X_i)}{f_1 (X_i)}\geq \frac1{c_n}}
+        \leq c_n\E[1]{ \prod_{i=1}^n\frac{f_0 (X_i)}{f_1 (X_i)}}=c_n
+      \end{displaymath}
+      
+    \item
+      \begin{displaymath}
+        1-\psi_n\leq \exp{-n D (\P[0]\|\P[1])+O(\sqrt{n})}
+      \end{displaymath}
+      Az erő geometria sebességgel tart $1$-hez, ha $n\to\infty$.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Klasszikus próbák. $u$-próba}
+    \begin{itemize}
+    \item $X_1,\dots,X_n$ minta $N (\mu,\sigma^2)$ eloszlásból, $\sigma$
+      ismert, $\mu$ ismeretlen.
+    \item Esetek:
+  
+      $H_0:\mu=\mu_0$, $H_1:\mu<\mu_0$ egyoldali ellenhipotézis
+  
+      $H_0:\mu=\mu_0$, $H_1:\mu>\mu_0$ egyoldali ellenhipotézis
+      
+      $H_0:\mu=\mu_0$, $H_1:\mu\neq\mu_0$ kétoldali ellenhipotézis
+   
+    \item Próba statisztika:
+      \begin{displaymath}
+        T (X)=\sqrt{n}\frac{\bar{X}-\mu_0}{\sigma}
+      \end{displaymath}
+    \item $T$ eloszlása $H_0$ mellett $N (0,1)$
+    \item $u_\alpha=\Phi^{-1} (1-\alpha)$, azaz
+      $\P{Z>u_\alpha}=\alpha$, ha $Z\sim N (0,1)$
+    \item $\alpha$ terjedelmű próba. Kritikus tartomány:
+  
+      $H_1:\mu<\mu_0$ esetén $T<-u_\alpha$
+  
+      $H_1:\mu>\mu_0$ esetén $T>u_\alpha$
+  
+      $H_1:\mu\neq \mu_0$ esetén $\abs*{T}>u_{\alpha/2}$
+  
+    \end{itemize}
+  \end{frame}
+  
+  
+  \begin{frame}{Emlékeztető. Neyman-Pearson lemma}
+    \begin{itemize}
+    \item \textbf{Egyszerű} a hipotézis vizsgálati feladat, ha
+      $\Theta_0,\Theta_1$ egyelemű. Ekkor $H_0:f=f_0$, $H_1:f=f_1$ alakú
+      a feladat, ahol $f_0$, $f_1$ a két eloszlás $\P[0]$, $\P[1]$ sűrűségfüggvénye
+      alkalmas domináló mértékre  nézve (pl. $\lambda=\frac12 (\P[0]+\P[1])$)).
+    \item \textbf{Likelihood hányados} statisztika
+      \begin{displaymath}
+        T (x)=\frac{f_1 (x)}{f_0 (x)}
+      \end{displaymath}
+    \end{itemize}
+    \begin{lemma}
+      Egyszerű hipotézis vizsgálati feladat, $f_0>0$. A likelihood hányados $T=f_1/f_0$
+      folytonos eloszlású $H_0$ és $H_1$ mellett.
+  
+      Ekkor
+      \begin{itemize}
+      \item Minden $\alpha\in(0,1)$-re létezik $c_\alpha$ úgy,
+        hogy $\phi=\I{T>c_\alpha}$ terjedelme $\alpha$. (Azaz $\P[0]{T>c_\alpha}=\alpha$)
+      \item $\phi=\I{T>c_\alpha}$ a legerősebb $\alpha$ terjedelmű próba.
+      \item Ha $\alpha (\bar\phi)\leq \alpha$ és
+        $\E[1]{\bar{\phi}}=\E[1]{\phi}$, akkor $\bar{\phi}=\phi$
+        ($\P[0]$, $\P[1]$ majdnem mindenütt).
+      \end{itemize}
+    \end{lemma}
+  
+  \end{frame}
+  
+  
+  \begin{frame}{Egyoldali ellenhipotézis mellett, az $u$-próba
+      egyenletesen legerősebb I.}
+    A sűrűségfüggvény
+    \begin{displaymath}
+      f_\mu (x)=\zfrac*1{2\pi\sigma^2}^{n/2}\exp{-\frac1{2\sigma^2}\sum_i
+        (x_i-\mu)^2}=h (x)\exp{\mu T (x)-b (\mu)}
+    \end{displaymath}
+    ahol
+    \begin{displaymath}
+      h (x)=\zfrac*1{2\pi\sigma^2}^{n/2}e^{-\frac1{2\sigma^2}\sum_i x_i^2},\quad
+      b(\mu)=n\frac{\mu^2}{2\sigma^2},\quad T (x)=\frac{\sum_i x_i}{\sigma^2}
+    \end{displaymath}
+    \begin{itemize}
+    \item Elegendő a $\mu_0=0$ esetet nézni.
+    \item Egyszerű hipotézis vizsgálati feladat ($0<\mu_1$), $H_0:\mu=0$,
+      $H_1:\mu=\mu_1$.
+    \item A likelihood hányados %próba próba 
+    statisztika %ája
+      \begin{displaymath}
+        \frac{f_1}{f_0} (x)=\exp{(\mu_1-0)T (x)-(b (\mu_1)-b
+          (\mu_0))}\quad\text{$T$ szigorúan monoton növő függvénye}
+      \end{displaymath}
+    \item $T$ eloszlása folytonos, azaz a legerősebb próba nem
+      randomizált és
+      \begin{displaymath}
+        \mfX_1=\event{T>c}\quad\text{alakú, ahol}\quad \P[0]{T>c}=\alpha
+      \end{displaymath}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Egyoldali ellenhipotézis mellett, az $u$-próba
+      egyenletesen legerősebb II.}
+    \begin{itemize}
+    \item Egyszerű hipotézis vizsgálati feladat ($0<\mu_1$), $H_0:\mu=0$,
+      $H_1:\mu=\mu_1$.
+    \item $\alpha$ terjedelmű likelihood hányados próba
+      \begin{displaymath}
+        \mfX_1=\event{T>c}
+        \quad\text{alakú,ahol}\quad
+        T=\frac{1}{\sigma^2}\sum_i X_i,\quad \P[0]{T>c}=\alpha
+      \end{displaymath}
+      
+    \item A likelihood hányados próba nem függ
+      $\mu_1\in(0,\infty)$-től.
+    \item A fenti próba egyenletesen legerősebb a $H_1:\mu>0$
+      ellenhipotézisre is.
+  
+      Ugyanis, ha a $\phi$ próbafüggvénnyel megadott próba terjedelme
+      $\alpha$ és valamely $\mu_1>0$ pontban az ereje nem nagyobb, mint a
+      fenti próba ereje, akkor a Neyman--Pearson lemma miatt $\phi$ is
+      likelihood hányados próba, vagyis azonos a 
+      fenti próbával.
+    \item Az elutasítási tartomány
+      \begin{displaymath}
+        \event{\sum_{i} X_i>\sigma^2 c}=
+        \event{T(X)>u_\alpha},
+        \quad\text{ahol}\quad
+        T (X)=\sqrt{n}\frac{\bar{X}}{\sigma},\quad \P[0]{T>u_\alpha}=\alpha.
+      \end{displaymath}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{$H_1:\mu\neq0$-ra nincs egyenletesen legerősebb próba}
+  
+    \begin{itemize}
+    \item $H_0:\mu=0$, $H_1^*:\mu=\mu_1$ feladatra, a likelihood hányados
+      próba a legerősebb. 
+    \item Mivel a likelihood hányados eloszlása $H_0$ mellett folytonos
+      a likelihood hányados próba nem randomizált, így egyértelmű.
+    \item Ha $\phi$ egyenletesen legerősebb lenne, akkor minden
+      $\mu_1\neq0$-ra egybeesne a $H^*$ feladathoz tartozó likelihood
+      hányados próbával.
+    \item $\mu_1>0$ esetén $\phi (x)=\I{T (x) >u_\alpha}$
+      
+    \item $\mu_1<0$ esetén $\phi (x)=\I{T (x) <-u_\alpha}$
+      
+    \item Ezek egyszerre nem teljesülhetnek, nincs ilyen $\phi$ és nincs
+      egyenletesen legerősebb próba.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{$H_1:\mu\neq0$-ra, az $u$-próba egyenletesen
+      legerősebb torzítatlan próba I.}
+    \begin{itemize}
+    \item Emlékeztető. A $\phi$ próba  \textbf{torzítatlan}, ha
+      \begin{displaymath}
+        \psi (\theta)=\E[\theta]{\phi}\quad \text{$\Theta_0$-n nem
+          nagyobb mint $\Theta_1$-n}
+      \end{displaymath}
+      
+    \item Egy elemű $\Theta_0=\smallset{\theta_0}$ esetén $\phi$
+      torzítatlan, ha
+      \begin{displaymath}
+        \psi (\theta_0)=\min_{\theta}\psi (\theta)
+      \end{displaymath}
+    \item Tegyük fel, hogy $\Theta$ konvex, nyílt és (R) teljesül.
+      % , pl. $\P[\theta]=N (\mu,\sigma^2)$, $\mu\in\real=\Theta$.
+      Ekkor
+      \begin{displaymath}
+        \partial_\theta\psi (\theta)=\E[\theta]{\phi\partial\ell(\theta)},
+        \quad 0=\E[\theta]{\partial\ell(\theta)}
+        \quad\text{és}\quad
+        \E[\theta_0]{\phi\partial\ell (\theta_0)}=0,
+        \quad
+        \text{azaz}
+        \quad
+        \cov_{\theta_0} (\phi,\partial\ell (\theta_0))=0.
+      \end{displaymath}
+    \end{itemize}  
+  \end{frame}
+  
+  \begin{frame}{$H_1:\mu\neq0$-ra, az $u$-próba egyenletesen
+      legerősebb torzítatlan próba II.}
+    \begin{itemize}
+    \item $\Theta$ konvex, nyílt és (R) teljesül,
+      $\Theta_0=\smallset{\theta_0}$, $\phi$ torzítatlan.
+      % , pl. $\P[\theta]=N (\mu,\sigma^2)$, $\mu\in\real=\Theta$.
+      Ekkor
+      \begin{displaymath}
+        \cov_{\theta_0} (\phi,\partial\ell (\theta_0))=0.
+      \end{displaymath}
+    \item $\set{N (\mu,\sigma^2)}{\mu\in\real}$, $\sigma^2>0$ rögzített,
+      esetén
+      \begin{displaymath}
+        \ell (\mu,x)=\ln h (x)+\mu T (x) - b (\mu),\quad
+        \text{ahol}\quad
+        T (x)=\frac{\sum_i x_i}{\sigma^2},\quad b (\theta)=\frac{n\mu^2}{2\sigma^2}
+      \end{displaymath}
+    \item $\partial\ell (\mu,x)=\frac{n}{\sigma^2}(\bar{X}-\mu)$
+    \end{itemize}  
+    \begin{proposition}
+      \begin{displaymath}
+        \phi=\I{\abs*{\partial\ell (0)}>c}, \quad
+        \alpha=\alpha (\phi),
+        \quad 
+        \Phi=\set{\bar{\phi}}{\E[0]{\bar{\phi}}=\alpha,\,
+        \cov_{0} (\bar{\phi},\partial\ell (0))=0}
+      \end{displaymath}
+      Ekkor $\phi$ az egyenletesen legerősebb próba $\Phi$-ben a
+      $H_0:\mu=0$, $H_1:\mu\neq0$ feladatra.
+    \end{proposition}
+    \begin{displaymath}
+      \partial\ell (0)=\frac{n}{\sigma^2}\bar{X},
+      \quad
+      \event*{\abs{\partial\ell (0)}>c}
+      =\event*{\abs{\sqrt{n}\tfrac{\bar{X}}{\sigma}}>u_{\alpha/2}}
+    \end{displaymath}
+  \end{frame}
+  
+  \begin{frame}{$H_1:\mu\neq0$-ra, az $u$-próba egyenletesen
+      legerősebb torzítatlan próba III.}
+    \begin{lemma}
+      %\begin{itemize}
+      %\item
+      $\mu_1<\mu_0=0<\mu_2$,
+      %$f_i=f_{\mu_i}$ a
+      %sűrűségfüggvények,
+      $p\in (0,1)$.
+        % \item
+        $H_0:f=f_{\mu_0}$, $H_1^*: f=pf_{\mu_1}+ (1-p)f_{\mu_2}$.
+        % \item Belátjuk, hogy
+  
+        Ekkor $\forall\,\mu_1<0<\mu_2$-re létezik
+        $p=p (\mu_1,\mu_2)$ úgy, hogy $H^*$-hoz tartozó $\alpha$ terjedelmű
+        legerősebb próba $\phi=\I{\abs*{\partial\ell (0)}>c}$
+        alakú és
+        \begin{displaymath}
+          \exists \lim_{\mu_2\to0}\frac{p (\mu_1,\mu_2)}{\mu_2}\in (0,\infty),\
+          quad 
+          \lim_{\mu_1\to0}\frac{1-p (\mu_1,\mu_2)}{\mu_1}\in (0,\infty).
+        \end{displaymath}
+      %\end{itemize}
+    \end{lemma}
+    \begin{itemize}
+    \item Ezt felhasználva, ha $\bar{\phi}\in\Phi$, akkor
+      \begin{displaymath}
+        \lim_{\mu_2\to0}\frac{1}{\mu_2}\zjel{\E[\mu_2]{\bar{\phi}}-\E[0]{\bar{\phi}}}
+        =\E[0]{\bar{\phi}\partial\ell (0)}=0,
+        \quad
+        \lim_{\mu_2\to0}\frac{1}{\mu_2}\zjel{\E[\mu_2]{\phi}-\E[0]{\phi}}
+        =\E[0]{\phi\partial\ell (0)}=0
+      \end{displaymath}
+      és
+      \begin{displaymath}
+        \frac{1}{p}\E[\mu_2]{\bar{\phi}-\phi}\to0,\quad\text{ha $\mu_2\to0$
+        és $\E[0]{\bar{\phi}}= \E[0]{\phi}$}
+      \end{displaymath}
+      mivel $\phi$ legerősebb próba $H^*$-ra
+      \begin{displaymath}
+        p\E[\mu_1]{\bar{\phi}}+ (1-p)\E[\mu_2]{\bar{\phi}}\leq
+        p\E[\mu_1]{\phi}+ (1-p)\E[\mu_2]{\phi},
+        \quad\implies
+        \E[\mu_1]{\phi-\bar{\phi}}\geq \frac{1-p}{p}\E[\mu_2]{\bar{\phi}-\phi}\to0
+      \end{displaymath}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Lemma bizonyítása}
+    \begin{itemize}
+    \item $H_0:f=f_0$, $H_1^*:f=pf_1+ (1-p)f_2$. Itt
+      \begin{displaymath}
+        f_i (x) = f_{\mu_i} (x)= h (x)e^{\mu_i\cdot T(x) - b (\mu_i)} 
+        %,\quad pf_1 (x)+ (1-p)f_2 (x)=p h (x)e^{\mu_1\tT (x)+b (\mu_1)}+ (1-p)h (x)e^{\mu_2\tT (x)+b (\mu_2)}
+      \end{displaymath}
+      ahol $\mu_1<\mu_0=0<\mu_2$ és $b (0)=b' (0)=0$, azaz $\partial\ell (0)=T$.
+    \item A likelihood hányados 
+      \begin{displaymath}
+        \frac{pf_1+ (1-p)f_2}{f_0} (x) 
+        =p e^{\mu_1 t+b (\mu_1)}+(1-p)e^{\mu_2 t+b (\mu_2)}|_{t=T (x)}=g (T (x))
+      \end{displaymath}
+      Ez a $t$-nek konvex függvénye, $\lim_{t\to\pm\infty} =\infty$
+    \item A kritikus tartomány $\event*{\abs*{T}>c}$ alakú, ha
+      \begin{displaymath}
+        g (c)=g (-c),\quad\text{azaz}\quad
+        p\zjel{e^{\mu_1 c}-e^{-\mu_1c}}e^{b (\mu_1)}
+        = (1-p)\zjel{e^{-\mu_2 c}-e^{\mu_2c}}e^{b (\mu_2)}
+      \end{displaymath}
+      Ennek megoldása $p$-re $p (\mu_1,\mu_2)$.
+    \item Ha $\mu_2$-vel osztunk és $\mu_2\to0$, akkor
+      \begin{displaymath}
+        \lim_{\mu_2\searrow0}\frac{p (\mu_1,\mu_2)}{\mu_2} \sinh
+        (\mu_1c)e^{-\mu_1 c}= -c e^{b (\mu_2)}\cosh (\mu_2c)
+      \end{displaymath}
+    \end{itemize}
+    
+  \end{frame}
+\end{document}
+
