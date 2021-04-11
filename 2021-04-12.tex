@@ -1,4 +1,4 @@
-\def\option{}
+%\def\option{}
 \providecommand{\option}{handout}
 \documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
 
@@ -95,10 +95,12 @@ Passcode: 286612
       \textbf{Másodfajú hiba}. A nullhipotézis nem igaz, de mégis elfogadjuk
       (téves elfogadás)
     
-    \item A bevezető példában: elsőfajú hibát követünk el, ha a gép beállítása még nem időszerű, 
+    \item A bevezető példában: 
+    
+    $H_0: \theta\leq0.05$, azaz elsőfajú hibát követünk el, ha a gép beállítása még nem időszerű
     de a mintában a selejt arány a kritikus érték felett van.
 
-    Másodfajú hibát követünk el, ha a selejt arány a mintában kicsi, pedig a gép beállítása időszerű.
+    $H_1: \theta>0.05$, azaz másodfajú hibát követünk el, ha a selejt arány a mintában kicsi, pedig a gép beállítása időszerű.
 
     \item \textbf{Fix mintaelemszám esetén az egyik fajta hiba valószínűségét
       csak a másik növelése árán lehet csökkenteni.}
@@ -107,23 +109,23 @@ Passcode: 286612
       nem nagyobb, mint 5\%) és ezen feltétel mellett a másodfajú hiba valószínűsége
       legyen minél kisebb.
 
-    \item Jelentés. A nullhipotézist, ha lehet elfogadjuk. Csak akkor
+    \item Jelentés: A nullhipotézist, ha lehet elfogadjuk. Csak akkor
       utasítjuk el, ha az adatok ennek ,,ellentmondanak''.
   
       $H_0$ elfogadása csak annyit jelent, hogy az adatok alapján lehetséges
       hogy  $H_0$ igaz.
   
       $H_0$ elutasítása az \textbf{informatív döntés}, ez ugyanis annyit jelent,
-      hogy a megfigyelések $H_0$ ellen szólnak, az valószínűleg nem igaz.
+      hogy a megfigyelések $H_0$ ellen szólnak. %, az valószínűleg nem igaz.
     \end{itemize}
   
-
+    \continue
     Példák.
     \begin{itemize}
-    \item Gyógyszerkutatásban: $H_0$ az új hatóanyag hatástalan, $H_1$
+    \item Gyógyszerkutatásban: $H_0:$ az új hatóanyag hatástalan, $H_1:$
       az új hatóanyag hatásos. 
-    \item Növénynemesítés. $H_0$ az új változat termésátlaga nem nagyobb
-      mint a most használt fajtáké. $H_1$ az új változat termésátlaga nagyobb.
+    \item Növénynemesítés. $H_0:$ az új változat termésátlaga nem nagyobb
+      mint a most használt fajtáké. $H_1:$ az új változat termésátlaga nagyobb.
     \end{itemize}
     
   \end{frame}
@@ -262,7 +264,7 @@ Passcode: 286612
         \E[1]{\phi'}\leq \E[1]{\phi}
       \end{displaymath}
     \end{lemma}
-  
+    \continue
     \begin{displaymath}
       \E[1]{\phi-\phi'}=\int_{\mfX}
       (\phi-\phi')f_1d\lambda\geq
@@ -349,7 +351,7 @@ Passcode: 286612
       \end{displaymath}
       ahol $c$ és $p$ értékét a $\E[0]{\phi(X)}=\alpha$ összefüggés határozza meg.
 
-      Vegyük észre, hogy  a döntési függvény nem függ $\theta_1$ konkrét értékétől, 
+      \item Vegyük észre, hogy  a döntési függvény nem függ $\theta_1$ konkrét értékétől, 
       csak a $\theta_1>\theta_0$ összefüggést használtuk. A kapott próba egyenletesen 
       legerősebb a $H_1: \theta>\theta_0$ ellenhipotézissel szemben is.
     \end{itemize}    
@@ -378,7 +380,7 @@ Passcode: 286612
       % \end{displaymath}
       %$a=-(\theta_0-\theta_1)>0$, $b=\sqrt{\frac{\theta_0(1-\theta_0)}{\theta_1(1-\theta_1)}}\Phi^{-1}(1-\alpha)>0$.
       \item Emlékeztető
-      \begin{proposition}[Hoeffding egyenlőtlenség]
+      \begin{proposition}<.->[Hoeffding egyenlőtlenség]
         $Z_1,\dots,Z_n$ független változók, $0\leq Z_i\leq 1$, $\eps>0$. 
         Ekkor $\P{\sum Z_i> \sum \E{Z_i}+n\eps}\leq e^{-2n\eps^2}$
       \end{proposition}
@@ -402,20 +404,21 @@ Passcode: 286612
     \item %Jelölés
       \begin{displaymath}
         \xi_i=-\log  \frac{f_1(X_i)}{f_0 (X_i)},\quad\text{ekkor}\quad
-        \E[0]{\xi_i}=\int \log\frac{f_0}{f_1}f_0d\lambda= D(\P[0]\|\P[1])>0            
+        \E[0]{\xi_i}=\int -\log\frac{f_1}{f_0}f_0d\lambda= D(\P[0]\|\P[1]).
       \end{displaymath}
+      Belátható, hogy ha $f_1\neq f_0$, akkor $0<\E[0]{\xi_i}$.
       Tegyük fel, hogy $\E[0]{\xi_i}<\infty$ és $\sigma^2=\D[0]^2{\xi}<\infty$.
     \item A likelihood hányados próba $\sum_i\xi_i$-vel is felírható.
       \begin{displaymath}
         T_n=\prod_{i=1}^n\frac{f_1 (X_i)}{f_0 (X_i)}>c_n\quad\iff\quad
         \sum\frac{\xi_i- D(\P[0]\|\P[1])}{\sqrt{n}\sigma}<t_n,\quad
-        c_n=\exp{-n D(\P[0]\|\P[1])-\sqrt{n}\sigma t_n}
+        c_n=\exp{-n D(\P[0]\|\P[1])-\sqrt{n}\sigma t_n}.
       \end{displaymath}
     \item Terjedelem $\alpha$. A CHT alapján
       \begin{displaymath}
         \sum_{i=1}^n\frac{\xi_i-D(\P[0]\|\P[1])}{\sqrt{n}\sigma}\dto N (0,1)
         \quad\text{ha $H_0$ igaz, és}\quad 
-        \P[0]{\sum_{i=1}^n\frac{\xi_i-D(\P[0]\|\P[1])}{\sqrt{n}\sigma}<t_n}\to\alpha
+        \P[0]{\sum_{i=1}^n\frac{\xi_i-D(\P[0]\|\P[1])}{\sqrt{n}\sigma}<t_n}\to\alpha.
         %\implies\quad
         %t_n\to\Phi^{-1} (\alpha)
       \end{displaymath}
@@ -427,21 +430,43 @@ Passcode: 286612
         \text{akkor}\quad\alpha (\hat\phi_n)\to\alpha
       \end{displaymath}      
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Kullback-Leibler divergencia}
+  \begin{df}
+    $\P[0]$, $\P[1]$ valószínűségi mértékek az $(\Omega,\B)$ mérhető téren. 
+    \begin{displaymath}
+      D(\P[0]\|\P[1]) = \begin{cases}
+        \E[0]{-\log\frac{d\P[1]}{d\P[0]}}& \text{ha $\P[1]\ll\P[0]$}\\
+        \infty&\text{különben}
+      \end{cases}
+    \end{displaymath}
+  \end{df}
+  \begin{itemize}
+    \item $D(\P[0]\|\P[1])=\int -\log\frac{f_1}{f_0} f_0$, ha $f_1,f_0$ a két sűrűségfüggvény.
+    Ez a formula nem függ a domináló mérték választásától.
+    \item $-\log$ konvex, ezért $\int-\log\zfrac*{f_1}{f_0} f_0\geq -\log\zjel*{\int f_1}=0$.
+    \item $-\log$ szigorúan konvex, így egyenlőség csak akkor lehet, ha $-\log \zfrac*{f_1}{f_0}=0$ $\P[0]$ mm., vagyis 
+    $f_1=f_0$.
+  \end{itemize}    
   \end{frame}
 
   \begin{frame}{Két apróság}
     \begin{proposition}
       $\Phi$ $N (0,1)$ eloszlásfüggvénye, $(F_n)$ eloszlásfüggvények
       sorozata és  $F_n (t)\to \Phi (t)$ minden $t$-re.  Ekkor
-      \begin{enumerate}
+      \begin{enumerate}[<*>]
       \item $\sup\abs*{F_n-\Phi}\to0$ 
       \item $F_n (t_n)\to \Phi (t)$ pontosan akkor ha $t_n\to t$.
       \end{enumerate}
     \end{proposition}
     \begin{itemize}
     \item (1)-et láttuk a  Glivenko--Cantelli
-      tétel kapcsán. $F_n,\Phi$ monoton, ha $t_i=\Phi^{-1}(\frac in)$, $i=1,\dots,n-1$, akkor
-      $F_n(t_i)\to\Phi(t_i)=\frac in$ és tetszőleges $t$-re $\limsup \abs{F_n(t)-\Phi(t)}\leq 2\eps$.
+      tétel kapcsán. $F_n,\Phi$ monoton, ha $t_i=\Phi^{-1}(\frac ir)$, $i=1,\dots,r-1$, akkor
+      $F_n(t_i)\to\Phi(t_i)=\frac ir$ és %tetszőleges $t$-re 
+      $\limsup_{n\to\infty}\sup \abs{F_n-\Phi}
+      \leq\lim_{n\to\infty}\max_i \abs{F_n(t_i)-\Phi(t_i)}+\frac1r
+      \leq \frac{1}{r}$.
     \item (2) Ha $t_n\to t$ ($t=\pm\infty$ is lehet)
       \begin{displaymath}
         \abs*{F_n (t_n)-\Phi (t)}\leq \abs*{F_n (t_n)-\Phi (t_n)}+\abs*{\Phi(t_n)-\Phi (t)}
@@ -455,6 +480,7 @@ Passcode: 286612
       \end{displaymath}
       azaz $F_n (t_n)\not\to\Phi (t)$.
     \end{itemize}
+    \continue
     Következmény. Ha $t_n=\sup\set{t}{F_n (t)<\alpha}$, akkor $t_n\to\Phi^{-1} (\alpha)$.
   \end{frame}
 
@@ -537,7 +563,7 @@ Passcode: 286612
       folytonos eloszlású $H_0$ és $H_1$ mellett.
   
       Ekkor
-      \begin{itemize}
+      \begin{itemize}[<*>]
       \item Minden $\alpha\in(0,1)$-re létezik $c_\alpha$ úgy,
         hogy $\phi=\I{T>c_\alpha}$ terjedelme $\alpha$. (Azaz $\P[0]{T>c_\alpha}=\alpha$)
       \item $\phi=\I{T>c_\alpha}$ a legerősebb $\alpha$ terjedelmű próba.
@@ -583,12 +609,12 @@ Passcode: 286612
   \begin{frame}{Egyoldali ellenhipotézis mellett, az $u$-próba
       egyenletesen legerősebb II.}
     \begin{itemize}
-    \item Egyszerű hipotézis vizsgálati feladat ($0<\mu_1$), $H_0:\mu=0$,
+    \item<*> Egyszerű hipotézis vizsgálati feladat ($0<\mu_1$), $H_0:\mu=0$,
       $H_1:\mu=\mu_1$.
-    \item $\alpha$ terjedelmű likelihood hányados próba
+    \item<*> $\alpha$ terjedelmű likelihood hányados próba
       \begin{displaymath}
         \mfX_1=\event{T>c}
-        \quad\text{alakú,ahol}\quad
+        \quad\text{alakú, ahol}\quad
         T=\frac{1}{\sigma^2}\sum_i X_i,\quad \P[0]{T>c}=\alpha
       \end{displaymath}
       
@@ -598,7 +624,7 @@ Passcode: 286612
       ellenhipotézisre is.
   
       Ugyanis, ha a $\phi$ próbafüggvénnyel megadott próba terjedelme
-      $\alpha$ és valamely $\mu_1>0$ pontban az ereje nem nagyobb, mint a
+      $\alpha$ és valamely $\mu_1>0$ pontban az ereje nem kisebb, mint a
       fenti próba ereje, akkor a Neyman--Pearson lemma miatt $\phi$ is
       likelihood hányados próba, vagyis azonos a 
       fenti próbával.
@@ -612,7 +638,7 @@ Passcode: 286612
     \end{itemize}
   \end{frame}
   
-  \begin{frame}{$H_1:\mu\neq0$-ra nincs egyenletesen legerősebb próba}
+  \begin{frame}[<*>]{$H_1:\mu\neq0$-ra nincs egyenletesen legerősebb próba}
   
     \begin{itemize}
     \item $H_0:\mu=0$, $H_1^*:\mu=\mu_1$ feladatra, a likelihood hányados
@@ -632,7 +658,7 @@ Passcode: 286612
   \end{frame}
   
   \begin{frame}{$H_1:\mu\neq0$-ra, az $u$-próba egyenletesen
-      legerősebb torzítatlan próba I.}
+      legerősebb \textbf{torzítatlan} próba I.}
     \begin{itemize}
     \item Emlékeztető. A $\phi$ próba  \textbf{torzítatlan}, ha
       \begin{displaymath}
@@ -663,7 +689,7 @@ Passcode: 286612
   
   \begin{frame}{$H_1:\mu\neq0$-ra, az $u$-próba egyenletesen
       legerősebb torzítatlan próba II.}
-    \begin{itemize}
+    \begin{itemize}[<*>]
     \item $\Theta$ konvex, nyílt és (R) teljesül,
       $\Theta_0=\smallset{\theta_0}$, $\phi$ torzítatlan.
       % , pl. $\P[\theta]=N (\mu,\sigma^2)$, $\mu\in\real=\Theta$.
@@ -691,6 +717,7 @@ Passcode: 286612
       Ekkor $\phi$ az egyenletesen legerősebb próba $\Phi$-ben a
       $H_0:\mu=0$, $H_1:\mu\neq0$ feladatra.
     \end{proposition}
+    \continue
     \begin{displaymath}
       \partial\ell (0)=\frac{n}{\sigma^2}\bar{X},
       \quad
@@ -718,7 +745,7 @@ Passcode: 286612
         alakú és
         \begin{displaymath}
           \exists \lim_{\mu_2\to0}\frac{p (\mu_1,\mu_2)}{\mu_2}\in (0,\infty),\
-          quad 
+          \quad 
           \lim_{\mu_1\to0}\frac{1-p (\mu_1,\mu_2)}{\mu_1}\in (0,\infty).
         \end{displaymath}
       %\end{itemize}
@@ -751,30 +778,34 @@ Passcode: 286612
     \begin{itemize}
     \item $H_0:f=f_0$, $H_1^*:f=pf_1+ (1-p)f_2$. Itt
       \begin{displaymath}
-        f_i (x) = f_{\mu_i} (x)= h (x)e^{\mu_i\cdot T(x) - b (\mu_i)} 
+        f_i (x) = f_{\mu_i} (x)= h (x)e^{\mu_i\cdot T(x) - b (\mu_i)},
+        \quad 
+        T(x)=\frac{1}{\sigma^2}\sum x_i,
+        \quad
+        b(\mu)=\frac{n\mu^2}{2\sigma^2},
         %,\quad pf_1 (x)+ (1-p)f_2 (x)=p h (x)e^{\mu_1\tT (x)+b (\mu_1)}+ (1-p)h (x)e^{\mu_2\tT (x)+b (\mu_2)}
       \end{displaymath}
       ahol $\mu_1<\mu_0=0<\mu_2$ és $b (0)=b' (0)=0$, azaz $\partial\ell (0)=T$.
     \item A likelihood hányados 
       \begin{displaymath}
         \frac{pf_1+ (1-p)f_2}{f_0} (x) 
-        =p e^{\mu_1 t+b (\mu_1)}+(1-p)e^{\mu_2 t+b (\mu_2)}|_{t=T (x)}=g (T (x))
+        =p e^{\mu_1 t-b (\mu_1)}+(1-p)e^{\mu_2 t-b (\mu_2)}|_{t=T (x)}=g (T (x))
       \end{displaymath}
       Ez a $t$-nek konvex függvénye, $\lim_{t\to\pm\infty} =\infty$
     \item A kritikus tartomány $\event*{\abs*{T}>c}$ alakú, ha
       \begin{displaymath}
         g (c)=g (-c),\quad\text{azaz}\quad
-        p\zjel{e^{\mu_1 c}-e^{-\mu_1c}}e^{b (\mu_1)}
-        = (1-p)\zjel{e^{-\mu_2 c}-e^{\mu_2c}}e^{b (\mu_2)}
+        p\zjel{e^{\mu_1 c}-e^{-\mu_1c}}e^{-b (\mu_1)}
+        = (1-p)\zjel{e^{-\mu_2 c}-e^{\mu_2c}}e^{-b (\mu_2)}
       \end{displaymath}
       Ennek megoldása $p$-re $p (\mu_1,\mu_2)$.
     \item Ha $\mu_2$-vel osztunk és $\mu_2\to0$, akkor
       \begin{displaymath}
-        \lim_{\mu_2\searrow0}\frac{p (\mu_1,\mu_2)}{\mu_2} \sinh
-        (\mu_1c)e^{-\mu_1 c}= -c e^{b (\mu_2)}\cosh (\mu_2c)
+        \lim_{\mu_2\searrow0}\frac{p (\mu_1,\mu_2)}{\mu_2} \sinh(\mu_1c)e^{-b(\mu_1)}
+        = \lim_{\mu_2\searrow0} (1-p(\mu_1,\mu_2)) e^{-b (\mu_2)} c\frac{\sinh (\mu_2c)}{\mu_2 c}
+        = c
       \end{displaymath}
     \end{itemize}
-    
   \end{frame}
 \end{document}
 
