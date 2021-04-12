@@ -260,7 +260,7 @@ Passcode: 286612
       \end{displaymath}
       akkor tetszőleges $\phi'$ próbafüggvényre
       \begin{displaymath}
-        \E[0]{\phi'}\leq \E[_0]{\phi}\quad\implies\quad
+        \E[0]{\phi'}\leq \E[0]{\phi}\quad\implies\quad
         \E[1]{\phi'}\leq \E[1]{\phi}
       \end{displaymath}
     \end{lemma}
@@ -390,7 +390,7 @@ Passcode: 286612
         =\P[1]{\sum_{i=1}^n X_i<c_n}
         %=\P[1]{\sum_{i=1}^n (1-X_i)>n-c_n}
         \leq \exp{-2n\zfrac*{n\theta_1-c_n}{n}^2}
-        \leq e^{-2n(\theta_1-\theta_0)+a\sqrt{n}+b}
+        \leq e^{-2n(\theta_1-\theta_0)^2+a\sqrt{n}+b}
       \end{displaymath}
       Azaz az erő geometriai sebességgel tart egyhez, 
       ha minta elemszám végtelenhez tart.
@@ -515,7 +515,8 @@ Passcode: 286612
       Az erő geometria sebességgel tart $1$-hez, ha $n\to\infty$.
     \end{itemize}
   \end{frame}
-  
+\end{document}
+
   \begin{frame}{Klasszikus próbák. $u$-próba}
     \begin{itemize}
     \item $X_1,\dots,X_n$ minta $N (\mu,\sigma^2)$ eloszlásból, $\sigma$
