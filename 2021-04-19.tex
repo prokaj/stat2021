@@ -1,0 +1,679 @@
+\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}[<*>]{Többdimenziós normális eloszlás, emlékeztető}
+  \begin{itemize}
+  \item $X$ egy dimenziós normális változó, ha $X\eqinlaw \sigma
+    Z+\mu$, ahol $Z\sim N (0,1)$ és $\sigma\geq0$, $\mu\in\real$.
+  \item Elfajult eloszlás ($\sigma=0$) is normális.
+  \item Karakterisztikus függvény
+    \begin{displaymath}
+      \phi_{Z} (t)= \E{e^{itZ}}=e^{-\frac12 t^2},\quad
+      \phi_{\sigma Z+\mu} (t)=
+      \E{e^{it (\sigma Z+\mu)}}=
+      e^{it\mu}\phi_{Z} (t\sigma)=e^{it\mu-\frac12t^2\sigma^2}.
+    \end{displaymath}
+  % \item $X$ $d$-dimenziós vektorváltozó karakterisztikus függvénye
+  %   \begin{displaymath}\textstyle
+  %     \phi_X:\real^d\to\C,\quad\phi_X (t)=\E{\exp{i\sum_j t_j
+  %         X_j}}=\E{e^{i t\cdot X}}
+  %   \end{displaymath}
+  %   Vektorváltozóra is van inverziós formula, azaz $X$
+  %   karakterisztikus függvénye  $X$ eloszlását meghatározza.
+  % \item Következmény. $X$ eloszlását a lineáris kombinációk $\sum_j
+  %   a_jX_j$ ($a\in\real^d$) eloszlásai meghatározzák.
+    
+  \item $X$ $d$--dimenziós normális vektorváltozó, ha minden
+    $a\in\real^d$-re $\sum_j a_jX_j$ egy dimenziós normális.
+  \item Ha $Z_1,\dots,Z_d$ független standard normálisok, akkor $Z=
+  (Z_1,\dots,Z_d)$. Ekkor $Z$ $d$--dimenziós  standard normális vektorváltozó.
+  \item $X$ $d$--dimenziós normális $\mu$ várható érték 
+  vektorral és $\Sigma$ kovariancia mátrixszal. Ekkor $X\eqinlaw AZ+\mu$, 
+  ahol $Z$ $d$-dimenziós standard normális és $AA^T=\Sigma$.
+  \end{itemize}
+\end{frame}
+
+% \begin{frame}{Többdimenziós normális eloszlás II.}
+
+%   \begin{itemize}
+%   \item Példa. Ha $Z_1,\dots,Z_d$ független standard normálisok, akkor $Z=
+%     (Z_1,\dots,Z_d)$. Ekkor $Z$ normális vektorváltozó.
+%     \begin{displaymath}
+%       \phi_Z (t)=\E{e^{it\cdot Z}}=\E{\prod e^{i t_jZ_j}}=\prod
+%       e^{-\frac12 t_j^2}=e^{-\frac12\norm*{t}^2}
+%     \end{displaymath}
+%     Ha $a\in\real^d$, akkor
+%     \begin{displaymath}
+%       \phi_{a\cdot Z} (t)=\E{e^{it a\cdot Z}}=\phi_{Z} (ta)=e^{-\frac12t^2\norm*{a}^2}
+%     \end{displaymath}
+%     Azaz $Z$ $d$ dimenziós normális.
+%     $Z$-t \textbf{$d$--dimenziós standard normális} változónak
+%     hívjuk.
+%   \item
+%     Ha $Z$ $d$ dimenziós standard normális változó és
+%     $A\in\real^{k\times d}$, $m\in\real^k$, akkor $X=AZ+m$ $k$-dimenziós
+%     normális, hiszen $a\in\real^k$-ra
+%     \begin{displaymath}
+%       a\cdot X= (A^Ta)\cdot Z+a\cdot m\quad\text{egy dimenziós normális}
+%     \end{displaymath}    
+%   \item $Z$ $d$-dimenziós normális $X=AZ+m$ várható érték vektora $m$,
+%     kovariancia mátrixa $AA^T$.
+%   \item Tetszőleges pozitív szemidefinit $\Sigma$  mátrix
+%     faktorizálható $AA^T$ alakban, sőt $A$ alsó háromszög mátrixnak is
+%     választható  (Cholesky  felbontás).
+%   \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Többdimenziós normális eloszlás III.}
+%   \begin{itemize}
+%     \item Ha $X= (X_1,\dots,X_d)$ $d$--dimenziós normális vektor, akkor
+%     minden $j$-re $X_j$ egy dimenziós normális, vagyis $X_j\in L^2$.
+%   \item Jelölje $m$, $\Sigma$ az $X$ várható érték vektorát, és
+%     kovariancia mátrixát. Ekkor $t\in\real^d$ esetén $Y=\sum_j
+%     t_jX_j\sim N (t\cdot m,t^T\Sigma t)$
+%     \begin{displaymath}
+%       %\E{Y}=\sum_j t_j m_j=t\cdot m,\quad D^2 (Y)=t^T\Sigma t,\quad
+%       \phi_X(t)=\E{e^{i t\cdot X}}=\phi_{t\cdot X} (1)=e^{i t\cdot m-\frac12t^T\Sigma t}.
+%     \end{displaymath}
+%   \item Többdimenziós normális eloszlást a várható érték vektor és a
+%     kovariancia mátrix meghatározza.
+
+%     Jelölés $N (\mu,\Sigma)$.
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}{Többdimenziós normális sűrűségfüggvény}
+  \begin{itemize}
+  \item $Z$ $d$--dimenziós standard normális.
+    \begin{displaymath}
+      f_Z (t)=\prod f_{Z_j} (t_j)=\prod \frac{1}{\sqrt{2\pi}}
+      \exp{-\frac12 t_j^2}= (2\pi)^{-n/2} \exp{-\frac12\norm*{t}^2}
+    \end{displaymath}
+  \item Ha $A$ invertálható, $m\in\real^d$, $X=AZ+m$, akkor
+    \begin{displaymath}
+      f_X (t)=f_Z (A^{-1} (t-m))\abs{\det A^{-1}}
+      =(2\pi)^{-n/2}\exp{-\frac12\norm*{A^{-1} (t-m)}^2}\abs{\det A^{-1}}
+    \end{displaymath}
+    $X\sim N (m,\Sigma=AA^T)$
+    \begin{displaymath}
+      f_X (t)=
+      \frac{1}{(2\pi)^{d/2}(\det\Sigma)^{1/2}}\exp{-\frac12 (t-m)^T\Sigma^{-1} (t-m)}
+    \end{displaymath}
+  \item Ha $U^T=U^{-1}$, vagyis $U$ ortonormált mátrix, akkor $UZ$ is
+    $d$-dimenziós standard normális.
+  \item Ha $\Sigma$ nem invertálható, azaz nem teljes rangú, akkor az
+    eloszlás nem abszolút folytonos a $d$--dimenziós Lebesgue mértékre
+    nézve.
+
+    Ha $a\perp \im\Sigma$, akkor $\D^2{a^TX}=a^T\Sigma a=0$ és
+    $a^TX=a^Tm$ egy valószínűséggel.
+
+    Megmutatható, hogy $\P{X\in\im\Sigma+m}=1$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Többdimenziós normális, függetlenség és korrelálatlanság}
+  \begin{proposition}
+    $X=(X_1,X_2)^T$ normális vektor változó $X_1$ $d_1$, $X_2$ $d_2$
+    dimenziós.
+
+    $\cov (X_1,X_2)=0$ pontosan akkor, ha $X_1\independent X_2$.
+  \end{proposition}
+  \begin{itemize}
+  \item Ha $X_1\independent X_2$, akkor $\cov (X_1,X_2)=0$. Elég a
+    másik iránnyal foglalkozni
+  \item $X$ kovariancia mátrixa $\Sigma$.
+    \begin{displaymath}
+      \Sigma=
+      \begin{pmatrix}
+        \Sigma_{11}&0\\0&\Sigma_{22}
+      \end{pmatrix},
+      \quad \Sigma_{11}=A_1A_1^T,\quad \Sigma_{22}=A_2A_2^T,\quad
+      A=
+      \begin{pmatrix}
+        A_{1}&0\\0&A_{2}
+      \end{pmatrix},
+      \quad
+      \Sigma=AA^T
+    \end{displaymath}
+   
+  \item Ha $Z=(Z_1,Z_2)^T$ standard normális, akkor
+    \begin{displaymath}
+      X\eqinlaw AZ+\mu=\
+      \begin{pmatrix}
+        A_1Z_1+\mu_1\\
+        A_2Z_2+\mu_2
+      \end{pmatrix}
+    \end{displaymath}
+  \item $A_1Z_1+\mu_1\independent A_2Z_2+\mu_2$ azaz $X_1\independent X_2$.
+  \end{itemize}
+  \continue
+  Ha $X=(X_1,\dots,X_r)$ normális vektor változó, $X_i$ 
+  $d_i$ dimenziós és a keresztkovarianciák eltűnnek, akkor 
+  $X_1,\dots,X_r$ független vektorváltozók.
+\end{frame}
+
+% \begin{frame}{Példa}
+%   \begin{itemize}
+%   \item $Z$ standard normális, $\xi\independent Z$ és
+%     $\P{\xi=\pm1}=\frac12$.
+%   \item $Z_1=Z$, $Z_2=\xi Z$. $Z_1$, $Z_2$ korrelálatlan standard
+%     normálisok, de $Z_1$, $Z_2$ nem független. (HF.)
+%   \item $\cov (X_1,X_2)=0\iff X_1\independent X_2$ állításban
+%     $X=(X_1,X_2)^T$ normalitása fontos. $X_1$ normális, $X_2$ normális
+%     nem elég.
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}{Következmények}
+  \begin{proposition}
+    $X=(X_1,X_2)^T$ normális vektor változó $X_1$ $d_1$, $X_2$ $d_2$
+    dimenziós. $\cov (X_1,X_2)=0$ pontosan akkor, ha $X_1\independent X_2$.
+  \end{proposition}
+  Következmények:
+  \begin{itemize}
+  \item $X\sim N(\mu,\Sigma)$, ekkor $AX+a\independent BX+b$ pontosan
+    akkor ha $A\Sigma B^T=0$.
+  \item $X= (X_1,X_2)^T$, $X\sim N (\mu,\Sigma)$,
+    ekkor $X_1-\Sigma_{12}\Sigma_{22}^{-1}X_2\independent X_2$, hiszen
+    \begin{displaymath}
+      \cov (X_1 -\Sigma_{12}\Sigma_{22}^{-1}X_2,X_2)=0
+    \end{displaymath}
+  \item
+    \begin{displaymath}
+      \P{X_1\in H|X_2}=
+      \left.\P{X_1-\Sigma_{12}\Sigma_{22}^{-1}X_2+y\in H}\right|_{y=\Sigma_{12}\Sigma_{22}^{-1}X_2}
+    \end{displaymath}
+    Azaz $X_1$ feltételes eloszlása $X_2$ feltétel mellett normális,
+    $N (\mu_{1|2},\Sigma_{11|2})$, ahol
+    \begin{align*}
+      \mu_{1|2}&=\E{X_1-\Sigma_{12}\Sigma_{22}^{-1}X_2}+\Sigma_{12}\Sigma_{22}^{-1}X_2=
+      \mu_1+\Sigma_{12}\Sigma_{22}^{-1}(X_2-\mu_2)
+      \\
+      \Sigma_{11|2}&=\cov (X_1-\Sigma_{12}\Sigma_{22}^{-1}X_2,X_1-\Sigma_{12}\Sigma_{22}^{-1}X_2)=\Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\chi^2$ eloszlás, vetületek eloszlása}
+  \begin{df}
+    $Z$ $n$-dimenziós standard normális. $\norm{Z}^2=\sum_jZ_j^2$
+    eloszlását $n$ szabadságfokú khi-négyzet eloszlásnak
+    nevezzük. Jelölés $\chi^2_n$.
+  \end{df}
+   $\chi^2_n=\Gamma_{\frac n2,\frac12}$.
+   \begin{proposition}
+     $Z$ $n$-dimenziós standard normális,
+     $\real^n=\cL_1\oplus\cdots\oplus\cL_r$, $\cL_i$-k merőleges
+     alterek, $P_i$ a merőleges vetítés $\cL_i$-re.
+
+     Ekkor $X^{(i)}=P_iZ\sim N (0,P_i)$, $X^{(1)},\dots,X^{(r)}$
+     függetlenek és $\norm*{X^{(i)}}^2\sim\chi^2_{\dim\cL_i}$
+   \end{proposition}
+   \continue
+   \begin{displaymath}
+     \cov (X^{(i)},X^{(j)})=P_i\cov (Z,Z)P_j^T=P_iP_j=P_i\delta_{i,j}
+   \end{displaymath}
+
+   Legyen $d=\dim\cL_i$ és $e_1,\dots,e_d$ ortonormált bázis
+   $\cL_i$-ben.
+
+   Ekkor $X^{(i)}=\sum_k (e_k\cdot Z)e_k$.
+
+   $(e_1\cdot Z,\dots,e_d\cdot Z)$  független $N (0,1)$-ek.
+
+   $\norm*{X^{(i)}}^2=\sum_k (e_k\cdot Z)^2\sim\chi^2_{d}$.
+  
+\end{frame}
+
+\begin{frame}{Fisher-Bartlett tétel} 
+  \begin{theorem}
+    $X_1,\dots,X_n$ független $N (\mu,\sigma^2)$ változók.
+    \begin{displaymath}
+      \bar{X}=\frac1n\sum_i X_i,\quad {s^*_n}^2=\frac1{n-1}\sum_i (X_i-\bar{X})^2
+    \end{displaymath}
+    $\bar{X}$ a mintaátlag, ${s^*_n}^2$ a korrigált tapasztalati
+    szórásnégyzet.
+
+    Ekkor $\bar{X}\sim N (\mu,\frac{\sigma^2}n)$, $
+    {s^*_n}^2\sim\frac{\sigma^2}{n-1}\chi^2_{n-1}$ és
+    $\bar{X}\independent {s^*_n}^2$.
+  \end{theorem}
+  \begin{itemize}
+  \item
+    Feltehető $\sigma>0$. $Z_i=\frac{X_i-\mu}{\sigma}$, $Z_i$-k
+    független $N (0,1)$-ek, $\bar{X}=\sigma\bar{Z}+\mu$,
+    ${s^*_n}^2 (X)=\sigma^2{s^*_n}^2 (Z)$
+
+    
+  \item Elég $\mu=0$, $\sigma^2=1$-re ellenőrizni.
+  
+    
+  \item Legyen $e= \frac1{\sqrt n}(1,\dots,1)$, $\cL_1=\real e$,
+    $\cL_2=\cL_1^\perp$, $P_1,P_2$ a projekciók.
+  \item $P_1Z$ és $P_2Z$ függetlenek.
+  \item $P_1Z= (e\cdot Z) e = (\bar{Z},\dots,\bar{Z})^T$.
+  \item $\norm*{P_2Z}^2=\sum_j (Z_j-\bar{Z})^2= (n-1){s^*_n}^2 (Z)\sim\chi^2_{n-1}$
+  \end{itemize}
+  \continue
+  A függetlenség Basu tételével is megkapható. HF. Hogyan? 
+\end{frame} 
+
+\begin{frame}{Fisher-Bartlett tétel megfordítása I.} 
+  \begin{theorem}
+    $n\geq 2$, $X_1,\dots,X_n$ független, azonos eloszlásúak.
+
+    Ha $\xi=\sum_kX_k$ és $\eta={s^*_n}^2 (X)=\frac1{n-1}\sum_k (X_k-\bar{X})^2$
+    független, akkor az $X_i$-k normális eloszlásúak.
+  \end{theorem}
+  \begin{itemize}
+  \item Feltesszük, hogy az $X$-ek szórásnégyzete $\sigma^2$ véges.
+  \item Feltehető, $\E{X_k}=0$, $\sigma^2=1$. Legyen  $\phi (t)=\E{e^{it X_1}}$.
+  \item Egyfelől $\E{\eta}=\E{(s_n^*)^2}=\sigma^2=1$ miatt
+    \begin{displaymath}
+      \E{\eta e^{it\xi}}=\E{\eta}\E{e^{it\xi}}=\phi^n (t)
+    \end{displaymath}
+     
+  \item Másfelől, ha $e= (1,\dots,1)^T$,
+    \begin{align*}
+      \eta&=\frac1{n-1}\norm*{X-\bar{X}e}^2=\frac1{n-1}\zjel{\norm*{X}^2-(\bar{X})^2\norm*{e}^2}\\
+          &=\frac1{n-1}\zjel{\sum_k X_k^2-\frac{1}n\sum_k
+            X_k^2-\frac{2}{n}\sum_{k<\ell} X_kX_\ell}=\frac1n\sum_kX_k^2-\frac{2}{n (n-1)}\sum_{k<\ell}X_kX_\ell
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fisher-Bartlett tétel megfordítása II.} 
+  \begin{theorem}
+    $n\geq 2$, $X_1,\dots,X_n$ független, azonos eloszlásúak.
+
+    Ha $\xi=\sum_kX_k$ és $\eta={s^*_n}^2 (X)=\frac1{n-1}\sum_k (X_k-\bar{X})^2$
+    független, akkor az $X_i$-k normális eloszlásúak.
+  \end{theorem}
+  \begin{itemize}
+  \item $\E{X_k}=0$, $\E{X_k^2}=1$, $\phi (t)=\E{e^{it X_1}}$.
+  \item Ekkor $k\neq\ell$ mellett
+    \begin{align*}
+      \E{X_ke^{it\xi}}&=\E{X_ke^{it X_k}}
+                        \E{e^{it\sum_{\ell\neq k}X_\ell}}
+                        = (-i)\phi'(t)\phi^{n-1}(t)\\
+      \E{X^2_ke^{it\xi}}&=\E{X^2_ke^{it X_k}}
+                          \E{e^{it\sum_{\ell\neq k}X_\ell}}=
+                          -\phi''(t)\phi^{n-1}(t)\\
+      \E{X_kX_\ell e^{it\xi}}&=\E{X_ke^{it X_k}}\E{X_\ell e^{itX_\ell}}\E{e^{it\sum_{r\neq
+                        k,\ell}X_r}}=- (\phi'(t))^2\phi^{n-2}(t)      
+    \end{align*}
+  \item Láttuk, hogy
+    \begin{displaymath}
+      \phi^n (t)=\E{\eta e^{it\xi}}
+      =\frac1n\sum_k\E{X_k^2e^{it\xi}}
+      -\frac2{n (n-1)}\sum_{k<\ell}\E{X_kX_\ell e^{it\xi}}
+      =-\phi'' (t)\phi^{n-1} (t)- (\phi' (t))^2\phi^{n-2} (t)
+    \end{displaymath}
+     
+  \item Átosztás után,
+    \begin{displaymath}
+      -1=\frac{\phi''}{\phi}+\zfrac*{\phi'}{\phi}^2=(\ln\phi)''
+      \quad\implies\quad \ln\phi (t)=-\tfrac12t^2
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$t$ eloszlás}
+
+  \begin{itemize}
+  \item $X_i=\sigma Z_i+\mu$, ($i=1,\dots,n$) $N (\mu,\sigma^2)$
+    eloszlású minta. $H_0:\mu=\mu_0$ esetén
+    \begin{displaymath}
+      T=\sqrt{n}\frac{\bar{X}-\mu_0}{s^*_n}=\sqrt{n}\frac{\sigma \bar{Z}}{\sigma\sqrt{\frac1{n-1}\sum_i (Z_i-\bar{Z})^2}}=\frac{\sqrt{n}\bar{Z}}{\sqrt{\frac1{n-1}\sum_i (Z_i-\bar{Z})^2}}
+    \end{displaymath}
+  \item A Fisher-Bartlett tétel alapján
+    \begin{displaymath}
+      \sum Z_i\independent\sum (Z_i-\bar{Z})^2\quad\text{és}\quad \sum
+      Z_i\sim N (0,n),\quad \sum (Z_i-\bar{Z})^2\sim \chi^2_{n-1}
+    \end{displaymath}
+  \item Azaz $H_0$ mellett
+    \begin{displaymath}
+      T=\sqrt{n}\frac{\bar{X}-\mu_0}{s^*_n}\eqinlaw\frac{Z_1}{\sqrt{\frac{1}{n-1}\sum_{i=2}^n Z_i^2}}
+    \end{displaymath}
+    Ezt hívják $t_{n-1}$ eloszlásnak ($n-1$ szabadságfokú $t$
+    eloszlás).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$t$ eloszlás}
+  \begin{df}
+    $Z_0,\dots,Z_n\sim N (0,1)$ függetlenek.
+    \begin{displaymath}
+      \frac{Z_0}{\sqrt{\frac1n\sum_{i=1}^n Z_i^2}}
+    \end{displaymath}
+    eloszlását $t_n$ eloszlásnak ($n$ szabadságfokú $t$ eloszlás) hívjuk.
+  \end{df}
+  \begin{itemize}
+  \item $t_1$ azonos a Cauchy eloszlással, ugyanis nem más, mint
+    \begin{displaymath}
+      \frac{Z_1}{\abs{Z_2}}=\frac{R\sin\phi}{R\abs{\cos\phi}}\eqinlaw
+      \frac{\sin\phi}{\cos\phi}=\tg\phi,\quad\text{ahol
+        $R^2=Z_1^2+Z_2^2\sim\exp (1/2)$ és $\phi=\arg (Z_2,Z_1)\sim U (0,2\pi)$}
+    \end{displaymath}
+  \item Általános $n$-re (sűrűségfüggvény transzformációs formulával)
+    a $t_n$ eloszlás sűrűségfüggvénye (HF.)
+    \begin{displaymath}
+      \frac{1}{\sqrt{\pi}}\frac{\Gamma\zfrac{n+1}2}{\Gamma\zfrac n2} \zjel{1+\tfrac{x^2}n}^{-\frac{n+1}2}
+    \end{displaymath}
+  \item $n\to\infty$ esetén $t_n\wto N (0,1)$, ugyanis a nevező 1-hez tart.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Klasszikus próbák. $u$-próba}
+  \begin{itemize}
+  \item $X_1,\dots,X_n$ minta $N (\mu,\sigma^2)$ eloszlásból, $\sigma$
+    ismert, $\mu$ ismeretlen.
+  \item Esetek:
+
+    $H_0:\mu=\mu_0$, $H_1:\mu<\mu_0$ egyoldali ellenhipotézis
+
+    $H_0:\mu=\mu_0$, $H_1:\mu>\mu_0$ egyoldali ellenhipotézis
+    
+    $H_0:\mu=\mu_0$, $H_1:\mu\neq\mu_0$ kétoldali ellenhipotézis
+ 
+  \item Próba statisztika:
+    \begin{displaymath}
+      T (X)=\sqrt{n}\frac{\bar{X}-\mu_0}{\sigma}
+    \end{displaymath}
+  \item $T$ eloszlása $H_0$ mellett $N (0,1)$
+  \item $u_\alpha=\Phi^{-1} (1-\alpha)$, azaz
+    $\P{Z>u_\alpha}=\alpha$, ha $Z\sim N (0,1)$
+  \item $\alpha$ terjedelmű próba. Kritikus tartomány:
+
+    $H_1:\mu<\mu_0$ esetén $T<-u_\alpha$
+
+    $H_1:\mu>\mu_0$ esetén $T>u_\alpha$
+
+    $H_1:\mu\neq \mu_0$ esetén $\abs*{T}>u_{\alpha/2}$
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klasszikus próbák. $t$-próba}
+  \begin{itemize}
+  \item $X_1,\dots,X_n$ minta $N (\mu,\sigma^2)$ eloszlásból, $\mu$, $\sigma$ ismeretlen.
+  \item Esetek:
+
+    $H_0:\mu=\mu_0$, $H_1:\mu<\mu_0$ egyoldali ellenhipotézis
+
+    $H_0:\mu=\mu_0$, $H_1:\mu>\mu_0$ egyoldali ellenhipotézis
+    
+    $H_0:\mu=\mu_0$, $H_1:\mu\neq\mu_0$ kétoldali ellenhipotézis
+ 
+  \item Próba statisztika:
+    \begin{displaymath}
+      T (X)=\sqrt{n}\frac{\bar{X}-\mu_0}{s_n^*},\quad\text{ahol}\quad
+      {s_n^*}^2=\frac{1}{n-1}\sum_{i} (X_i-\bar{X})^2\quad\text{a
+        korrigált tapasztalati szórásnégyzet}
+    \end{displaymath}
+  \item $T$ eloszlása $H_0$ mellett $t_{n-1}$ Student--féle $t$
+    eloszlás $n-1$ szabadságfokkal.
+  \item $t_\alpha$ kritikus érték, az $1-\alpha$ szinthez tartozó kvantilis, azaz
+    $\P{T<t_\alpha}=1-\alpha$, ha $T\sim t_{n-1}$
+  \item $\alpha$ terjedelmű próba. Kritikus tartomány:
+
+    $H_1:\mu<\mu_0$ esetén $T<-t_\alpha$
+
+    $H_1:\mu>\mu_0$ esetén $T>t_\alpha$
+
+    $H_1:\mu\neq \mu_0$ esetén $\abs*{T}>t_{\alpha/2}$
+
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Kétmintás $u$--próba}
+  \begin{itemize}
+  \item $X_1,\dots,X_n\sim N (\mu_1,\sigma_1^2)$, $Y_1,\dots, Y_m\sim N
+    (\mu_2,\sigma_2^2)$ független minták.
+  \item $\sigma_1,\sigma_2$
+    ismert, $\mu_1,\mu_2$ ismeretlen.
+  \item Esetek:
+
+    $H_0:\mu_1=\mu_2$, $H_1:\mu_1<\mu_2$  (vagy   $H_1:\mu_1>\mu_2$) egyoldali ellenhipotézis
+
+   
+    $H_0:\mu_1=\mu_2$, $H_1:\mu_1\neq\mu_2$ kétoldali ellenhipotézis
+ 
+  \item Próba statisztika:
+    \begin{displaymath}
+      T (X,Y)=\frac{\bar{X}-\bar{Y}}{\sqrt{\frac{\sigma_1^2}{n}+\frac{\sigma_2^2}{m}}}
+    \end{displaymath}
+  \item $T$ eloszlása $H_0$ mellett $N (0,1)$
+  \item $u_\alpha=\Phi^{-1} (1-\alpha)$, azaz
+    $\P{Z>u_\alpha}=\alpha$, ha $Z\sim N (0,1)$
+  \item $\alpha$ terjedelmű próba. Kritikus tartomány:
+
+    $H_1:\mu_1<\mu_2$ esetén $T<-u_\alpha$
+
+    $H_1:\mu_1>\mu_2$ esetén $T>u_\alpha$ 
+
+    $H_1:\mu_1\neq \mu_2$ esetén $\abs*{T}>u_{\alpha/2}$
+  \item Ezek a próbák egyenletesen
+    legerősebbek  a torzítatlan próbák között.
+  \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}{Kétmintás $t$--próba}
+  \begin{itemize}
+  \item $X_1,\dots,X_n\sim N (\mu_1,\sigma^2)$,
+    $Y_1,\dots, Y_m\sim N(\mu_2,\sigma^2)$ független minták. $\sigma,\mu_1,\mu_2$
+    ismeretlen. \textbf{A két minta szórása azonos!}
+  \item Esetek:
+
+    $H_0:\mu_1=\mu_2$, $H_1:\mu_1<\mu_2$ (vagy $H_1:\mu_1>\mu_2$) egyoldali ellenhipotézis
+
+    $H_0:\mu_1=\mu_2$, $H_1:\mu_1\neq\mu_2$ kétoldali ellenhipotézis
+ 
+  \item Próba statisztika:
+    \begin{displaymath}
+      T (X,Y)=\frac1{\sqrt{\frac1n+\frac1m}}\cdot\frac{\bar{X}-\bar{Y}}{\sqrt{\frac{(n-1)(s_X^*)^2+ (m-1)(s_Y^*)^2}{n+m-2}}}
+    \end{displaymath}
+    vagy más alakban
+    \begin{displaymath}
+      T(X,Y)=\frac{\bar{X}-\bar{Y}}{\hat{\sigma}},\quad\text{ahol}\quad
+      \hat\sigma^2=\zjel{\tfrac{1}{n}+\tfrac{1}m}\cdot\frac{\sum
+        (X_i-\bar{X})^2+\sum (Y_i-\bar{Y})^2}{n+m-2}
+    \end{displaymath}
+  \item $T$ eloszlása $H_0$ mellett $t_{n+m-2}$
+  \item  $t_\alpha$ kritikus érték, az $1-\alpha$ szinthez tartozó kvantilis, azaz
+    $\P{T<t_\alpha}=1-\alpha$, ha $T\sim t_{n+m-2}$
+  \item $\alpha$ terjedelmű próba. Kritikus tartomány:
+
+    $H_1:\mu_1>\mu_2$ esetén $T>t_\alpha$ ($H_1:\mu_1<\mu_2$ esetén $T<-t_\alpha$)
+
+    $H_1:\mu_1\neq \mu_2$ esetén $\abs*{T}>t_{\alpha/2}$
+  \item Ezek a próbák egyenletesen
+    legerősebbek  a torzítatlan próbák között.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$F$--próba a szórások egyezésére}
+  \begin{itemize}
+  \item $X_1,\dots,X_n\sim N (\mu_1,\sigma_1^2)$, $Y_1,\dots, Y_m\sim N
+    (\mu_2,\sigma_2^2)$ minta. $\sigma_1\sigma_2,\mu_1,\mu_2$
+    ismeretlen. 
+  \item Esetek:
+
+    $H_0:\sigma^2_1=\sigma^2_2$, $H_1:\sigma^2_1>\sigma^2_2$  egyoldali ellenhipotézis
+
+    $H_0:\sigma^2_1=\sigma^2_2$, $H_1:\sigma^2_1\neq\sigma^2_2$ kétoldali ellenhipotézis
+    
+  \item Próba statisztika:
+    \begin{displaymath}
+      T = T(X,Y)=\frac {{s_X^*}^2}{{s_Y^*}^2}
+      %{\sqrt{\frac1n+\frac1m}}\cdot\frac{\bar{X}-\bar{Y}}{\frac{(n-1)(s_X^*)^2+ (m-1)(s_Y^2)^2}{n+m-2}}
+    \end{displaymath}
+  \item $T$ eloszlása $H_0$ mellett
+    $F_{a,b}=\frac{\chi^2_{a}/a}{\chi^2_{b}/b}$, $a=n-1$,
+    $b=m-1$. $F_{a,b}$ neve $a,b$ szabadságfokú %khi--négyzet
+    F eloszlás. 
+  \item  Az $f_\alpha (a,b)$ kritikus érték, az $1-\alpha$ szinthez tartozó kvantilis, azaz
+    $\P{T<f_\alpha}=1-\alpha$, ha $T\sim F_{a,b}$
+  \item $\alpha$ terjedelmű próba. Kritikus tartomány:
+
+    $H_1:\sigma^2_1>\sigma^2_2$ esetén $T> f_\alpha (a,b)$, 
+
+    $H_1:\sigma^2_1\neq \sigma^2_2$ esetén $T\notin (1/f_{\alpha/2} (b,a),f_{\alpha/2} (a,b))$
+  \item $a=b$ esetén a próba egyenletesen
+    legerősebb  a torzítatlan próbák között. 
+    
+    Ha $a\neq b$, akkor a megadott elutasítási 
+    tartomány nem a legerősebb próbát adja, de ezt szokás használni.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$F$ eloszlás}
+  \begin{itemize}
+  \item Legyen $X,Y$ független, $X\sim \chi^2_a=\Gamma_{a/2,1/2}$,
+    $Y\sim\chi^2_b=\Gamma_{b/2,1/2}$.
+    
+  \item $F_{a,b}$ nem más, mint $(X/a)/(Y/b)$ eloszlása, vagyis
+    ha $Z\sim F_{a,b}$, akkor
+    \begin{displaymath}
+      \frac{b}{b+aZ}=\frac{Y}{X+Y}\sim\beta (\tfrac b2,\tfrac a2),
+    \end{displaymath}
+    
+  \item Ha $\beta\sim\beta (\tfrac b2,\tfrac a2)$, akkor
+    \begin{displaymath}
+      \frac b a\zjel*{\frac1\beta-1}\sim F_{a,b}
+    \end{displaymath}
+  \item Ha $b\to\infty$, akkor $aF_{a,b}\wto \chi^2_a$ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Diszkrét illeszkedés vizsgálat, $\chi^2$-próbák}
+  \begin{itemize}
+  \item $X_1,\dots,X_n$ $n$ elemű minta.
+    $X_k\in\smallset{1,\dots,r}$. 
+  \item $\P[\pi]{X_k=i}=\pi_i$, $\pi\in \Delta=\set{\pi}{\pi_i\geq
+      0,\sum\pi_i=1}$.
+  \item $p\in \Delta$,
+    $H_0:\pi=p$, $H_1:\pi\neq p$.
+
+  \item $f_\pi(x)=\prod_{k=1}^n \P{X_k=x_k}=\prod_{k=1}^n \pi_{x_k}=\prod_{i=1}^{r} \pi_i^{\sum_{k}\I{X_k=i}}$.
+  
+  \item Jelölje $N_i=\sum_k \I{X_k=i}$, $i=1,\dots,r$ az egyes értékek
+    gyakoriságát. Maximum likelihood becslés $\pi$-re: $\ell(\pi)=\sum N_i\ln \pi_i$.
+
+    Feltételes szélsőérték ($\Delta$-n maximalizálunk):
+    $\ell'(\hat\pi)\perp \Delta$, azaz $\hat\pi_i=N_i/n$ a relatív gyakoriság.
+  \item 
+    A próba statisztika
+    \begin{displaymath}
+      T_n=T_n (X)=\sum_{i=1}^r
+      \frac{(N_i-np_i)^2}{np_i}=n\sum\frac{(\hat \pi_i-p_i)^2}{p_i}
+    \end{displaymath}
+  \item $n\to\infty$ esetén $H_0$ mellett $T_n\dto \chi^2_{r-1}$, míg
+    $H_1$ mellett $T_n\to\infty$. (később belátjuk.)
+    
+  \item Kritikus tartomány. $T_n>c_\alpha$, ahol $c_\alpha$ a
+    $\chi^2_{r-1}$ eloszlás kritikus értéke.
+  \item Nem egzakt próba, mert $T_n$ $H_0$ alatti eloszlásának
+    közelítéséből számoljuk a kritikus értéket.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Speciális eset $r=2$}
+  
+  \begin{itemize}
+    \item $r=2$ esetén $p_2=1-p_1$, $N_2=n-N_1$, így
+    \begin{align*}
+      T_n&=\frac{(N_1-np_1)^2}{np_1}+\frac{(N_2-np_2)^2}{np_2}
+      \\
+         &=
+           \frac{(N_1-np_1)^2}n \zjel*{\frac1{p_1}+\frac1{1-p_1}}
+      \\
+         &
+           =\zfrac*{N_1-np_1}{\sqrt{np_1(1-p_1)}}^2,\\
+    \end{align*}
+    \item  
+    \begin{displaymath}
+      \frac{N_1-np_1}{\sqrt{np_1 (1-p_1)}}\dto N (0,1)
+      \quad\implies\quad
+      T_n\dto \chi^2_1\quad\text{ha $n\to\infty$}
+    \end{displaymath}
+    \item $r=2$ esetén lényegében az $u$-próbát kapjuk vissza,
+    $H_0$ mellett, nagy $n$-re $N_1=\sum_{k=1}^n\I{X_k=1}$ közelítőleg normális eloszlású 
+    $np_1$ várható értékkel és $n(p_1(1-p_1))$ szórásnégyzettel.
+
+    A $H_0: \pi_1=p_1$ nullhipotézist a $H_1: \pi_1\neq p_1$ ellenhipotézis
+    ellenében elutasítjuk, ha
+    \begin{displaymath}
+      \frac{N_1-np_1}{\sqrt{np_1 (1-p_1)}}>u_{\alpha/2},\quad
+      \text{másképp írva}\quad 
+      T_n>u^2_{\alpha/2}
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{$T_n$ határeloszlása I.}
+  \begin{itemize}
+  \item  Legyen $Y_{k}=(\I{X_k=1},\dots,\I{X_k=r})$, ekkor
+    $Y_1,\dots,Y_n$  független azonos eloszlású változók.
+  \item $\E[\pi]{Y_k}=\pi$ és
+    $\cov_\pi
+    (\I{X_k=i},\I{X_k=j})=\P[\pi]{X_k=i,\,X_k=j}-\pi_i\pi_j=\delta_{i,j}\pi_i-\pi_i\pi_j$.
+  \item A centrális határeloszlás tételből $H_0$, azaz $\pi=p$  mellett 
+    \begin{displaymath}
+      S_n=\frac{\sum_{k=1}^n Y_k-p} {\sqrt{n}}\to N (0,\Sigma (Y)),
+      \quad\text{ahol}\quad
+      \sum_{k=1}^n Y_k-p=(N_1-n p_1,\dots,N_r-n p_r)
+    \end{displaymath}
+    Így $T_n=\sum_{i=1}^r\zfrac{N_i-np_i}{\sqrt{np_i}}^2$ nem más mint
+    \begin{displaymath}
+      T_n=\norm{D S_n}^2,
+    \quad\text{ahol}\quad
+    D =\diag(p_1^{-1/2},\dots,p_r^{-1/2}),\quad
+    D S_n\dto N (0,D\Sigma (Y)D)
+  \end{displaymath}
+  Itt
+  \begin{displaymath}
+    (D\Sigma (Y)D)_{i,j}=\frac{\delta_{i,j}p_i-p_ip_j}{\sqrt{p_ip_j}}=\delta_{i,j}-\sqrt{p_i}\sqrt{p_j}
+  \end
+  {displaymath}
+  Ha $e= (p_1^{1/2},\dots,p_r^{1/2})$, akkor $\norm{e}_2=\sum_i p_i=1$
+  \begin{displaymath}
+    (D\Sigma (Y)D)=I-e e^T
+  \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$T_n$ határeloszlása II.}
+  \begin{itemize}
+  \item  Legyen $Y_{k}=(\I{X_k=1},\dots,\I{X_k=r})$, ekkor
+    $Y_1,\dots,Y_n$  független azonos eloszlású változók.
+  \item A centrális határeloszlás tételből $H_0$, azaz $\pi=p$  mellett 
+    \begin{displaymath}
+      D S_n=\zjel*{\frac{N_1-np_1}{\sqrt{np_1}},\dots,\frac{N_r-np_r}{\sqrt{np_r}}}
+      % =\frac{\sum_{k=1}^n Y_k-p} {\sqrt{n}}
+      \dto N (0,I-e e^T),
+      \quad\text{ahol}\quad e=(p_1^{1/2},\dots,p_r^{1/2})
+    \end{displaymath}
+  \item $I-ee^T$ merőleges vetítés $\real e$ ortokomplementerére, így
+    $N (0,I-ee^T)$ nem más mint $(I-ee^T)Z$ eloszlása, ahol $Z$ $r$
+    dimenziós standard normális. 
+  \item Innen
+    \begin{displaymath}
+      T_n=\norm*{D S_n}^2\dto \norm{(I-ee^T)Z}^2\sim\chi^2_{r-1}
+    \end{displaymath}
+    Emlékeztető. Ha $\xi_n\dto\xi$, és $h$ folytonos, akkor $h(\xi_n)\dto h(\xi)$.
+  \end{itemize}
+\end{frame}
+\end{document}
