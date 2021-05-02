@@ -1,0 +1,423 @@
+\documentclass[11pt,oneside,a4paper,final
+]{memoir}%
+\usepackage[scale=.8]{geometry}
+
+
+\chapterstyle{lyhne}%{bringhurst}
+\pagestyle{ruled}
+
+\let\ttdef\ttdefault
+\AtBeginDocument{\global\let\ttdefault=\ttdef}
+
+%\usepackage{palatino}
+%\usepackage[utf8]{inputenc}
+
+\usepackage[mathcal]{euscript}
+
+\usepackage{graphicx}                           
+\RequirePackage{amsthm,amsmath,natbib,amssymb,soul,bbold}
+
+\usepackage{color}
+
+\usepackage[notcite,notref]{showkeys}
+\usepackage{polyglossia}
+\setdefaultlanguage{hungarian}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Tétel}
+
+\newtheorem{proposition}{Állítás}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Állítás}
+\newtheorem{corollary}{Következmény} 
+\newtheorem{problem}{Kérdés}
+
+
+\theoremstyle{definition} 
+\newtheorem{df}{Definíció} 
+
+\newtheorem*{example}{Példa} 
+\newtheorem{conjecture}{Sejtés}
+\newtheorem{condition}{Feltétel}
+
+
+\theoremstyle{remark} 
+\newtheorem{remark}{Megjegyzés}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{macros.tex}
+
+\defprefix{b}{\bar}{\phi}
+
+
+\begin{document}
+\let\phi\varphi
+\let\theta\vartheta
+\setmainlanguage{hungarian}
+
+\chapter*{Emlékeztető. Exponenciális család, próba, terjedelem, erő, torzítatlan próba}
+\begin{df}
+  Az $X_1,\dots,X_n$ minta eloszlásainak családja exponenciális családot alkot, ha alkalmas paraméterezés 
+  és domináló mérték mellett a sűrűségfüggvények
+  \begin{displaymath}
+    f_\theta(x)=\exp{\theta T(x)-b(\theta)},\quad\theta\in\Theta\subset\real^p
+  \end{displaymath}
+  alakúak.
+\end{df}
+Ha az eloszláscsalád exponenciális, akkor a kitevőben megjelenő statisztika elégséges, ha a paramétertér belseje nem üres, 
+akkor teljes is.
+
+\begin{lemma}
+  Ha a minta eloszlásainak a családja exponenciális, akkor $T(X)$ eloszlásainak a családja is az.
+\end{lemma}
+\begin{proof}
+  Legyen $\lambda$ az a domináló mérték amire nézve a sűrűségek a megadott alakúak. Ekkor 
+  $\lambda\circ T^{-1}$ ($\sigma$-véges) mérték $\real^p$ Borel
+  halmazain és 
+  \begin{displaymath}
+    \P[\theta]{T\in H}
+    =\int \I{T(x)\in H} \exp{(\theta T(x)-b(\theta)} \lambda(d x)
+    =\int \I{t\in H} \exp{\theta t-b(\theta)} (\lambda\circ T{-1})(d t)
+  \end{displaymath}
+  Azaz $\P[\theta]\circ T^{-1}$ abszolút folytonos $\lambda\circ T^{-1}$-re nézve és a sűrűségek 
+  \begin{displaymath}
+    f_{T;\theta}(t)=\exp{\theta t - b(\theta)}\quad \theta\in\Theta.
+  \end{displaymath}
+  alakúak.
+\end{proof}
+
+\begin{example}
+  $X_1,\dots,X_n$ $N(\mu,\sigma^2)$ eloszlású minta, $\mu\in\real$, $\sigma^2>0$. Ekkor
+  \begin{displaymath}
+    f_{\mu,\sigma^2}(x)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma}\exp{-\frac12\cdot\frac{(x_i-\mu)^2}{\sigma^2}}
+    =C\exp{-\frac{1}{2\sigma^2}\sum_i x_i^2+\frac{\mu}{\sigma^2}\sum_i x_i-\zjel*{\frac{n\mu^2}{2\sigma^2}-\frac{n}2\ln\sigma^2}}.
+  \end{displaymath}
+  Azaz ha $\theta_1=\frac{-n}{2\sigma^2}$, $\theta_2=\frac{\mu n}{\sigma^2}$, akkor a $\Theta=(-\infty,0)\times\real$ és 
+  $T(x)=(\frac1n\sum_i x_i^2,\frac1n\sum_i x_i)$. Ekkor $T$ felírható a mintaátlaggal és a tapasztalati szórásnégyzettel:
+  $s^2_n=T_1-T_2^2$ a tapasztalati szórásnégyzet, amire $s_n^2/sigma^2\sim \chi^2_{n-1}$
+  és $T_2=\bar{X}\sim N(\mu,\frac1n\sigma^2)$.
+  Innen  a sűrűségfüggvény transzformációs formulával 
+  \begin{align*}
+    f_{T_1,T_2}(s,t)
+    & =f_{T_2,T_1-T^2}(t,s-t^2)\\
+    & =
+    \frac1{\sqrt{2\pi\sigma^2/n}}\exp{-\frac n2\cdot\frac{t-\mu}{\sigma^2}}
+    \frac{1}{\Gamma(n-1)}\zfrac*{n}{2\sigma^2}^{n-1} (s-t^2)^{n-2} \I{s-t^2>0} \exp{-\frac{n}{2\sigma^2}(s-t^2)}\\
+    &=\sqrt{\frac n{2\pi\sigma^2}} \frac1{(n-2)!}\zfrac*{n}{2\sigma^2}^{n-1} (s-t^2)^{n-2}\I{t<\sqrt{s}} 
+    \exp{\frac {n\mu}{\sigma^2} t-\frac{n}{2\sigma^2}s -\frac{n\mu^2}{2\sigma^2}}\\
+    &=C(s-t^2)^{n-2}\I{t<\sqrt{s}}\exp{\theta_1 s+\theta_2 t-b(\theta)}
+  \end{align*}
+  Azaz $T$ eloszlása exponenciális családot, a domináló mérték sűrűségfüggvénye a Lebesgue mértékre nézve 
+  $C(s-t^2)^{n-2}\I{t<\sqrt{s}}$. Itt érdemes észrevenni azt is, hogy $T_1,T_2$ sűrűsége szorzat alakú, 
+  de a domináló mérték nem az és $T_1,T_2$ nem független.
+\qed
+\end{example}
+
+$\Theta=\Theta_0\cup^*\Theta_1$, $H_0:\theta\in\Theta_0$, $H_1:\theta\in\Theta_1$. $\phi:\mfX\to[0,1]$ a döntési függvény.
+$\psi(\theta)=\E[\theta]{\phi(X)}$. Ekkor $\psi|_{\Theta_1}$ az erőfüggvény, 
+$\alpha(\phi)=\sup_{\theta\in\Theta_0}\psi(\theta)$ a terjedelem. $\phi$ torzítatlan próba, ha 
+$\alpha(\phi)=\sup_{\alpha\in\Theta_0}\psi(\theta)\leq \inf_{\theta\in\Theta_1}\psi(\theta)$. 
+Azonos terjedelmű próbákat az erőfüggvény alapján hasonlítjuk össze.
+
+Csak azt az esetet nézzük, amikor az eloszláscsalád exponenciális és $\Theta$ nyílt. Ekkor teljesül $(R)$ és $\psi$ folytonos, 
+sőt folytonosan differenciálható. Legyen $\Theta^*=\bar{\Theta_0}\cap \bar{\Theta_1}$, ez a $\Theta_0$ határa $\Theta$-ban.
+$\psi$ folytonossága miatt, ha $\phi$ torzítatlan $\alpha$ terjedelmű próba, 
+akkor $\psi(\theta)=\alpha$ minden $\theta\in\Theta*$-ra.
+
+Végül $\psi(\theta)=\E[\theta]{\phi(X)}=\E[\theta]{\bphi(T)}$, 
+ahol $\bphi=\E[\theta]{\phi(X)|T}$ a feltételes várható érték közös változata. Azaz mindig elegendő $T$ eloszlásainak a 
+családját tekinteni és $T$-n alapuló próbát keresni.
+
+
+\chapter*{Egyenletesen legerősebb torzítatlan próba kétoldali ellenhipotézis mellett}
+
+\begin{df}
+  A $\phi$ döntési függvényű próba torzítatlan, ha 
+  $\sup_{\theta\in\Theta_0}\E[\theta]{\phi}\leq\inf_{\theta\in\Theta_1}\E[\theta]{\phi}$.
+\end{df}
+
+$\cP=\set{\P[\theta]}{\theta\in\Theta}$ exponenciális család, $\Theta\subset\real$ nyílt intervallum. 
+$H_0:\theta=\theta_0$ $H_1:\theta\neq\theta_0$.
+A domináló mérték lehet $\P[\theta_0]$ és átparaméterezéssel ($\theta$ helyett $\theta-\theta_0$-at 
+használva) elérhető, hogy $H_0: \theta=0$ és $H_1:\theta\neq0$. Ekkor 
+\begin{displaymath}
+  f_\theta(x)=\exp{\theta T(x)-b(\theta)}
+\end{displaymath}
+Az is feltehető, hogy $b'(0)=0$. Ha nem így lenne, akkor $T(x)-b'(0)$-t használva $T$ helyett és $b$-t
+ennek megfelelően módosítva ez elérhető. Ekkor persze $\ell'(0)=T$. 
+
+\begin{example}%\label{ex:1}
+  $X_1,\dots,X_n$ minta az $N(\mu,\sigma^2)$ eloszlásból, $\sigma$ ismert. $H_0:\mu=\mu_0$, $H_1:\mu\neq\mu_0$.
+  \begin{displaymath}
+    f_\mu(x)=\prod_{i=1}^n \frac1{\sqrt{2\pi}\sigma}e^{-\frac12\cdot\frac{(x_i-\mu)^2}{\sigma^2}}.
+  \end{displaymath}
+  \begin{displaymath}
+    \frac{f_\mu}{f_{\mu_0}}(x)= \exp{\frac{\mu-\mu_0}{\sigma^2}\sum_i x_i-\frac n{2\sigma^2}\zjel{\mu^2-\mu_0^2}}
+  \end{displaymath}
+  Itt $\theta=\frac{\mu-\mu_0}{\sigma^2}$, $\ell'(0,x)=T(x)=\sum_i (x_i-\mu_0)$ és 
+  $b(\theta)=\frac{n}{2\sigma^2}(\mu-\mu_0)^2=\frac{n}{2}\sigma^2\theta^2$. 
+  Az átparaméterezés után $H_0: \theta=0$ és $H_1:\theta\neq0$.
+\end{example}
+\begin{lemma}
+  Ha $\phi$ torzítatlan próba, akkor $\E[0]{\phi \ell'(0)}=0$.
+\end{lemma}
+\begin{proof}
+  $\psi(\theta)=\E[\theta]{\phi}$ folytonosan differenciálható, hiszen $\phi$ korlátos és 
+  a gyenge regularitási feltétel teljesül és $\psi'(\theta)=\E[\theta]{\phi\ell'(\theta)}$.
+
+  A torzítatlanság miatt $\psi$ minimumhelye $0$, ezért $0=\psi'(0)=\E[0]{\psi\ell'(0)}$.
+\end{proof}
+
+
+\begin{lemma}
+  Legyen $\psi=\I{\ell'(0)\notin[c,d]}$ alakú. Ha $\psi$ torzítatlan, 
+  akkor egyenletesen legerősebb  a vele azonos terjedelmű torzítatlan próbák között.
+\end{lemma}
+\begin{proof}
+  $\bphi$ tetszőleges torzítatlan próba, $\phi$-vel azonos terjedelemmel.
+  $\E[0]{\I{\ell'(0)\in[c,d]}\ell'(0)}=0$ miatt $c<0<d$. 
+  
+  $\theta_1<0$ esetén tekintsük a $H_0: f=f_0$, $H_1^*: f=pf_{\theta_1}+(1-p)f_{\theta_2}$ 
+  egyszerű hipotézisvizsgálati feladatot. Erre a Neyman-Pearson lemma alkalmazható és 
+  később belátjuk, hogy $\theta_2,p$ 
+  alkalmas választása mellett, ennek a feladatnak a legerősebb megoldása éppen $\phi$. 
+
+  Ekkor $p\E[\theta_1]{\phi-\bphi}+(1-p)\E[\theta_2]{\phi-\bphi}\geq0$. 
+  Itt persze $p$ függ $\theta_2$-től és az derül ki, 
+  hogy ha $\theta_2\to0$ akkor $p(\theta_2)/\theta_2$
+  véges pozitív határértékkel rendelkezik. Átrendezés után
+  \begin{displaymath}
+    \E[\theta_1]{\phi-\bphi}\geq 
+    \lim_{\theta_2\to0}
+    (1-p(\theta_2))\frac{\theta_2}{p(\theta_2)}
+    \frac{\E[\theta_2]{\phi-\bphi}-\E[0]{\phi-\bphi}}{\theta_2}
+    =\lim_{\theta_2\to0}\frac{\theta_2}{p(\theta_2)}\E[0]{(\phi-\bphi)\ell'(0)}=0
+  \end{displaymath}
+  Ebből kapjuk, hogy $\phi$ ereje a $\theta_1<0$ pontban legalább akkora,
+  mint $\bphi$-é.
+
+  Hasonló módon kapható meg, hogy $\phi$ ereje tetszőleges $\theta>0$ pontban 
+  is legalább akkora, mint $\bphi$-é.
+\end{proof}
+
+A fenti lemmában a következő összefüggést használtuk.
+\begin{lemma}
+  $\theta_1<0<\theta_2$. Ekkor létezik $p=p(\theta_2)\in(0,1)$ úgy, hogy a $H_0:f=f_0$, 
+  $H_1^*: f=f_{*}=pf_{\theta_1}+(1-p)f_{\theta_2}$ egyszerű hipotézis vizsgálati feladatra 
+  $\phi$ a likelihood hányados próba, azaz $\phi(x)=\I{\ell'(0)\notin[c,d]}
+  =\I{pf_{\theta_1}+(1-p)f_{\theta_2}>cf_0}$ alakú.
+  A $\lim_{\theta_2\to0} \frac{p(\theta_2)}{\theta_2}$ limesz létezik és véges.
+\end{lemma}
+\begin{proof}
+  Ahogy fent már észrevettük feltehető, hogy $f_0=1$ és $\ell'(0,x)=T(x)$ a sűrűségek 
+  felírásában a kitevőben megjelenő statisztika. Így
+  \begin{displaymath}
+    \frac{f_*}{f_0}(x)=f_*(x)=\zjel*{pe^{\theta_1 t-b(\theta_1)}+(1-p)e^{\theta_2 t-b(\theta_2)}}|_{t=T(x)}=g(T(x))
+  \end{displaymath}
+  Azaz a hányados $T(x)$ konvex függvénye, és ha $g(c)=g(d)$, akkor $\event{f_*>g(c)=g(d)}=\event{T\notin[c,d]}$.
+  Ez utóbbi abból adódik, hogy $\lim g(t)=\infty$, ha $\abs{t}\to\infty$. 
+
+  Azt kell tehát csak meggondolni, hogy $p$ alkalmas választásával $g(c)=g(d)$:
+  %, ami a következő összefüggéssel ekvivalens:
+  \begin{displaymath}
+    pe^{\theta_1 c-b(\theta_1)}+(1-p)e^{\theta_2 c-b(\theta_2)}
+    =pe^{\theta_1 d-b(\theta_1)}+(1-p)e^{\theta_2 d-b(\theta_2)}
+  \end{displaymath}
+  Átrendezés után
+  \begin{displaymath}
+    \frac{p}{1-p} = \frac{e^{\theta_2 d}-e^{\theta_2 c}}{e^{\theta_1 c}-e^{\theta_1d}} e^{b(\theta_1)-b(\theta_2)}
+  \end{displaymath}
+  Mivel $\theta_1<0<\theta_2$ a jobboldali kifejezés pozitív és  $p=1/(1+(1-p)/p)$ 
+  \begin{displaymath}
+    p(\theta_2)=\frac{1}{1+\frac{e^{\theta_1 c}-e^{\theta_1d}}{e^{\theta_2 d}-e^{\theta_2 c}} e^{b(\theta_2)-b(\theta_1)}}
+    =\frac{e^{\theta_2 d}-e^{\theta_2 c}} 
+    {e^{\theta_2 d}-e^{\theta_2 c}+(e^{\theta_1 c}-e^{\theta_1d})(e^{b(\theta_2)-b(\theta_1)})}
+  \end{displaymath}
+  Innen $p(\theta_2)\to0$ ha $\theta_2\to0$ és  L'Hospital szabállyal
+  \begin{displaymath}
+    \lim_{\theta_2\to0}\frac{p(\theta_2)}{\theta_2}
+    =\frac{d-c}{d-c+(e^{\theta_1 c}-e^{\theta_1d})e^{b(0)-b(\theta_1)}b'(0)}=1.
+  \end{displaymath}
+  Az hogy a limesz pont egy lett azon múlt, hogy olyan paraméterezést választottunk, ami mellett $T=\ell'(0)$, 
+  ami nulla várható értékű $\P[0]$ alatt.
+\end{proof}
+\begin{example}
+  $X_1,\dots,X_n$ minta az $N(\mu,\sigma^2)$ eloszlásból, $\sigma$ ismert. 
+  Láttuk, hogy $\theta=\frac{\mu-\mu_0}{\sigma^2}$, $\ell'(0,x)=T(x)=\sum_i (x_i-\mu_0)$ és 
+  $b(\theta)=\frac{n}{2\sigma^2}(\mu-\mu_0)^2=\frac{n}{2}\sigma^2\theta^2$ paraméterezéssel a $H_0:\mu=\mu_0$ $H_1:\mu\neq \mu_0$
+  a $H_0:\theta=0$, $H_1:\theta\neq 0$ alakot ölti és a sűrűségfüggvények
+  \begin{displaymath}
+    f_\theta(x)=\exp{\theta T(x)-b(\theta)}
+  \end{displaymath}
+  alakot öltik, ahol $T(x)=\sum_i x_i-\mu_0$.
+  
+  $T=\ell'(0)$ eloszlása $H_0$ mellett normális nulla várható értékkel, $\sigma$ szórással. 
+  Ha a $\phi=\I{\abs{T}>c}$, akkor $\phi$ torzítatlan próba, 
+  mert $\psi(\theta)=\E[\theta]{\phi}$ folytonosan deriválható, $\psi'(\theta)=\E[\theta]{\phi \ell'(\theta)}$.
+  Itt $\ell'(\theta)=T-b'(\theta)$, ami nulla várható értékű normális eloszlású $\sigma$ szórással.   
+  \qed
+\end{example}
+
+
+\chapter*{Próbák exponenciális családban zavaró paraméterek mellett}
+
+Azt az esetet vizsgáljuk, amikor a sűrűségek
+\begin{displaymath}
+  f_{\theta,\tau}(x)=\exp{\theta T(x)+\tau S(x)-b(\theta,\tau)}
+\end{displaymath}
+alakúak és a hipotézisek a $\theta$-ra vonatkoznak, $H_0:\theta=0$, 
+$H_1:\theta>0$ (egyoldali ellenhipotézis), vagy $H_1:\theta\neq0$ 
+(kétoldali ellenhipotézis).
+
+\begin{example}
+  $t$-próba esetén $\mu,\sigma$ ismeretlen, a hipotézisek $\mu$-re vonatkoznak, $H_0:\mu=0$.
+  \begin{displaymath}
+    f_{\mu,\sigma}
+    =C\exp{-\frac{1}{2\sigma^2}\sum_i (x_i-\mu)^2}
+    =C\exp{-\frac1{2\sigma^2}\sum_i x_i^2+\frac{\mu}{\sigma_2}\sum_i x_i-\frac{n\mu^2}{2\sigma^2}}
+  \end{displaymath}
+  Itt  pl. lehet $\theta=\frac{n\mu}{\sigma^2}$, 
+  $\tau=-\frac{1}{2\sigma^2}$ és $T(x)=\bar{x}$, $S(x)=\sum_i x_i^2$. Ezzel a 
+  sűrűségeket a fenti alakba írtuk.
+\end{example}
+\begin{example}
+  Kétmintás $u$ próba esetén $\mu_1,\mu_2$ ismeretlen, $\sigma_1,\sigma_2$ ismert. A
+  hipotézisek a $\mu_1-\mu_2$ különbségről szólnak.
+  \begin{align*}
+    f_{\mu}(x,y)
+    &=C\exp{-\frac12\zjel{\sum_i \frac{(x_i-\mu_1)^2}{\sigma_1^2} +
+    \sum_j \frac{(y_j-\mu_2)^2}{\sigma_2^2}}}\\
+    &=
+    h(x,y,\sigma_1,\sigma_2)\exp{\frac{\mu_1}{\sigma_1^2}\sum_i x_i+\frac{\mu_2}{\sigma_2^2}\sum_j y_j-b(\mu_1,\mu_2,\sigma_1,\sigma_2)}\\
+    &=h\exp{(\mu_1-\mu_2)
+    \zjel*{\frac1{2\sigma_1^2}\sum_i x_i-\frac1{2\sigma_2^2}\sum_j y_j}
+    +(\mu_1+\mu_2)
+    \zjel*{\frac1{2\sigma_1^2}\sum_i x_i+\frac1{2\sigma_2^2}\sum_j y_j}-b}
+  \end{align*}
+  Azaz $\theta=\mu_1-\mu_2$, $\tau=\mu_1+\mu_2$ és                                                                            
+  $T(x,y)=\frac{n}{2\sigma_1^2}\bar{x}-\frac{m}{2\sigma_2^2}\bar{y}$ 
+  és $S(x,y)=\frac{n}{2\sigma_1^2}\bar{x}+\frac{m}{2\sigma_2^2}\bar{y}$ választással 
+  a sűrűségfüggvények a fenti alakba írhatóak ($n$, $m$ az $X$ ill. $Y$ minta elemszáma). 
+  A $h$ szorzótényező a domináló mértékbe beolvasztható.
+\end{example}
+
+\begin{example}
+  Tegyük fel, hogy  szórások egyezését vizsgáljuk $F$ próbával, de $\mu_1=\mu_2=0$ ismert.
+  Ekkor
+  \begin{align*}
+    f_{\sigma_1,\sigma_2}(x,y)
+    &=C\exp{-\frac1{2\sigma^2_1}\sum_i x_i^2-\frac1{2\sigma_2^2}\sum_j y_j^2}\\
+    &=C\exp{-\frac1{2\sigma^2_1\sigma_2^2}
+    \zjel*{\sigma_2^2\sum_i x_i^2+\sigma_1^2\sum_j y_j^2}}\\
+    &=C\exp{-\frac1{4\sigma^2_1\sigma_2^2}
+    \zjel*{(\sigma_2^2-\sigma^2_1)\zjel{\sum_i x_i^2-\sum_j y_j^2}+
+    (\sigma_2^2+\sigma^2_1)\zjel{\sum_i x_i^2+\sum_j y_j^2)}}}
+    %&=C\exp{-\frac14\zjel{\zjel{\frac1{\sigma_1^2}-\frac1{\sigma_2^2}(\sum_i x_i^2-\sum_j y_j^2)+
+    %}}
+  \end{align*}
+  Azaz  pl. a $\theta=\frac{1}{4}\cdot\zjel{\frac1{\sigma_2^2}-\frac1{\sigma_1^2}}$,
+  $\tau=\frac{1}{4}\cdot\zjel{\frac1{\sigma_1^2}+\frac1{\sigma_2^2}}$ és 
+  $T(x)=\sum_i x_i^2-\sum_j y_j^2$, $S(x)= \sum_i x_i^2+\sum_j y_j^2$ választással a sűrűségek most is 
+  a fenti alakba írhatóak.
+\end{example}
+
+Feltehető, hogy $(0,0)\in\Theta$ és a domináló mérték $\P[(0,0)]$. 
+$(T,S)$ együttes eloszlásainak a családja dominált, 
+pl. $\P[(0,0)]\circ (T,S)^{-1}$ domináló mértékkel és erre a domináló 
+mértékre nézve a sűrűségek:
+\begin{displaymath}
+  f_{T,S;(\theta,\tau)}(t,s)=e^{\theta t+\tau s-b(\theta,\tau)}
+\end{displaymath}
+Valóban
+\begin{displaymath}
+  \P[(\theta\tau)]{(T,S)\in H}
+  =\E[(0,0)]{e^{\theta T+\tau S-b(\theta,\tau)}\I{(T,S)\in H}}=
+  \int \I{(t,s)\in H}e^{\theta t+\tau s-b(\theta,\tau)} (\P[(0,0)]\circ(T,S)^{-1})(dt,ds)
+\end{displaymath}
+
+
+Legyen $T$ 
+feltételes eloszlása $S$-re nézve a $\P[(0,0)]$ mérték alatt $Q_{T|S}$. 
+Ez a feltételes eloszlás  reguláris változata, 
+$Q_{T|S}(H,S)=\P[(0,0)]{T\in H\given S}$.
+A faktorizációs tételhez hasonlóan:
+\begin{align*}
+  \P[(\theta,\tau)]{T\in H,\,S\in A}
+  &=\int e^{\theta t+\tau s- b(\theta,\tau)} (\P[(0,0)]\circ(T,S)^{-1})(d t,d s)\\
+  &=\int \int e^{\theta t} Q_{T|S}(d t,s) e^{\tau s-b(\theta,\tau)} (\P[0,0]\circ S^{-1})(d s)\\
+  &=\int \int e^{\theta t-b_1(\theta,s)} Q_{T|S}(d t,s)  e^{\tau s-b_2(\tau)} (\P[0,0]\circ S^{-1})(d s)
+\end{align*}
+Itt $b_1(\theta,s)$ a normalizáló konstans $b_1(\theta,s)=-\ln\int e^{\theta t} Q_{T|S}(d t,s)$ és $b_2(\tau)$ 
+a normalizáló konstans $S$ eloszlásában $b_2(\tau)=-ln\int e^{s\tau} (\P[0,0]\circ S^{-1})(d s)=\E[(0,0)]{e^{\tau S}}$.
+
+Azt kaptuk, hogy az $S$ feltétel mellett $T$ eloszlásainak családja egy paraméteres exponenciális családot alkot 
+(a paraméter $\theta$). Az is kiderült, hogy $S$ eloszlásainak a családja is exponenciális családot alkot, a paraméter $\tau$. 
+Ha itt a paramétertér $\set{\tau}{\exists \theta, \,(\theta,\tau)\in\Theta}$ belseje nem üres, 
+akkor $S$ eloszlásainak családja teljes.
+
+\begin{example}
+  $t$-próba esetén $\mu,\sigma$ ismeretlen, a hipotézisek $\mu$-re vonatkoznak, $H_0:\mu=0$.
+  \begin{displaymath}
+    f_{\mu,\sigma}(x)
+    =C\exp{-\frac1{2\sigma^2}\sum_i x_i^2+\frac{\mu}{\sigma_2}\sum_i x_i-\frac{n\mu^2}{2\sigma^2}}
+    =C \exp{\theta T(x)+\tau S(x)-b(\theta,\tau)}
+  \end{displaymath}
+  ahol $\theta=\frac{n\mu}{\sigma^2}$, 
+  $\tau=-\frac{n}{2\sigma^2}$ és $T(x)=\frac1n\sum x_i=\bar{x}$, $S(x)=\frac1n\sum_i x_i^2=\bar{x^2}$. 
+
+  Itt $s_n^2= S-T^2$ független $T$-től és $n(S-T^2)\sim \sigma^2 \chi^2_{n-1}$, míg $T\sim N(\mu,\frac1n \sigma^2)$. 
+  Innen  a sűrűségfüggvény transzformációs formulával 
+  \begin{align*}
+    f_{T,S}(t,s)
+    & =f_{T,S-T^2}(t,s-t^2)\\
+    & =
+    \frac1{\sqrt{2\pi\sigma^2/n}}\exp{-\frac n2\cdot\frac{t-\mu}{\sigma^2}}
+    \frac{1}{\Gamma(n-1)}\zfrac*{n}{2\sigma^2}^{n-1} (s-t^2)^{n-2} \I{s-t^2>0} \exp{-\frac{n}{2\sigma^2}(s-t^2)}\\
+    &=\sqrt{\frac n{2\pi\sigma^2}} \frac1{(n-2)!}\zfrac*{n}{2\sigma^2}^{n-1} (s-t^2)^{n-2}\I{t<\sqrt{s}} 
+    \exp{\frac {n\mu}{\sigma^2} t-\frac{n}{2\sigma^2}s -\frac{n\mu^2}{2\sigma^2}}
+  \end{align*}
+  Ebből a feltételes sűrűségfüggvény
+  \begin{displaymath}
+    f_{T|S}(t|s)= C (s-t^2)^{n-2}\I{0<t<\sqrt{s}} e^{\frac{n\mu}{\sigma^2} t}= C(\theta,s) (s-t^2)^{n-2}e^{\theta t}\I{0<t<\sqrt{s}}.
+  \end{displaymath}
+  Ez pontosan olyan, mint amit az általános esetre kiszámoltunk, 
+  ugyanis $(s-t^2)^{n-2}\I{0<t<\sqrt{s}}$ beolvasztható a domináló mértékbe.
+\end{example}
+
+$T$ $S$-re vonatkozó feltételes eloszlásainak családja egyparaméteres családot alkot a sűrűségek 
+$Q_{T|S}(\cdot,s)$ domináló mértékre nézve $e^{\theta t-b_1(\theta,s)}$ alakúak. 
+Tetszőleges $\phi=\phi(T,S)$ alakú döntési függvény esetén 
+$\E[(\theta,\tau)]{\phi(T,S)}=\E[(\theta,\tau)]{\E[(\theta,\tau)]{\phi(T,S)|S}}
+=\E[(0,\tau)]{\E[\theta,0]{\phi(T,S)|S}}$ hiszen $S$ eloszlása nem függ $\theta$-tól és $T$ feltételes eloszlása 
+nem függ $\tau$-tól. 
+
+ 
+Legyen $\phi=\phi(T,S)$ torzítatlan próba $\alpha$ terjedelemmel és $\Theta_0$ határa $\Theta$-ban $\Theta_0$, azaz 
+tetszőleges $\tau$-ra és és $\delta>0$-ra létezik $(\theta',\tau')\in\Theta$, amire $(0,\tau)$ távolsága 
+$(\theta,\tau)$-tól legfeljebb $\delta$. Ekkor $\E[(0,\tau)]{\phi(T,S)}\leq\alpha$, mert a terjedelem $\alpha$, másfelől 
+$\psi(\theta,\tau)=\E[(\theta,\tau)]{\phi}$ folytonossága és a próba torzítatlansága miatt legalább $\alpha$. Így
+\begin{displaymath}
+  \E[(0,\tau)](\phi(T,S))=\alpha,\quad \text{minden $\tau$-ra}
+\end{displaymath}
+a $g(S)=\E[(0,\tau)]{\phi(T,S)|S}-\alpha =\E[(0,0)]{\phi(T,S)|S}-\alpha$ korlátos statisztikára $\E[(0,\tau)]{g(S)}=0$. 
+Mivel $S$ eloszlásainak a családja exponenciális családot alkot (a paraméterterének belseje nem üres) ezért $g(S)=0$ és 
+$\int \phi(t,s)Q_{T|S}(dt,s)=\alpha$. Azt kaptuk, hogy $\phi(T,S)$ a feltételes feladatra nézve is $\alpha$ terjedelmű. 
+A feltételes feladatra, egy oldali ellenhipotézis esetén, a $\phi(T,S)=\I{T>c(S)}$ döntési függvény a legerősebb próba, 
+ha $c(S)$ olyan, hogy a kapott próba $\alpha$ terjedelmű. 
+A $t$ próba feladatánál $T/\sqrt{S-T^2}$ eloszlása mindegyik $(0,\tau)$ mellett ugyanaz, méghozzá
+Student-féle $t$ eloszlású $n-1$ 
+szabadságokkal, $T$-ben monoton nő,  ezért $T>c(S)$ valójában $T/\sqrt{S-T^2}>t_\alpha$. 
+
+Összefoglalva tetszőleges $\alpha$ terjedelmű torzítatlan $\phi(T,S)$ próba esetén, $\phi(T,S)$  az 
+$S$ feltétel melletti feladatra is 
+$\alpha$ terjedelmű. A feltételes feladatra $\phi(T,S)$ nem lehet erősebb, mint a $t$-próba ami  
+$\bphi(T,S)=\I{T/\sqrt{T-S^2}>t_\alpha}$ alakú. Ezért 
+\begin{displaymath}
+  \E[(\theta,\tau)]{\phi(T,S)}=\E[(0,\tau)]{\E[\theta,0]{\phi(T,S)|S}}
+  \leq \E[(0,\tau)]{\E[\theta,0]{\bphi(T,S)|S}}=\E[(\theta,\tau)]{\bphi(T,S)}.
+\end{displaymath}
+
+
+
+
+\end{document}

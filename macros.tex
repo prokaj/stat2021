@@ -1,0 +1,150 @@
+% \usepackage{pvdefs}
+\usepackage{etoolbox,mathtools}
+
+\makeatletter
+\def\ifbrace{\@ifnextchar{\bgroup}}
+
+\@ifundefined{texexp}{%
+  \let\texexp\exp
+  \def\exp{%
+    \texexp\ifbrace{\cbr*}{}%
+  }
+}\relax
+ 
+\def\isparam#1{\ifbrace#1\relax}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\zjel}{(}{)}
+\DeclarePairedDelimiter\br\lbrack\rbrack
+\DeclarePairedDelimiter\event\lbrace\rbrace
+\DeclarePairedDelimiter{\norm}{\|}{\|}
+\let\smallset\event
+\let\cbr\event
+\DeclarePairedDelimiterX\set[2]\{\}{%
+  #1\nonscript\::\allowbreak\nonscript\:\mathopen{}#2%
+}
+
+\let\PEfont\mathbb
+\providecommand\given{}
+
+\def\redefgiven#1{%
+  \renewcommand\given{%
+    \nonscript\:%
+    #1\vert%
+    \allowbreak%
+    \nonscript\:%
+    \mathopen{}%
+  }%
+}
+\DeclarePairedDelimiterX\PEzjel[1](){\redefgiven{\delimsize}#1}
+\def\aftersuperscript#1^#2{%
+  ^{#2}#1%
+}
+\newcommand{\PE}[1][]{%
+  \PEfont{\Pe}%
+  \ifblank{#1}{}{_{#1}}%
+  \@ifnextchar{^}{%
+    \aftersuperscript{\ifbrace{\PEzjel*}{}}%
+    }{%
+      \ifbrace{\PEzjel*}{}%
+    }%
+  %\ifbrace{\PEzjel*}{}%
+}
+\newcommand{\E}{\def\Pe{E}\PE}
+\newcommand{\D}{\def\Pe{D}\PE}
+\renewcommand{\P}{\def\Pe{P}\PE}
+
+\def\cov{\operatorname{cov}}
+\let\eps\varepsilon
+\def\ito/{It\^o}
+\let\Ito=\ito
+\def\eqinlaw{\stackrel{d}{=}}
+
+
+\DeclareListParser{\dolist}{}
+
+
+\def\stripdef@end#1{\egroup\def#1}
+
+\def\stripdef#1#2#3{%
+  \bgroup
+  \escapechar=-1\relax
+  \expandafter\stripdef@end\csname#1\string#2#3\endcsname
+}
+
+\def\defprefix#1#2{
+    \def\do##1{\stripdef{#1}{##1}{}{{#2{##1}}}}%
+    \ifbrace\dolist\do
+}
+
+
+
+\def\defpostfix#1#2{
+    \def\do##1{\stripdef{}{##1}{#1}{{#2{##1}}}}%
+    \ifbrace\dolist\do
+}
+
+
+\defprefix{c}{\mathcal}{XAPIDLCSGTHENU}
+\defprefix{b}{\bar}{hX\theta\Theta\psi,\phi}
+\defprefix{t}{\tilde}{STQbCfT\lambda\Omega\sigma\beta}
+\defprefix{}{\mathcal}{BF}
+\defprefix{mf}{\mathfrak}{X}
+
+\def\sign{\operatorname{sign}}
+\def\real{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+
+\def\Isymb{{\mathbf 1}}
+\def\substr#1{_{\zjel{#1}}}
+\newcommand{\I}[1][]{%
+  \Isymb\ifblank{#1}{\substr}{_{#1}}%
+}
+
+\def\Isymb{{\mathbb 1}}
+
+\def\I{\@ifstar\I@star\I@}
+\def\I@star{%
+  %\message{I@star arg:|#1|^^J}%
+  \Isymb\ifbrace{_}{}% } %{_{#1}}%
+  }
+\newcommand{\I@}[2][\zjel]{%
+  \Isymb_{#1{#2}}% } %{_{#1}}%
+}
+
+
+
+\def\interior{\operatorname{int}}
+\def\tg{\operatorname{tg}}
+\DeclarePairedDelimiterX{\zfrac}[2](){\frac{#1}{#2}}
+\DeclarePairedDelimiterX{\ip}[2]\langle\rangle{#1, #2}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+
+
+
+\def\diag{\operatorname{diag}}
+\def\Id{\mathbf{I}}
+\let\PEfont\mathbb
+\def\npto{\buildrel p\over \nrightarrow}
+\def\ndto{\buildrel d\over \nrightarrow}
+%\def\dto{\buildrel d\over \rightarrow}
+\def\defto#1{\stackrel{#1}{\to}}
+\defpostfix{to}{\defto}{dpw}
+% \def\dto{\stackrel{d}{\to}}
+% \def\pto{\stackrel{p}{\to}}
+% \def\pto{\stackrel{w}{\to}}
+
+\def\tr{\operatorname{Tr}}
+\def\arctg{\operatorname{arctg}}
+\let\nto\nrightarrow
+
+\def\Leb{\operatorname{Leb}}
+\def\im{\operatorname{im}}
+
+\makeatother
