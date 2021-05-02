@@ -1,0 +1,590 @@
+%\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+\input{preambulum.tex}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Diszkrét illeszkedés vizsgálat, $\chi^2$-próbák}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ $n$ elemű minta.
+    $X_k\in\smallset{1,\dots,r}$. 
+    \item $\P[\pi]{X_k=i}=\pi_i$, 
+    $\pi\in \Delta=\set{\pi}{\pi_i>0,\sum\pi_i=1}$.
+    \item $p\in \Delta$,
+    $H_0:\pi=p$, $H_1:\pi\neq p$.
+    
+    \item $f_\pi(x)=\prod_{k=1}^n \P{X_k=x_k}=\prod_{k=1}^n \pi_{x_k}=\prod_{i=1}^{r} \pi_i^{\sum_{k}\I{X_k=i}}$.
+    
+    \item Jelölje $N_i=\sum_k \I{X_k=i}$, $i=1,\dots,r$ az egyes értékek
+    gyakoriságát. Maximum likelihood becslés $\pi$-re: $\ell(\pi)=\sum N_i\ln \pi_i$.
+    
+    Feltételes szélsőérték ($\Delta$-n maximalizálunk):
+    $\ell'(\hat\pi)\perp \Delta$, azaz $\hat\pi_i=N_i/n$ a relatív gyakoriság.
+    \item 
+    A próba statisztika
+    \begin{displaymath}
+      T_n=T_n (X)=\sum_{i=1}^r
+      \frac{(N_i-np_i)^2}{np_i}=n\sum\frac{(\hat \pi_i-p_i)^2}{p_i}
+    \end{displaymath}
+    \item $n\to\infty$ esetén $H_0$ mellett $T_n\dto \chi^2_{r-1}$, míg
+    $H_1$ mellett $T_n\to\infty$. (később belátjuk.)
+    
+    \item Kritikus tartomány. $T_n>c_\alpha$, ahol $c_\alpha$ a
+    $\chi^2_{r-1}$ eloszlás kritikus értéke.
+    \item Nem egzakt próba, mert $T_n$ $H_0$ alatti eloszlásának
+    közelítéséből számoljuk a kritikus értéket.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Speciális eset $r=2$}
+  
+  \begin{itemize}
+    \item $r=2$ esetén $p_2=1-p_1$, $N_2=n-N_1$, így
+    \begin{align*}
+      T_n&=\frac{(N_1-np_1)^2}{np_1}+\frac{(N_2-np_2)^2}{np_2}
+      \\
+      &=
+      \frac{(N_1-np_1)^2}n \zjel*{\frac1{p_1}+\frac1{1-p_1}}
+      \\
+      &
+      =\zfrac*{N_1-np_1}{\sqrt{np_1(1-p_1)}}^2,\\
+    \end{align*}
+    \item  
+    \begin{displaymath}
+      \frac{N_1-np_1}{\sqrt{np_1 (1-p_1)}}\dto N (0,1)
+      \quad\implies\quad
+      T_n\dto \chi^2_1\quad\text{ha $n\to\infty$}
+    \end{displaymath}
+    \item $r=2$ esetén lényegében az $u$-próbát kapjuk vissza,
+    $H_0$ mellett, nagy $n$-re $N_1=\sum_{k=1}^n\I{X_k=1}$ közelítőleg normális eloszlású 
+    $np_1$ várható értékkel és $n(p_1(1-p_1))$ szórásnégyzettel.
+    
+    A $H_0: \pi_1=p_1$ nullhipotézist a $H_1: \pi_1\neq p_1$ ellenhipotézis
+    ellenében elutasítjuk, ha
+    \begin{displaymath}
+      \abs*{\frac{N_1-np_1}{\sqrt{np_1 (1-p_1)}}}>u_{\alpha/2},\quad
+      \text{másképp írva}\quad 
+      T_n>u^2_{\alpha/2}
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{$T_n$ határeloszlása I.}
+  \begin{itemize}
+    \item  Legyen $Y_{k}=(\I{X_k=1},\dots,\I{X_k=r})$, ekkor
+    $Y_1,\dots,Y_n$  független azonos eloszlású változók.
+    \item $\E[\pi]{Y_k}=\pi$ és
+    $\cov_\pi
+    (\I{X_k=i},\I{X_k=j})=\P[\pi]{X_k=i,\,X_k=j}-\pi_i\pi_j=\delta_{i,j}\pi_i-\pi_i\pi_j$.
+    \item A centrális határeloszlás tételből $H_0$, azaz $\pi=p$  mellett 
+    \begin{displaymath}
+      S_n=\frac{\sum_{k=1}^n Y_k-p} {\sqrt{n}}\to N (0,\Sigma (Y)),
+      \quad\text{ahol}\quad
+      \sum_{k=1}^n (Y_k-p)=(N_1-n p_1,\dots,N_r-n p_r)
+    \end{displaymath}
+    Így $T_n=\sum_{i=1}^r\zfrac{N_i-np_i}{\sqrt{np_i}}^2$ nem más mint
+    \begin{displaymath}
+      T_n=\norm{D S_n}^2,
+      \quad\text{ahol}\quad
+      D =\diag(p_1^{-1/2},\dots,p_r^{-1/2}),\quad
+      D S_n\dto N (0,D\Sigma (Y)D)
+    \end{displaymath}
+    Itt
+    \begin{displaymath}
+      (D\Sigma (Y)D)_{i,j}
+      =\frac{\delta_{i,j}p_i-p_ip_j}{\sqrt{p_ip_j}}
+      =\delta_{i,j}-\sqrt{p_i}\sqrt{p_j}
+    \end{displaymath}
+    Ha $e= (p_1^{1/2},\dots,p_r^{1/2})$, akkor $\norm{e}_2=\sum_i p_i=1$
+    \begin{displaymath}
+      (D\Sigma (Y)D)=I-e e^T
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$T_n$ határeloszlása II.}
+  \begin{itemize}
+    \item  Legyen $Y_{k}=(\I{X_k=1},\dots,\I{X_k=r})$, ekkor
+    $Y_1,\dots,Y_n$  független azonos eloszlású változók.
+    \item A centrális határeloszlás tételből $H_0$, azaz $\pi=p$  mellett 
+    \begin{displaymath}
+      D S_n=\zjel*{\frac{N_1-np_1}{\sqrt{np_1}},\dots,\frac{N_r-np_r}{\sqrt{np_r}}}
+      \dto N (0,I-e e^T),
+      \quad\text{ahol}\quad e=(p_1^{1/2},\dots,p_r^{1/2})
+    \end{displaymath}
+    \item $I-ee^T$ merőleges vetítés $\real e$ ortokomplementerére, így
+    $N (0,I-ee^T)$ nem más mint $(I-ee^T)Z$ eloszlása, ahol $Z$ $r$
+    dimenziós standard normális. 
+    \item Innen
+    \begin{displaymath}
+      T_n=\norm*{D S_n}^2\dto \norm{(I-ee^T)Z}^2\sim\chi^2_{r-1}
+    \end{displaymath}
+    Emlékeztető. Ha $\xi_n\dto\xi$, és $h$ folytonos, akkor $h(\xi_n)\dto h(\xi)$.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Emlékeztető}
+  
+  \begin{itemize}
+    \item Egy megfigyelés sűrűségfüggvénye $f_\theta$, loglikelihoodja
+    $\ell (\theta)$. $\theta\in\Theta$, ahol $\Theta\subset\real^p$ nyílt.
+    \item Ha $X= (X_1,X_2,\dots)$ független megfigyelések az $f_\theta$
+    eloszlásból, akkor legyen
+    \begin{displaymath}
+      \ell_n (\theta) = \ell_n (\theta,X)=\sum_{i=1}^n \ell (\theta,X_i)
+    \end{displaymath}
+    \item $\hat\theta_n$ $\theta$ ML becslése az első $n$ megfigyelés alapján. 
+    Likelihood egyenlet: $\ell_n'(\hat\theta_n)=0$ 
+    \item $\xi_n=\frac1{\sqrt{n}}\ell_n'(\theta)\dto N(0, I(\theta))$, ha $\E[\theta]{\ell'(\theta)}=0$ 
+    és $I(\theta)$ létezik és véges, pl. $(R)$  esetén.  
+    \item Ha $(RR)$ is teljesül, pl. exponenciális családban, vagy annak részcsaládjában, akkor
+    \begin{displaymath}
+      -\xi_n=-\frac1{\sqrt{n}}\ell_n' (\theta)=\frac1{\sqrt{n}}\zjel*{\ell_n'(\hat\theta_n)-\ell'_n(\theta)}=
+      \zjel*{\frac1n\ell''_n(\theta)+R_n}\sqrt{n}(\hat\theta_n-\theta)      
+    \end{displaymath}
+    ahol $\frac1n \ell_n''(\theta)\to\E{\ell''(\theta)}=-I(\theta)$ és $R_n\to0$. Ebből %kaptuk, hogy
+    $\sqrt{n}(\hat\theta_n-\theta)= I(\theta)^{-1}\xi_n+o_p(1)$ %\dto N(0,I^{-1}(\theta))$
+    \item 
+    \begin{align*}
+      \ell_n(\hat\theta_n)-\ell_n(\theta) 
+      &=
+      \frac1{\sqrt n}\ell_n'(\theta)\sqrt{n}(\hat\theta_n-\theta)
+      +\frac12\sqrt{n}(\hat\theta_n-\theta)^T\frac1n \ell''_n(\theta)\sqrt{n}(\hat\theta_n-\theta)+o_p(1)\\
+      &=\frac12\xi_n^T I(\theta)^{-1}\xi_n+o_p(1)=\frac12\abs{I^{-1/2}(\theta)\xi_n}^2+o_p(1)\dto \frac12 \chi^2_p.
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{proposition}
+    $\Theta\subset\real^p$ $\Xi\subset\real^q$ nyílt,  $h:\Xi\to\Theta$ sima és $h'$ teljes rangú.
+    $\set{\P[\theta]}{\theta\in\Theta}$ exponenciális eloszlás család. 
+    $X_1,X_2,\dots $ független megfigyelések $\P[h(\tau)]$ eloszlásból $\theta=h(\tau)$, 
+    $\ell_n$ az első $n$ megfigyelés loglikelihoodja,
+    $\hat\tau_n=\arg\max_{\tau\in\Xi} \ell_n(h(\tau))$  a $\tau$ maximum likelihood 
+    becslése az első $n$ megfigyelés alapján.
+    
+    Ekkor 
+    \begin{displaymath}
+      \ell_n(h(\hat\tau_n))-\ell_n(\theta))=\tfrac12\abs{P I^{-1/2}(\theta)\xi_n}^2+o(1) 
+    \end{displaymath}
+    ahol $\xi_n=\frac1{\sqrt{n}}\ell'_n(\theta)$ és $P$ merőleges vetítés $I^{1/2}(\theta)h'(\tau)$ képterére.
+  \end{proposition}
+  \begin{itemize}
+    \item $\set{\P[h(\tau)]}{\tau\in \Xi}$-re a korábbi számolás alapján
+    \begin{displaymath}
+      \ell_n(h(\hat\tau_n))-\ell_n(h(\tau))=\tfrac12 (\xi_n')^T J(\tau)^{-1}\xi'_n,
+      \quad\text{ahol}\quad
+      (\xi_n')^T=\frac1{\sqrt{n}}\frac{\partial}{\partial\tau}\ell_n(h(\tau))=\frac1{\sqrt{n}}\ell_n'(\theta) h'(\tau)
+    \end{displaymath}
+    \item $H=h'(\tau)$ jelöléssel $J(\tau)=H^T I(\theta) H$ és 
+    \begin{displaymath}
+      \ell_n(h(\hat\tau_n))-\ell_n(\theta)=\tfrac12 \xi_n^T H (H^T I(\theta) H)^{-1} H^T \xi_n+o(1)
+    \end{displaymath}
+    \item $A=I^{1/2}H$ jelöléssel  $I^{1/2}(\theta)H (H^T I(\theta) H)^{-1} H^T I^{1/2}(\theta)=A(A^T A)^{-1} A^T=P$
+    merőleges vetítés $A=I^{1/2} H$ képterére és 
+    \begin{displaymath}
+      \ell_n(h(\hat\tau_n))-\ell_n(\theta)
+      =\tfrac12 \xi_n^T I^{-1/2} I^{1/2}H (H^T I(\theta) H)^{-1} H^T I^{1/2} I^{-1/2} \xi_n+o(1)
+      =\tfrac12\abs{PI^{-1/2}\xi_n}^2 + o(1)
+    \end{displaymath}
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Likelihood hányados határeloszlása}
+  \begin{proposition}
+    \begin{itemize}[<*>]
+      \item $\cP=\set{\P[\theta]}{\theta\in\Theta}$ exponenciális család $\Theta\subset \real^p$ nyílt. 
+      \item $\Xi\subset \real^q$ nyílt. $h:\Xi\to\Theta$, $h$ sima, $H=h'$, $H (\tau)$ rangja $q$.
+      \item $X_1,X_2,\dots$ független megfigyelések $\P[\theta]$ eloszlásból, $\theta=h (\tau)$
+      \item $\ell_n (\theta) =\sum_{k=1}^n\ell (\theta,X_k)$
+      \item $\hat\theta_n=\arg\max_{\theta\in\Theta}\ell_n (\theta)$ ML becslés $\theta$-ra.
+      $\hat\tau_n=\arg\max_{\tau\in \Xi}\ell_n (h (\tau))$  ML becslés $\tau$-ra.
+    \end{itemize}
+    Ekkor
+    \begin{displaymath}
+      2 \zjel*{\ell_n (\hat\theta_n)-\ell_n(h(\hat\tau_n))} \dto\chi^2_{p-q}\quad\text{ha $n\to\infty$}.
+    \end{displaymath}
+  \end{proposition}
+  \continue
+  Legyen $\xi_n=\frac1{\sqrt{n}} \ell_n'(\theta)$ és $P$ merőleges vetítés $I^{1/2}h'(\tau)$ képterére.
+  \begin{align*}
+    2\zjel*{\ell_n (\hat\theta_n)-\ell_n(h(\hat\tau_n))}&=
+    2\zjel*{\ell_n (\hat\theta_n)-\ell_n(\theta)}-2\zjel*{\ell_n(h(\hat\tau_n))-\ell_n(\theta)}\\
+    &=
+    \abs{I^{-1/2}(\theta)\xi_n}^2-\abs{PI^{-1/2}(\theta)\xi_n}^2+o(1)
+    =\abs{(\Id_p-P)I^{-1/2}\xi_n}^2+o(1)\dto\chi^2_{p-q},
+  \end{align*}
+  mert $I^{-1/2}(\theta)\xi_n\dto N(0,\Id_p)$ és $\Id_p-P$ merőleges vetítés egy $p-q$ dimenziós altérre.
+\end{frame}
+
+\begin{frame}{Diszkrét illeszkedés vizsgálat, $T_n$ határeloszlása}
+  \begin{itemize}
+    \item $\P[\pi]{X_k=i}=\pi_i=\exp{\ln p_i}$, $i=1,\dots,r$.
+    Egy mintaelem eloszlása exponenciális családot alkot $T(x)=(\I{x=1},\dots,\I{x=r})$ (one-hot encoding), 
+    a természetes paraméterezés $(\ln p_1,\dots,\ln p_r)$,
+    azaz $\Theta'=\set{t\in\real^r}{\sum_{i=1}^r e^{t_i}=1}$. Ez egy $r-1$ dimenziós sokaság $\real^r$-ben. 
+    \item Egy lehetséges paraméterezés $\Theta=\real^{r-1}=\real^{r-1}\times\smallset{0}$, 
+    \begin{displaymath}
+      p_i=\frac{e^{\theta_i}}{1+\sum_{j<r} e^{\theta_j}},
+      \quad i<r\quad\text{és}\quad p_r=\frac1{1+\sum_{j<r} e^{\theta_j}},
+      \quad
+      \ell(\theta,x)=\sum_{i<r}\theta_i\I{x=i}-\ln(1+\sum\nolimits_{j<r} e^{\theta_j}).
+    \end{displaymath}
+    azaz $b(\theta)=-\ln p_r$ és $\ln p_i=\theta_i-b(\theta)$ ($\theta_r=0$). 
+    $b'(\theta)=(p_1(\theta),\dots,p_{r-1}(\theta))$.
+    \item Ezzel a paraméterezéssel és a $\hat p_{n,i}=\frac1n\sum_{k\leq n}\I{X_k=i}$ jelöléssel
+    \begin{displaymath}
+      \ell_n(\theta)=\ln p(\theta) \cdot \sum\nolimits_{k=1}^n T(X_k)=n \ln p(\theta)\cdot \hat p_n  
+    \end{displaymath}
+    $p(\hat\theta_n)=\hat p_n$, mert $\hat p_n$ a maximum likelihood becslés.
+    \item 
+    \begin{displaymath}
+      \ell_n(\hat\theta_n)-\ell_n(\theta^*) =
+      n\zjel*{\ln p(\hat\theta_n)\cdot\hat p_n-\ln p(\theta^*)\cdot \hat p_n}
+      =n\sum\nolimits_{i=1}^r \hat p_{n,i}\ln\zfrac*{\hat p_{n,i}}{p_i}.
+    \end{displaymath}
+    
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \begin{proposition}
+    $p,q$ két eloszlás $\smallset{1,\dots,r}$-en. Ekkor
+    \begin{displaymath}
+      \textstyle \sum_i q_i\log\frac {q_i}{p_i}=\tfrac12\sum_i\frac
+      {(q_i-p_i)^2}{p_i}\zjel{1+\alpha\max_{i}\abs{\frac{q_i-p_i}{p_i}}}\quad\text{ahol $\alpha\in[-1,1]$.}
+    \end{displaymath}
+  \end{proposition}
+  \begin{itemize}
+    \item $f (x)=x\log x$-re $f (1)=0$, $f' (1)=1$ és $f''
+    (x)=1/x$, mert $(x\log x)'=1+\log x$, $(x\log x)''=1/x$.
+    \begin{align*}
+      x\log x = f (x)&=f (1)+f' (1) (x-1)
+      +\tfrac12 f'' (\xi) (x-1)^2\\
+      &= x-1+\tfrac1{2\xi} (x-1)^2
+      \quad\text{ahol $\xi$ alkalmas
+      közbülső pont $1$ és $x$ között}%\xi\in (0,x)
+    \end{align*}
+    \item Ha a $\xi$ pont  $1$ és $x$ között van, akkor
+    $\frac1\xi-1=\alpha\abs{\frac1x-1}$ valamely $\alpha\in[-1,1]$-re.
+    
+    \item
+    \begin{align*}
+      \sum\nolimits_i q_i\log\tfrac{q_i}{p_i}
+      &=\sum p_if(\tfrac{q_i}{p_i})=
+      \sum\nolimits_i p_i(\tfrac{q_i}{p_i}-1)+
+      \tfrac12\sum\nolimits_ip_i(\tfrac{q_i}{p_i}-1)^2\zjel{1+\alpha_i\abs{\tfrac{q_i}{p_i}-1}}\\
+      &=
+      \zjel*{\tfrac12\sum\nolimits_i \tfrac{(q_i-p_i)^2}{p_i}}
+      \zjel*{1+\alpha\max\abs{\tfrac{q_i-p_i}{p_i}}}\quad\alpha\in[-1,1]
+    \end{align*}
+    \item $\hat p\to p$ esetén   $\max\abs{\tfrac{\hat p_i-p_i}{p_i}}\to0$
+    \item $2\zjel{\ell_n(\hat p)-\ell_n(p)}
+    =n\sum_i \hat p_{n,i}\ln\frac{\hat p_{n,i}}{p_i}
+    =n\sum_i\frac{(\hat p_{n,i}-p_i)^2}{p_i}+o(1)\dto\chi^2_{r-1}$.
+  \end{itemize}
+  
+\end{frame}
+
+
+
+\begin{frame}{Függetlenség vizsgálat $\chi^2$-próbával}
+  \begin{itemize}
+    \item Két szempont szerint osztályozunk, azaz a megfigyelések
+    $(X_k,Y_k)$, $k=1,\dots,n$.
+    \item $X_k\in\smallset{1,\dots,r}$, $Y_k\in\smallset{1,\dots,s}$.
+    
+    \item Kérdés: független-e $X$ és $Y$? Azaz ha az együttes eloszlás
+    $\pi$, $\pi_{i,\cdot}=\sum_j \pi_{i,j}$, $\pi_{\cdot,j}=\sum_i
+    \pi_{i,j}$ akkor $H_0:\pi_{i,j}=\pi_{i,\cdot}\pi_{\cdot,j}$,
+    $H_1:\exists i,j,\,\,\pi_{i,j}\neq\pi_{i,\cdot}\pi_{\cdot,j}$.
+    
+    \item Gyakoriságok $n_{i,j}=\sum_{k}\I{X_k=i,Y_k=j}$,
+    $n_{\cdot,j}=\sum_{i}n_{i,j}$, $n_{i,\cdot}=\sum_j n_{i,j}$
+    \item 
+    \begin{displaymath}
+      T_n=\sum_{i=1}^r\frac{(n_{i,j}-n\frac{n_{i,\cdot}n_{\cdot,j}}{n^2})^2}{n\frac{n_{i,\cdot}n_{\cdot,j}}{n^2}}=
+      n
+      \sum_{i=1}^r\frac{(n_{i,j}-\frac{n_{i,\cdot}n_{\cdot,j}}{n})^2}{n_{i,\cdot}n_{\cdot,j}}
+      \dto\chi^2_{(r-1) (s-1)}
+    \end{displaymath}
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$T_n$ határeloszlása}
+  \begin{itemize}
+    \item $\zfrac{n_{i,j}}{n}_{i,j}$ a $(\pi_{i,j})_{i,j}$ eloszlás
+    maximum likelihood becslése az összes lehetséges eloszlás
+    $rs-1$ dimenziós családjában.
+    \item $\frac{n_{i,\cdot}n_{\cdot,j}}{n^2}$ a maximum likelihood
+    becslés a szorzat alakú eloszlások $(r-1)+(s-1)$ dimenziós
+    családjában. 
+    \item A likelihood hányados logaritmusa közelítőleg $rs-1- (r-1) - (s-1)= (r-1)
+    (s-1)$ szabadságokú $\chi^2$ eloszlású.
+    \item A likelihood hányados logaritmusa
+    \begin{align*}
+      2\zjel*{\sum_{i,j}n_{i,j}\log\frac{n_{i,j}}n-\sum_{i,j}n_{i,j}\log\frac{n_{i,\cdot}n_{\cdot,j}}{n^2}}
+      &=
+      2n\sum_{i,j}\hat p_{i,j}\log\frac{\hat p_{i,j}}{\hat p_{i,\cdot}\hat p_{\cdot,j}}\\
+      &=n\sum_{i,j}\frac{(\hat p_{i,j}-\hat p_{i,\cdot}\hat
+      p_{\cdot,j})^2}{\hat p_{i,\cdot}\hat p_{\cdot,j}}+o (1)
+      \\
+      &=
+      n\sum_{i=1}^r\frac{(n_{i,j}-\frac{n_{i,\cdot}n_{\cdot,j}}{n})^2}{n_{i,\cdot}n_{\cdot,j}}=T_n+o (1)
+    \end{align*}
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Homogenitás vizsgálat $\chi^2$-próbával}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$, $X_i\in\smallset{1,\dots,r}$, $\pi$
+    eloszlásból.
+    \item $Y_1,\dots,Y_m$, $Y_i\in\smallset{1,\dots,r}$, $\rho$
+    eloszlásból.
+    
+    \item Gyakoriságok: $n_i=\sum_k\I{X_k=i}$, $m_i=\sum_k\I{Y_k=i}$.
+    \item Kérdés $H_0:\pi=\rho$, $H_1:\pi\neq\rho$.
+    \item Öntsük össze a megfigyeléseket és $Z_i=1$ ha az
+    $i$. megfigyelés az első mintából, $Z_i=2$ ha a második mintából
+    származik.
+    \item Új kérdés független-e $X,Z$?
+    
+    \item
+    \begin{displaymath}
+      n_{i,j}=
+      \begin{cases}
+        n_i&j=1\\m_i&j=2
+      \end{cases},
+      \quad
+      n_{i,\cdot}=n_i+m_i,\quad
+      n_{\cdot,1}=n,n_{\cdot,2}=m
+    \end{displaymath}
+    \item
+    \begin{align*}
+      T_n&=(n+m)\sum_{i,j}\frac{(n_{i,j}-\frac{n_{i,\cdot}n_{\cdot,j}}{n+m})^2}{n_{i,\cdot}n_{\cdot,j}}\\
+      &= (n+m)
+      \sum_{i}\frac{(n_{i}-\frac{(n_i+m_i)n}{n+m})^2}{(n_i+m_i)n}+%\\
+      (n+m)
+      \sum_{i}\frac{(m_{i}-\frac{(n_i+m_i)m}{n+m})^2}{(n_i+m_i)m}
+      % &
+      =nm\sum_{i}\frac{(\frac{n_{i}}n-\frac{m_i}m)^2}{n_i+m_i}\quad\dto\chi^2_{r-1}
+    \end{align*}
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Becsléses illeszkedés vizsgálat}
+  \begin{itemize}
+    \item Példa. $X_1,X_2,\dots,X_n$ mintáról szeretnénk eldönteni, hogy
+    Poisson eloszlásból származik-e.
+    
+    
+    \item  A mintából maximum likelihood módszerrel megbecsüljük a
+    $\lambda$ paramétert, majd a megfigyeléseket osztályokba soroljuk
+    és $\chi^2$ próbát végzünk.
+    \begin{displaymath}
+      T_n=\sum_{i}\frac{(n_i-np_i(\hat\lambda))^2}{np_i (\hat\lambda)}
+    \end{displaymath}
+    
+    \item $T_n$ eloszlása közelítőleg $\chi^2$ a szabadságfok $r-1-p$, ahol
+    $p$ a becsült paraméterek száma.
+    
+    \item A konkrét feladatban $p=1$, $T_n$ közelítőleg $r-2$ szabadságfokú.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Megjegyzések $\chi^2$ próbákhoz}
+  \begin{itemize}
+    \item A próbastatisztika eloszlását a határeloszlással közelíti. 
+    \item Nagy mintára használható.
+    \item Minden cellában legyen néhány megfigyelés.
+    \item Ökölszabály: minden  cella gyakoriság  %Gyakorlatban
+    legalább 4-6, ha ez nem teljesül, akkor cella összevonás.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Folytonos illeszkedés vizsgálat}
+  \begin{itemize}
+    \item $X_1,X_2,\dots,X_n$ minta  $F$ folytonos egy dimenziós
+    eloszlásból.
+    \item $F_0$ adott folytonos eloszlás függvény.
+    \item $H_0: F=F_0$, lehetséges alternatívák
+    
+    $H_1:F\geq F_0$, $F \neq F_0$ %(egyoldali ellenhipotézis).
+    
+    $H^*_1:F\neq F_0$ %(egyoldali ellenhipotézis).
+    \item Statisztikák:
+    \begin{displaymath}
+      D_n^+=\sup_t F_n (t)-F_0 (t),
+      \quad 
+      D_n=\sup_t\abs*{F_n (t)-F_0 (t)}
+      \quad\text{Kolmogorov--Szmirnov}
+    \end{displaymath}
+    \begin{displaymath}
+      \omega^2_n=\int_{\real} (F_n (t)-F_0 (t))^2 dF_0 (t),
+      \quad\text{Cramer--von Mises}
+    \end{displaymath}
+  \end{itemize}
+  \begin{proposition}
+    A Kolmogorov--Szmirnov és Cramer--von Mises statisztikák
+    eloszlásmentesek, azaz $H_0$ fennállása esetén eloszlásuk nem függ $F_0$-tól.
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{Kolmogorov--Szmirnov statisztika eloszlásmentessége}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ $n$--elemű minta $F_0$ folytonos
+    eloszlásfüggvényből.
+    \item $X_0^*=-\infty<X_1^*<X_2^*<\dots<X_n^*<X_{n+1}^*=\infty$ egy valószínűséggel, mert $i\neq
+    j$-re $\P{X_i=X_j}=\E{\P{X_i=X_j|X_j}}=\E{\P{X_i=y}|_{y=X_j}}=0$.
+    \item $(X_i^*,X_{i+1}^*)$-n $F_n$ konstans, $F_0$ monoton,
+    \begin{displaymath}
+      D_n^+ = \sup_{t}F_n (t)-F_0 (t)=\max_{1\leq i\leq n} (F_n (X_i)-F_0 (X_i))\vee(F_n (X_i+)-F_0 (X_i))
+    \end{displaymath}
+    
+    \item $F_n (X_i^*)=\frac{i-1}n$ és $F_n (X_i^*+)=\frac{i}n$. Azaz
+    \begin{displaymath}
+      D_n^+=\max_i(\tfrac{i-1}n-F_0 (X_i^*))\vee(\tfrac{i}n-F_0 (X_i^*))
+    \end{displaymath}
+    \item $U_i=F_0 (X_i)$ $(0,1)$-en egyenletes eloszlású minta, $F_0
+    (X_i^*)=U_i^*$
+    \item $D_n^+$ eloszlása tetszőleges $F_0$ esetén ugyanaz.
+    \item Hasonlóan $D_n=\sup_t\abs*{F_n (t)-F (t)}$-re.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Cramer--von Mises statisztika eloszlásmentes}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ $n$--elemű minta $F_0$ folytonos
+    eloszlásfüggvényből.
+    \begin{displaymath}
+      \omega_n^2=\int (F_n (t)-F_0 (t))^2dF_0 (t)
+    \end{displaymath}
+    \item Ha $X_0$ a mintától független $F_0$ eloszlású
+    \begin{displaymath}
+      \omega_n^2=\E{(F_n (X_0)-F_0 (X_0))^2|X_1,\dots,X_n}
+    \end{displaymath}
+    \item $U_0=F_0 (X_0)$, $U_i=F_0 (X_i)$ $i=1,\dots,n$.
+    \begin{displaymath}
+      F^U_n (t)=\frac1n\sum_{i=1}^n \I{U_i<t}
+    \end{displaymath}
+    \item Mivel $\P{U_0\in\smallset{U_1,\dots,U_n}}=0$, ezért $F_n
+    (X_0)=F^{U}_n (U_0)$ és
+    \begin{displaymath}
+      \omega_n^2=\E{(F^U_n (U_0)-U_0)^2|U_1,\dots,U_n}
+    \end{displaymath}
+    azaz $\omega_n^2$ eloszlása minden $F_0$ esetén ugyanaz.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Folytonos illeszkedés vizsgálat}
+  \begin{itemize}
+    \item $X_1,X_2,\dots,X_n$ minta  $F$ folytonos egy dimenziós
+    eloszlásból.
+    \item $F_0$ adott folytonos eloszlás függvény.
+    \item $H_0: F=F_0$, lehetséges alternatívák
+    
+    $H_1:F\geq F_0$, $F \neq F_0$.
+    
+    $H^*_1:F\neq F_0$.
+    \item Statisztikák:
+    \begin{displaymath}
+      D_n^+=\sup_t F_n (t)-F_0 (t),\quad D_n=\sup_t\abs*{F_n (t)-F_0 (t)}\quad\text{Kolmogorov--Szmirnov}
+    \end{displaymath}
+    \begin{displaymath}
+      \omega^2_n=\int_{\real} (F_n (t)-F_0 (t))^2 dF_0 (t),
+      \quad\text{Cramer--von Mises}
+    \end{displaymath}
+    
+    \item Kolmogorov--Szmirnov próba kritikus tartománya
+    
+    $H_1$ esetében $D_n^+>c$ esetén elvetjük a nullhipotézist
+    
+    $H^*_1$ esetében $D_n>c$ esetén elvetjük a nullhipotézist
+    
+    \item Cramer--von Mises próba:  $\omega^2_n>c$ esetén vetjük el $H_0$-t.
+    
+    \item Nem túl nagy $n$-re léteznek táblázatok. 
+    \item A skálázott próba statisztikának létezik határeloszlása,
+    általában a pontos eloszlást a határeloszlással közelítjük.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Skálázott próbastatisztikák határeloszlása}
+  \begin{itemize}
+    \item
+    \begin{displaymath}
+      D_n^+=\sup_t F_n (t)-F_0 (t),\quad D_n=\sup_t\abs*{F_n (t)-F_0 (t)}
+    \end{displaymath}
+    \item
+    \begin{displaymath}
+      \lim_{n\to\infty}\P{\sqrt{n}D_n^+>x}
+      =e^{-2x^2}=\frac{\phi (2x)}{\phi (0)},
+    \end{displaymath}
+    ahol $\phi$ a standard normális sűrűség függvény.
+    
+    Más szóval $n(D_n^+)^2\dto\exp{2}$.
+    \item
+    \begin{displaymath}
+      \lim_{n\to\infty}\P{\sqrt{n}D_n<x} =
+      \sum_{k\in \Z} (-1)^{k} e^{-2k^2x^2}=\sum_{k\in \Z} (-1)^{k}\frac{\phi (2kx)}{\phi (0)}
+    \end{displaymath}
+    \item
+    \begin{displaymath}
+      n\omega_n^2  \dto\sum_{k=1}^\infty
+      \frac{Z_k^2}{k^2\pi^2},\quad\text{ahol $Z_1,Z_2,\dots$ független $N (0,1)$-ek.}
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Brown híd, mese}
+  \begin{itemize}
+    \item Legyen $U_1,\dots,U_n$ $(0,1)$e-n egyenletes minta.
+    \begin{displaymath}
+      X^{n}=(n^{-1/2} \sum_{i=1}^n(\I{U_i\leq t}-t))_{t\in[0,1]}=\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]}
+    \end{displaymath}
+    valószínűségi változók paraméterezett családja, azaz folyamat.
+    \item $t\mapsto X^{n}_t (\omega)$ jobbról folytonos, balról
+    határértékkel rendelkező függvény (trajektória).
+    \begin{displaymath}
+      D[0,1]=\set{w:[0,1]\to\real}{\text{$w$ jobbról folytonos, balról
+      határértékkel rendelkezik}}
+    \end{displaymath}
+    \item $D[0,1]$-en megadható olyan metrika, amivel $D[0,1]$ teljes
+    szeparábilis metrikus tér. $X^{n}$ 
+    véletlen elem ebből a térből.
+    
+    \item Megmutatható, hogy $X^n$ eloszlásban konvergens, az
+    eloszlásbeli limesz neve Brown híd.
+    
+    \item $(B_t)_{t\in[0,1]}$ Brown híd, ha folytonos trajektóriájú Gauss
+    folyamat, $\E{B_t}=0$, $\cov (B_t,B_s)=s\wedge t-st$.
+    \item $\phi (w)=\max_s w (s)$, $\max_s \abs*{w (s)}$, $\int_0^1w^2
+    (s)ds$ folytonos funkcionálok $D[0,1]$-en.
+    
+    
+    \item
+    \begin{displaymath}
+      \sqrt{n}D_n^+\dto \max_{s\in[0,1]} B_s,
+      \quad\sqrt{n}D_n\dto \max_{s\in[0,1]}\abs*{B_s},
+      \quad n\omega_n^2\dto \int_0^1B_s^2ds,\quad\text{ahol $B$ Brown híd}
+    \end{displaymath}
+    
+  \end{itemize}
+\end{frame}
+\end{document}
