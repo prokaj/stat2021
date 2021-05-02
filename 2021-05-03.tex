@@ -1,0 +1,718 @@
+\def\option{}
+\providecommand{\option}{handout}
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
+
+
+\input{preambulum.tex}
+\def\ip#1#2{\langle#1,#2\rangle}
+\begin{document}
+
+\maketitle
+\begin{frame}{Folytonos illeszkedés vizsgálat}
+  \begin{itemize}
+    \item $X_1,X_2,\dots,X_n$ minta  $F$ folytonos egy dimenziós
+    eloszlásból.
+    \item $F_0$ adott folytonos eloszlás függvény.
+    \item $H_0: F=F_0$, lehetséges alternatívák
+    
+    $H_1:F\geq F_0$, $F \neq F_0$ %(egyoldali ellenhipotézis).
+    
+    $H^*_1:F\neq F_0$ %(egyoldali ellenhipotézis).
+    \item Statisztikák:
+    \begin{displaymath}
+      D_n^+=\sup_t F_n (t)-F_0 (t),
+      \quad 
+      D_n=\sup_t\abs*{F_n (t)-F_0 (t)}
+      \quad\text{Kolmogorov--Szmirnov}
+    \end{displaymath}
+    \begin{displaymath}
+      \omega^2_n=\int_{\real} (F_n (t)-F_0 (t))^2 dF_0 (t),
+      % ,\quad D_n=\sup_t\abs*{F_n (t)-F_0 (t)}
+      \quad\text{Cramer--von Mises}
+    \end{displaymath}
+  \end{itemize}
+  \begin{proposition}
+    A Kolmogorov--Szmirnov és Cramer--von Mises statisztikák
+    eloszlásmentesek, azaz $H_0$ fennállása esetén eloszlásuk nem függ $F_0$-tól.
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{Kolmogorov--Szmirnov statisztika eloszlásmentessége}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ $n$--elemű minta $F_0$ folytonos
+    eloszlásfüggvényből.
+    \item $X_0^*=-\infty<X_1^*<X_2^*<\dots<X_n^*<X_{n+1}^*=\infty$ egy valószínűséggel, mert $i\neq
+    j$-re $\P{X_i=X_j}=\E{\P{X_i=X_j|X_j}}=\E{\P{X_i=y}|_{y=X_j}}=0$.
+    \item $(X_i^*,X_{i+1}^*)$-n $F_n$ konstans, $F_0$ monoton,
+    \begin{displaymath}
+      D_n^+ = \sup_{t}F_n (t)-F_0 (t)=\max_{1\leq i\leq n} (F_n (X_i)-F_0 (X_i))\vee(F_n (X_i+)-F_0 (X_i))
+    \end{displaymath}
+    
+    \item $F_n (X_i^*)=\frac{i-1}n$ és $F_n (X_i^*+)=\frac{i}n$. Azaz
+    \begin{displaymath}
+      D_n^+=\max_i(\tfrac{i-1}n-F_0 (X_i^*))\vee(\tfrac{i}n-F_0 (X_i^*))
+    \end{displaymath}
+    \item $U_i=F_0 (X_i)$ $(0,1)$-en egyenletes eloszlású minta, $F_0
+    (X_i^*)=U_i^*$
+    \item $D_n^+$ eloszlása tetszőleges $F_0$ esetén ugyanaz.
+    \item Hasonlóan $D_n=\sup_t\abs*{F_n (t)-F (t)}$-re.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Cramer--von Mises statisztika eloszlásmentes}
+  \begin{itemize}
+    \item $X_1,\dots,X_n$ $n$--elemű minta $F_0$ folytonos
+    eloszlásfüggvényből.
+    \begin{displaymath}
+      \omega_n^2=\int (F_n (t)-F_0 (t))^2dF_0 (t)
+    \end{displaymath}
+    \item Ha $X_0$ a mintától független $F_0$ eloszlású
+    \begin{displaymath}
+      \omega_n^2=\E{(F_n (X_0)-F_0 (X_0))^2|X_1,\dots,X_n}
+    \end{displaymath}
+    \item $U_0=F_0 (X_0)$, $U_i=F_0 (X_i)$ $i=1,\dots,n$.
+    \begin{displaymath}
+      F^U_n (t)=\frac1n\sum_{i=1}^n \I{U_i<t}
+    \end{displaymath}
+    \item Mivel $\P{U_0\in\smallset{U_1,\dots,U_n}}=0$, ezért $F_n
+    (X_0)=F^{U}_n (U_0)$ és
+    \begin{displaymath}
+      \omega_n^2=\E{(F^U_n (U_0)-U_0)^2|U_1,\dots,U_n}
+    \end{displaymath}
+    azaz $\omega_n^2$ eloszlása minden folytonos $F_0$ esetén ugyanaz.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Folytonos illeszkedés vizsgálat}
+  \begin{itemize}
+    \item $X_1,X_2,\dots,X_n$ minta  $F$ folytonos egy dimenziós
+    eloszlásból.
+    \item $F_0$ adott folytonos eloszlás függvény.
+    \item $H_0: F=F_0$, lehetséges alternatívák
+    
+    $H_1:F\geq F_0$, $F \neq F_0$ %(egyoldali ellenhipotézis).
+    
+    $H^*_1:F\neq F_0$ %(egyoldali ellenhipotézis).
+    \item Statisztikák:
+    \begin{displaymath}
+      D_n^+=\sup_t F_n (t)-F_0 (t),\quad D_n=\sup_t\abs*{F_n (t)-F_0 (t)}\quad\text{Kolmogorov--Szmirnov}
+    \end{displaymath}
+    \begin{displaymath}
+      \omega^2_n=\int_{\real} (F_n (t)-F_0 (t))^2 dF_0 (t),
+      % ,\quad D_n=\sup_t\abs*{F_n (t)-F_0 (t)}
+      \quad\text{Cramer--von Mises}
+    \end{displaymath}
+    
+    \item Kolmogorov--Szmirnov próba kritikus tartománya
+    
+    $H_1$ esetében $D_n^+>c$ esetén elvetjük a nullhipotézist
+    
+    $H^*_1$ esetében $D_n>c$ esetén elvetjük a nullhipotézist
+    
+    \item Cramer--von Mises próba:  $\omega^2_n>c$ esetén vetjük el $H_0$-t.
+    
+    \item Nem túl nagy $n$-re léteznek táblázatok. 
+    \item A skálázott próba statisztikának létezik határeloszlása,
+    általában a pontos eloszlást a határeloszlással közelítjük.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Skálázott próbastatisztikák határeloszlása}
+  \begin{itemize}
+    \item
+    \begin{displaymath}
+      D_n^+=\sup_t F_n (t)-F_0 (t),\quad D_n=\sup_t\abs*{F_n (t)-F_0 (t)}
+    \end{displaymath}
+    \item
+    \begin{displaymath}
+      \lim_{n\to\infty}\P{\sqrt{n}D_n^+>x}
+      =e^{-2x^2}=\frac{\phi (2x)}{\phi (0)},
+    \end{displaymath}
+    ahol $\phi$ a standard normális sűrűség függvény.
+    
+    Más szóval $n(D_n^+)^2\dto\exp{2}$.
+    \item
+    \begin{displaymath}
+      \lim_{n\to\infty}\P{\sqrt{n}D_n<x} =
+      \sum_{k\in \Z} (-1)^{k} e^{-2k^2x^2}=\sum_{k\in \Z} (-1)^{k}\frac{\phi (2kx)}{\phi (0)}
+    \end{displaymath}
+    \item
+    \begin{displaymath}
+      n\omega_n^2  \dto\sum_{k=1}^\infty
+      \frac{Z_k^2}{k^2\pi^2},\quad\text{ahol $Z_1,Z_2,\dots$ független $N (0,1)$-ek.}
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Brown híd, mese}
+  \begin{itemize}
+    \item Legyen $U_1,\dots,U_n$ $(0,1)$-n egyenletes minta.
+    \begin{displaymath}
+      X^{(n)}=\zjel*{\frac1{\sqrt{n}} \sum\nolimits_{i=1}^n(\I{U_i\leq t}-t)}_{t\in[0,1]}=\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]}
+    \end{displaymath}
+    valószínűségi változók paraméterezett családja, azaz folyamat.
+    \item Ha $\underbar{t}=(t_1,\dots,t_r)\in[0,1]^r$ akkor 
+    \begin{displaymath}
+      X^(n)_{\underbar{t}}=\tfrac1{\sqrt{n}}\zjel*{\sum\nolimits_{k=1}^n Y_k-\E{Y_k}},
+      \quad\text{ahol}\quad
+      Y_k=\zjel{\I{U_k<t_1},\dots,\I{U_k<t_r}}.
+    \end{displaymath} 
+    $X^(n)_{\underbar t}\dto N(0,\Sigma(Y))$, ahol $\cov(\I{U<s},\I{U<t})=\P{U<s,\, U<t}-\P{U<s}\P{U<t}=s\wedge t-st$.
+    \item $t\mapsto X^{n}_t (\omega)$ jobbról folytonos, balról
+    határértékkel rendelkező függvény (trajektória).
+    \begin{displaymath}
+      D[0,1]=\set{w:[0,1]\to\real}{\text{$w$ jobbról folytonos, balról
+      határértékkel rendelkezik}}
+    \end{displaymath}
+    %\item 
+    $D[0,1]$ alkalmas %megadható olyan 
+    metrikával %, amivel $D[0,1]$ 
+    teljes szeparábilis metrikus tér. $X^{(n)}$  véletlen elem ebből a térből.
+    \item Megmutatható, hogy $X^(n)$ eloszlásban konvergens, az
+    eloszlásbeli limesz neve Brown híd.
+    
+    $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
+    folyamat, $\E{B_t}=0$, $\cov (B_t,B_s)=s\wedge t-st$.
+    
+    \item $\phi (w)=\max_s w (s)$, $\max_s \abs*{w (s)}$, $\int_0^1w^2
+    (s)d s$ folytonos funkcionálok $D[0,1]$-en. 
+    % \item
+    \begin{displaymath}
+      \sqrt{n}D_n^+\dto \max_{s\in[0,1]} B_s,
+      \quad\sqrt{n}D_n\dto \max_{s\in[0,1]}\abs*{B_s},
+      \quad n\omega_n^2\dto \int_0^1B_s^2d s,\quad\text{ahol $B$ Brown híd}
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Skálazott Cramer--von Mises statisztika határeloszlása}
+  \begin{itemize}
+    \item $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
+    folyamat, $\E{B_t}=0$, $\cov (B_t,B_s)=s\wedge t-st$.
+    
+    \begin{displaymath}
+      X^{(n)}=\zjel*{\frac1{\sqrt{n}} \sum\nolimits_{i=1}^n(\I{U_i\leq t}-t)}_{t\in[0,1]}
+      =\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]},
+      \quad X^{(n)}\dto B\quad \text{a $D[0,1]$ metrikus térben.} 
+    \end{displaymath}
+    \item $e_n(t)=\sqrt{2}\sin (k\pi t)$. $\set{e_n}{n\geq1}$ teljes ortonormált rendszer (bázis) 
+    az $L^2([0,1])$ Hilbert térben. 
+    \begin{displaymath}
+      n\omega_n^2\eqinlaw\int_0^1 (X^{(n)}_s)^2d s
+      \dto \int_0^1 B_s^2 d s 
+      =\sum_{n=1}^\infty \zjel*{\int_0^1 B_se_n(s)ds}^2
+    \end{displaymath}
+    Itt a $\xi_n=\int_0^1 B_s e_n(s)ds$  változók együttesen normálisak. $\E{\xi_n}=\int_0^1\E{B_s}e_n(s)ds=0$ 
+    és 
+    \begin{displaymath}
+      \cov(\xi_n,\xi_m)
+      =\E{\int_0^1\int_0^2 B_se_n(s)B_te_m(t)dsdt}
+      =\int_{[0,1]^2} \cov(B_s,B_t)e_n(s)e_m(t)d s d t
+      =\I{n=m} \frac1{n^2\pi^2}
+    \end{displaymath}
+    Azaz a $\xi_n$ változók függetlenek és $Z_n=n\pi\xi_n$ független $N(0,1)$-ek 
+    sorozata.
+    % $\xi^2_n\eqinlaw Z_n^2/(n^2\pi^2)$ és
+    
+    \item $n\omega^2_n\dto \sum_{n=1}^\infty \frac{Z_n^2}{n^2\pi^2}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Skálázott Kolmogorov--Szmirnov statisztika határeloszlása}
+  \begin{itemize}
+    \item  $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
+    folyamat, $\E{B_t}=0$, $\cov (B_t,B_s)=s\wedge t-st$.
+    
+    \begin{displaymath}
+      X^{(n)}=\zjel*{\frac1{\sqrt{n}} \sum\nolimits_{i=1}^n(\I{U_i\leq t}-t)}_{t\in[0,1]}
+      =\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]},
+      \quad X^{(n)}\dto B\quad \text{a $D[0,1]$ metrikus térben.} 
+    \end{displaymath}
+    \item $Z\sim N(0,1)$ független a $B$ Brown hídtól és  $\beta_t=B_t+tZ$.
+    \begin{displaymath}
+      \cov(\beta_s,\beta_t)=\cov(B_s,B_t)+\cov(sZ,tZ)=\min(s,t)=s\wedge t.
+    \end{displaymath}
+    $\beta$ \textbf{Brown mozgás}, azaz folytonos trajektóriájú Gauss folyamat nulla várható értékkel 
+    és $s\wedge t$ kovariancia függvénnyel. 
+    \item 
+    \begin{displaymath}
+      \P{\max_{s\in[0,1]} B_s\geq x}
+      =\lim_{\eps\to0}\P{\max_{s\leq 1} B_s+sZ\geq x \given \abs{Z}<\eps}
+      =\lim_{\eps\to0}\P{\max_{s\leq 1} \beta_s\geq x \given \abs{\beta_1}<\eps}
+    \end{displaymath}
+    \item $u<s<t$ esetén $\cov(\beta_t-\beta_s,\beta_u)=0$, azaz $\set{\beta_u}{u\in[0,s]}$ 
+    és $\set{\beta_t-\beta_s}{t\in[s,1]}$ függetlenek. 
+    $\set{\beta_t-\beta_s}{t\in[s,1]}\eqinlaw \set{-(\beta_t-\beta_s)}{t\in[s,1]}$ és így 
+    \begin{displaymath}
+      \set{\beta_t}{t\in[0,1]}\eqinlaw\set{\tbeta_t=\beta_{t\wedge s}-(\beta_{t}-\beta_{t\wedge s})}{t\in[0,1]}
+    \end{displaymath}
+    Ez a tükrözési elv determinisztikus $s$ időpontra. Igaz marad akkor is, ha pl. 
+    $\tau=\inf\set{s\in[0,1]}{\beta_s\geq x}$. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Skálázott Kolmogorov--Szmirnov statisztika határeloszlása}
+  \begin{itemize}
+    \item  $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
+    folyamat, $\E{B_t}=0$, $\cov (B_t,B_s)=s\wedge t-st$.
+    
+    \begin{displaymath}
+      X^{(n)}=\zjel*{\frac1{\sqrt{n}} \sum\nolimits_{i=1}^n(\I{U_i\leq t}-t)}_{t\in[0,1]}
+      =\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]},
+      \quad X^{(n)}\dto B\quad \text{a $D[0,1]$ metrikus térben.} 
+    \end{displaymath}
+    \item $Z\sim N(0,1)$ független a $B$ Brown hídtól és  $\beta_t=B_t+tZ$. $\beta$ Brown mozgás.
+    \begin{displaymath}
+      \P{\max_{s\in[0,1]} B_s\geq x}
+      % =\lim_{\eps\to0}\P{\max_{s\leq 1} B_s+sZ\geq x \given \abs{Z}<\eps}
+      =\lim_{\eps\to0}\P{\max_{s\leq 1} \beta_s\geq x \given \abs{\beta_1}<\eps}
+    \end{displaymath}
+    \item $x>0$, $\tau=\inf\set{s}{\beta_s\geq x}$. Ekkor 
+    $\tbeta_t=\beta_{t\wedge \tau}-(\beta_t-\beta_{t\wedge\tau})=2\beta_{t\wedge\tau}-\beta_t$ is Brown mozgás és
+    \begin{displaymath}
+      \P{\max_{s\leq 1}\beta_s\geq x,\,\abs{\beta_1}<\eps}
+      =\P{\max_{s\leq 1}\tbeta_s\geq x,\,\abs{\tbeta_1-2x}<\eps}
+      =\P{\abs{\tbeta_1-2x}<\eps}
+    \end{displaymath}
+    \item  $\tbeta_1\sim N(0,1)$
+    \begin{displaymath}
+      \lim_{n\to\infty}\P{\sqrt{n}D_n^{+}\geq x}=\P{\max_{s\leq 1} B_s\geq x}
+      =\lim_{\eps\to 0}\P{\max_{s\leq 1}\beta_s\geq x\given \abs{\beta_1}<\eps}
+      =\lim_{\eps\to0}\frac{\P{\abs{\tbeta_1-2x}<\eps}}{\P{\abs{\tbeta_1}<\eps}}
+      =\frac{\phi(2x)}{\phi(0)}
+      =e^{-2x^2}.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\section*{Klasszikus próbák optimalitása}
+
+\begin{frame}{Emlékeztető. Neyman-Pearson lemma}
+  \begin{itemize}
+    \item \textbf{Egyszerű} a hipotézis vizsgálati feladat, ha
+    $\Theta_0,\Theta_1$ egyelemű. Ekkor $H_0:f=f_0$, $H_1:f=f_1$ alakú
+    a feladat, ahol $f_0$, $f_1$ a két eloszlás $\P[0]$, $\P[1]$ sűrűségfüggvénye
+    alkalmas domináló mértékre  nézve (pl. $\lambda=\frac12 (\P[0]+\P[1])$).
+    \item \textbf{Likelihood hányados} statisztika $f_1/f_0$
+  \end{itemize}
+  \begin{lemma}
+    Egyszerű hipotézis vizsgálati feladat, $f_0>0$. 
+    Tegyük fel, hogy a  likelihood hányados $f_1/f_0$
+    folytonos eloszlású $H_0$ és $H_1$ mellett is.
+    
+    Ekkor
+    \begin{itemize}[<*>]
+      \item Minden $\alpha\in(0,1)$-re létezik $c_\alpha$ úgy,
+      hogy $\phi=\I{f_1>c_\alpha f_0}$ terjedelme $\alpha$. (Azaz $\E[0]{\phi}=\alpha$)
+      %T>c_\alpha}=\alpha$)
+      \item $\phi$ a legerősebb $\alpha$ terjedelmű próba.
+      \item Ha $\alpha (\bar\phi)\leq \alpha$ és
+      $\E[1]{\bar{\phi}}=\E[1]{\phi}$, akkor $\bar{\phi}=\phi$
+      ($\P[0]$, $\P[1]$ majdnem mindenütt).
+    \end{itemize}
+  \end{lemma}
+  
+\end{frame}
+
+
+\begin{frame}{Egyoldali ellenhipotézis mellett, az $u$-próba 
+  egyenletesen legerősebb I.}
+  
+  A feladat: $X_1,\dots,X_n$ minta $N(\mu,\sigma^2)$ eloszlásból, $\sigma$ ismert.
+  $H_0: \mu=\mu_0$, $H_1:\mu>\mu_0$.
+  
+  A sűrűségfüggvény
+  \begin{displaymath}
+    f_\mu (x)=\zfrac*1{2\pi\sigma^2}^{n/2}\exp{-\frac1{2\sigma^2}\sum_i
+    (x_i-\mu)^2}=h (x)\exp{\mu \tT (x)-b (\mu)}
+  \end{displaymath}
+  ahol
+  \begin{displaymath}
+    h (x)=\zfrac*1{2\pi\sigma^2}^{n/2}e^{-\frac1{2\sigma^2}\sum_i x_i^2},\quad
+    b(\mu)=n\frac{\mu^2}{2\sigma^2},\quad \tT (x)=\frac{\sum_i x_i}{\sigma^2}
+  \end{displaymath}
+  \begin{itemize}
+    \item Elegendő a $\mu_0=0$ esetet nézni.
+    \item Egyszerű hipotézis vizsgálati feladat ($0<\mu_1$), $H_0:\mu=0$,
+    $H_1:\mu=\mu_1$.
+    \item A likelihood hányados
+    statisztika 
+    \begin{displaymath}
+      \frac{f_1}{f_0} (x)=\exp{(\mu_1-0)\tT (x)-(b (\mu_1)-b(0))}
+      \quad\text{$\tT$ szigorúan monoton növő függvénye}
+    \end{displaymath}
+    \item $T$ eloszlása folytonos, azaz a legerősebb próba nem
+    randomizált és
+    \begin{displaymath}
+      \mfX_1=\event{\tT>c}\quad\text{alakú, ahol}\quad \P[0]{\tT>c}=\alpha
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[<*>]{Egyoldali ellenhipotézis mellett, az $u$-próba
+  egyenletesen legerősebb II.}
+  
+  \begin{itemize}
+    \item<*> $X_1,\dots,X_n$ minta $N(\mu,\sigma^2)$ eloszlásból, $\sigma$ ismert.
+    Egyszerű hipotézis vizsgálati feladat ($0<\mu_1$), $H_0:\mu=0$,
+    $H_1:\mu=\mu_1$.
+    \item<*> $\alpha$ terjedelmű likelihood hányados próba
+    \begin{displaymath}
+      \mfX_1=\event{\tT>c}
+      \quad\text{alakú, ahol}\quad
+      \tT=\frac{1}{\sigma^2}\sum_i X_i,\quad \P[0]{\tT>c}=\alpha
+    \end{displaymath}
+    
+    \item A likelihood hányados próba nem függ
+    $\mu_1\in(0,\infty)$-től.
+    \item A fenti próba egyenletesen legerősebb a $H_1:\mu>0$
+    ellenhipotézisre is.
+    
+    Ugyanis, ha a $\phi$ döntési függvénnyel megadott próba terjedelme
+    $\alpha$ és valamely $\mu_1>0$ pontban az ereje nem kisebb, mint a
+    fenti próba ereje, akkor a Neyman--Pearson lemma miatt $\phi$ is
+    likelihood hányados próba, vagyis azonos a 
+    fenti próbával.
+    \item Az elutasítási tartomány
+    \begin{displaymath}
+      \event*{\sum_{i} X_i>\sigma^2 c}=
+      \event*{T(X)>u_\alpha},
+      \quad\text{ahol}\quad
+      T (X)=\sqrt{n}\frac{\bar{X}}{\sigma},\quad \P[0]{T>u_\alpha}=\alpha.
+    \end{displaymath}
+    $T(X)\sim N(0,1)$ a $H_0: \mu=0$ hipotézis mellett.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[<*>]{$H_1:\mu\neq0$-ra nincs egyenletesen legerősebb próba}
+  
+  \begin{itemize}
+    \item $H_0:\mu=0$, $H_1^*:\mu=\mu_1$ feladatra, a likelihood hányados
+    próba a legerősebb. 
+    \item Mivel a likelihood hányados eloszlása $H_0$ mellett folytonos
+    a likelihood hányados próba nem randomizált, így egyértelmű.
+    \item Ha $\phi$ egyenletesen legerősebb lenne, akkor minden
+    $\mu_1\neq0$-ra egybeesne a $H^*$ feladathoz tartozó likelihood
+    hányados próbával.
+    \item $\mu_1>0$ esetén $\phi (x)=\I{T (x) >u_\alpha}$
+    
+    \item $\mu_1<0$ esetén $\phi (x)=\I{T (x) <-u_\alpha}$
+    
+    \item Ezek egyszerre nem teljesülhetnek, nincs ilyen $\phi$ és nincs
+    egyenletesen legerősebb próba.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{$H_0:\mu=0$, $H_1:\mu\neq0$-ra, az $u$-próba egyenletesen
+  legerősebb torzítatlan próba}
+  $\Theta$ konvex, nyílt és (R) teljesül,
+    $\Theta_0=\smallset{\theta_0}$, $\phi$ torzítatlan. %, pl. $\P[\theta]=N (\mu,\sigma^2)$, $\mu\in\real=\Theta$.
+    Ekkor $\psi(\theta)=\E[\theta]{\phi}$ folytonosan differenciálható, minimumhely $\theta=\theta_0$-ban van és $\E[\theta_0]{\ell' (\theta_0) }=0$.
+    \begin{displaymath}
+      \cov_{\theta_0} (\phi,\ell' (\theta_0))=\E[\theta_0]{\phi\ell'(\theta_0)}=\psi'(\theta_0)=0.
+    \end{displaymath}
+
+  \begin{proposition}[Bizonyítás később]
+    $\Theta\subset \real$ nyílt, $\set{\P[\theta]}{\theta\in\Theta}$ exponenciális eloszláscsalád. % $H_0:\theta=0$, $H_1:\theta\neq 0$.
+    \begin{displaymath}
+      \phi=\I{\ell'(0)\notin[a_1,a_2]},\quad \Phi=\set{\bphi}{\E[0]{\bphi}=\E[0]{\phi},\quad \E[0]{\bphi\ell'(0)}=0}
+    \end{displaymath}
+    Ha $\phi\in \Phi$, akkor $\phi$ egyenletesen legerősebb próba $\Phi$-ben a
+    $H_0:\theta=0$, $H_1:\theta\neq0$ feladatra és $a_1<0<a_2$.
+  \end{proposition}
+  \begin{itemize}
+    \item $\set{N (\mu,\sigma^2)}{\mu\in\real}$, $\sigma^2>0$ rögzített,
+    esetén ($\theta=\mu$)
+    \begin{displaymath}
+      \ell (\mu,x)=\ln h (x)+\mu \tT (x) - b (\mu),\quad
+      \text{ahol}\quad
+      \tT (x)=\frac{\sum_i x_i}{\sigma^2},\quad b (\theta)=\frac{n\mu^2}{2\sigma^2}
+      \quad \ell' (\mu)=\frac{n}{\sigma^2}(\bar{X}-\mu)
+    \end{displaymath}
+    \item  $u$ próba próba statisztikája: $T=\frac{\sqrt{n}}{\sigma} \bX$, 
+    döntési függvénye: $\phi=\I{\abs{T}>u_{\alpha/2}}$. $\phi$ a fenti alakú.
+    \item  $\phi$ torzítatlan: $\P[\mu]$ alatt $T\sim N(\sqrt{n}\frac{\mu}{\sigma},1)$, %, ha a paraméter $\theta=\mu$. 
+    % \frac{n\mu}{\sigma^2}$  $\phi\in\Phi$, mert 
+    a $\psi(\theta)=\E[\theta]{\phi}$ jelöléssel, ha $Z\sim N(0,1)$
+    \begin{displaymath}
+      \psi(\theta)=\P{-u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}<Z<+u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}},\quad
+      \psi'(\theta)=
+      c\zjel*{f_Z\zjel*{u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}}-f_Z\zjel*{-u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}}}
+    \end{displaymath}
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}
+  \begin{proposition}
+    $\Theta\subset \real$ nyílt, $\set{\P[\theta]}{\theta\in\Theta}$ exponenciális eloszláscsalád. % $H_0:\theta=0$, $H_1:\theta\neq 0$.
+
+      $\phi=\I{\ell'(0)\notin[a_1,a_2]},\quad \Phi=\set{\bphi}{\E[0]{\bphi}=\E[0]{\phi},\quad \E[0]{\bphi\ell'(0)}=0}$.
+
+    Ha $\phi\in \Phi$, akkor $\phi$ egyenletesen legerősebb próba $\Phi$-ben a
+    $H_0:\theta=0$, $H_1:\theta\neq0$ feladatra.
+  \end{proposition}
+  
+  \begin{lemma}[Bizonyítás később]
+    $\theta_1<0<\theta_2$, $p\in (0,1)$. $H_0:f=f_{0}$, $H_1^*: f=pf_{\theta_1}+ (1-p)f_{\theta_2}$.
+    
+    Ekkor %$\forall\,\theta_1<0<\theta_2$-re 
+    létezik $p=p (\mu_1,\mu_2)$ úgy, hogy $H^*$-hoz $\phi$ a legerősebb a vele azonos terjedelmű próbák között és
+    \begin{displaymath}
+      \exists \lim\nolimits_{\theta_2\to0}\tfrac{p (\theta_1,\theta_2)}{\theta_2}\in (0,\infty),\
+      \quad 
+      \lim\nolimits_{\theta_1\to0}\tfrac{1-p (\theta_1,\theta_2)}{\theta_1}\in (0,\infty).
+    \end{displaymath}
+  \end{lemma}
+  \begin{itemize}
+    \item 
+    Ezt felhasználva, ha $\bar{\phi}\in\Phi$, akkor
+    \begin{displaymath}
+      \lim\nolimits_{\theta_2\to0}\tfrac{1}{\theta_2}\zjel{\E[\theta_2]{\bar{\phi}}-\E[0]{\bar{\phi}}}
+      =\E[0]{\bar{\phi}\ell' (0)}=0,
+      \quad
+      \lim\nolimits_{\theta_2\to0}\tfrac{1}{\theta_2}\zjel{\E[\mu_2]{\phi}-\E[0]{\phi}}
+      =\E[0]{\phi\ell' (0)}=0
+    \end{displaymath}
+    és
+    \begin{displaymath}
+      \tfrac{1}{p(\theta_1,\theta_2)}\E[\theta_2]{\bar{\phi}-\phi}\to0,\quad\text{ha $\theta_2\to0$
+      és $\E[0]{\bar{\phi}}= \E[0]{\phi}$}
+    \end{displaymath}
+    \item Mivel $\phi$ legerősebb próba $H^*$-ra
+    \begin{displaymath}
+      p\E[\theta_1]{\bar{\phi}}+ (1-p)\E[\theta_2]{\bar{\phi}}\leq
+      p\E[\theta_1]{\phi}+ (1-p)\E[\theta_2]{\phi},
+      \quad\implies
+      \E[\theta_1]{\phi-\bar{\phi}}\geq \tfrac{1-p(\theta_1,\theta_2)}{p(\theta_2)}\E[\theta_2]{\bar{\phi}-\phi}\to0.
+      %\quad\theta_2\to0.
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lemma bizonyítása}
+  \begin{itemize}
+    \item $\theta_1<0<\theta_2$. $H_0:f=f_0$, $H_1^*:f=pf_1+ (1-p)f_2$, ahol 
+    \begin{displaymath}
+      f_i  = f_{\theta_i}, \quad f_\theta(x) = h (x)e^{\theta\cdot T(x) - b (\theta)},
+    \end{displaymath}
+    Feltehető, hogy $T=\ell'(0)$. %és $b (0)=b' (0)=0$, azaz $\partial\ell (0)=T$.
+    \item A likelihood hányados 
+    \begin{displaymath}
+      \frac{pf_1+ (1-p)f_2}{f_0} (x) 
+      =p e^{\theta_1 t-b (\theta_1)}+(1-p)e^{\theta_2 t-b (\theta_2)}|_{t=T(x)}=g (T(x))
+    \end{displaymath}
+    Ez a $t$-nek konvex függvénye, $\lim_{t\to\pm\infty} =\infty$
+    \item A kritikus tartomány $\event*{T\notin [a_1,a_2]}$ alakú $a_1<0<a_2$, ha
+    \begin{displaymath}
+      g (a_1)=g (a_2),\quad\text{azaz}\quad
+      p\zjel{e^{\theta_1 a_1}-e^{\theta_1 a_2}}e^{-b (\theta_1)}
+      = (1-p)\zjel{e^{\theta_2 a_2}-e^{\theta_2 a_1}}e^{-b (\theta_2)}
+    \end{displaymath}
+    Ennek megoldása $p$-re $p (\theta_1,\theta_2)$. Ha $\theta_1$ rögzített és $\theta_2\to0$, akkor $p(\theta_1,\theta_2)\to0$
+    \item Ha $\theta_2$-vel osztunk és $\theta_2\to0$, akkor
+    \begin{displaymath}
+      \hphantom{\hbox{}\hspace{-1em}}
+      \lim_{\theta_2\searrow0}\frac{p (\theta_1,\theta_2)}{\theta_2} 
+      \zjel*{e^{\theta_1 a_1}-e^{\theta_1 a_2}}e^{-b(\theta_1)}
+      = \lim_{\theta_2\searrow0} (1-p(\theta_1,\theta_2)) 
+      e^{-b (\theta_2)} \zjel*{\frac{e^{\theta_2a_2}-1}{\theta_2}-\frac{e^{\theta_2a_1}-1}{\theta_2}}
+      %\frac{\sinh (\theta_2c)}{\theta_2 c}
+      = e^{-b(0)}(a_2-a_1)
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Egyenletesen legerősebb próbák zavaró paraméter mellett}
+  \begin{itemize}
+    \item $t$-próba esetét nézzük részletesebben.
+    \item $X_1,\dots,X_n\sim N (\mu,\sigma^2)$ minta, csak $\mu$ érdekel
+    minket. 
+    \item Elég a $H_0:\mu=0$ esetet nézni.
+    \item Az eloszláscsalád dominált
+    \begin{displaymath}
+      f_{\mu,\sigma^2} (x)=\exp{-\frac1{2\sigma^2}\sum(x_i-\mu)^2 + c
+      (\sigma)}=
+      \exp{-\frac{1}{2\sigma^2}\sum x_i^2+\frac\mu{\sigma^2}\sum x_i+c (\mu,\sigma)}
+    \end{displaymath}
+    \item Átparaméterezés: $\theta=\frac{n\mu}{\sigma^2}$, 
+    $T(x)=\bar{x}$, $\tau=-\frac{n}{2\sigma^2}$, 
+    $S (x)=\frac1n\sum x_i^2=s_n^2+T^2$.
+    \item Átparaméterezés után a kérdés $H_0:\theta=0$, $H_1:\theta>0$
+    ($H_1:\theta<0$) vagy kétoldali ellenhipotézis esetében $H_1:\theta\neq0$.
+    \item Az átparaméterezett család sűrűségfüggvénye:
+    \begin{displaymath}
+      f_{\theta,\tau} (x) =\exp{\theta T (x)+\tau S (x)+b (\theta,\tau)}
+    \end{displaymath}
+    alakú. 
+    \item A paramétertér eredetileg $\real\times (0,\infty)$,
+    átparaméterezés után $\real\times (-\infty,0)$.
+    \item $T,S$ elégséges statisztika. $b$ a kummuláns generáló
+    függvénnyel van kapcsolatban.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Egyenletesen legerősebb próbák zavaró paraméter mellett}
+  
+  \begin{itemize}
+    \item Átparaméterezés után a kérdés $H_0:\theta=0$, $H_1:\theta>0$
+    ($H_1:\theta<0$) vagy kétoldali ellenhipotézis esetében
+    $H_1:\theta\neq0$.
+    \item Az átparamétezett család sűrűségfüggvénye:
+    \begin{displaymath}
+      f_{\theta,\tau} (x) =\exp{\theta T (x)+\tau S (x)+b (\theta,\tau)}
+    \end{displaymath}
+    alakú. 
+    \item $T,S$ elégséges statisztika. $b$ a $(T,S)$ kummuláns generáló
+    függvényével van kapcsolatban.
+    \item Tetszőleges $\phi$ döntési függvényre $\E{\phi|(T,S)}$
+    ugyanolyan jó próbát ad, vagyis elég a $(T,S)$ statisztika
+    eloszlásainak a családját nézni.
+    
+    \item Ha  $\cP$ domináló mértéke $\P[0]$ (valószínűségi mérték), akkor
+    $(T,S)$ eloszlásainak a családját pl. $Q_0=\P[0]\circ (T,S)^{-1}$ dominálja
+    és a sűrűségfüggvények
+    \begin{displaymath}
+      g_{\theta,\tau} (t,s)=\exp{\theta t+\tau s-b (\theta,\tau)}
+    \end{displaymath}
+    alakúak.
+    \item $Q_0$ mérték a $\real\times\real^p$ téren, de nem feltételenül
+    szorzat mérték!
+    \item Nézzük a feladatot az $S$-re vett feltétel mellett.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$(T,S)$ feltételes eloszlásai}
+  \begin{itemize}
+    \item $\P[0]$ domináló mérték $X$ eloszlásaira, $Q_0=\P[0]\circ (T,S)^{-1}$.
+    \item $T,S$ eloszlása $\P[\theta,\tau]$ mellett abszolút folytonos
+    $Q_0$-ra nézve, a sűrűségfüggvény
+    \begin{displaymath}
+      g_{\theta,\tau} (t,s)=\exp{\theta t+\tau s+b (\theta,\tau)}
+    \end{displaymath}
+    
+    
+    \item Legyen $Q(H,S)$ a $\P[0]{T\in H|S}$ feltételes eloszlás
+    reguláris változata.% Ezzel a jelöléssel
+    \begin{displaymath}
+      Q_0 (A\times B)=\P[0]{T\in A,S\in B}=\E[0]{\P[0]{T\in A|S}\I{S\in B}}
+      =\int_{B} Q (A,s) \tQ (ds),
+      \quad\text{ahol}\quad\tQ=\P[0]\circ S^{-1}
+    \end{displaymath}
+    \item  Ezzel a jelöléssel
+    \begin{align*}
+      \P[\theta,\tau]{T\in B, S\in A}
+      &=\int \I{t\in B}\I{s\in B}e^{\theta t+\tau s+b
+      (\theta,\tau)}Q_0 (dt,ds)\\
+      &= \int_A\int_Be^{\theta t} Q (dt,s)e^{\tau s+b(\theta,\tau)}\tQ(ds)=
+      \E[\theta,\tau]{h(B,S)}
+    \end{align*}
+    ahol
+    \begin{displaymath}
+      h (B,s)=\int_Be^{\theta t+\tb (\theta,s)} Q(dt,s),
+      \quad\text{és}\quad e^{-\tb (\theta,s)}=\int e^{\theta t} Q(dt,s) 
+    \end{displaymath}
+    
+    
+    \item Összefoglalva, $\P[\theta,\tau]{T\in H|S}$ feltételes
+    eloszlás reguláris változata $S=s$ mellett csak $\theta$-tól függ
+    és egy paraméteres exponenciális családot alkot  $Q (dt,s)$
+    domináló mértékkel
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Egyenletesen legerősebb próbák zavaró paraméter mellett,
+  folyt.}
+  \begin{itemize}
+    \item $H_0:\theta=0$, $H_1:\theta>0$. $\phi=\phi (S,T)$ torzítatlan $\alpha$
+    terjedelmű próba. Ekkor $\psi (\theta,\tau)=\E[\theta,\tau]{\phi}$
+    folytonos és a torzítatlanság miatt $\psi (0,\tau)=\alpha$ minden
+    $\tau$-ra.
+    \item A $\P[0,\tau]$ egy paraméteres család is exponenciális $S$
+    teljes és elégséges statisztikával
+    \begin{displaymath}
+      f_{0,\tau} (x)=\exp{\tau S (x)+b (0,\tau)}
+    \end{displaymath}
+    $\set{(0,\tau)}{(0,\tau)\in\Theta}$,  a $\Theta_0,\Theta_1$ közös
+    határa.
+    
+    \item Ha $S$ teljes a $\set{\P[0,\tau]}{\tau}$ családra, akkor
+    azt mondjuk, $S$ a \textbf{határon teljes}.
+    \item Mivel $S$ teljes a határon, ezért
+    \begin{displaymath}
+      \E[0,\tau]{\E[0,\tau]{\phi (T,S)|S}-\alpha}=0
+      \quad\implies\quad
+      \E[0,\tau]{\phi (T,S)|S}=\alpha
+    \end{displaymath}
+    
+    \item Ha $\phi$ torzítatlan $\alpha$ terjedelmű, akkor $\E[(0,\tau)](\phi)=\alpha$ minden $\tau$-ra.
+    
+    $S$ teljessége miatt $\phi(T,S)$  $\alpha$
+    terjedelmű a feltételes változatra is, azaz a
+    $\P[\theta,\tau]{T\in H|S}$ eloszlás családra.
+    
+    \item A feltételes változatra a likelihood hányados
+    \begin{displaymath}
+      \frac{e^{\theta_1 t+\tb (\theta_1,s)}}{e^{\tb (0,s)}} \quad\text{$t=T$ monoton növő függvénye}
+    \end{displaymath}
+    Egyoldali ellenhipotézis esetén a feltételes változatra a legerősebb próba alakja
+    \begin{displaymath}
+      \phi (T,S)=\I{T>c (S)}
+    \end{displaymath}
+    %alakú egyoldali ellenhipotézisre.   
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{A $t$-próba egyenletesen legerősebb a torzítatlan próbák
+  között}
+  \begin{itemize}
+    \item $X_1,\dots,X_n\sim N (\mu,\sigma^2)$ minta, csak $\mu$ érdekel
+    minket. 
+    \item A $\theta=\frac{n\mu}{\sigma^2}$, $T
+    (x)=\bar{x}$, $\tau=-\frac{n}{2\sigma^2}$, $S (x)=\frac1n\sum
+    x_i^2=s_n^2+T^2$ átparaméterezés után
+    \begin{displaymath}
+      f_{\mu,\sigma^2} (x)=f_{\theta,\tau}(x)= \exp{\theta T (x)+\tau
+      S (x)+b (\theta,\tau)}
+      \quad
+      H_0:\theta=0, \, H_1:\theta>0.
+    \end{displaymath}
+    \item Áttértünk %a $T,S$ elégséges statisztika eloszlásaira, majd
+    a $\P[\theta,\tau]{T\in H|S}$  feltételes eloszlásokra. Ha $\phi=\phi (T,S)$
+    torzítatlan $\alpha$ terjedelmű, akkor $\alpha$ terjedelmű a
+    feltételes feladatra is $\E[0,\tau]{\phi (T,S)|S}=\alpha$.
+    \item A feltételes feladatban egy paraméteres család marad
+    $\P[\theta,\tau]{T\in H|S}$ nem függ $\tau$-tól. A likelihood
+    hányados $T$ monoton növő függvénye az egyenletesen legerősebb
+    próba $\phi (t,s)=\I{t>c (s)}$ alakú.
+    
+    \item A $t$ próba $\phi (T,S)=\I{T/\sqrt{S-T^2}>c}$ torzítatlan, mert
+    $T/s_n$  eloszlása minden $(0,\tau)$ párra ugyanaz.
+    
+    \item Mivel $c\geq 0$-ra
+    \begin{displaymath}
+      T>c\sqrt{S-T^2}\quad\iff\quad T^2>c^2 (S-T^2),\,T>0
+      \quad\iff\quad
+      T>\frac{c}{\sqrt{1+c^2}}\sqrt{S}=\bar{c}\sqrt{S}
+    \end{displaymath}
+    $\phi=\I{T>\bar{c}\sqrt{S}}$ alakú és egyenletesen legerősebb a feltételes
+    feladatra.
+    Hasonlóan $c<0$-ra
+    
+    \item Ha $\bar{\phi}$ tetszőleges $\alpha$ terjedelmű torzítatlan. Feltehető, hogy $\bar{\phi}=\phi(T,S)$ és
+    ekkor 
+    \begin{displaymath}
+      \E[\theta,\tau]{\phi-\bar{\phi}} =
+      \E[\theta,\tau] {\E[\theta,\tau]{\phi-\bar{\phi}|S}}\geq0\quad\forall\theta,\tau
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\end{document}   
