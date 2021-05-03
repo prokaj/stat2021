@@ -312,9 +312,11 @@
     $n_{\cdot,j}=\sum_{i}n_{i,j}$, $n_{i,\cdot}=\sum_j n_{i,j}$
     \item 
     \begin{displaymath}
-      T_n=\sum_{i=1}^r\frac{(n_{i,j}-n\frac{n_{i,\cdot}n_{\cdot,j}}{n^2})^2}{n\frac{n_{i,\cdot}n_{\cdot,j}}{n^2}}=
-      n
-      \sum_{i=1}^r\frac{(n_{i,j}-\frac{n_{i,\cdot}n_{\cdot,j}}{n})^2}{n_{i,\cdot}n_{\cdot,j}}
+      T_n=\sum_{i=1}^r\sum_{j=1}^s
+      \frac{(n_{i,j}-n\frac{n_{i,\cdot}n_{\cdot,j}}{n^2})^2}{n\frac{n_{i,\cdot}n_{\cdot,j}}{n^2}}
+      =n
+      \sum_{i=1}^r\sum_{j=1}^s
+      \frac{(n_{i,j}-\frac{n_{i,\cdot}n_{\cdot,j}}{n})^2}{n_{i,\cdot}n_{\cdot,j}}
       \dto\chi^2_{(r-1) (s-1)}
     \end{displaymath}
     
