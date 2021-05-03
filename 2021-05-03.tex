@@ -1,4 +1,4 @@
-\def\option{}
+%\def\option{}
 \providecommand{\option}{handout}
 \documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}
 
@@ -156,12 +156,12 @@
     valószínűségi változók paraméterezett családja, azaz folyamat.
     \item Ha $\underbar{t}=(t_1,\dots,t_r)\in[0,1]^r$ akkor 
     \begin{displaymath}
-      X^(n)_{\underbar{t}}=\tfrac1{\sqrt{n}}\zjel*{\sum\nolimits_{k=1}^n Y_k-\E{Y_k}},
+      X^{(n)}_{\underbar{t}}=\tfrac1{\sqrt{n}}\zjel*{\sum\nolimits_{k=1}^n Y_k-\E{Y_k}},
       \quad\text{ahol}\quad
       Y_k=\zjel{\I{U_k<t_1},\dots,\I{U_k<t_r}}.
     \end{displaymath} 
-    $X^(n)_{\underbar t}\dto N(0,\Sigma(Y))$, ahol $\cov(\I{U<s},\I{U<t})=\P{U<s,\, U<t}-\P{U<s}\P{U<t}=s\wedge t-st$.
-    \item $t\mapsto X^{n}_t (\omega)$ jobbról folytonos, balról
+    $X^{(n)}_{\underbar t}\dto N(0,\Sigma(Y))$, ahol $\cov(\I{U<s},\I{U<t})=\P{U<s,\, U<t}-\P{U<s}\P{U<t}=s\wedge t-st$.
+    \item $t\mapsto X^{(n)}_t (\omega)$ jobbról folytonos, balról
     határértékkel rendelkező függvény (trajektória).
     \begin{displaymath}
       D[0,1]=\set{w:[0,1]\to\real}{\text{$w$ jobbról folytonos, balról
@@ -171,7 +171,7 @@
     $D[0,1]$ alkalmas %megadható olyan 
     metrikával %, amivel $D[0,1]$ 
     teljes szeparábilis metrikus tér. $X^{(n)}$  véletlen elem ebből a térből.
-    \item Megmutatható, hogy $X^(n)$ eloszlásban konvergens, az
+    \item Megmutatható, hogy $X^{(n)}$ eloszlásban konvergens, az
     eloszlásbeli limesz neve Brown híd.
     
     $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
@@ -198,7 +198,7 @@
       =\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]},
       \quad X^{(n)}\dto B\quad \text{a $D[0,1]$ metrikus térben.} 
     \end{displaymath}
-    \item $e_n(t)=\sqrt{2}\sin (k\pi t)$. $\set{e_n}{n\geq1}$ teljes ortonormált rendszer (bázis) 
+    \item $e_n(t)=\sqrt{2}\sin (n\pi t)$. $\set{e_n}{n\geq1}$ teljes ortonormált rendszer (bázis) 
     az $L^2([0,1])$ Hilbert térben. 
     \begin{displaymath}
       n\omega_n^2\eqinlaw\int_0^1 (X^{(n)}_s)^2d s
@@ -209,7 +209,7 @@
     és 
     \begin{displaymath}
       \cov(\xi_n,\xi_m)
-      =\E{\int_0^1\int_0^2 B_se_n(s)B_te_m(t)dsdt}
+      =\E{\int_0^1\int_0^1 B_se_n(s)B_te_m(t)dsdt}
       =\int_{[0,1]^2} \cov(B_s,B_t)e_n(s)e_m(t)d s d t
       =\I{n=m} \frac1{n^2\pi^2}
     \end{displaymath}
@@ -231,12 +231,12 @@
       =\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]},
       \quad X^{(n)}\dto B\quad \text{a $D[0,1]$ metrikus térben.} 
     \end{displaymath}
-    \item $Z\sim N(0,1)$ független a $B$ Brown hídtól és  $\beta_t=B_t+tZ$.
+    \item $Z\sim N(0,1)$ független a $B$ Brown hídtól és  $\beta_t=B_t+tZ$, $t\in[0,1]$.
     \begin{displaymath}
       \cov(\beta_s,\beta_t)=\cov(B_s,B_t)+\cov(sZ,tZ)=\min(s,t)=s\wedge t.
     \end{displaymath}
-    $\beta$ \textbf{Brown mozgás}, azaz folytonos trajektóriájú Gauss folyamat nulla várható értékkel 
-    és $s\wedge t$ kovariancia függvénnyel. 
+    $(\beta_t)_{t\in[0,1]}$ \textbf{Brown mozgás}, azaz folytonos trajektóriájú Gauss folyamat nulla várható értékkel 
+    és $\cov(\beta_s,\beta_t)=s\wedge t$ kovariancia függvénnyel. 
     \item 
     \begin{displaymath}
       \P{\max_{s\in[0,1]} B_s\geq x}
@@ -245,9 +245,9 @@
     \end{displaymath}
     \item $u<s<t$ esetén $\cov(\beta_t-\beta_s,\beta_u)=0$, azaz $\set{\beta_u}{u\in[0,s]}$ 
     és $\set{\beta_t-\beta_s}{t\in[s,1]}$ függetlenek. 
-    $\set{\beta_t-\beta_s}{t\in[s,1]}\eqinlaw \set{-(\beta_t-\beta_s)}{t\in[s,1]}$ és így 
+    \item $\set{\beta_t-\beta_s}{t\in[s,1]}\eqinlaw \set{-(\beta_t-\beta_s)}{t\in[s,1]}$ és így 
     \begin{displaymath}
-      \set{\beta_t}{t\in[0,1]}\eqinlaw\set{\tbeta_t=\beta_{t\wedge s}-(\beta_{t}-\beta_{t\wedge s})}{t\in[0,1]}
+      \set{\beta_t=\beta_{s\wedge t}+(\beta_t-\beta_{s\wedge t})}{t\in[0,1]}\eqinlaw\set{\tbeta_t=\beta_{t\wedge s}-(\beta_{t}-\beta_{t\wedge s})}{t\in[0,1]}
     \end{displaymath}
     Ez a tükrözési elv determinisztikus $s$ időpontra. Igaz marad akkor is, ha pl. 
     $\tau=\inf\set{s\in[0,1]}{\beta_s\geq x}$. 
@@ -256,7 +256,7 @@
 
 \begin{frame}{Skálázott Kolmogorov--Szmirnov statisztika határeloszlása}
   \begin{itemize}
-    \item  $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
+    \item<*>  $(B_t)_{t\in[0,1]}$ \textbf{Brown híd}, ha folytonos trajektóriájú Gauss
     folyamat, $\E{B_t}=0$, $\cov (B_t,B_s)=s\wedge t-st$.
     
     \begin{displaymath}
@@ -264,7 +264,7 @@
       =\sqrt{n}\zjel*{F_n(t)-t}_{t\in[0,1]},
       \quad X^{(n)}\dto B\quad \text{a $D[0,1]$ metrikus térben.} 
     \end{displaymath}
-    \item $Z\sim N(0,1)$ független a $B$ Brown hídtól és  $\beta_t=B_t+tZ$. $\beta$ Brown mozgás.
+    \item<*> $Z\sim N(0,1)$ független a $B$ Brown hídtól és  $\beta_t=B_t+tZ$. $\beta$ Brown mozgás.
     \begin{displaymath}
       \P{\max_{s\in[0,1]} B_s\geq x}
       % =\lim_{\eps\to0}\P{\max_{s\leq 1} B_s+sZ\geq x \given \abs{Z}<\eps}
@@ -275,13 +275,14 @@
     \begin{displaymath}
       \P{\max_{s\leq 1}\beta_s\geq x,\,\abs{\beta_1}<\eps}
       =\P{\max_{s\leq 1}\tbeta_s\geq x,\,\abs{\tbeta_1-2x}<\eps}
-      =\P{\abs{\tbeta_1-2x}<\eps}
+      =\P{\abs{\tbeta_1-2x}<\eps},\quad\text{ha $\eps<x$}.
     \end{displaymath}
-    \item  $\tbeta_1\sim N(0,1)$
+    \item  $\beta_1,\tbeta_1\sim N(0,1)$
     \begin{displaymath}
+      \hphantom{\hbox{}\hspace{-2em}}
       \lim_{n\to\infty}\P{\sqrt{n}D_n^{+}\geq x}=\P{\max_{s\leq 1} B_s\geq x}
       =\lim_{\eps\to 0}\P{\max_{s\leq 1}\beta_s\geq x\given \abs{\beta_1}<\eps}
-      =\lim_{\eps\to0}\frac{\P{\abs{\tbeta_1-2x}<\eps}}{\P{\abs{\tbeta_1}<\eps}}
+      =\lim_{\eps\to0}\frac{\P{\abs{\tbeta_1-2x}<\eps}}{\P{\abs{\beta_1}<\eps}}
       =\frac{\phi(2x)}{\phi(0)}
       =e^{-2x^2}.
     \end{displaymath}
@@ -314,7 +315,8 @@
       ($\P[0]$, $\P[1]$ majdnem mindenütt).
     \end{itemize}
   \end{lemma}
-  
+  \continue
+  Nekünk annyi kell, hogy  a likelihood hányados próba a vele azonos terjedelmű próbák között a legerősebb.
 \end{frame}
 
 
@@ -344,7 +346,7 @@
       \frac{f_1}{f_0} (x)=\exp{(\mu_1-0)\tT (x)-(b (\mu_1)-b(0))}
       \quad\text{$\tT$ szigorúan monoton növő függvénye}
     \end{displaymath}
-    \item $T$ eloszlása folytonos, azaz a legerősebb próba nem
+    \item $\tT$ eloszlása folytonos, azaz a legerősebb próba nem
     randomizált és
     \begin{displaymath}
       \mfX_1=\event{\tT>c}\quad\text{alakú, ahol}\quad \P[0]{\tT>c}=\alpha
@@ -437,10 +439,10 @@
     döntési függvénye: $\phi=\I{\abs{T}>u_{\alpha/2}}$. $\phi$ a fenti alakú.
     \item  $\phi$ torzítatlan: $\P[\mu]$ alatt $T\sim N(\sqrt{n}\frac{\mu}{\sigma},1)$, %, ha a paraméter $\theta=\mu$. 
     % \frac{n\mu}{\sigma^2}$  $\phi\in\Phi$, mert 
-    a $\psi(\theta)=\E[\theta]{\phi}$ jelöléssel, ha $Z\sim N(0,1)$
+    a $\psi(\mu)=\E[\mu]{\phi}$ jelöléssel, ha $Z\sim N(0,1)$
     \begin{displaymath}
-      \psi(\theta)=\P{-u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}<Z<+u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}},\quad
-      \psi'(\theta)=
+      \psi(\mu)=\P{-u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}<Z<+u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}},\quad
+      \psi'(\mu)=
       c\zjel*{f_Z\zjel*{u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}}-f_Z\zjel*{-u_{\alpha/2}-\tfrac{\sqrt{n}\mu}{\sigma}}}
     \end{displaymath}
   \end{itemize}  
