@@ -1,0 +1,659 @@
+%\def\option{}
+\providecommand{\option}{handout}
+
+\documentclass[aspectratio=169,notheorems,9pt,\option]{beamer}\usepackage[]{graphicx}\usepackage[]{color}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+
+
+
+\newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
+\input{preambulum.tex}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Lineáris regresszió, lineáris modell}
+  \begin{itemize}
+    \item $(x_i,y_i)$, $i=1,\dots,n$ megfigyelések. 
+    Van-e valamilyen függvénykapcsolat $x$ és $y$ között?
+    
+    Pl. $y$ jövedelem, $x$ életkor. $y$ lakásár, $x$ a lakás jellemzői. 
+    \item $y$ neve függő, vagy eredmény változó, $x$ a független vagy magyarázó változó.
+    
+    Becsüljük az $f\in \F$ függvényt az $(x_i,y_i)$ adatok alapán, ha 
+    $y_i=f(x_i)+\eps_i$, ahol $\eps_i$ zaj, 
+    azaz független $N(0,\sigma^2)$ változók és $\sigma^2$ 
+    ismeretlen.
+    
+    \item $\F$ általában véges dimenziós vektortér, ha $f_1,\dots,f_p$ bázis $\F$-ben, 
+    és $\underbar{x}_i=(f_1(x_i),\dots,f_p(x_i))$, akkor $\F$ tetszőleges eleme $\sum_i \beta_i f_i$ 
+    alakú és $\beta$ meghatározása a feladat.
+    
+    \item Maximum likelihood becslés $\beta$-ra és $\sigma^2$-re
+    \begin{displaymath}
+      \ell(\beta,\sigma^2)
+      =-\frac n2\ln(2\pi\sigma^2)-\frac1{2\sigma^2}\sum_{i=1}^n (y_i-\underbar{x}_i\cdot \beta)^2  
+    \end{displaymath}
+    Vektor alakban $y$ az $y_i$ értékekből alkotott (oszlop) vektor. Az $X$ mátrix $i$. sora $\underbar{x}_i$.
+    \begin{displaymath}
+      \ell(\beta,\sigma^2) = -\frac n2\ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\norm{y-X\beta}^2
+    \end{displaymath}
+    \item $\ell(\beta,\sigma^2)$ maximális, ha $\norm{y-X\beta}^2$ minimális és $\sigma^2=\frac1n\norm{y-X\hat\beta}^2$ 
+    \item $\beta$ maximum likelihood becslése a négyzetes veszteség $\norm{y-X\beta}^2$ minimalizálásával kapható.
+    Legkisebb négyzetes becslésnek is hívják (LNB)
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa lineáris regresszió}
+  \begin{itemize}
+    \item A magyarázó változó lineáris (affin) függvényei között keressük a függvénykapcsolatot: 
+    $f(x)=\beta_0+x\beta_1$.
+    \begin{displaymath}
+      \norm{y-X\beta}^2
+      =\sum_{i=1}^n (y_i-\beta_0-\beta_1 x_i)^2
+      =n(\bar{y}-\beta_1\bar{x}-\beta_0)^2+ \sum (y_i-\bar{y}-\beta_1 (x_i-\bar{x}))^2
+    \end{displaymath}
+    \item $\hat\beta_1=\frac{\frac1n\sum_i (y_i-\bar{y})(x_i-\bar{x})}{\frac1n\sum_i (x_i-\bar{x})^2}$, 
+    $\hat\beta_0=\bar{y}-\hat\beta_1\bar{x}$. 
+    \item Geometriai kép: $y$ és $x$-ből levonjuk az átlagot, feltehető, hogy $\bar{x}=0$, $\bar{y}=0$. 
+    Az $y\in\real^n$ vektort vetítjük az $x\in\real^n$ által kifeszített egy dimenziós altérre.
+    A vetület $\frac{\ip{x}{y}}{\norm{x}^2} x$ és 
+    $\hat\beta_1=\frac{\ip{x}{y}}{\norm{x}^2}$.
+    \item $\hat\sigma^2=\frac1n\norm{y-\hat\beta_0-\hat\beta_1x}^2$ nem torzítatlan $\sigma^2$-re. 
+    
+    Itt $\hat\beta_0+\hat\beta_1 x$ az $y\in\real^n$ vektor vetülete az 
+    $x$ és a konstans 1 vektor által 
+    kifeszített kétdimenziós altérre. $P$  a merőleges vetítés erre az altérre:
+    \begin{displaymath}
+      Py=P(\beta_0+\beta_1 x+\eps)=\beta_0+\beta_1+P\eps,\quad
+      \norm{y-\hat\beta_0-\hat\beta_1x}^2=\norm{(I-P)\eps}^2,\quad 
+      \norm{y-\hat\beta_0-\hat\beta_1x}^2\sim\sigma^2\chi^2_{n-2}
+    \end{displaymath}
+    $\frac1{n-2}\norm{y-\hat\beta_0-\hat\beta_1x}^2$ torzítatlan $\sigma^2$-re.
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Lineáris modell}
+  \begin{itemize}
+    \item Általánosabban. $X$ $n\times p$ mátrix, a mátrix $i$. sora $x_i$: a magyarázó változók 
+    értéke az $i$. megfigyelésben.
+    \begin{displaymath}
+      y_i=x_i\cdot\beta+\eps_i,\quad\text{ahol $\eps_i\sim N(0,\sigma^2)$ függetlenek}
+    \end{displaymath}
+    Vektor alakban $y=X\beta+\eps$.
+    
+    $X$ első oszlopa lehet 1, akkor $\beta_1$ a konstans hatás (intercept).
+    
+    \item $\beta$ maximum likelihood becslése: 
+    $\hat\beta=\arg\min_\beta\norm{y-X\beta}^2$ és $\sigma^2$ maximum likelihood becslése 
+    $\hat\sigma^2=\frac1n\norm{y-X\hat\beta}^2$
+    \item $\hat y=X\hat\beta$ az $y$ vetülete $X$ képterére. $\im X\perp \ker X^T$, azaz $X^T(y-X\hat\beta)=0$, azaz 
+    $X^Ty=(X^TX)\hat\beta$ és $\beta= (X^TX)^{-1}X^Ty$, ha az inverz létezik, azaz $X$ rangja $p$.
+    
+    
+    Ha $(X^TX)$ nem invertálható, akkor $\hat\beta$ nem egyértelmű, de $\hat y=X\hat\beta$  igen. Ilyenkor
+    a legkisebb normájú $\hat\beta$-t szokás venni, ami $(X^TX)$ Moore-Penrose inverzével kapható.
+    
+    \item $\hat\beta$ a likelihood egyenlet megoldásából is megkapható.
+    A likelihood egyenlet $\beta$-ra:
+    \begin{displaymath}
+      \ell(\beta,\sigma^2)=-\frac{n}{2}\ln(2\pi\sigma^2)-\frac1{2\sigma^2}\sum_{i=1}^n(y_i-x_i\cdot \beta)^2,
+      \quad
+      \partial_{\beta} -\tfrac12\norm{y-X\beta}^2 = \sum_{i=1}^n (y_i-x_i\beta)x_i = (y-X\beta)^T X =0  
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\hat\beta$, $\hat\sigma^2$ eloszlása}
+  \begin{itemize}
+    \item $n$ megfigyelés, $p$ magyarázó változó. 
+    $X$ $n\times p$ méretű mátrix, a sorai a magyarázó változókból álló vektorok.
+    \begin{displaymath}
+      y=X\beta+\eps,\quad \eps\sim N(0,\sigma^2\Id_n)
+    \end{displaymath}
+    Ha $X^TX$ invertálható, azaz $X$ rangja $p$, akkor
+    $\hat\beta = (X^TX)^{-1}X^T y$.
+    \item $\hat\beta$ normális eloszlású és
+    \begin{align*}
+      \E{\hat\beta}&= (X^TX)^{-1}X^T\E{X\beta+\eps}=\beta,\\
+      \Sigma(\hat\beta) &=\Sigma((X^TX)^{-1}X^T y)=(X^TX)^{-1}X^T\Sigma(y) X(X^TX)^{-1}=\sigma^2(X^TX)^{-1}.
+    \end{align*} 
+    \item $\sigma^2$ becslése a \textbf{rezidulis négyzet összegen} (RSS) 
+    $\norm{y-X\hat\beta}^2$ alapul, ahol $X\hat\beta=\hat y$ az $y$ vetülete $X$ képterére.
+    
+    $y-\hat y$ nem más mint  $y$  vetülete $X$ képterének ortokomplementerére. $y=X\beta+\eps$ miatt $y-\hat y$ az 
+    $\eps$ zaj vektor merőleges vetülete $X$ képterének ortokomplementerére. 
+    $\norm{y-\hat y}^2\sim \sigma^2\chi^2_{\dim (\im X)^\perp}=\sigma^2\chi^2_{n-p}$.
+    
+    $\hat\sigma^2=\frac1{n-p}\norm{y-X\hat\beta}^2$ torzítatlan becslés $\sigma^2$-re.
+    \item $\hat\beta$ és $\hat\sigma^2$ függetlenek, mert $\hat\beta$-t $y$ $\im X$-re vett vetületéből, 
+    míg $\hat\sigma^2$-et $y$ $\im X^{\perp}$-ra vett vetületéből számoljuk.
+  \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Példa}
+  
+  \begin{columns}[t]<*>
+    \begin{column}[T]{0.5\textwidth}<*>
+      \ifdefempty{\option}
+      {
+      \begin{overprint}
+        \only<1>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-2-1} 
+\end{knitrout}
+        }    
+        \only<2>{
+        %\arabic{beamerpauses}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-3-1} 
+\end{knitrout}
+        }  
+        \only<3>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-4-1} 
+\end{knitrout}
+        }  
+        \only<4>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-5-1} 
+\end{knitrout}
+        }  
+        \only<5>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-6-1} 
+\end{knitrout}
+        }  
+        \only<6>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-7-1} 
+\end{knitrout}
+        }  
+        \only<7>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-8-1} 
+\end{knitrout}
+        }  
+        \only<8>{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-9-1} 
+\end{knitrout}
+        }       
+      \end{overprint}
+      }{
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{output/unnamed-chunk-10-1} 
+\end{knitrout}
+      }
+      %\value{beamerpauses}
+      \begin{align*}
+        y_i&=\sin(x_i)+\eps_i,
+        \quad \eps_i\sim N(0,0.25^2)\\
+        x_i&\sim U(0,5),
+        \quad i=1,\dots,30
+      \end{align*}
+    \end{column}
+    %\arabic{beamerpauses}
+    \begin{column}{0.5\textwidth}
+      %\value{beamerpauses}
+      %\arabic{beamerpauses}
+      \begin{itemize}
+        %\setcounter{beamerpauses}{1}
+        \item  Null modell: $y_i=\beta_0 + \eps_i$. 
+        $\hat\beta_0=\bar{y}=0.2209$
+        
+        Reziduális négyzetösszeg: $20.62$
+        
+        \item Lineáris regresszió: $y_i=\beta_0 +\beta_1 x_i+ \eps_i$.
+        
+        Reziduális négyzetösszeg: $7.048$
+        
+        \item Polinomiális regresszió ($d=2$): 
+        $y_i=\sum_{r=0}^d\beta_r x_i^r+ \eps_i$.
+        %$y_i=\beta_0 +\beta_1 x_i+\beta_2 x^2_i+ \eps_i$.
+        
+        Reziduális négyzetösszeg: $4.913$
+        
+        \item Polinomiális regresszió ($d=3$): 
+        %$y_i=\sum_{r=0}^d\beta_r (x_i)^r+ \eps_i$.
+        
+        Reziduális négyzetösszeg: $3.317$
+        
+        \item Polinomiális regresszió ($d=5$): 
+        
+        
+        Reziduális négyzetösszeg: $3.249$
+        \item Polinomiális regresszió ($d=10$): 
+        %$y_i=\sum_{r=0}^d\beta_r (x_i)^r+ \eps_i$.
+        
+        Reziduális négyzetösszeg: $2.671$
+        
+        \item Polinomiális regresszió ($d=20$): 
+        %$y_i=\sum_{r=0}^d\beta_r (x_i)^r+ \eps_i$.
+        
+        Reziduális négyzetösszeg: $1.209$
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Hipotézis vizsgálat normális lineáris modellben}
+  \begin{itemize}
+    \item
+    \begin{displaymath}
+      y\sim N (X\beta,\sigma^2\Id_n),\quad \beta\in\real^p,\,\sigma >0
+    \end{displaymath}
+    \item Kérdés: Van-e fölösleges magyarázó változó, azaz olyan $j$, hogy 
+    $\beta_j=0$, vagy
+    általánosabb igaz-e, hogy $C\beta=0$.
+    \item $H_0: C\beta=0$, $H_1:C\beta\neq0$.
+    \item $\real^n=\cL^R\oplus\cL^1\oplus\cL^0$ három merőleges komponensre bomlik,
+    ahol $\cL^R=\im X^\perp$, $\cL^0=\set{X\beta}{C\beta=0}$ 
+    és $\cL^1=\im X\cap (\cL^0)^\perp$.
+    \item $H_0$ fenállása esetén $X\beta\in\cL^0$ és $y$ vetülete 
+    $\cL^R\oplus\cL^1$-re azonos $\eps=y-X\beta\sim N(0,\sigma^2\Id_n)$ vetületével.
+    \item Azaz $H_0$ mellett $y=y^R+y^1+X\hat\beta_0$, ahol 
+    $\hat\beta_0=\arg\min_{\beta: C\beta=0}\norm{y-X\beta}^2$
+    és $y^1\in\cL^1$, $y^R\in\cL^R$.
+    \item $\cL^1$, $\cL^R$ merőlegesek, ezért $y^R$ és $y^1$ függetlenek és 
+    $\norm{y^R}^2\sim\sigma^2\chi^2_{\dim\cL^R}=\sigma^2\chi^2_{n-p}$, 
+    $\norm{y^1}^2\sim\sigma^2\chi^2_{\dim\cL^1}=\sigma^2\chi^2_q$.
+    
+    Ha $H_0$ nem teljesül, akkor $\norm{y^1}^2= \norm{P_{\cL^1}(X\beta+\eps)}^2$ 
+    nem centrális $\chi^2$ eloszlású. $H_1$ mellett $\norm{y^1}^2$ nagy(obb) értékre vezet.
+
+    \item $H_0$ mellett 
+    $T=\frac{\frac{1}{q}\norm{y^1}^2}{\frac{1}{n-p}\norm{y^R}^2}\sim F_{q,n-p}$ eloszlású, 
+    míg $H_1$ mellett $T$ nagy értékeket ad. $F$ próbát végeztünk egyoldali ellenhipotézis ellen.
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Példa}
+  \begin{align*}
+    y_i&=\sin(x_i)+\eps_i,
+    \quad \eps_i\sim N(0,0.25^2)\\
+    x_i&\sim U(0,5),
+    \quad i=1,\dots,30
+  \end{align*}
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\begin{tabular}{l|l|l|l|l|l|l|l}
+\hline
+fokszám & 0 & 1 & 2 & 3 & 5 & 10 & 20\\
+\hline
+dim im X & 1 & 2 & 3 & 4 & 6 & 11 & 16\\
+\hline
+RSS & 20.618 & 7.048 & 4.913 & 3.317 & 3.249 & 2.671 & 1.209\\
+\hline
+hatsigma\textasciicircum{}2 & 0.711 & 0.252 & 0.182 & 0.128 & 0.135 & 0.141 & 0.086\\
+\hline
+F-hányados & NA & 53.909 & 11.734 & 12.507 & 0.25 & 0.822 & 3.389\\
+\hline
+p-érték & NA & 0 & 0.002 & 0.002 & 0.781 & 0.549 & 0.033\\
+\hline
+\end{tabular}
+
+\end{knitrout}
+
+  \bigskip
+
+  \begin{itemize}
+    \item Itt egymásba ágyazott modelleket hasonlítunk össze. 
+    Az \texttt{F-hányados} statisztikák függetlenek.
+    
+    \item $\dim\im X$ elméletben a polinom forszáma plusz egy. A számolt 
+    értékek ennél kisebbek lehetnek. 
+    
+    Ok: a becslés QR faktorizációval történik, ami az 
+    $X$ mátrix oszlopait ortogonalizálja. Ha egy oszlop ,,majdnem'' 
+    a korábbiak által kifeszített altérben van, akkor azt az oszlopot 
+    és az együtthatóját kihagyjuk a becslésből.
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ANOVA táblázat \texttt{R}-ben}
+  \texttt{R}-ben részletesebb táblázat is kapható:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{anova}\hlstd{(model)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & Df & Sum Sq & Mean Sq & F value & Pr(>F)\\
+\hline
+x & 1 & 13.570 & 13.570 & 96.514 & 0.000\\
+\hline
+I((x/5)\textasciicircum{}(2)) & 1 & 2.135 & 2.135 & 15.186 & 0.001\\
+\hline
+I((x/5)\textasciicircum{}(3)) & 1 & 1.596 & 1.596 & 11.349 & 0.003\\
+\hline
+I((x/5)\textasciicircum{}(4)) & 1 & 0.067 & 0.067 & 0.475 & 0.499\\
+\hline
+I((x/5)\textasciicircum{}(5)) & 1 & 0.001 & 0.001 & 0.006 & 0.937\\
+\hline
+I((x/5)\textasciicircum{}(6)) & 1 & 0.007 & 0.007 & 0.050 & 0.826\\
+\hline
+I((x/5)\textasciicircum{}(7)) & 1 & 0.068 & 0.068 & 0.487 & 0.494\\
+\hline
+I((x/5)\textasciicircum{}(8)) & 1 & 0.276 & 0.276 & 1.966 & 0.177\\
+\hline
+I((x/5)\textasciicircum{}(9)) & 1 & 0.203 & 0.203 & 1.443 & 0.244\\
+\hline
+I((x/5)\textasciicircum{}(10)) & 1 & 0.023 & 0.023 & 0.167 & 0.687\\
+\hline
+Residuals & 19 & 2.671 & 0.141 & NA & NA\\
+\hline
+\end{tabular}
+
+\end{knitrout}
+  
+  Itt az egyes magyározó változók hatása, ortogonalizálva van. 
+  $\text{rss}_i=\min\set{\norm{y-X\beta}}{\beta_{j}=0,\,j>i}$, 
+  akkor az $i$. magyarázó változó hatása $\text{rss}_{i-1}-\text{rss}_{i}$.
+  
+  A szórásnégyzet becslése $\frac{1}{n-p}\norm{y-X\hat\beta}^2$ 
+  
+\end{frame}
+
+\begin{frame}{Wald próba}
+  \begin{displaymath}
+    y\sim N (X\beta,\sigma^2\Id_n),\quad \beta\in\real^p,\,\sigma >0
+  \end{displaymath}
+  \begin{itemize}
+    \item $\hat\beta=(X^TX)^{-1}X^T y$. Láttuk, hogy $\E{\hat\beta}=\beta$ 
+    és $\Sigma(\hat\beta)=(X^TX)^{-1}\sigma^2$.
+    \item $\hat\sigma^2=\frac{1}{n-p}\norm{y-X\hat\beta}^2$ független $\hat\beta$-tól.
+    \begin{displaymath}
+      \frac{\hat\beta_j-\beta_j}{\sqrt{((X^TX)^{-1})_{j,j}\hat\sigma^2}}\sim t_{n-p}
+    \end{displaymath}
+    \item A $H_0:\beta_j=0$, $H_1:\beta_j\neq 0$ ellenében a 
+    fenti próba statisztikával 
+    is vizsgálható.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\begin{tabular}{l|r|r|r|r}
+\hline
+  & Estimate & Std. Error & t value & Pr(>|t|)\\
+\hline
+(Intercept) & 0.013 & 0.538 & 0.023 & 0.981\\
+\hline
+x & 1.167 & 2.036 & 0.573 & 0.572\\
+\hline
+I((x/5)\textasciicircum{}(2)) & -4.210 & 63.073 & -0.067 & 0.947\\
+\hline
+I((x/5)\textasciicircum{}(3)) & -22.374 & 161.538 & -0.139 & 0.891\\
+\hline
+I((x/5)\textasciicircum{}(4)) & 25.664 & 179.836 & 0.143 & 0.888\\
+\hline
+I((x/5)\textasciicircum{}(5)) & -5.875 & 72.113 & -0.081 & 0.936\\
+\hline
+\end{tabular}
+
+\end{knitrout}
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Lineáris becslés, becsülhető függvény}
+  \begin{displaymath}
+    y_i =x_i\cdot \beta+ \eps_i, \quad\eps_i\sim N(0,\sigma^2)
+  \end{displaymath}
+  A paramétereket az $\set{(y_i,x_i)}{i=1,\dots,n}$ adatok alapján becsüljük.
+  Gyakran a cél $y^*$ becslése, ha a magyarázó változó értéke $x^*$ adott.
+
+  \begin{df}
+    $T$ lineáris becslés, ha $T (y)$ az $y$ lineáris függvénye,
+    létezik $B\in\real^{q\times n}$, $T (y)=By$.
+    
+    $\psi$  a paraméter becsülhető függvénye, ha létezik rá
+    torzítatlan lineáris becslés.
+  \end{df}
+
+  \begin{itemize}
+    \item Ha $\psi$ becsülhető, akkor $\psi (\beta)=\E{T}=BX\beta=C\beta$.
+    \item Ha $X$ rangja $p$, akkor $\beta$ minden lineáris függvénye
+    becsülhető.
+    
+    Ugyanis $\hat \beta= (X^TX)^{-1}X^Ty$ torzítatlan becslés
+    $\beta$-ra és ha $\psi (\beta)=C\beta$, akkor $C\hat \beta$  torzítatlan
+    lineáris becslés $\psi$-re.
+    
+    
+    \item $\psi$ becsülhető $\iff$ $\psi (\beta)=C\beta=BX\beta$ alakú.
+    
+    Ugyanis, $\E{X\hat \beta}=P_X\E{y}=P_X\E{\eps+X\beta}=P_XX\beta=X\beta$, azaz
+    $X\hat \beta$ torzítatlan $X\beta$-ra, ha $\hat \beta$ legkisebb négyzetes becslés.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Gauss--Markov tétel}
+  \begin{theorem}
+    Tegyük fel, hogy $\psi (\beta)=C\beta$ becsülhető és
+    $\hat \beta$ tetszőleges legkisebb négyzetes becslés $\beta$-ra.
+    \begin{itemize}[<*>]
+      \item $C\hat \beta$ torzítatlan, lineáris becslés
+      $\psi$-re,
+      \item $C\hat \beta$ a torzítatlan lineáris becslések között optimális a
+      négyzetes veszteségfüggvényre nézve, azaz kovariancia mátrixa a
+      legkisebb.
+      \item $C\hat \beta$ nem függ az $\hat \beta$ LNB megválasztásától.
+    \end{itemize}
+  \end{theorem}
+  
+  \begin{itemize}
+    \item $\psi$ becsülhető $\iff$ $\psi (\beta)=C\beta=BX\beta$ alakú. Feltehető,
+    hogy $B=BP_X$, azaz $(\im X)^\perp\subset\ker B$.
+    \item $\hat \beta$ LNB, $X\hat \beta=P_Xy$. Ebből
+    \begin{displaymath}
+      \E{X\hat \beta}=P_X\E{y}=P_XX\beta=X\beta,
+      \quad\implies\quad
+      \E{C\hat \beta}=B\E{X\hat \beta}=BX\beta=C\beta
+    \end{displaymath}
+    \item Ha $T=Dy$ torzítatlan lineáris becslés $\psi$-re, akkor
+    $\E{Dy}=D\E{y}=DX\beta$, másrészt a torzítatlanság miatt $DX\beta=BX\beta$
+    minden $\beta$-ra, vagyis $B=DP_X$. Innen %\im X\subset \ker(D-B)$.
+    \begin{displaymath}
+      \Sigma (Dy)=D\Sigma (y)D^T=\sigma^2DD^T=\sigma^2D (P_X+
+      (\Id_n-P_X))D^T\geq
+      \sigma^2BB^T= %+\sigma^2D (\Id_n-P_X)D^T\geq
+      B\Sigma(P_Xy)B^T=\Sigma (C\hat \beta)
+    \end{displaymath}
+    \item Ha $\hat \beta$ és $\hat b$ LNB $\beta$-ra, akkor $\frac12 (\hat
+    \beta+\hat b)$ is az $\Sigma (C\hat
+    \beta)=\Sigma (C\hat b)=\Sigma (C\frac12 (\hat \beta+\hat b))$. Ugyanakkor
+    \begin{displaymath}
+      \Sigma (C\tfrac12(\hat \beta+\hat b))+\Sigma (C\tfrac12(\hat \beta-\hat b))
+      =\tfrac12(\Sigma(C\hat \beta)+\Sigma (C\hat b))=\Sigma(C\hat \beta)
+      \quad\implies\quad
+      \Sigma (C (\hat \beta-\hat b))=0\quad\iff\quad C\hat \beta = C\hat b
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kereszt--validáció}
+
+  \begin{itemize}
+    \item $(y_i,x_i)$, $i=1,\dots,n$. $X$ az $x_i$-kből számolt magyarázó változókat 
+    $\phi(x_i)$, mint sorvektorokat tartalmazó mátrix. 
+    Pl. $\phi(x)=(1,x,x^2,\dots,x^{p-1})$. 
+    \item $y=X\beta+\eps$ lináris modell. 
+    $(y_{*},x_{*})$ új adat, $x_{*}$ ismert, $y_{*}$-ot szeretnénk megbecsülni.
+    $\phi(x_{*})$ az $x_*$-ból számolt 
+    magyarázó változókból álló sorvektor.
+    \item Milyen $\phi$-t válasszunk?
+    
+    A korábbi példában statisztikai módszerekkel próbáltunk választani.
+    
+    Válasszuk azt, ami a legjobban teljesít az 
+    illesztés során nem látott adatokon, a legkisebb a generalizációs hibája.
+    
+    \item Generalizációs hiba becsléséhez, az adatokat két részre osztjuk. 
+    Az egyiken a modellt illesztjük, a másikon az illesztett modell hibáját számoljuk.
+    
+    \item Lineáris modellnél könnyen számolható, hogy mi lenne $y_i$ becslése, ha 
+    az $i$. adatot nem használnánk $\hat\beta$ meghatározásához. 
+
+    Ok. $X^TX$  egy egyrangú mátrix-szal ($x_i\otimes x_i$) módosul, 
+    míg $X^Ty$  $x_iy_i$-vel. Ezek hatása a residuálisra 
+    $y_i-\hat y_{(i)}=\frac1{1-x_i(X^TX)^{-1}x_i^T}(y-\hat y_i)$.
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Példa}
+
+
+  \begin{itemize}
+  \item Átlagos négyzetes hiba becslése: $\frac1n\sum_i \abs{y_i-\hat y_{(i)}}^2$, 
+  ahol $\hat y_{(i)}=\phi(x_i)\cdot \hat\beta_{(i)}$ és $\hat\beta_{(i)}$ az $i$. 
+  adat kihagyásával kapott becslés.
+  
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\begin{tabular}{l|l|l|l|l|l|l|l}
+\hline
+fokszám & 0 & 1 & 2 & 3 & 5 & 10 & 20\\
+\hline
+átlagos hiba & 0.735 & 0.269 & 0.213 & 0.148 & 0.218 & 0.679 & 102.79\\
+\hline
+\end{tabular}
+
+\end{knitrout}
+  \item Az általánosítási hiba (becslése) a fokszámmal először csökken, majd nő. 
+  \item A hiba kétrészre bontható: $\E{y|x}=\sin(x)$-et kell közelíteni $x$ polinomjaival
+    a $[0,5]$ intervallumon. Minél nagyobb a fokszám, annál pontosabb a közelítés.
+
+    A fokszám növelésével a $X$ mátrix képterének a dimenziója is nő ezzel $\hat\beta$ kovariancia mátrixa 
+    is és így összegében a $y$ becslésének a szórása is nő. 
+    \item Általánosabban:  $y=f(x)+\eps$ és $f$-et az adatok alapján egy véges dimenziós 
+    függvénytérből akarjuk közelíteni, 
+    pl. polinomok a példában.
+    
+    $\phi_1,\dots,\phi_p$ egy bázis a függvénytérből és
+    az illesztést a $y=\phi(x)\beta+\eps$ összefüggés alapján végezzük. 
+    
+    $\hat\beta$ a $\beta$ becslése az adatok alapján. 
+    
+    $x$ egy új adat $y=f(x)+\eps$  (független az adatoktól, amiből $\hat\beta$ számoltuk).
+    Ekkor 
+    \begin{displaymath}
+      \E{(y-\hat y)^2}=\D^2{y}+\D^2{\hat y}+\zjel*{\E{y}-\E{\hat y}}^2 
+    \end{displaymath}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Regularizáció, Rigde regresszió és LASSO}
+  \begin{itemize}
+    \item Ahelyett, hogy a függvényteret változtatnánk, 
+    (polinom maximális fokszáma a példában), lehet úgy is egyszerű modellt választani, 
+    hogy a bonyolultságot büntetjük. 
+    
+    \begin{displaymath}
+      \hat\beta = 
+      \arg\min_\beta \frac1{2}\sum_{i=1}^n (y_i-x_i\cdot \beta)^2 
+       + \lambda \psi(\beta),
+    \end{displaymath}
+    ahol $\lambda>0$ és $\psi$ adott, pl. $\psi=\frac12\norm{\beta}^2$. 
+    
+    \item Ha $\psi(\beta)=\frac12\norm{\beta}_2^2$, akkor az eljárást \textbf{ridge} regressziónak hívják,
+    ha $\psi(\beta)=\norm{\beta}_1$ akkor a neve \textbf{LASSO}. 
+    A kettő kombinációja elasztikus háló, (elastic net).
+    \item A minimum helyen a $\beta$ szerinti derivált eltűnik. 
+    Rigde regresszió esetén
+    \begin{displaymath}
+      -X^T(y-X\beta)+\lambda\beta=0,
+      \quad\implies\quad 
+      X^T y=(X^TX+\lambda)\beta
+      \quad\implies\quad 
+      \hat\beta= (X^TX+\lambda)^{-1}X^T y
+    \end{displaymath}
+    \item LASSO esetében nincs zárt alakban megoldás, de pl. koordinátánkénti 
+    minimalizálással könnyen számolható.
+    \item $\lambda$ megválasztása kereszt validációval történhet.
+  \end{itemize}
+\end{frame}
+
+\end{document}
+\begin{frame}{Példa}
+  
+\end{frame}
+
+
+\end{document}

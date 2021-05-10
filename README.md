@@ -1,1 +1,1 @@
-# Statisztika 2021 tavasz
+# Statisztika előadás 2021 tavasz
